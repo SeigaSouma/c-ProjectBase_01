@@ -53,7 +53,6 @@ public:
 	HRESULT Init(void);
 	void Uninit(void);
 	void Update(void);
-	void Kill(void);		// 破棄
 
 	static CEnemyManager *Create(const std::string pTextFile);
 	HRESULT ReadText(const std::string pTextFile);	// 外部ファイル読み込み処理
@@ -61,7 +60,6 @@ public:
 	void SetStageBoss(void);	// ボスステージの敵配置
 	CEnemy **SetEnemy(D3DXVECTOR3 pos, D3DXVECTOR3 rot, int nPattern);	// 敵配置
 	int GetPatternNum(void);
-	void Release(int nIdx);		// 破棄
 
 	bool IsChangeStage(void) { return m_bChangeStage; }	// ステージ変更中か
 	void SetEnableChangeStage(bool bChange) { m_bChangeStage = bChange; }	// ステージ変更の状態切り替え

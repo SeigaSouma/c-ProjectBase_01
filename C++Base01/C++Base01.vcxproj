@@ -152,7 +152,6 @@
     <ClCompile Include="bg.cpp" />
     <ClCompile Include="blackframe.cpp" />
     <ClCompile Include="bullet.cpp" />
-    <ClCompile Include="bulletmanager.cpp" />
     <ClCompile Include="calculation.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="collision.cpp" />
@@ -183,7 +182,6 @@
     <ClCompile Include="instantfade.cpp" />
     <ClCompile Include="light.cpp" />
     <ClCompile Include="limitarea.cpp" />
-    <ClCompile Include="limitereamanager.cpp" />
     <ClCompile Include="listmanager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="manager.cpp" />
@@ -251,7 +249,6 @@
     <ClInclude Include="bg.h" />
     <ClInclude Include="blackframe.h" />
     <ClInclude Include="bullet.h" />
-    <ClInclude Include="bulletmanager.h" />
     <ClInclude Include="calculation.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="collision.h" />
@@ -283,7 +280,6 @@
     <ClInclude Include="instantfade.h" />
     <ClInclude Include="light.h" />
     <ClInclude Include="limitarea.h" />
-    <ClInclude Include="limitereamanager.h" />
     <ClInclude Include="listmanager.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="manager.h" />

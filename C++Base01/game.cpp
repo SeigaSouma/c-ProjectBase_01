@@ -22,7 +22,6 @@
 #include "elevation.h"
 #include "sound.h"
 #include "edit_enemybase.h"
-#include "bulletmanager.h"
 #include "stage.h"
 #include "santabag.h"
 
@@ -30,7 +29,6 @@
 #include "player.h"
 #include "enemybase.h"
 #include "limitarea.h"
-#include "limitereamanager.h"
 #include "particle.h"
 
 //==========================================================================
@@ -38,9 +36,7 @@
 //==========================================================================
 CScore *CGame::m_pScore = NULL;					// スコアのオブジェクト
 CTimer *CGame::m_pTimer = NULL;						// タイマーのオブジェクト
-CBulletManager *CGame::m_pBulletManager = NULL;		// 弾マネージャのオブジェクト
 CItemManager *CGame::m_pItemManager = nullptr;			// アイテムマネージャのオブジェクト
-CLimitAreaManager *CGame::m_pLimitEreaManager = NULL;	// エリア制限マネージャのオブジェクト
 CLimitArea *CGame::m_pLimitArea = NULL;					// エリア制限のオブジェクト
 CEditEnemyBase *CGame::m_pEditEnemyBase = NULL;		// 敵の拠点エディター
 CStage *CGame::m_pStage = NULL;						// ステージのオブジェクト
@@ -92,12 +88,6 @@ HRESULT CGame::Init(void)
 	//**********************************
 	m_pGameManager = CGameManager::Create();
 
-
-	//**********************************
-	// エリア制限マネージャ
-	//**********************************
-	m_pLimitEreaManager = CLimitAreaManager::Create();
-
 	//**********************************
 	// 敵の拠点
 	//**********************************
@@ -128,11 +118,6 @@ HRESULT CGame::Init(void)
 			pPlayer->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 		}
 	}
-
-	//**********************************
-	// 弾マネージャ
-	//**********************************
-	m_pBulletManager = CBulletManager::Create();
 
 	// ステージ
 	m_pStage = CStage::Create("data\\TEXT\\stage\\info.txt");
@@ -191,22 +176,6 @@ void CGame::Uninit(void)
 		m_pTimer->Uninit();
 		delete m_pTimer;
 		m_pTimer = NULL;
-	}
-
-	if (m_pBulletManager != NULL)
-	{
-		// 終了させる
-		m_pBulletManager->Uninit();
-		delete m_pBulletManager;
-		m_pBulletManager = NULL;
-	}
-
-	if (m_pLimitEreaManager != NULL)
-	{
-		// 終了させる
-		m_pLimitEreaManager->Uninit();
-		delete m_pLimitEreaManager;
-		m_pLimitEreaManager = NULL;
 	}
 
 	if (m_pEditEnemyBase != NULL)
@@ -390,22 +359,6 @@ CScore *CGame::GetScore(void)
 }
 
 //==========================================================================
-// 弾マネージャの取得
-//==========================================================================
-CBulletManager *CGame::GetBulletManager(void)
-{
-	return m_pBulletManager;
-}
-
-//==========================================================================
-// エリア制限マネージャマネージャの取得
-//==========================================================================
-CLimitAreaManager *CGame::GetLimitEreaManager(void)
-{
-	return m_pLimitEreaManager;
-}
-
-//==========================================================================
 // ステージの取得
 //==========================================================================
 CStage *CGame::GetStage(void)
@@ -482,12 +435,6 @@ void CGame::Reset(void)
 		m_pEnemyBase->Uninit();
 		delete m_pEnemyBase;
 		m_pEnemyBase = NULL;
-	}
-
-	// 敵マネージャ
-	if (m_pEnemyManager != NULL)
-	{
-		m_pEnemyManager->Kill();
 	}
 
 	// エリア制限

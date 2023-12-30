@@ -34,7 +34,7 @@
 #include "listmanager.h"
 #include "object_circlegauge2D.h"
 #include "collisionobject.h"
-#include "limitereamanager.h"
+#include "limitarea.h"
 #include "beam.h"
 #include "santabag.h"
 #include "meshsphere.h"
@@ -836,38 +836,19 @@ bool CPlayer::Collision(D3DXVECTOR3 &pos, D3DXVECTOR3 &move)
 		}
 	}
 
-
 	// エリア制限情報取得
-	CLimitAreaManager *pLimitManager = CGame::GetLimitEreaManager();
-	CLimitArea **ppLimit = pLimitManager->GetLimitErea();
+	CListManager<CLimitArea> limitareaList = CLimitArea::GetListObj();
+	CLimitArea* pLimitArea = nullptr;
 
-	// 総数取得
-	int nNumAll = pLimitManager->GetNumAll();
-	int i = -1, nCntErea = 0;
-
-	while (1)
+	while (limitareaList.ListLoop(&pLimitArea))
 	{
-		if (nCntErea >= nNumAll)
-		{// 総数超えたら終わり
-			break;
-		}
-
-		// インデックス加算
-		i++;
-		if (ppLimit[i] == NULL)
-		{
-			continue;
-		}
-		CLimitArea::sLimitEreaInfo info = ppLimit[i]->GetLimitEreaInfo();
+		CLimitArea::sLimitEreaInfo info = pLimitArea->GetLimitEreaInfo();
 
 		// 大人の壁を適用
 		if (pos.x + GetRadius() >= info.fMaxX) { pos.x = info.fMaxX - GetRadius(); }
 		if (pos.x - GetRadius() <= info.fMinX) { pos.x = info.fMinX + GetRadius(); }
 		if (pos.z + GetRadius() >= info.fMaxZ) { pos.z = info.fMaxZ - GetRadius(); }
 		if (pos.z - GetRadius() <= info.fMinZ) { pos.z = info.fMinZ + GetRadius(); }
-
-		// エリアの数加算
-		nCntErea++;
 	}
 
 	// 向き設定

@@ -661,7 +661,7 @@ void CMotion::Update(float fBuff)
 void CMotion::Set(int nType, bool bBlend)
 {
 	// デバッグ用処理
-	if (nType > m_nNumAll)
+	if (nType >= m_nNumAll)
 	{// 総数を超えていたら
 		return;
 	}

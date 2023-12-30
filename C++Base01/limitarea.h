@@ -9,6 +9,7 @@
 #define _LIMITAREA_H_	// 二重インクルード防止
 
 #include "meshwall.h"
+#include "listmanager.h"
 
 //==========================================================================
 // クラス定義
@@ -51,6 +52,7 @@ public:
 	STATE GetState(void);		// 状態取得
 	void SetState(STATE state);	// 状態設定
 	sLimitEreaInfo GetLimitEreaInfo(void);	// エリア情報取得
+	static CListManager<CLimitArea> GetListObj(void) { return m_List; }	// リスト取得
 
 protected:
 
@@ -79,15 +81,14 @@ private:
 	void StateAppearance(void);	// 出現状態
 	void StateFadeout(void);	// フェードアウト
 
-
 	//=============================
 	// メンバ変数
 	//=============================
 	STATE m_state;						// 状態
 	float m_fTimeState;					// 状態カウンター
 	sLimitEreaInfo m_sLimitEreaInfo;	// エリア制限情報
-	int m_nIdxEreaManager;				// エリア制限マネージャのインデックス番号
 	CMeshWall *m_pMeshWall[mylib_const::SHAPE_LIMITEREA];	// メッシュウォールのオブジェクト
+	static CListManager<CLimitArea> m_List;	// リスト
 };
 
 

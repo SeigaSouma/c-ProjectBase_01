@@ -15,7 +15,6 @@
 #include "enemy.h"
 #include "calculation.h"
 #include "game.h"
-#include "bulletmanager.h"
 #include "player.h"
 #include "impactwave.h"
 #include "effect_thunderring.h"
@@ -38,6 +37,7 @@ const char *CBullet::m_apTextureFile[TYPE_MAX] =	// テクスチャのファイル
 	"",
 };
 int CBullet::m_nNumAll = 0;		// 弾の総数
+CListManager<CBullet> CBullet::m_List = {};	// リスト
 
 //==========================================================================
 // 関数ポインタ
@@ -174,8 +174,8 @@ HRESULT CBullet::Init(void)
 		return E_FAIL;
 	}
 
-	// 割り当て
-	CGame::GetBulletManager()->Regist(this);
+	// リストに追加
+	m_List.Regist(this);
 
 	// テクスチャの割り当て
 	int nTex = CManager::GetInstance()->GetTexture()->Regist("data\\TEXTURE\\effect\\effect000.jpg");
@@ -190,10 +190,7 @@ void CBullet::Uninit(void)
 {
 	
 	// 削除
-	if (CManager::GetInstance()->GetMode() == CScene::MODE_GAME && CGame::GetBulletManager() != NULL)
-	{// 弾マネージャの削除
-		CGame::GetBulletManager()->Delete(this);
-	}
+	m_List.Delete(this);
 
 	// 終了処理
 	CMeshSphere::Uninit();

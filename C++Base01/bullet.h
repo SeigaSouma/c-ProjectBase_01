@@ -8,7 +8,7 @@
 #ifndef _BULLET_H_
 #define _BULLET_H_	// 二重インクルード防止
 
-#include "main.h"
+#include "listmanager.h"
 #include "meshsphere.h"
 
 class CThunderRing;
@@ -67,16 +67,20 @@ public:
 
 	static int GetNumAll(void);
 	static CBullet *Create(TYPE type, MOVETYPE movetype, const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, const D3DXVECTOR3 move, const float fSize);
+	static CListManager<CBullet> GetListObj(void) { return m_List; }	// リスト取得
 
 private:
 	void UpdatePos(void);		// 移動
 	void UpdateTypePlayer(void);	// プレイヤー弾の更新
 	void CollisionPlayer(void);		// プレイヤーとの判定
 	void CollisionEnemy(void);		// 敵との判定
-	
 	void StateNone(void);		// 何もない状態
 	void StateDamage(void);		// ダメージ状態処理
 
+	typedef void(CBullet::* STATE_FUNC)(void);
+	typedef void(CBullet::* COLLISION_FUNC)(void);
+	static STATE_FUNC m_FuncList[];
+	static COLLISION_FUNC m_CollisionFuncList[];	// 当たり判定のリスト
 
 	TYPE m_type;				// 弾の種類
 	STATE m_state;				// 状態
@@ -93,11 +97,7 @@ private:
 	bool m_bFinish;			// 終わった判定
 	static int m_nNumAll;		// 弾の総数
 	static const char *m_apTextureFile[TYPE_MAX];	// テクスチャのファイル
-
-	typedef void(CBullet::*STATE_FUNC)(void);
-	typedef void(CBullet::*COLLISION_FUNC)(void);
-	static STATE_FUNC m_FuncList[];
-	static COLLISION_FUNC m_CollisionFuncList[];	// 当たり判定のリスト
+	static CListManager<CBullet> m_List;	// リスト
 };
 
 

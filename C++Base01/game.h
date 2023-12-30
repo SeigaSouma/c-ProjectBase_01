@@ -19,7 +19,6 @@ class CPlayer;
 class CScore;
 class CTimer;
 class CPowerGauge;
-class CBulletManager;
 class CEditEnemyBase;
 class CStage;
 class CHitScore;
@@ -28,7 +27,6 @@ class CUltWindow;
 class CEnemyManager;
 class CItemManager;
 class CLimitArea;
-class CLimitAreaManager;
 class CPlayer;
 class CEnemyBase;
 
@@ -62,9 +60,7 @@ public:
 	static CScore *GetScore(void);
 	static CTimer *GetTimer(void) { return m_pTimer; }	// タイマー取得
 	static CEditEnemyBase *GetEditEnemyBase(void);
-	static CBulletManager *GetBulletManager(void);
 	static CItemManager *GetItemManager(void);
-	static CLimitAreaManager *GetLimitEreaManager(void);
 	static CStage *GetStage(void);
 	static CGameManager *GetGameManager(void);
 	static CStatusWindow *GetStatusWindow(int nIdx);
@@ -85,9 +81,7 @@ private:
 	int m_nIntervalSnow;
 	static CScore *m_pScore;						// スコアのオブジェクト
 	static CTimer *m_pTimer;						// タイマーのオブジェクト
-	static CBulletManager *m_pBulletManager;		// 弾マネージャのオブジェクト
 	static CItemManager *m_pItemManager;			// アイテムマネージャのオブジェクト
-	static CLimitAreaManager *m_pLimitEreaManager;	// エリア制限マネージャのオブジェクト
 	static CLimitArea *m_pLimitArea;				// エリア制限のオブジェクト
 	static CEditEnemyBase *m_pEditEnemyBase;		// 敵の拠点エディター
 	static CStage *m_pStage;						// ステージのオブジェクト

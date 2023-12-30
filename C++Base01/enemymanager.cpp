@@ -157,27 +157,12 @@ void CEnemyManager::Uninit(void)
 }
 
 //==========================================================================
-// 破棄
-//==========================================================================
-void CEnemyManager::Release(int nIdx)
-{
-	
-}
-
-//==========================================================================
-// 破棄
-//==========================================================================
-void CEnemyManager::Kill(void)
-{
-	
-}
-
-//==========================================================================
 // 更新処理
 //==========================================================================
 void CEnemyManager::Update(void)
 {
-	if (CEnemy::GetListObj().GetNumAll() <= 0)
+	int nNumAll = CEnemy::GetListObj().GetNumAll();
+	if (nNumAll <= 0)
 	{// 全員倒されたら
 
 		
@@ -210,7 +195,7 @@ void CEnemyManager::Update(void)
 	// テキストの描画
 	CManager::GetInstance()->GetDebugProc()->Print(
 		"---------------- 敵情報 ----------------\n"
-		"【残り人数】[%d], 【パターン数】[%d]\n", CEnemy::GetListObj().GetNumAll(), m_nPatternNum);
+		"【残り人数】[%d], 【パターン数】[%d]\n", nNumAll, m_nPatternNum);
 }
 
 //==========================================================================
@@ -297,52 +282,51 @@ CEnemy **CEnemyManager::SetEnemy(D3DXVECTOR3 pos, D3DXVECTOR3 rot, int nPattern)
 
 	for (int nCntEnemy = 0; nCntEnemy < nNumSpawn; nCntEnemy++)
 	{
-			int nType = NowPattern.EnemyData[nCntEnemy].nType;
+		int nType = NowPattern.EnemyData[nCntEnemy].nType;
 
-			// 計算用マトリックス
-			D3DXMATRIX mtxRot, mtxTrans, mtxWorld;
+		// 計算用マトリックス
+		D3DXMATRIX mtxRot, mtxTrans, mtxWorld;
 
-			// マトリックスの初期化
-			D3DXMatrixIdentity(&mtxWorld);
+		// マトリックスの初期化
+		D3DXMatrixIdentity(&mtxWorld);
 
-			// 敵拠点の向きを反映する
-			D3DXMatrixRotationYawPitchRoll(&mtxRot, rot.y, rot.x, rot.z);
-			D3DXMatrixMultiply(&mtxWorld, &mtxWorld, &mtxRot);
+		// 敵拠点の向きを反映する
+		D3DXMatrixRotationYawPitchRoll(&mtxRot, rot.y, rot.x, rot.z);
+		D3DXMatrixMultiply(&mtxWorld, &mtxWorld, &mtxRot);
 
-			// パターン内の位置を反映する
-			D3DXMatrixTranslation(&mtxTrans, NowPattern.EnemyData[nCntEnemy].pos.x, NowPattern.EnemyData[nCntEnemy].pos.y, NowPattern.EnemyData[nCntEnemy].pos.z);
-			D3DXMatrixMultiply(&mtxWorld, &mtxWorld, &mtxTrans);
+		// パターン内の位置を反映する
+		D3DXMatrixTranslation(&mtxTrans, NowPattern.EnemyData[nCntEnemy].pos.x, NowPattern.EnemyData[nCntEnemy].pos.y, NowPattern.EnemyData[nCntEnemy].pos.z);
+		D3DXMatrixMultiply(&mtxWorld, &mtxWorld, &mtxTrans);
 
-			// スポーン時の向きを掛け合わせる
-			D3DXVECTOR3 spawnPos = D3DXVECTOR3(mtxWorld._41, mtxWorld._42, mtxWorld._43);
+		// スポーン時の向きを掛け合わせる
+		D3DXVECTOR3 spawnPos = D3DXVECTOR3(mtxWorld._41, mtxWorld._42, mtxWorld._43);
 
-			// 拠点の位置分加算
-			spawnPos += pos;
+		// 拠点の位置分加算
+		spawnPos += pos;
 
-			// 敵の生成
-			pEnemy[nCntEnemy] = CEnemy::Create(
-				sMotionFileName[nType].c_str(),	// ファイル名
-				spawnPos,						// 位置
-				(CEnemy::TYPE)nType);			// 種類
+		// 敵の生成
+		pEnemy[nCntEnemy] = CEnemy::Create(
+			sMotionFileName[nType].c_str(),	// ファイル名
+			spawnPos,						// 位置
+			(CEnemy::TYPE)nType);			// 種類
 
-			if (pEnemy[nCntEnemy] == NULL)
-			{// 失敗していたら
+		if (pEnemy[nCntEnemy] == NULL)
+		{// 失敗していたら
 
-				delete pEnemy[nCntEnemy];
-				pEnemy[nCntEnemy] = NULL;
-				break;
-			}
-
-			// ボスの場合コピー
-			if (nType == 0 && m_pBoss == NULL)
-			{
-				m_pBoss = (CEnemyBoss*)pEnemy[nCntEnemy];
-			}
-
-			// 向き設定
-			pEnemy[nCntEnemy]->SetRotation(rot);
-			pEnemy[nCntEnemy]->SetRotDest(rot.y);
+			delete pEnemy[nCntEnemy];
+			pEnemy[nCntEnemy] = NULL;
 			break;
+		}
+
+		// ボスの場合コピー
+		if (nType == 0 && m_pBoss == NULL)
+		{
+			m_pBoss = (CEnemyBoss*)pEnemy[nCntEnemy];
+		}
+
+		// 向き設定
+		pEnemy[nCntEnemy]->SetRotation(rot);
+		pEnemy[nCntEnemy]->SetRotDest(rot.y);
 	}
 
 	return &pEnemy[0];

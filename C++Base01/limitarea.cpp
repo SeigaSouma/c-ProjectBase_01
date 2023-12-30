@@ -5,7 +5,6 @@
 // 
 //=============================================================================
 #include "limitarea.h"
-#include "limitereamanager.h"
 #include "manager.h"
 #include "renderer.h"
 #include "texture.h"
@@ -14,7 +13,6 @@
 #include "player.h"
 #include "game.h"
 #include "tutorial.h"
-
 
 //==========================================================================
 // 無名ネームスペース
@@ -38,13 +36,17 @@ CLimitArea::STATE_FUNC CLimitArea::m_StateFuncList[] =
 };
 
 //==========================================================================
+// 静的メンバ変数宣言
+//==========================================================================
+CListManager<CLimitArea> CLimitArea::m_List = {};	// リスト
+
+//==========================================================================
 // コンストラクタ
 //==========================================================================
 CLimitArea::CLimitArea(int nPriority) : CObject(nPriority)
 {
 	m_state = STATE_NONE;			// 状態
 	m_fTimeState = 0.0f;			// 状態カウンター
-	m_nIdxEreaManager = 0;			// エリア制限マネージャのインデックス番号
 	memset(&m_pMeshWall[0], NULL, sizeof(m_pMeshWall));			// メッシュウォールのオブジェクト
 	memset(&m_sLimitEreaInfo, NULL, sizeof(m_sLimitEreaInfo));	// エリア制限情報
 }
@@ -97,7 +99,7 @@ HRESULT CLimitArea::Init(void)
 	SetType(TYPE_ELEVATION);
 
 	// 割り当て
-	m_nIdxEreaManager = CGame::GetLimitEreaManager()->Regist(this);
+	m_List.Regist(this);
 
 	// 各種変数初期化
 	D3DXVECTOR3 WallPos[mylib_const::SHAPE_LIMITEREA];
@@ -151,10 +153,7 @@ HRESULT CLimitArea::Init(void)
 void CLimitArea::Uninit(void)
 {
 	// 削除
-	if (CManager::GetInstance()->GetMode() == CScene::MODE_GAME && CGame::GetLimitEreaManager() != NULL)
-	{// 弾マネージャの削除
-		CGame::GetLimitEreaManager()->Delete(m_nIdxEreaManager);
-	}
+	m_List.Delete(this);
 
 	for (int i = 0; i < mylib_const::SHAPE_LIMITEREA; i++)
 	{
@@ -176,10 +175,7 @@ void CLimitArea::Uninit(void)
 void CLimitArea::Kill(void)
 {
 	// 削除
-	if (CManager::GetInstance()->GetMode() == CScene::MODE_GAME && CGame::GetLimitEreaManager() != NULL)
-	{// 弾マネージャの削除
-		CGame::GetLimitEreaManager()->Delete(m_nIdxEreaManager);
-	}
+	m_List.Delete(this);
 
 	for (int i = 0; i < mylib_const::SHAPE_LIMITEREA; i++)
 	{
