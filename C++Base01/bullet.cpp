@@ -368,40 +368,27 @@ void CBullet::CollisionPlayer(void)
 //==========================================================================
 void CBullet::CollisionEnemy(void)
 {
-	// 敵マネージャ取得
-	CEnemyManager *pEnemyManager = CGame::GetEnemyManager();
-	if (pEnemyManager == NULL)
-	{// NULLだったら
-		return;
-	}
-
-	// 敵情報取得
-	CEnemy **ppEnemy = pEnemyManager->GetEnemy();
-	int nNumEnemy = pEnemyManager->GetNumAll();
-
 	// 情報取得
 	D3DXVECTOR3 pos = GetPosition();
 	float fRadius = GetWidthLen();
 	bool bHit = false;
 
-	int nUse = 0;
-	for (int nCntEnemy = 0; nUse < nNumEnemy; nCntEnemy++)
-	{
-		if (ppEnemy[nCntEnemy] == NULL)
-		{// NULLだったら
-			continue;
-		}
-		nUse++;
+	// 敵のリスト取得
+	CListManager<CEnemy> enemyList = CEnemy::GetListObj();
+	CEnemy* pEnemy = nullptr;
 
+	// リストループ
+	while (enemyList.ListLoop(&pEnemy))
+	{
 		// 敵の情報取得
-		D3DXVECTOR3 EnemyPosition = ppEnemy[nCntEnemy]->GetCenterPosition();
-		float fEnemyRadius = ppEnemy[nCntEnemy]->GetRadius();
+		D3DXVECTOR3 EnemyPosition = pEnemy->GetCenterPosition();
+		float fEnemyRadius = pEnemy->GetRadius();
 
 		if (SphereRange(pos, EnemyPosition, fRadius, fEnemyRadius))
 		{// 当たっていたら
 			bHit = true;
 
-			ppEnemy[nCntEnemy]->Hit(10);
+			pEnemy->Hit(10);
 
 			break;
 		}

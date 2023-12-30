@@ -8,18 +8,17 @@
 #ifndef _ENEMY_H_
 #define _ENEMY_H_	// 二重インクルード防止
 
-#include "main.h"
 #include "objectChara.h"
 #include "motion.h"
 #include "enemymanager.h"
 #include "resultmanager.h"
+#include "listmanager.h"
 
 // 前方宣言
 class CHP_Gauge;
 class CShadow;
 class CEffect3D;
 class CEnemyFixedMoveManager;
-class CList;
 
 //==========================================================================
 // クラス定義
@@ -66,7 +65,7 @@ public:
 	CEnemy(int nPriority = mylib_const::ENEMY_PRIORITY);
 	virtual ~CEnemy();
 
-	static CEnemy *Create(int nIdx, const char *pFileName, D3DXVECTOR3 pos, TYPE type = TYPE_BOSS);
+	static CEnemy *Create(const char *pFileName, D3DXVECTOR3 pos, TYPE type = TYPE_BOSS);
 
 	// オーバーライドされた関数
 	virtual HRESULT Init(void) override;
@@ -86,6 +85,7 @@ public:
 	void SetParent(CEnemy *pParent);		// 親のポインタ設定
 	void SetOriginRotation(D3DXVECTOR3 rot);	// 元の向き
 	CEnemy *GetEnemy(void);
+	static CListManager<CEnemy> GetListObj(void) { return m_List; }	// リスト取得
 
 protected:
 
@@ -181,12 +181,11 @@ private:
 	D3DXVECTOR3 m_rotOrigin;	// 最初の向き
 	int m_nTexIdx;			// テクスチャのインデックス番号
 	int m_nNumChild;		// 子の数
-	int m_nIdxManager;		// マネージャのインデックス番号
 	bool m_bAddScore;		// スコア加算するかの判定
 	int m_nBallastEmission;	// 瓦礫の発生カウンター
 	CEnemy *m_pChild[mylib_const::MAX_ENEMY];	// 子のポインタ
 	CShadow *m_pShadow;			// 影の情報
-	CList *m_pList;				// リストのオブジェクト
+	static CListManager<CEnemy> m_List;	// リスト
 };
 
 

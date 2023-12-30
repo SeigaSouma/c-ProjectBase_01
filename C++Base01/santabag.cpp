@@ -227,15 +227,3 @@ void CSantaBag::Draw(void)
 	}
 }
 
-//==========================================================================
-// ƒŠƒXƒgæ“¾
-//==========================================================================
-std::list<CSantaBag*> CSantaBag::GetList(void)
-{
-	return m_List.GetList();
-}
-
-CListManager<CSantaBag> CSantaBag::GetListObj(void)
-{
-	return m_List;
-}

@@ -586,6 +586,12 @@ void CPlayer::Controll(void)
 	// 移動量設定
 	SetMove(move);
 
+	if (pInputKeyboard->GetPress(DIK_RETURN) == true)
+	{
+
+		m_sMotionFrag.bATK = true;		// 攻撃判定OFF
+	}
+
 }
 
 //==========================================================================
@@ -678,44 +684,28 @@ void CPlayer::AttackInDicision(CMotion::AttackInfo ATKInfo, int nCntATK)
 #if _DEBUG
 	CEffect3D::Create(weponpos, D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f), ATKInfo.fRangeSize, 2, CEffect3D::MOVEEFFECT_NONE, CEffect3D::TYPE_NORMAL);
 #endif
-	// 敵取得
-	CEnemy** ppEnemy = CGame::GetEnemyManager()->GetEnemy();
 
-	// 総数取得
-	int nNumAll = CGame::GetEnemyManager()->GetNumAll();
-	int i = -1, nCntEnemy = 0;
+	// 敵のリスト取得
+	CListManager<CEnemy> enemyList = CEnemy::GetListObj();
+	CEnemy* pEnemy = nullptr;
 
-	while (1)
+	// リストループ
+	while (enemyList.ListLoop(&pEnemy))
 	{
-		if (nCntEnemy >= nNumAll)
-		{// 総数超えたら終わり
-			break;
-		}
-
-		// インデックス加算
-		i++;
-		if (ppEnemy[i] == NULL)
-		{
-			continue;
-		}
-
 		// 敵の位置取得
-		D3DXVECTOR3 TargetPos = ppEnemy[i]->GetPosition();
+		D3DXVECTOR3 TargetPos = pEnemy->GetPosition();
 
 		// 判定サイズ取得
-		float fTargetRadius = ppEnemy[i]->GetRadius();
+		float fTargetRadius = pEnemy->GetRadius();
 
 		if (SphereRange(weponpos, TargetPos, ATKInfo.fRangeSize, fTargetRadius))
 		{// 球の判定
 
-			if (ppEnemy[i]->Hit(ATKInfo.nDamage) == true)
+			if (pEnemy->Hit(ATKInfo.nDamage) == true)
 			{// 当たってたら
 
 			}
 		}
-
-		// 敵の数加算
-		nCntEnemy++;
 	}
 }
 

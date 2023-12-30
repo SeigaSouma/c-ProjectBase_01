@@ -172,17 +172,6 @@ void CEnemyOrafu::ActChase(void)
 	{
 		m_TargetPosition = pPlayer->GetPosition();
 	}
-	else
-	{
-		// バッグのリスト取得
-		std::list<CSantaBag*> BagList = CSantaBag::GetList();
-
-		// 要素分繰り返し
-		for (const auto& bag : BagList)
-		{
-			m_TargetPosition = bag->GetPosition();
-		}
-	}
 
 	// ターゲットの方を向く
 	RotationTarget();
@@ -231,17 +220,6 @@ void CEnemyOrafu::ActAttackProximity(void)
 		if (CircleRange3D(GetPosition(), pPlayer->GetPosition(), LENGTH_PLAYERCHASE, 0.0f))
 		{
 			m_TargetPosition = pPlayer->GetPosition();
-		}
-		else
-		{
-			// バッグのリスト取得
-			std::list<CSantaBag*> BagList = CSantaBag::GetList();
-
-			// 要素分繰り返し
-			for (const auto& bag : BagList)
-			{
-				m_TargetPosition = bag->GetPosition();
-			}
 		}
 
 		// ターゲットの方を向く

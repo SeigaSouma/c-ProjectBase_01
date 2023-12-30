@@ -10,7 +10,6 @@
 
 #include "main.h"
 #include "constans.h"
-#include "listmanager.h"
 
 //==========================================================================
 // 前方宣言
@@ -64,13 +63,10 @@ public:
 	int GetPatternNum(void);
 	void Release(int nIdx);		// 破棄
 
-
 	bool IsChangeStage(void) { return m_bChangeStage; }	// ステージ変更中か
 	void SetEnableChangeStage(bool bChange) { m_bChangeStage = bChange; }	// ステージ変更の状態切り替え
 	STATE GetState(void) { return m_state; }	// 状態取得
-	int GetNumAll(void);		// 敵の総数取得
 	Pattern GetPattern(int nPattern);	// パターン取得
-	CEnemy **GetEnemy(void);	// 敵取得
 	CEnemyBoss *GetBoss(void);		// ボス取得
 	const char *GetMotionFilename(int nType);
 protected:
@@ -78,7 +74,6 @@ protected:
 
 private:
 
-	CEnemy *m_pEnemy[mylib_const::MAX_OBJ];						// 敵へのポインタ
 	CEnemyBoss *m_pBoss;											// ボス
 	Pattern m_aPattern[mylib_const::MAX_PATTEN_ENEMY];			// 配置の種類
 	std::string sMotionFileName[mylib_const::MAX_PATTEN_ENEMY];	// モーションファイル名
@@ -86,7 +81,6 @@ private:
 	int m_nCntSpawn;		// 出現カウント
 	int m_nPatternNum;		// 出現パターン数
 	int m_nNumChara;		// 敵の種類の総数
-	int m_nNumAll;			// 敵の総数
 	bool m_bChangeStage;	// ステージ変更中か
 	float m_fTimeSpawn;		// スポーンまでの時間
 	float m_fTimer;			// スポーンタイマー

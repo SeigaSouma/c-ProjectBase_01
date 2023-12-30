@@ -205,54 +205,31 @@ void CCollisionObject::Update(void)
 //==================================================================================
 void CCollisionObject::CollisionEnemy(void)
 {
-	// 敵取得
-	CEnemyManager *pEnemyManager = CGame::GetEnemyManager();
-	if (pEnemyManager == NULL)
-	{
-		return;
-	}
-
-	// 敵取得
-	CEnemy **ppEnemy = pEnemyManager->GetEnemy();
-
-	// 総数取得
-	int nNumAll = pEnemyManager->GetNumAll();
-	int i = -1, nCntEnemy = 0;
-
+	
 	// 位置取得
 	D3DXVECTOR3 pos = GetPosition();
 
-	while (1)
+	// 敵のリスト取得
+	CListManager<CEnemy> enemyList = CEnemy::GetListObj();
+	CEnemy* pEnemy = nullptr;
+
+	// リストループ
+	while (enemyList.ListLoop(&pEnemy))
 	{
-		if (nCntEnemy >= nNumAll)
-		{// 総数超えたら終わり
-			break;
-		}
-
-		// インデックス加算
-		i++;
-		if (ppEnemy[i] == NULL)
-		{
-			continue;
-		}
-
 		// 敵の位置取得
-		D3DXVECTOR3 TargetPos = ppEnemy[i]->GetPosition();
+		D3DXVECTOR3 TargetPos = pEnemy->GetPosition();
 
 		// 判定サイズ取得
-		float fTargetRadius = ppEnemy[i]->GetRadius();
+		float fTargetRadius = pEnemy->GetRadius();
 
 		if (SphereRange(pos, TargetPos, m_fRadius, fTargetRadius))
 		{// 球の判定
 
-			if (ppEnemy[i]->Hit(m_nDamage) == true)
+			if (pEnemy->Hit(m_nDamage) == true)
 			{// 当たってたら
 
 			}
 		}
-
-		// 敵の数加算
-		nCntEnemy++;
 	}
 }
 

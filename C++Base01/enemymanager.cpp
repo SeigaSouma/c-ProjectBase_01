@@ -27,8 +27,6 @@
 #include "stagecleartext.h"
 #include "timer.h"
 
-#include "listmanager.h"
-
 //==========================================================================
 // マクロ定義
 //==========================================================================
@@ -47,14 +45,12 @@
 CEnemyManager::CEnemyManager()
 {
 	// 値のクリア
-	memset(&m_pEnemy[0], NULL, sizeof(m_pEnemy));		// 敵へのポインタ
 	m_pBoss = NULL;										// ボス
 	memset(&m_aPattern[0], NULL, sizeof(m_aPattern));	// 配置の種類
 	m_state = STATE_NONE;	// 状態
 	m_nCntSpawn = 0;		// 出現カウント
 	m_nPatternNum = 0;		// 出現パターン数
 	m_nNumChara = 0;		// 敵の種類の総数
-	m_nNumAll = 0;			// 敵の総数
 	m_fTimer = 0.0f;		// スポーンタイマー
 	m_fTimeSpawn = 0.0f;	// スポーンする時間
 	m_bChangeStage = false;	// ステージ変更中か
@@ -117,7 +113,6 @@ HRESULT CEnemyManager::Init(void)
 	m_fTimeSpawn = INITIAL_TIME;
 
 	// 総数リセット
-	m_nNumAll = 0;
 	m_nCntSpawn = 0;
 
 	// ステージ変更中にする
@@ -158,13 +153,7 @@ HRESULT CEnemyManager::Init(void)
 //==========================================================================
 void CEnemyManager::Uninit(void)
 {
-	for (int nCntEnemy = 0; nCntEnemy < mylib_const::MAX_OBJ; nCntEnemy++)
-	{
-		if (m_pEnemy[nCntEnemy] != NULL)
-		{
-			m_pEnemy[nCntEnemy] = NULL;
-		}
-	}
+	
 }
 
 //==========================================================================
@@ -172,13 +161,7 @@ void CEnemyManager::Uninit(void)
 //==========================================================================
 void CEnemyManager::Release(int nIdx)
 {
-	if (m_pEnemy[nIdx] != NULL)
-	{
-		m_pEnemy[nIdx] = NULL;
-	}
-
-	// 総数減算
-	m_nNumAll--;
+	
 }
 
 //==========================================================================
@@ -186,14 +169,7 @@ void CEnemyManager::Release(int nIdx)
 //==========================================================================
 void CEnemyManager::Kill(void)
 {
-	for (int nCntEnemy = 0; nCntEnemy < mylib_const::MAX_OBJ; nCntEnemy++)
-	{
-		if (m_pEnemy[nCntEnemy] != NULL)
-		{
-			m_pEnemy[nCntEnemy]->Uninit();
-			m_pEnemy[nCntEnemy] = NULL;
-		}
-	}
+	
 }
 
 //==========================================================================
@@ -201,7 +177,7 @@ void CEnemyManager::Kill(void)
 //==========================================================================
 void CEnemyManager::Update(void)
 {
-	if (m_nNumAll <= 0)
+	if (CEnemy::GetListObj().GetNumAll() <= 0)
 	{// 全員倒されたら
 
 		
@@ -234,7 +210,7 @@ void CEnemyManager::Update(void)
 	// テキストの描画
 	CManager::GetInstance()->GetDebugProc()->Print(
 		"---------------- 敵情報 ----------------\n"
-		"【残り人数】[%d], 【パターン数】[%d]\n", m_nNumAll, m_nPatternNum);
+		"【残り人数】[%d], 【パターン数】[%d]\n", CEnemy::GetListObj().GetNumAll(), m_nPatternNum);
 }
 
 //==========================================================================
@@ -314,7 +290,6 @@ void CEnemyManager::SetStageBoss(void)
 CEnemy **CEnemyManager::SetEnemy(D3DXVECTOR3 pos, D3DXVECTOR3 rot, int nPattern)
 {
 	int nNumSpawn = m_aPattern[nPattern].nNumEnemy;	// スポーンする数
-	int nCntNULL = 0;
 	int nCntStart = 0;
 	Pattern NowPattern = m_aPattern[nPattern];
 	CEnemy *pEnemy[mylib_const::MAX_PATTEN_ENEMY];
@@ -322,15 +297,7 @@ CEnemy **CEnemyManager::SetEnemy(D3DXVECTOR3 pos, D3DXVECTOR3 rot, int nPattern)
 
 	for (int nCntEnemy = 0; nCntEnemy < nNumSpawn; nCntEnemy++)
 	{
-		for (nCntNULL = nCntStart; nCntNULL < mylib_const::MAX_OBJ; nCntNULL++, nCntStart++)
-		{
-			if (m_pEnemy[nCntNULL] != NULL)
-			{// 情報が入ってたら
-				continue;
-			}
-
 			int nType = NowPattern.EnemyData[nCntEnemy].nType;
-
 
 			// 計算用マトリックス
 			D3DXMATRIX mtxRot, mtxTrans, mtxWorld;
@@ -353,37 +320,29 @@ CEnemy **CEnemyManager::SetEnemy(D3DXVECTOR3 pos, D3DXVECTOR3 rot, int nPattern)
 			spawnPos += pos;
 
 			// 敵の生成
-			m_pEnemy[nCntNULL] = CEnemy::Create(
-				nCntNULL,						// インデックス番号
+			pEnemy[nCntEnemy] = CEnemy::Create(
 				sMotionFileName[nType].c_str(),	// ファイル名
 				spawnPos,						// 位置
 				(CEnemy::TYPE)nType);			// 種類
 
-			if (m_pEnemy[nCntNULL] == NULL)
+			if (pEnemy[nCntEnemy] == NULL)
 			{// 失敗していたら
 
-				delete m_pEnemy[nCntNULL];
-				m_pEnemy[nCntNULL] = NULL;
+				delete pEnemy[nCntEnemy];
+				pEnemy[nCntEnemy] = NULL;
 				break;
 			}
 
 			// ボスの場合コピー
 			if (nType == 0 && m_pBoss == NULL)
 			{
-				m_pBoss = (CEnemyBoss*)m_pEnemy[nCntNULL];
+				m_pBoss = (CEnemyBoss*)pEnemy[nCntEnemy];
 			}
 
-			// ポインタコピー
-			pEnemy[nCntEnemy] = m_pEnemy[nCntNULL];
-
 			// 向き設定
-			m_pEnemy[nCntNULL]->SetRotation(rot);
-			m_pEnemy[nCntNULL]->SetRotDest(rot.y);
-
-			// 総数加算
-			m_nNumAll++;
+			pEnemy[nCntEnemy]->SetRotation(rot);
+			pEnemy[nCntEnemy]->SetRotDest(rot.y);
 			break;
-		}
 	}
 
 	return &pEnemy[0];
@@ -403,14 +362,6 @@ int CEnemyManager::GetPatternNum(void)
 CEnemyManager::Pattern CEnemyManager::GetPattern(int nPattern)
 {
 	return m_aPattern[nPattern];
-}
-
-//==========================================================================
-// 敵の総数取得
-//==========================================================================
-int CEnemyManager::GetNumAll(void)
-{
-	return m_nNumAll;
 }
 
 //==========================================================================
@@ -542,14 +493,6 @@ HRESULT CEnemyManager::ReadText(const std::string pTextFile)
 	fclose(pFile);
 
 	return S_OK;
-}
-
-//==========================================================================
-// 敵取得
-//==========================================================================
-CEnemy **CEnemyManager::GetEnemy(void)
-{
-	return &m_pEnemy[0];
 }
 
 //==========================================================================

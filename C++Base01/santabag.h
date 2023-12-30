@@ -33,8 +33,7 @@ public:
 
 	// Ã“IŠÖ”
 	static CSantaBag *Create(const D3DXVECTOR3 pos);
-	static std::list<CSantaBag*> GetList(void);
-	static CListManager<CSantaBag> GetListObj(void);
+	static CListManager<CSantaBag> GetListObj(void) { return m_List; }	// ƒŠƒXƒgæ“¾
 
 private:
 

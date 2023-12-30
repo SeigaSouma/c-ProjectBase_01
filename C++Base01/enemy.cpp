@@ -29,7 +29,6 @@
 #include "bullet.h"
 #include "stage.h"
 #include "objectX.h"
-#include "listmanager.h"
 #include "collisionobject.h"
 #include "limitereamanager.h"
 #include "santabag.h"
@@ -51,6 +50,7 @@ namespace
 //==========================================================================
 // 静的メンバ変数宣言
 //==========================================================================
+CListManager<CEnemy> CEnemy::m_List = {};	// リスト
 
 //==========================================================================
 // コンストラクタ
@@ -71,7 +71,6 @@ CEnemy::CEnemy(int nPriority) : CObjectChara(nPriority)
 	m_nCntState = 0;		// 状態遷移カウンター
 	m_nTexIdx = 0;			// テクスチャのインデックス番号
 	m_nNumChild = 0;		// この数
-	m_nIdxManager = 0;		// マネージャのインデックス番号
 	m_nTargetPlayerIndex = 0;	// 追い掛けるプレイヤーのインデックス番号
 	m_fActCounter = 0.0f;		// 移動カウンター
 	m_bAddScore = false;	// スコア加算するかの判定
@@ -82,7 +81,6 @@ CEnemy::CEnemy(int nPriority) : CObjectChara(nPriority)
 	m_sMotionFrag.bATK = false;			// 攻撃中かどうか
 	m_pParent = NULL;					// 親のポインタ
 	m_pHPGauge = NULL;					// HPゲージの情報
-	m_pList = NULL;				// リストのオブジェクト
 	m_pShadow = NULL;
 
 	memset(&m_pChild[0], NULL, sizeof(m_pChild));	// 子のポインタ
@@ -99,7 +97,7 @@ CEnemy::~CEnemy()
 //==========================================================================
 // 生成処理
 //==========================================================================
-CEnemy *CEnemy::Create(int nIdx, const char *pFileName, D3DXVECTOR3 pos, TYPE type)
+CEnemy *CEnemy::Create(const char *pFileName, D3DXVECTOR3 pos, TYPE type)
 {
 	// 生成用のオブジェクト
 	CEnemy *pEnemy = NULL;
@@ -129,9 +127,6 @@ CEnemy *CEnemy::Create(int nIdx, const char *pFileName, D3DXVECTOR3 pos, TYPE ty
 
 		if (pEnemy != NULL)
 		{// メモリの確保が出来ていたら
-
-			// インデックス番号
-			pEnemy->m_nIdxManager = nIdx;
 
 			// 種類
 			pEnemy->m_type = type;
@@ -176,6 +171,9 @@ HRESULT CEnemy::Init(void)
 
 	// 向き設定
 	SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+
+	// リストに追加
+	m_List.Regist(this);
 
 	return S_OK;
 }
@@ -266,34 +264,18 @@ void CEnemy::SetParent(CEnemy *pParent)
 //==========================================================================
 void CEnemy::Uninit(void)
 {
-	int nIdx = m_nIdxManager;
-
+	
 	// 影を消す
 	if (m_pShadow != NULL)
 	{
 		m_pShadow = NULL;
 	}
 
-	//if (m_pList != NULL && m_pListManager != NULL)
-	//{
-	//	// リストから取り出す
-	//	m_pListManager->Pop(m_pList);
-	//	m_pList->Uninit();
-	//	delete m_pList;
-	//	m_pList = NULL;
-	//}
+	// リストから削除
+	m_List.Delete(this);
 
 	// 終了処理
 	CObjectChara::Uninit();
-
-	// 敵マネージャ取得
-	CEnemyManager *pEnemyManager = CGame::GetEnemyManager();
-
-	if (pEnemyManager != NULL)
-	{
-		// マネージャの終了
-		pEnemyManager->Release(nIdx);
-	}
 }
 
 //==========================================================================
@@ -332,6 +314,9 @@ void CEnemy::Kill(void)
 		m_pShadow->Uninit();
 		m_pShadow = NULL;
 	}
+
+	// 終了処理
+	CEnemy::Uninit();
 }
 
 //==========================================================================
@@ -425,12 +410,13 @@ void CEnemy::Update(void)
 	}
 
 	// バッグのリスト取得
-	std::list<CSantaBag*> BagList = CSantaBag::GetList();
+	CListManager<CSantaBag> BagList = CSantaBag::GetListObj();
+	CSantaBag* pBag = nullptr;
 
-	// 要素分繰り返し
-	for (const auto& bag : BagList)
+	// リストループ
+	while (BagList.ListLoop(&pBag))
 	{
-		m_TargetPosition = bag->GetPosition();
+		m_TargetPosition = pBag->GetPosition();
 	}
 
 	// 大人の壁
@@ -1806,15 +1792,17 @@ void CEnemy::AttackInDicision(CMotion::AttackInfo ATKInfo, int nCntATK)
 		//============================
 		// 袋と判定
 		//============================
-		std::list<CSantaBag*> BagList = CSantaBag::GetList();
+		// バッグのリスト取得
+		CListManager<CSantaBag> BagList = CSantaBag::GetListObj();
+		CSantaBag* pBag = nullptr;
 
-		// 要素分繰り返し
-		for (const auto& candidate : BagList)
+		// リストループ
+		while (BagList.ListLoop(&pBag))
 		{
 			// 当たり判定
-			if (CircleRange3D(weponpos, candidate->GetPosition(), ATKInfo.fRangeSize, 80.0f))
+			if (CircleRange3D(weponpos, pBag->GetPosition(), ATKInfo.fRangeSize, 80.0f))
 			{
-				candidate->Hit();
+				pBag->Hit();
 			}
 		}
 
