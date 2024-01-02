@@ -277,7 +277,7 @@ void CBullet::UpdatePos(void)
 		break;
 
 	case CBullet::MOVETYPE_PARABOLA:	// •ú•¨üˆÚ“®
-		pos = GetParabola(m_OriginPosition, m_TargetPosition, m_fMaxParabolaHeight, 1.0f - ((float)m_nLife / (float)m_nLifeMax));
+		pos = UtilFunc::Calculation::GetParabola3D(m_OriginPosition, m_TargetPosition, m_fMaxParabolaHeight, 1.0f - ((float)m_nLife / (float)m_nLifeMax));
 		break;
 	}
 
@@ -343,7 +343,7 @@ void CBullet::CollisionPlayer(void)
 		D3DXVECTOR3 pos = GetPosition();
 		float fRadius = GetWidthLen();
 
-		if (SphereRange(pos, PlayerPosition, fRadius, fPlayerRadius))
+		if (UtilFunc::Collision::SphereRange(pos, PlayerPosition, fRadius, fPlayerRadius))
 		{// “–‚½‚Á‚Ä‚¢‚½‚ç
 
 			// ƒqƒbƒgˆ—
@@ -381,7 +381,7 @@ void CBullet::CollisionEnemy(void)
 		D3DXVECTOR3 EnemyPosition = pEnemy->GetCenterPosition();
 		float fEnemyRadius = pEnemy->GetRadius();
 
-		if (SphereRange(pos, EnemyPosition, fRadius, fEnemyRadius))
+		if (UtilFunc::Collision::SphereRange(pos, EnemyPosition, fRadius, fEnemyRadius))
 		{// “–‚½‚Á‚Ä‚¢‚½‚ç
 			bHit = true;
 

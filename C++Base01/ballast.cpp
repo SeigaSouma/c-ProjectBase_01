@@ -124,8 +124,8 @@ HRESULT CBallast::Init(void)
 		// ¶¬ˆ—
 		m_pObjX[nCntBallast] = CObjectX::Create(
 			m_pFileName[m_type],
-			D3DXVECTOR3(m_posOrigin.x + Random(-20, 20), m_posOrigin.y, m_posOrigin.z + Random(-20, 20)),
-			D3DXVECTOR3((float)Random(-314, 314) * 0.01f, (float)Random(-314, 314) * 0.01f, (float)Random(-314, 314) * 0.01f), false);
+			D3DXVECTOR3(m_posOrigin.x + UtilFunc::Transformation::Random(-20, 20), m_posOrigin.y, m_posOrigin.z + UtilFunc::Transformation::Random(-20, 20)),
+			D3DXVECTOR3((float)UtilFunc::Transformation::Random(-314, 314) * 0.01f, (float)UtilFunc::Transformation::Random(-314, 314) * 0.01f, (float)UtilFunc::Transformation::Random(-314, 314) * 0.01f), false);
 
 		if (m_pObjX[nCntBallast] == NULL)
 		{// Ž¸”s‚µ‚½‚Æ‚«
@@ -138,9 +138,9 @@ HRESULT CBallast::Init(void)
 		
 		// ˆÚ“®—ÊÝ’è
 		m_pObjX[nCntBallast]->SetMove(D3DXVECTOR3(
-			(float)Random(-314, 314) * 0.01f * m_moveOrigin.x,
-			m_moveOrigin.y + ((float)Random(-20, 20) * 0.1f),
-			(float)Random(-314, 314) * 0.01f * m_moveOrigin.z));
+			(float)UtilFunc::Transformation::Random(-314, 314) * 0.01f * m_moveOrigin.x,
+			m_moveOrigin.y + ((float)UtilFunc::Transformation::Random(-20, 20) * 0.1f),
+			(float)UtilFunc::Transformation::Random(-314, 314) * 0.01f * m_moveOrigin.z));
 
 		// ƒXƒP[ƒ‹Ý’è
 		switch (m_type)
@@ -148,16 +148,16 @@ HRESULT CBallast::Init(void)
 		case TYPE_STONE:
 
 			m_pObjX[nCntBallast]->SetScale(D3DXVECTOR3(
-				(float)Random(-20, 20) * 0.05f,
-				(float)Random(-20, 20) * 0.05f,
-				(float)Random(-20, 20) * 0.05f));
+				(float)UtilFunc::Transformation::Random(-20, 20) * 0.05f,
+				(float)UtilFunc::Transformation::Random(-20, 20) * 0.05f,
+				(float)UtilFunc::Transformation::Random(-20, 20) * 0.05f));
 			break;
 
 		case TYPE_ICE:
 			m_pObjX[nCntBallast]->SetScale(D3DXVECTOR3(
-				(float)Random(-10, 10) * 0.1f,
-				(float)Random(-10, 10) * 0.1f,
-				(float)Random(-10, 10) * 0.1f));
+				(float)UtilFunc::Transformation::Random(-10, 10) * 0.1f,
+				(float)UtilFunc::Transformation::Random(-10, 10) * 0.1f,
+				(float)UtilFunc::Transformation::Random(-10, 10) * 0.1f));
 			break;
 		}
 	}

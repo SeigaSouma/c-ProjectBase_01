@@ -144,7 +144,7 @@ void CEnemyOrafu::ActWait(void)
 		m_Action = ACTION_PROXIMITY;
 
 		// ’Ç‚¢’…‚«”»’è
-		m_bCatchUp = CircleRange3D(GetPosition(), m_TargetPosition, LENGTH_PUNCH, 0.0f);
+		m_bCatchUp = UtilFunc::Collision::CircleRange3D(GetPosition(), m_TargetPosition, LENGTH_PUNCH, 0.0f);
 	}
 }
 
@@ -168,7 +168,7 @@ void CEnemyOrafu::ActChase(void)
 	}
 
 	// ‰~‚Ì”»’è
-	if (CircleRange3D(GetPosition(), pPlayer->GetPosition(), LENGTH_PLAYERCHASE, 0.0f))
+	if (UtilFunc::Collision::CircleRange3D(GetPosition(), pPlayer->GetPosition(), LENGTH_PLAYERCHASE, 0.0f))
 	{
 		m_TargetPosition = pPlayer->GetPosition();
 	}
@@ -217,7 +217,7 @@ void CEnemyOrafu::ActAttackProximity(void)
 		}
 
 		// ‰~‚Ì”»’è
-		if (CircleRange3D(GetPosition(), pPlayer->GetPosition(), LENGTH_PLAYERCHASE, 0.0f))
+		if (UtilFunc::Collision::CircleRange3D(GetPosition(), pPlayer->GetPosition(), LENGTH_PLAYERCHASE, 0.0f))
 		{
 			m_TargetPosition = pPlayer->GetPosition();
 		}
@@ -236,7 +236,7 @@ void CEnemyOrafu::ActAttackProximity(void)
 		fLength = LENGTH_PUNCH;
 
 		// ’Ç‚¢’…‚«”»’è
-		m_bCatchUp = CircleRange3D(GetPosition(), m_TargetPosition, fLength, 0.0f);
+		m_bCatchUp = UtilFunc::Collision::CircleRange3D(GetPosition(), m_TargetPosition, fLength, 0.0f);
 	}
 	else
 	{// UŒ‚‚Ì’·‚³“à
@@ -361,11 +361,11 @@ void CEnemyOrafu::RotationTarget(void)
 	float fRotDiff = fRotDest - rot.y;
 
 	//Šp“x‚Ì³‹K‰»
-	RotNormalize(fRotDiff);
+	UtilFunc::Transformation::RotNormalize(fRotDiff);
 
 	//Šp“x‚Ì•â³‚ğ‚·‚é
 	rot.y += fRotDiff * 0.1f;
-	RotNormalize(rot.y);
+	UtilFunc::Transformation::RotNormalize(rot.y);
 
 	// Œü‚«İ’è
 	SetRotation(rot);

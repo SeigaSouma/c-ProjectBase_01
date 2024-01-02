@@ -44,7 +44,7 @@ CRanking::~CRanking()
 HRESULT CRanking::Init(void)
 {
 	// ステージのランダムインデックス番号
-	m_nRandStage = Random(1, 3);
+	m_nRandStage = UtilFunc::Transformation::Random(1, 3);
 
 	// 初期化処理
 	if (FAILED(CScene::Init()))

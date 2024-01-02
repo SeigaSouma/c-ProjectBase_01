@@ -185,7 +185,7 @@ void CMeshDome::Update(void)
 	rot.y += m_fMove;
 
 	// Šp“x‚Ì³‹K‰»
-	RotNormalize(rot.y);
+	UtilFunc::Transformation::RotNormalize(rot.y);
 
 	// Œü‚«İ’è
 	SetRotation(rot);

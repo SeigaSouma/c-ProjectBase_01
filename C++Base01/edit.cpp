@@ -358,7 +358,7 @@ void CEdit::Control(CObjectX *pObjX)
 	}
 
 	// äpìxê≥ãKâª
-	RotNormalize(rot.y);
+	UtilFunc::Transformation::RotNormalize(rot.y);
 
 
 	//// íÖínÇµÇΩÇ©Ç«Ç§Ç©

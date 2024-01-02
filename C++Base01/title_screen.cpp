@@ -441,7 +441,7 @@ void CTitleScreen::UpdateSelect(int nCntSelect)
 	D3DXCOLOR col = m_pSelect2D[nCntSelect]->GetColor();
 
 	// 不透明度更新
-	CuadricCurveComp(col.a, ALPHATIME, 0.1f, 1.0f, m_nCntAlpha);
+	UtilFunc::Correction::CuadricCurveComp(col.a, ALPHATIME, 0.1f, 1.0f, m_nCntAlpha);
 
 	// 色設定
 	m_pSelect2D[nCntSelect]->SetColor(col);

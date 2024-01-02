@@ -422,9 +422,9 @@ void CEffect3D::UpdateMove(void)
 	{
 		// 等速線形補間
 		float fRatio = 1.0f - ((float)m_nLife / (float)m_nMaxLife);
-		pos.x = EasingLinear(m_posOrigin.x, m_posDest.x, fRatio);
-		pos.y = EasingLinear(m_posOrigin.y, m_posDest.y, fRatio);
-		pos.z = EasingLinear(m_posOrigin.z, m_posDest.z, fRatio);
+		pos.x = UtilFunc::Correction::EasingLinear(m_posOrigin.x, m_posDest.x, fRatio);
+		pos.y = UtilFunc::Correction::EasingLinear(m_posOrigin.y, m_posDest.y, fRatio);
+		pos.z = UtilFunc::Correction::EasingLinear(m_posOrigin.z, m_posDest.z, fRatio);
 	}
 
 	// 位置設定
@@ -478,7 +478,7 @@ void CEffect3D::UpdatePosition(D3DXVECTOR3 rot)
 	// 自分に親のワールドマトリックスを掛ける
 	D3DXMatrixMultiply(&mtxWorld, &mtxWorld, m_pMtxParent);
 
-	m_posOrigin = WorldMtxChangeToPosition(mtxWorld);
+	m_posOrigin = UtilFunc::Transformation::WorldMtxChangeToPosition(mtxWorld);
 
 }
 

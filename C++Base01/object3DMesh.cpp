@@ -657,8 +657,8 @@ void CObject3DMesh::UPVtxField(D3DXVECTOR3 pos)
 		m_fHeightLen += MOVE_LEN;
 	}
 
-	ValueNormalize(m_fWidthLen, 99999999.0f, 10.0f);
-	ValueNormalize(m_fHeightLen, 99999999.0f, 10.0f);
+	UtilFunc::Transformation::ValueNormalize(m_fWidthLen, 99999999.0f, 10.0f);
+	UtilFunc::Transformation::ValueNormalize(m_fHeightLen, 99999999.0f, 10.0f);
 }
 
 
@@ -998,8 +998,8 @@ void CObject3DMesh::SetVtxDome(void)
 			fRotCalW = (fRotWidth * m_nWidth) - ((float)(nCntWidth % (m_nWidth + 1)) * fRotWidth);
 
 			// äpìxÇÃê≥ãKâª
-			RotNormalize(fRotCalW);
-			RotNormalize(fRotCalH);
+			UtilFunc::Transformation::RotNormalize(fRotCalW);
+			UtilFunc::Transformation::RotNormalize(fRotCalH);
 
 			// ç¿ïWäÑÇËèoÇµ
 			posVtx[nCntWidth + (nCntHeight * (m_nWidth + 1))].x = cosf(fRotCalH) * sinf(fRotCalW) * m_fWidthLen;
@@ -1130,8 +1130,8 @@ void CObject3DMesh::SetVtxSphere(void)
 			fRotCalW = (float)nCntWidth * fRotWidth;
 
 			// äpìxÇÃê≥ãKâª
-			/*RotNormalize(fRotCalW);
-			RotNormalize(fRotCalH);*/
+			/*UtilFunc::Transformation::RotNormalize(fRotCalW);
+			UtilFunc::Transformation::RotNormalize(fRotCalH);*/
 
 			// ç¿ïWäÑÇËèoÇµ
 			posVtx[nCntWidth + (nCntHeight * (m_nWidth + 1))].x = cosf(fRotCalH) * sinf(fRotCalW) * m_fWidthLen;

@@ -215,7 +215,7 @@ void CObjectCircleGauge2D::SetVtx(void)
 		{
 			// 前回のインデックス番号
 			int nIdx = i - 1;
-			ValueNormalize(nIdx, m_nNumVertex, 0);
+			UtilFunc::Transformation::ValueNormalize(nIdx, m_nNumVertex, 0);
 
 			// 今回分の向き
 			float fRotDiff = (fRotDivision * i) - (fRotDivision * nIdx);
@@ -243,7 +243,7 @@ void CObjectCircleGauge2D::SetVtx(void)
 					0.0f);
 
 				// 辺上の位置取得(2D)
-				EndPos = GetPointOnEdge2D(p1, p2, fRate);
+				EndPos = UtilFunc::Calculation::GetPointOnEdge2D(p1, p2, fRate);
 
 				// 終端状態
 				bEnd = true;

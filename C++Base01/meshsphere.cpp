@@ -175,8 +175,8 @@ void CMeshSphere::Update(void)
 	float fHeightLen = GetHeightLen();
 
 	// äµê´ï‚ê≥
-	InertiaCorrection(fWidthLen, m_fSizeDest, 0.15f);
-	InertiaCorrection(fHeightLen, m_fSizeDest, 0.15f);
+	UtilFunc::Correction::InertiaCorrection(fWidthLen, m_fSizeDest, 0.15f);
+	UtilFunc::Correction::InertiaCorrection(fHeightLen, m_fSizeDest, 0.15f);
 
 	// í∑Ç≥ê›íË
 	SetWidthLen(fWidthLen);

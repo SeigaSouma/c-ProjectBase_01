@@ -502,18 +502,18 @@ void CPlayer::Controll(void)
 	sakiPos.z = newPosition.z + cosf(D3DX_PI + rot.y) * GetRadius();
 
 	// Šp“x‚Ì³‹K‰»
-	RotNormalize(fRotDest);
+	UtilFunc::Transformation::RotNormalize(fRotDest);
 	SetRotDest(fRotDest);
 
 	// Œ»Ý‚Æ–Ú•W‚Ì·•ª‚ð‹‚ß‚é
 	float fRotDiff = fRotDest - rot.y;
 
 	// Šp“x‚Ì³‹K‰»
-	RotNormalize(fRotDiff);
+	UtilFunc::Transformation::RotNormalize(fRotDiff);
 
 	// Šp“x‚Ì•â³‚ð‚·‚é
 	rot.y += fRotDiff * 0.15f;
-	RotNormalize(rot.y);
+	UtilFunc::Transformation::RotNormalize(rot.y);
 
 	// Œü‚«Ý’è
 	SetRotation(rot);
@@ -698,7 +698,7 @@ void CPlayer::AttackInDicision(CMotion::AttackInfo ATKInfo, int nCntATK)
 		// ”»’èƒTƒCƒYŽæ“¾
 		float fTargetRadius = pEnemy->GetRadius();
 
-		if (SphereRange(weponpos, TargetPos, ATKInfo.fRangeSize, fTargetRadius))
+		if (UtilFunc::Collision::SphereRange(weponpos, TargetPos, ATKInfo.fRangeSize, fTargetRadius))
 		{// ‹…‚Ì”»’è
 
 			if (pEnemy->Hit(ATKInfo.nDamage) == true)

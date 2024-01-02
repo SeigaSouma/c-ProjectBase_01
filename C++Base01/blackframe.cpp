@@ -241,8 +241,8 @@ void CBlackFrame::StateIn(int nCntVtx)
 	float fTime = (float)m_nCntMove / (float)MOVETIME;
 
 	// 位置更新
-	pos.x = Lerp(start.x, m_DestPosition[nCntVtx].x, fTime);
-	pos.y = Lerp(start.y, m_DestPosition[nCntVtx].y, fTime);
+	pos.x = UtilFunc::Correction::EasingLinear(start.x, m_DestPosition[nCntVtx].x, fTime);
+	pos.y = UtilFunc::Correction::EasingLinear(start.y, m_DestPosition[nCntVtx].y, fTime);
 
 	// 情報設定
 	m_pObj3D[nCntVtx]->SetPosition(pos);
@@ -278,8 +278,8 @@ void CBlackFrame::StateOut(int nCntVtx)
 	float fTime = (float)m_nCntMove / (float)MOVETIME;
 
 	// 位置更新
-	pos.x = Lerp(m_DestPosition[nCntVtx].x, start.x, fTime);
-	pos.y = Lerp(m_DestPosition[nCntVtx].y, start.y, fTime);
+	pos.x = UtilFunc::Correction::EasingLinear(m_DestPosition[nCntVtx].x, start.x, fTime);
+	pos.y = UtilFunc::Correction::EasingLinear(m_DestPosition[nCntVtx].y, start.y, fTime);
 
 	// 情報設定
 	m_pObj3D[nCntVtx]->SetPosition(pos);

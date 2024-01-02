@@ -241,7 +241,7 @@ HRESULT CObjectX::Init(void)
 	CXLoad::SXFile *pXData = CScene::GetXLoad()->GetMyObject(m_nIdxXFile);
 
 	// 全頂点チェック
-	CheckVtx(GetRotation().y, &pXData->vtxMax, &pXData->vtxMin, pXData->pMesh, pXData->pVtxBuff);
+	UtilFunc::Calculation::CalModelVtx(GetRotation().y, &pXData->vtxMax, &pXData->vtxMin, pXData->pMesh, pXData->pVtxBuff);
 
 	return S_OK;
 }
@@ -272,7 +272,7 @@ HRESULT CObjectX::Init(const char *pFileName)
 	CXLoad::SXFile *pXData = CScene::GetXLoad()->GetMyObject(m_nIdxXFile);
 
 	// 全頂点チェック
-	CheckVtx(GetRotation().y, &pXData->vtxMax, &pXData->vtxMin, pXData->pMesh, pXData->pVtxBuff);
+	UtilFunc::Calculation::CalModelVtx(GetRotation().y, &pXData->vtxMax, &pXData->vtxMin, pXData->pMesh, pXData->pVtxBuff);
 
 	return S_OK;
 }
@@ -289,7 +289,7 @@ HRESULT CObjectX::Init(int nIdxXFile)
 	CXLoad::SXFile *pXData = CScene::GetXLoad()->GetMyObject(m_nIdxXFile);
 
 	// 全頂点チェック
-	CheckVtx(GetRotation().y, &pXData->vtxMax, &pXData->vtxMin, pXData->pMesh, pXData->pVtxBuff);
+	UtilFunc::Calculation::CalModelVtx(GetRotation().y, &pXData->vtxMax, &pXData->vtxMin, pXData->pMesh, pXData->pVtxBuff);
 
 	return S_OK;
 }
@@ -355,7 +355,7 @@ void CObjectX::Update(void)
 #endif
 
 	// 全頂点チェック
-	//CheckVtx(GetRotation().y, &pXData->vtxMax, &pXData->vtxMin, pXData->pMesh, pXData->pVtxBuff);
+	//UtilFunc::Calculation::CalModelVtx(GetRotation().y, &pXData->vtxMax, &pXData->vtxMin, pXData->pMesh, pXData->pVtxBuff);
 }
 
 //==========================================================================
@@ -404,7 +404,7 @@ float CObjectX::GetHeight(D3DXVECTOR3 pos, bool &bLand)
 		// 三角で高さを求める
 		
 		bool bNowLand = false;
-		float fNowHeight = GetVtxHeight(pos, pos1, pos3, pos2, &bNowLand);
+		float fNowHeight = UtilFunc::Calculation::GetVtxHeight(pos, pos1, pos3, pos2, &bNowLand);
 
 		if (bNowLand == true && fNowHeight > fHeightMax)
 		{// 着地してたら

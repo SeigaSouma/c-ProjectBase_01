@@ -327,13 +327,13 @@ float CElevation::GetHeight(const D3DXVECTOR3& pos, bool *pLand)
 				continue;
 			}
 
-			fHeight = GetVtxHeight(pos, pVtxPos[nNowPoint] + posfield, pVtxPos[nLeft] + posfield, pVtxPos[nRight] + posfield, pLand);
+			fHeight = UtilFunc::Calculation::GetVtxHeight(pos, pVtxPos[nNowPoint] + posfield, pVtxPos[nLeft] + posfield, pVtxPos[nRight] + posfield, pLand);
 			if (*pLand)
 			{
 				break;
 			}
 
-			fHeight = GetVtxHeight(pos, pVtxPos[nNowPoint + GetWidthBlock()] + posfield, pVtxPos[nRight] + posfield, pVtxPos[nLeft] + posfield, pLand);
+			fHeight = UtilFunc::Calculation::GetVtxHeight(pos, pVtxPos[nNowPoint + GetWidthBlock()] + posfield, pVtxPos[nRight] + posfield, pVtxPos[nLeft] + posfield, pLand);
 			if (*pLand)
 			{
 				break;
@@ -408,7 +408,7 @@ bool CElevation::IsHit(const D3DXVECTOR3& pos)
 				continue;
 			}
 
-			fHeight = GetVtxHeight(pos, pVtxPos[nNowPoint] + posfield, pVtxPos[nLeft] + posfield, pVtxPos[nRight] + posfield, &bLand);
+			fHeight = UtilFunc::Calculation::GetVtxHeight(pos, pVtxPos[nNowPoint] + posfield, pVtxPos[nLeft] + posfield, pVtxPos[nRight] + posfield, &bLand);
 			if (bLand &&
 				fHeight > pos.y)
 			{// 前回の位置よりも下だったら(当たっていたら)
@@ -416,7 +416,7 @@ bool CElevation::IsHit(const D3DXVECTOR3& pos)
 			}
 
 			bLand = false;
-			fHeight = GetVtxHeight(pos, pVtxPos[nNowPoint + GetWidthBlock()] + posfield, pVtxPos[nRight] + posfield, pVtxPos[nLeft] + posfield, &bLand);
+			fHeight = UtilFunc::Calculation::GetVtxHeight(pos, pVtxPos[nNowPoint + GetWidthBlock()] + posfield, pVtxPos[nRight] + posfield, pVtxPos[nLeft] + posfield, &bLand);
 			if (bLand &&
 				fHeight > pos.y)
 			{// 前回の位置よりも下だったら(当たっていたら)
@@ -493,12 +493,12 @@ void CElevation::UPVtxField(D3DXVECTOR3 pos)
 	}
 
 	// 値の正規化
-	ValueNormalize(m_fWidthLen, 99999999.0f, 10.0f);
-	ValueNormalize(m_fHeightLen, 99999999.0f, 10.0f);
+	UtilFunc::Transformation::ValueNormalize(m_fWidthLen, 99999999.0f, 10.0f);
+	UtilFunc::Transformation::ValueNormalize(m_fHeightLen, 99999999.0f, 10.0f);
 
 	// 値の正規化
-	ValueNormalize(m_fBrushStrength, 99999999.0f, 0.1f);
-	ValueNormalize(m_fBrushRange, 99999999.0f, 1.0f);
+	UtilFunc::Transformation::ValueNormalize(m_fBrushStrength, 99999999.0f, 0.1f);
+	UtilFunc::Transformation::ValueNormalize(m_fBrushRange, 99999999.0f, 1.0f);
 
 	// 頂点情報の設定
 	for (int nCntHeight = 0; nCntHeight < m_aInfo.nHeightBlock + 1; nCntHeight++)

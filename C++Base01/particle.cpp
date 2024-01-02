@@ -343,13 +343,13 @@ void Smoke(void)
 	
 	for (int nCntUse = 0; nCntUse < 3; nCntUse++)
 	{
-		m_fMove = (float)(Random(0, 10)) / 10 + 1.0f;		// 移動量
-		m_fAngle = (float)(Random(-50, 50)) / 100.0f;	// 角度
+		m_fMove = (float)(UtilFunc::Transformation::Random(0, 10)) / 10 + 1.0f;		// 移動量
+		m_fAngle = (float)(UtilFunc::Transformation::Random(-50, 50)) / 100.0f;	// 角度
 
 		// 移動量の設定
-		m_move.x = sinf((float)(Random(-314, 314)) / 100.0f) * m_fMove;
-		m_move.y = cosf((float)(Random(-314, 314)) / 100.0f) * m_fMove;
-		m_move.z = cosf((float)(Random(-314, 314)) / 100.0f) * m_fMove;
+		m_move.x = sinf((float)(UtilFunc::Transformation::Random(-314, 314)) / 100.0f) * m_fMove;
+		m_move.y = cosf((float)(UtilFunc::Transformation::Random(-314, 314)) / 100.0f) * m_fMove;
+		m_move.z = cosf((float)(UtilFunc::Transformation::Random(-314, 314)) / 100.0f) * m_fMove;
 
 		m_pos.x += m_move.x * 0.3f;
 		m_pos.y += m_move.y * 0.3f;
@@ -390,13 +390,13 @@ void SmokeRed(void)
 
 	for (int nCntUse = 0; nCntUse < 10; nCntUse++)
 	{
-		m_fMove = (float)(Random(0, 10)) / 10 + 2.0f;		// 移動量
-		m_fAngle = (float)(Random(-314, 314)) / 100.0f;	// 角度
+		m_fMove = (float)(UtilFunc::Transformation::Random(0, 10)) / 10 + 2.0f;		// 移動量
+		m_fAngle = (float)(UtilFunc::Transformation::Random(-314, 314)) / 100.0f;	// 角度
 
 		// 移動量の設定
-		m_move.x = sinf((float)(Random(-314, 314)) / 100.0f) * m_fMove;
-		m_move.y = cosf((float)(Random(-314, 314)) / 100.0f) * m_fMove;
-		m_move.z = cosf((float)(Random(-314, 314)) / 100.0f) * m_fMove;
+		m_move.x = sinf((float)(UtilFunc::Transformation::Random(-314, 314)) / 100.0f) * m_fMove;
+		m_move.y = cosf((float)(UtilFunc::Transformation::Random(-314, 314)) / 100.0f) * m_fMove;
+		m_move.z = cosf((float)(UtilFunc::Transformation::Random(-314, 314)) / 100.0f) * m_fMove;
 
 		m_pos.x += m_move.x * 0.3f;
 		m_pos.y += m_move.y * 0.3f;
@@ -437,13 +437,13 @@ void SmokeYel(void)
 
 	for (int nCntUse = 0; nCntUse < 10; nCntUse++)
 	{
-		m_fMove = (float)(Random(0, 10)) / 10 + 2.0f;		// 移動量
-		m_fAngle = (float)(Random(-314, 314)) / 100.0f;	// 角度
+		m_fMove = (float)(UtilFunc::Transformation::Random(0, 10)) / 10 + 2.0f;		// 移動量
+		m_fAngle = (float)(UtilFunc::Transformation::Random(-314, 314)) / 100.0f;	// 角度
 
 		// 移動量の設定
-		m_move.x = sinf((float)(Random(-314, 314)) / 100.0f) * m_fMove;
-		m_move.y = cosf((float)(Random(-314, 314)) / 100.0f) * m_fMove;
-		m_move.z = cosf((float)(Random(-314, 314)) / 100.0f) * m_fMove;
+		m_move.x = sinf((float)(UtilFunc::Transformation::Random(-314, 314)) / 100.0f) * m_fMove;
+		m_move.y = cosf((float)(UtilFunc::Transformation::Random(-314, 314)) / 100.0f) * m_fMove;
+		m_move.z = cosf((float)(UtilFunc::Transformation::Random(-314, 314)) / 100.0f) * m_fMove;
 
 		m_pos.x += m_move.x * 0.3f;
 		m_pos.y += m_move.y * 0.3f;
@@ -527,16 +527,16 @@ void ManyUI_Mini(void)
 
 		for (int nCntUse = 0; nCntUse < 1; nCntUse++)
 		{
-			float fMooooooooove = (float)(Random(-15, 15) / 10.0f);		// バラバラ移動量
+			float fMooooooooove = (float)(UtilFunc::Transformation::Random(-15, 15) / 10.0f);		// バラバラ移動量
 
-			float fRotRand = (float)(Random(-10, 10) / 100.0f);		// バラバラ向き
+			float fRotRand = (float)(UtilFunc::Transformation::Random(-10, 10) / 100.0f);		// バラバラ向き
 
 			// 移動量の設定
 			m_move.x = sinf(fRot + fRotRand) * (m_fMove + fMooooooooove);
 			m_move.z = 0.0f;
 			m_move.y = cosf(fRot + fRotRand) * (m_fMove + fMooooooooove);
 
-			//m_col = D3DXCOLOR(Random(0, 10) * 0.1f, Random(0, 10) * 0.1f, Random(0, 10) * 0.1f, 1.0f);
+			//m_col = D3DXCOLOR(UtilFunc::Transformation::Random(0, 10) * 0.1f, UtilFunc::Transformation::Random(0, 10) * 0.1f, UtilFunc::Transformation::Random(0, 10) * 0.1f, 1.0f);
 			m_col = D3DXCOLOR(0.9f, 0.5f, 0.1f, 1.0f);
 																							
 			m_fRadius = 40.0f;
@@ -571,7 +571,7 @@ void ManyUI_Mini(void)
 void ResultMessage(void)
 {
 	float fMove;
-	fMove = (float)Random(0, 30) / 10 + 5.0f;		//移動量
+	fMove = (float)UtilFunc::Transformation::Random(0, 30) / 10 + 5.0f;		//移動量
 
 	float fff = (D3DX_PI * 2.0f) / 40;
 
@@ -581,9 +581,9 @@ void ResultMessage(void)
 
 		for (int nCntUse = 0; nCntUse < 10; nCntUse++)
 		{
-			float fMooooooooove = (float)Random(-15, 15) / 10;		//バラバラ移動量
+			float fMooooooooove = (float)UtilFunc::Transformation::Random(-15, 15) / 10;		//バラバラ移動量
 
-			float fRotRand = (float)Random(-10, 10) / 100.0f;		//バラバラ向き
+			float fRotRand = (float)UtilFunc::Transformation::Random(-10, 10) / 100.0f;		//バラバラ向き
 
 			//移動量の設定
 			m_move.x = sinf(fRot + fRotRand) * (fMove + fMooooooooove);
@@ -623,8 +623,8 @@ void ResultMessage(void)
 		fMove = (float)(rand() % 50) * 0.1f;		//移動量
 
 		//移動量の設定
-		m_move.x = sinf((float)(Random(-314, 314)) / 100.0f) * fMove;
-		m_move.y = sinf((float)(Random(-314, 314)) / 100.0f) * fMove;
+		m_move.x = sinf((float)(UtilFunc::Transformation::Random(-314, 314)) / 100.0f) * fMove;
+		m_move.y = sinf((float)(UtilFunc::Transformation::Random(-314, 314)) / 100.0f) * fMove;
 		m_move.z = 0.0f;
 
 		//出現地点のブレ
@@ -666,20 +666,20 @@ void SuperAttack(void)
 {
 	for (int nCntUse = 0; nCntUse < 40; nCntUse++)
 	{
-		float fMove = (float)Random(0, 30) * 0.1f;	// 移動量
-		float fMoveY = (float)Random(0, 50) * 0.1f;	// 移動量
+		float fMove = (float)UtilFunc::Transformation::Random(0, 30) * 0.1f;	// 移動量
+		float fMoveY = (float)UtilFunc::Transformation::Random(0, 50) * 0.1f;	// 移動量
 
 		// 移動量の設定
-		m_move.x = sinf(GetRandomCircleValue()) * fMove;
-		m_move.y = cosf((float)Random(-20, 20) / 100.0f) * fMoveY;
-		m_move.z = cosf(GetRandomCircleValue()) * fMove;
+		m_move.x = sinf(UtilFunc::Transformation::GetRandomPi()) * fMove;
+		m_move.y = cosf((float)UtilFunc::Transformation::Random(-20, 20) / 100.0f) * fMoveY;
+		m_move.z = cosf(UtilFunc::Transformation::GetRandomPi()) * fMove;
 
 		m_col = D3DXCOLOR(1.0f, 0.6f, 0.3f, 1.0f);
 
 		m_pos.x += m_move.x * 0.1f;
 		m_pos.z += m_move.z * 0.1f;
 
-		m_fRadius = 60.0f + (float)Random(-50, 100) * 0.1f;
+		m_fRadius = 60.0f + (float)UtilFunc::Transformation::Random(-50, 100) * 0.1f;
 
 		// エフェクトの設定
 		CEffect3D::Create(
@@ -693,20 +693,20 @@ void SuperAttack(void)
 
 	for (int nCntUse = 0; nCntUse < 20; nCntUse++)
 	{
-		float fMove = (float)Random(0, 25) * 0.1f;	// 移動量
-		float fMoveY = (float)Random(0, 40) * 0.1f;	// 移動量
+		float fMove = (float)UtilFunc::Transformation::Random(0, 25) * 0.1f;	// 移動量
+		float fMoveY = (float)UtilFunc::Transformation::Random(0, 40) * 0.1f;	// 移動量
 
 		// 移動量の設定
-		m_move.x = sinf(GetRandomCircleValue()) * fMove;
-		m_move.y = cosf((float)Random(-20, 20) / 100.0f) * fMoveY;
-		m_move.z = cosf(GetRandomCircleValue()) * fMove;
+		m_move.x = sinf(UtilFunc::Transformation::GetRandomPi()) * fMove;
+		m_move.y = cosf((float)UtilFunc::Transformation::Random(-20, 20) / 100.0f) * fMoveY;
+		m_move.z = cosf(UtilFunc::Transformation::GetRandomPi()) * fMove;
 
 		m_col = D3DXCOLOR(0.4f, 0.1f, 0.0f, 0.6f);
 
 		m_pos.x += m_move.x * 0.5f;
 		m_pos.z += m_move.z * 0.5f;
 
-		m_fRadius = 40.0f + (float)Random(-50, 100) * 0.1f;
+		m_fRadius = 40.0f + (float)UtilFunc::Transformation::Random(-50, 100) * 0.1f;
 
 		// エフェクトの設定
 		CEffect3D::Create(
@@ -729,9 +729,9 @@ void IceSpawn(void)
 		float fMove = 0.0f;		// 移動量
 
 		// 移動量の設定
-		m_move.x = sinf(GetRandomCircleValue()) * fMove;
-		m_move.y = cosf(GetRandomCircleValue()) * fMove;
-		m_move.z = cosf(GetRandomCircleValue()) * fMove;
+		m_move.x = sinf(UtilFunc::Transformation::GetRandomPi()) * fMove;
+		m_move.y = cosf(UtilFunc::Transformation::GetRandomPi()) * fMove;
+		m_move.z = cosf(UtilFunc::Transformation::GetRandomPi()) * fMove;
 
 		// 色設定
 		m_col = D3DXCOLOR(0.2f, 0.2f, 1.0f, 1.0f);
@@ -794,12 +794,12 @@ void MagicExplosion(void)
 	{
 		float fRot = fff * nCntUse;
 
-		float fMove = (float)Random(0, 100) * 0.1f;		// 移動量
-		float fMoveY = (float)Random(0, 100) * 0.01f;		// 移動量
+		float fMove = (float)UtilFunc::Transformation::Random(0, 100) * 0.1f;		// 移動量
+		float fMoveY = (float)UtilFunc::Transformation::Random(0, 100) * 0.01f;		// 移動量
 
 		// 移動量の設定
 		m_move.x = sinf(fRot) * fMove;
-		m_move.y = cosf(GetRandomCircleValue()) * fMoveY;
+		m_move.y = cosf(UtilFunc::Transformation::GetRandomPi()) * fMoveY;
 		m_move.z = cosf(fRot) * fMove;
 
 		// 色設定
@@ -826,17 +826,17 @@ void ExplosionRemain(void)
 {
 	for (int nCntUse = 0; nCntUse < 2; nCntUse++)
 	{
-		float fMove = (float)Random(0, 150) * 0.01f;			// 移動量
-		float fMoveY = (float)Random(0, 120) * 0.01f + 2.0f;	// 移動量
+		float fMove = (float)UtilFunc::Transformation::Random(0, 150) * 0.01f;			// 移動量
+		float fMoveY = (float)UtilFunc::Transformation::Random(0, 120) * 0.01f + 2.0f;	// 移動量
 
 		// 移動量の設定
-		m_move.x = sinf(GetRandomCircleValue()) * fMove;
-		m_move.y = sinf((float)Random(0, 314) * 0.01f) * fMoveY;
-		m_move.z = cosf(GetRandomCircleValue()) * fMove;
+		m_move.x = sinf(UtilFunc::Transformation::GetRandomPi()) * fMove;
+		m_move.y = sinf((float)UtilFunc::Transformation::Random(0, 314) * 0.01f) * fMoveY;
+		m_move.z = cosf(UtilFunc::Transformation::GetRandomPi()) * fMove;
 
 		D3DXVECTOR3 pos = m_pos;
-		pos.x += Random(-150, 150);
-		pos.z += Random(-150, 150);
+		pos.x += UtilFunc::Transformation::Random(-150, 150);
+		pos.z += UtilFunc::Transformation::Random(-150, 150);
 
 		// 色設定
 		m_col = D3DXCOLOR(1.0f, 0.4f, 0.1f, 1.0f);
@@ -863,13 +863,13 @@ void ExplosionRemainFire(void)
 	// 火
 	for (int nCntUse = 0; nCntUse < 2; nCntUse++)
 	{
-		float fMove = (float)Random(0, 50) * 0.05f;		// 移動量
-		float fMoveY = (float)Random(0, 200) * 0.01f;		// 移動量
+		float fMove = (float)UtilFunc::Transformation::Random(0, 50) * 0.05f;		// 移動量
+		float fMoveY = (float)UtilFunc::Transformation::Random(0, 200) * 0.01f;		// 移動量
 
 		// 移動量の設定
-		m_move.x = sinf(GetRandomCircleValue()) * fMove;
-		m_move.y = cosf((float)Random(0, 314) / 100.0f) * fMoveY;
-		m_move.z = cosf(GetRandomCircleValue()) * fMove;
+		m_move.x = sinf(UtilFunc::Transformation::GetRandomPi()) * fMove;
+		m_move.y = cosf((float)UtilFunc::Transformation::Random(0, 314) / 100.0f) * fMoveY;
+		m_move.z = cosf(UtilFunc::Transformation::GetRandomPi()) * fMove;
 
 		// 色設定
 		m_col = D3DXCOLOR(1.0f, 0.1f, 0.1f, 1.0f);
@@ -895,20 +895,20 @@ void ExplosionStart(void)
 {
 	for (int nCntUse = 0; nCntUse < 36; nCntUse++)
 	{
-		float fMove = (float)Random(0, 150) * 0.01f;			// 移動量
-		float fMoveY = (float)Random(70, 180) * 0.1f + 5.0f;	// 移動量
+		float fMove = (float)UtilFunc::Transformation::Random(0, 150) * 0.01f;			// 移動量
+		float fMoveY = (float)UtilFunc::Transformation::Random(70, 180) * 0.1f + 5.0f;	// 移動量
 
 		// 移動量の設定
-		m_move.x = sinf(GetRandomCircleValue()) * fMove;
-		m_move.y = sinf((float)Random(0, 314) * 0.01f) * fMoveY;
-		m_move.z = cosf(GetRandomCircleValue()) * fMove;
+		m_move.x = sinf(UtilFunc::Transformation::GetRandomPi()) * fMove;
+		m_move.y = sinf((float)UtilFunc::Transformation::Random(0, 314) * 0.01f) * fMoveY;
+		m_move.z = cosf(UtilFunc::Transformation::GetRandomPi()) * fMove;
 
 		D3DXVECTOR3 pos = m_pos;
-		pos.x += Random(-50, 50);
-		pos.z += Random(-50, 50);
+		pos.x += UtilFunc::Transformation::Random(-50, 50);
+		pos.z += UtilFunc::Transformation::Random(-50, 50);
 
 		// 色設定
-		m_col = D3DXCOLOR(1.0f, Random(0, 40) * 0.01f, 0.1f, 1.0f);
+		m_col = D3DXCOLOR(1.0f, UtilFunc::Transformation::Random(0, 40) * 0.01f, 0.1f, 1.0f);
 
 		// 半径設定
 		m_fRadius = 200.0f;
@@ -932,13 +932,13 @@ void WaveSmoke(void)
 #if MODE_SCREENSHOT
 	for (int nCntUse = 0; nCntUse < 1; nCntUse++)
 	{
-		float fMove = (float)Random(0, 50) * 0.15f;		// 移動量
-		float fMoveY = (float)Random(10, 50) * 0.2f;		// 移動量
+		float fMove = (float)UtilFunc::Transformation::Random(0, 50) * 0.15f;		// 移動量
+		float fMoveY = (float)UtilFunc::Transformation::Random(10, 50) * 0.2f;		// 移動量
 
 		// 移動量の設定
-		m_move.x = sinf(GetRandomCircleValue()) * fMove;
-		m_move.y = sinf((float)Random(0, 314) / 100.0f) * fMoveY;
-		m_move.z = cosf(GetRandomCircleValue()) * fMove;
+		m_move.x = sinf(UtilFunc::Transformation::GetRandomPi()) * fMove;
+		m_move.y = sinf((float)UtilFunc::Transformation::Random(0, 314) / 100.0f) * fMoveY;
+		m_move.z = cosf(UtilFunc::Transformation::GetRandomPi()) * fMove;
 
 		// 色設定
 		m_col = D3DXCOLOR(0.6f, 0.6f, 0.3f, 0.6f);
@@ -958,13 +958,13 @@ void WaveSmoke(void)
 
 	for (int nCntUse = 0; nCntUse < 1; nCntUse++)
 	{
-		float fMove = (float)Random(0, 50) * 0.15f;		// 移動量
-		float fMoveY = (float)Random(10, 50) * 0.1f;		// 移動量
+		float fMove = (float)UtilFunc::Transformation::Random(0, 50) * 0.15f;		// 移動量
+		float fMoveY = (float)UtilFunc::Transformation::Random(10, 50) * 0.1f;		// 移動量
 
 		// 移動量の設定
-		m_move.x = sinf(GetRandomCircleValue()) * fMove;
-		m_move.y = sinf((float)Random(0, 314) / 100.0f) * fMoveY;
-		m_move.z = cosf(GetRandomCircleValue()) * fMove;
+		m_move.x = sinf(UtilFunc::Transformation::GetRandomPi()) * fMove;
+		m_move.y = sinf((float)UtilFunc::Transformation::Random(0, 314) / 100.0f) * fMoveY;
+		m_move.z = cosf(UtilFunc::Transformation::GetRandomPi()) * fMove;
 
 		// 色設定
 		m_col = D3DXCOLOR(0.6f, 0.4f, 0.0f, 0.7f);
@@ -984,13 +984,13 @@ void WaveSmoke(void)
 #else
 	for (int nCntUse = 0; nCntUse < 1; nCntUse++)
 	{
-		float fMove = (float)Random(0, 50) * 0.5f;		// 移動量
-		float fMoveY = (float)Random(10, 50) * 0.5f;		// 移動量
+		float fMove = (float)UtilFunc::Transformation::Random(0, 50) * 0.5f;		// 移動量
+		float fMoveY = (float)UtilFunc::Transformation::Random(10, 50) * 0.5f;		// 移動量
 
 															// 移動量の設定
-		m_move.x = sinf(GetRandomCircleValue()) * fMove;
-		m_move.y = sinf((float)Random(0, 314) / 100.0f) * fMoveY;
-		m_move.z = cosf(GetRandomCircleValue()) * fMove;
+		m_move.x = sinf(UtilFunc::Transformation::GetRandomPi()) * fMove;
+		m_move.y = sinf((float)UtilFunc::Transformation::Random(0, 314) / 100.0f) * fMoveY;
+		m_move.z = cosf(UtilFunc::Transformation::GetRandomPi()) * fMove;
 
 		// 色設定
 		m_col = D3DXCOLOR(0.6f, 0.6f, 0.3f, 0.6f);
@@ -1010,13 +1010,13 @@ void WaveSmoke(void)
 
 	for (int nCntUse = 0; nCntUse < 1; nCntUse++)
 	{
-		float fMove = (float)Random(0, 50) * 0.5f;		// 移動量
-		float fMoveY = (float)Random(10, 50) * 0.5f;		// 移動量
+		float fMove = (float)UtilFunc::Transformation::Random(0, 50) * 0.5f;		// 移動量
+		float fMoveY = (float)UtilFunc::Transformation::Random(10, 50) * 0.5f;		// 移動量
 
 															// 移動量の設定
-		m_move.x = sinf(GetRandomCircleValue()) * fMove;
-		m_move.y = sinf((float)Random(0, 314) / 100.0f) * fMoveY;
-		m_move.z = cosf(GetRandomCircleValue()) * fMove;
+		m_move.x = sinf(UtilFunc::Transformation::GetRandomPi()) * fMove;
+		m_move.y = sinf((float)UtilFunc::Transformation::Random(0, 314) / 100.0f) * fMoveY;
+		m_move.z = cosf(UtilFunc::Transformation::GetRandomPi()) * fMove;
 
 		// 色設定
 		m_col = D3DXCOLOR(0.4f, 0.4f, 0.0f, 0.7f);
@@ -1043,13 +1043,13 @@ void ImpactWaveSmoke(void)
 {
 	for (int nCntUse = 0; nCntUse < 1; nCntUse++)
 	{
-		float fMove = (float)Random(0, 50) * 0.35f;		// 移動量
-		float fMoveY = (float)Random(10, 50) * 0.1f;		// 移動量
+		float fMove = (float)UtilFunc::Transformation::Random(0, 50) * 0.35f;		// 移動量
+		float fMoveY = (float)UtilFunc::Transformation::Random(10, 50) * 0.1f;		// 移動量
 
 		// 移動量の設定
-		m_move.x = sinf(GetRandomCircleValue()) * fMove;
-		m_move.y = sinf((float)Random(0, 314) / 100.0f) * fMoveY;
-		m_move.z = cosf(GetRandomCircleValue()) * fMove;
+		m_move.x = sinf(UtilFunc::Transformation::GetRandomPi()) * fMove;
+		m_move.y = sinf((float)UtilFunc::Transformation::Random(0, 314) / 100.0f) * fMoveY;
+		m_move.z = cosf(UtilFunc::Transformation::GetRandomPi()) * fMove;
 
 		// 色設定
 		m_col = D3DXCOLOR(0.6f, 0.6f, 0.3f, 0.6f);
@@ -1069,13 +1069,13 @@ void ImpactWaveSmoke(void)
 
 	for (int nCntUse = 0; nCntUse < 1; nCntUse++)
 	{
-		float fMove = (float)Random(0, 50) * 0.35f;		// 移動量
-		float fMoveY = (float)Random(10, 50) * 0.1f;		// 移動量
+		float fMove = (float)UtilFunc::Transformation::Random(0, 50) * 0.35f;		// 移動量
+		float fMoveY = (float)UtilFunc::Transformation::Random(10, 50) * 0.1f;		// 移動量
 
 		// 移動量の設定
-		m_move.x = sinf(GetRandomCircleValue()) * fMove;
-		m_move.y = sinf((float)Random(0, 314) / 100.0f) * fMoveY;
-		m_move.z = cosf(GetRandomCircleValue()) * fMove;
+		m_move.x = sinf(UtilFunc::Transformation::GetRandomPi()) * fMove;
+		m_move.y = sinf((float)UtilFunc::Transformation::Random(0, 314) / 100.0f) * fMoveY;
+		m_move.z = cosf(UtilFunc::Transformation::GetRandomPi()) * fMove;
 
 		// 色設定
 		m_col = D3DXCOLOR(0.6f, 0.4f, 0.0f, 0.7f);
@@ -1101,13 +1101,13 @@ void EnemySpawn(void)
 {
 	for (int nCntUse = 0; nCntUse < 12; nCntUse++)
 	{
-		float fMoveXZ = (float)Random(0, 200) * 0.01f;		// 移動量
-		float fMove = (float)Random(0, 120) * 0.1f + 5.0f;	// 移動量
+		float fMoveXZ = (float)UtilFunc::Transformation::Random(0, 200) * 0.01f;		// 移動量
+		float fMove = (float)UtilFunc::Transformation::Random(0, 120) * 0.1f + 5.0f;	// 移動量
 
 		// 移動量の設定
-		m_move.x = sinf(GetRandomCircleValue()) * fMoveXZ;
-		m_move.y = sinf((float)Random(0, 314) * 0.01f) * fMove;
-		m_move.z = cosf(GetRandomCircleValue()) * fMoveXZ;
+		m_move.x = sinf(UtilFunc::Transformation::GetRandomPi()) * fMoveXZ;
+		m_move.y = sinf((float)UtilFunc::Transformation::Random(0, 314) * 0.01f) * fMove;
+		m_move.z = cosf(UtilFunc::Transformation::GetRandomPi()) * fMoveXZ;
 
 		// 出現地点のブレ
 		m_pos.y += m_move.y * 0.1f;
@@ -1133,38 +1133,38 @@ void EnemyFade(void)
 {
 	for (int nCntUse = 0; nCntUse < 15; nCntUse++)
 	{
-		float fMoveXZ = (float)Random(0, 100) * 0.01f;		// 移動量
-		float fMove = (float)Random(0, 60) * 0.1f + 1.0f;	// 移動量
+		float fMoveXZ = (float)UtilFunc::Transformation::Random(0, 100) * 0.01f;		// 移動量
+		float fMove = (float)UtilFunc::Transformation::Random(0, 60) * 0.1f + 1.0f;	// 移動量
 
 		// 移動量の設定
-		m_move.x = sinf(GetRandomCircleValue()) * fMoveXZ;
-		m_move.y = sinf((float)Random(0, 314) / 100.0f) * fMove;
-		m_move.z = cosf(GetRandomCircleValue()) * fMoveXZ;
+		m_move.x = sinf(UtilFunc::Transformation::GetRandomPi()) * fMoveXZ;
+		m_move.y = sinf((float)UtilFunc::Transformation::Random(0, 314) / 100.0f) * fMove;
+		m_move.z = cosf(UtilFunc::Transformation::GetRandomPi()) * fMoveXZ;
 
 		// 出現地点のブレ
-		m_pos.y += Random(-100, 100) * 0.1f;
-		m_pos.x += Random(-100, 100) * 0.1f;
-		m_pos.z += Random(-100, 100) * 0.1f;
+		m_pos.y += UtilFunc::Transformation::Random(-100, 100) * 0.1f;
+		m_pos.x += UtilFunc::Transformation::Random(-100, 100) * 0.1f;
+		m_pos.z += UtilFunc::Transformation::Random(-100, 100) * 0.1f;
 
-		m_fRadius = 20.0f + Random(-50, 50) * 0.1f;
+		m_fRadius = 20.0f + UtilFunc::Transformation::Random(-50, 50) * 0.1f;
 
 		// 色決め
 		int nRand = 0;
-		//int nRand = Random(0, 1);
+		//int nRand = UtilFunc::Transformation::Random(0, 1);
 		switch (nRand)
 		{
 		case 0:
 			m_col = D3DXCOLOR(
-				0.2f + Random(-100, 100) * 0.001f,
-				0.8f + Random(-200, 200) * 0.001f,
-				0.2f + Random(-100, 100) * 0.001f + Random(0, 20) * 0.01f, 1.0f);
+				0.2f + UtilFunc::Transformation::Random(-100, 100) * 0.001f,
+				0.8f + UtilFunc::Transformation::Random(-200, 200) * 0.001f,
+				0.2f + UtilFunc::Transformation::Random(-100, 100) * 0.001f + UtilFunc::Transformation::Random(0, 20) * 0.01f, 1.0f);
 			break;
 
 		case 1:
 			m_col = D3DXCOLOR(
-				0.8f + Random(-50, 50) * 0.001f,
-				0.2f + Random(-50, 50) * 0.001f,
-				0.8f + Random(-50, 50) * 0.001f, 1.0f);
+				0.8f + UtilFunc::Transformation::Random(-50, 50) * 0.001f,
+				0.2f + UtilFunc::Transformation::Random(-50, 50) * 0.001f,
+				0.8f + UtilFunc::Transformation::Random(-50, 50) * 0.001f, 1.0f);
 			break;
 
 		default:
@@ -1189,13 +1189,13 @@ void NaaturalWaveSpawn(void)
 {
 	for (int nCntUse = 0; nCntUse < 4; nCntUse++)
 	{
-		float fMoveXZ = (float)Random(0, 200) * 0.01f;		// 移動量
-		float fMove = (float)Random(0, 60) * 0.1f + 1.0f;	// 移動量
+		float fMoveXZ = (float)UtilFunc::Transformation::Random(0, 200) * 0.01f;		// 移動量
+		float fMove = (float)UtilFunc::Transformation::Random(0, 60) * 0.1f + 1.0f;	// 移動量
 
 		// 移動量の設定
-		m_move.x = sinf(GetRandomCircleValue()) * fMoveXZ;
-		m_move.y = sinf((float)Random(0, 314) / 100.0f) * fMove;
-		m_move.z = cosf(GetRandomCircleValue()) * fMoveXZ;
+		m_move.x = sinf(UtilFunc::Transformation::GetRandomPi()) * fMoveXZ;
+		m_move.y = sinf((float)UtilFunc::Transformation::Random(0, 314) / 100.0f) * fMove;
+		m_move.z = cosf(UtilFunc::Transformation::GetRandomPi()) * fMoveXZ;
 
 		// 出現地点のブレ
 		m_pos.y += m_move.y * 0.1f;
@@ -1221,22 +1221,22 @@ void WaterIn(void)
 {
 	for (int nCntUse = 0; nCntUse < 10; nCntUse++)
 	{
-		float fMoveXZ = (float)Random(0, 100) * 0.01f;		// 移動量
-		float fMove = (float)Random(10, 30) * 0.1f;	// 移動量
+		float fMoveXZ = (float)UtilFunc::Transformation::Random(0, 100) * 0.01f;		// 移動量
+		float fMove = (float)UtilFunc::Transformation::Random(10, 30) * 0.1f;	// 移動量
 
 		// 移動量の設定
-		m_move.x = sinf(GetRandomCircleValue()) * fMoveXZ;
-		m_move.y = sinf((float)Random(0, 314) / 100.0f) * fMove;
-		m_move.z = cosf(GetRandomCircleValue()) * fMoveXZ;
+		m_move.x = sinf(UtilFunc::Transformation::GetRandomPi()) * fMoveXZ;
+		m_move.y = sinf((float)UtilFunc::Transformation::Random(0, 314) / 100.0f) * fMove;
+		m_move.z = cosf(UtilFunc::Transformation::GetRandomPi()) * fMoveXZ;
 
 		// 出現地点のブレ
 		m_pos.y += m_move.y * 0.1f;
 
 		m_fRadius = 5.0f;
 		m_col = D3DXCOLOR(
-			0.2f + Random(-100, 100) * 0.001f,
-			0.2f + Random(-100, 100) * 0.001f,
-			0.8f + Random(-200, 200) * 0.001f, 0.3f);
+			0.2f + UtilFunc::Transformation::Random(-100, 100) * 0.001f,
+			0.2f + UtilFunc::Transformation::Random(-100, 100) * 0.001f,
+			0.8f + UtilFunc::Transformation::Random(-200, 200) * 0.001f, 0.3f);
 
 		// エフェクトの設定
 		CEffect3D::Create(
@@ -1256,22 +1256,22 @@ void Move(void)
 {
 	for (int nCntUse = 0; nCntUse < 4; nCntUse++)
 	{
-		float fMoveXZ = (float)Random(0, 20) * 0.1f;		// 移動量
-		float fMove = (float)Random(0, 20) * 0.1f;	// 移動量
+		float fMoveXZ = (float)UtilFunc::Transformation::Random(0, 20) * 0.1f;		// 移動量
+		float fMove = (float)UtilFunc::Transformation::Random(0, 20) * 0.1f;	// 移動量
 
 		// 移動量の設定
-		m_move.x = sinf(GetRandomCircleValue()) * fMoveXZ;
-		m_move.y = sinf((float)Random(0, 314) / 100.0f) * fMove;
-		m_move.z = cosf(GetRandomCircleValue()) * fMoveXZ;
+		m_move.x = sinf(UtilFunc::Transformation::GetRandomPi()) * fMoveXZ;
+		m_move.y = sinf((float)UtilFunc::Transformation::Random(0, 314) / 100.0f) * fMove;
+		m_move.z = cosf(UtilFunc::Transformation::GetRandomPi()) * fMoveXZ;
 
 		// 出現地点のブレ
 		m_pos.y += m_move.y * 0.1f;
 
 		m_fRadius = 20.0f;
 		m_col = D3DXCOLOR(
-			0.6f + Random(-50, 50) * 0.001f,
-			0.6f + Random(-50, 50) * 0.001f,
-			0.3f + Random(-50, 50) * 0.001f, 0.5f);
+			0.6f + UtilFunc::Transformation::Random(-50, 50) * 0.001f,
+			0.6f + UtilFunc::Transformation::Random(-50, 50) * 0.001f,
+			0.3f + UtilFunc::Transformation::Random(-50, 50) * 0.001f, 0.5f);
 
 		// エフェクトの設定
 		CEffect3D::Create(
@@ -1297,21 +1297,21 @@ void EnemyKillCombo(void)
 	{
 		float fRot = fff * nCntUse;
 
-		float fMove = (float)Random(150, 250) * 0.1f;		// 移動量
-		float fMoveY = (float)Random(150, 250) * 0.01f;		// 移動量
+		float fMove = (float)UtilFunc::Transformation::Random(150, 250) * 0.1f;		// 移動量
+		float fMoveY = (float)UtilFunc::Transformation::Random(150, 250) * 0.01f;		// 移動量
 
 		// 移動量の設定
 		m_move.x = sinf(fRot) * fMove;
-		m_move.y = cosf(GetRandomCircleValue()) * fMoveY;
+		m_move.y = cosf(UtilFunc::Transformation::GetRandomPi()) * fMoveY;
 		m_move.z = cosf(fRot) * fMove;
 
 		// 色設定
 		//m_col = D3DXCOLOR(0.6f, 0.3f, 0.6f, 0.8f);
 
 		m_col = D3DXCOLOR(
-			0.6f + Random(-100, 100) * 0.001f,
-			0.3f + Random(-100, 100) * 0.001f,
-			0.6f + Random(-100, 100) * 0.001f, 0.8f);
+			0.6f + UtilFunc::Transformation::Random(-100, 100) * 0.001f,
+			0.3f + UtilFunc::Transformation::Random(-100, 100) * 0.001f,
+			0.6f + UtilFunc::Transformation::Random(-100, 100) * 0.001f, 0.8f);
 
 		// 半径設定
 		m_fRadius = 20.0f;
@@ -1331,18 +1331,18 @@ void EnemyKillCombo(void)
 	{
 		float fRot = fff * nCntUse;
 
-		float fMove = (float)Random(150, 250) * 0.1f;		// 移動量
-		float fMoveY = (float)Random(150, 250) * 0.01f;		// 移動量
+		float fMove = (float)UtilFunc::Transformation::Random(150, 250) * 0.1f;		// 移動量
+		float fMoveY = (float)UtilFunc::Transformation::Random(150, 250) * 0.01f;		// 移動量
 
 		// 移動量の設定
 		m_move.x = sinf(fRot) * fMove;
-		m_move.y = cosf(GetRandomCircleValue()) * fMoveY;
+		m_move.y = cosf(UtilFunc::Transformation::GetRandomPi()) * fMoveY;
 		m_move.z = cosf(fRot) * fMove;
 
 		m_col = D3DXCOLOR(
-			0.2f + Random(-100, 100) * 0.001f,
-			0.8f + Random(-200, 200) * 0.001f,
-			0.2f + Random(-100, 100) * 0.001f + Random(0, 20) * 0.01f, 1.0f);
+			0.2f + UtilFunc::Transformation::Random(-100, 100) * 0.001f,
+			0.8f + UtilFunc::Transformation::Random(-200, 200) * 0.001f,
+			0.2f + UtilFunc::Transformation::Random(-100, 100) * 0.001f + UtilFunc::Transformation::Random(0, 20) * 0.01f, 1.0f);
 
 		// 半径設定
 		m_fRadius = 20.0f;
@@ -1374,9 +1374,9 @@ void AddScore(void)
 		for (int nCntUse = 0; nCntUse < 1; nCntUse++)
 		{
 			// バラバラ向き
-			float fRotRand = (float)Random(-10, 10) / 100.0f;
+			float fRotRand = (float)UtilFunc::Transformation::Random(-10, 10) / 100.0f;
 
-			float fMove = Random(100, 200) * 0.1f;
+			float fMove = UtilFunc::Transformation::Random(100, 200) * 0.1f;
 			fMove *= 1.5f;
 
 			//移動量の設定
@@ -1421,18 +1421,18 @@ void BrastAttack(void)
 {
 	for (int nCntUse = 0; nCntUse < 10; nCntUse++)
 	{
-		float fMove = (float)Random(150, 250) * 0.1f;		// 移動量
-		float fMoveY = (float)Random(150, 250) * 0.01f;		// 移動量
+		float fMove = (float)UtilFunc::Transformation::Random(150, 250) * 0.1f;		// 移動量
+		float fMoveY = (float)UtilFunc::Transformation::Random(150, 250) * 0.01f;		// 移動量
 
 		// 移動量の設定
-		m_move.x = sinf(GetRandomCircleValue()) * fMove;
-		m_move.y = cosf(GetRandomCircleValue()) * fMoveY;
-		m_move.z = cosf(GetRandomCircleValue()) * fMove;
+		m_move.x = sinf(UtilFunc::Transformation::GetRandomPi()) * fMove;
+		m_move.y = cosf(UtilFunc::Transformation::GetRandomPi()) * fMoveY;
+		m_move.z = cosf(UtilFunc::Transformation::GetRandomPi()) * fMove;
 
 		m_col = D3DXCOLOR(
-			0.2f + Random(-100, 100) * 0.001f,
-			0.2f + Random(-200, 200) * 0.001f,
-			0.9f + Random(-200, 200) * 0.001f,
+			0.2f + UtilFunc::Transformation::Random(-100, 100) * 0.001f,
+			0.2f + UtilFunc::Transformation::Random(-200, 200) * 0.001f,
+			0.9f + UtilFunc::Transformation::Random(-200, 200) * 0.001f,
 			1.0f);
 
 		// 半径設定
@@ -1457,18 +1457,18 @@ void AppearanceUnion(void)
 {
 	for (int nCntUse = 0; nCntUse < 10; nCntUse++)
 	{
-		float fMove = (float)Random(150, 250) * 0.01f;		// 移動量
-		float fMoveY = (float)Random(150, 250) * 0.1f;		// 移動量
+		float fMove = (float)UtilFunc::Transformation::Random(150, 250) * 0.01f;		// 移動量
+		float fMoveY = (float)UtilFunc::Transformation::Random(150, 250) * 0.1f;		// 移動量
 
 		// 移動量の設定
-		m_move.x = sinf(GetRandomCircleValue()) * fMove;
-		m_move.y = cosf(GetRandomCircleValue()) * fMoveY;
-		m_move.z = cosf(GetRandomCircleValue()) * fMove;
+		m_move.x = sinf(UtilFunc::Transformation::GetRandomPi()) * fMove;
+		m_move.y = cosf(UtilFunc::Transformation::GetRandomPi()) * fMoveY;
+		m_move.z = cosf(UtilFunc::Transformation::GetRandomPi()) * fMove;
 
 		m_col = D3DXCOLOR(
-			0.9f + Random(-100, 100) * 0.001f,
-			0.6f + Random(-100, 100) * 0.001f,
-			0.2f + Random(-100, 100) * 0.001f,
+			0.9f + UtilFunc::Transformation::Random(-100, 100) * 0.001f,
+			0.6f + UtilFunc::Transformation::Random(-100, 100) * 0.001f,
+			0.2f + UtilFunc::Transformation::Random(-100, 100) * 0.001f,
 			1.0f);
 
 		// 半径設定
@@ -1494,18 +1494,18 @@ void AppearanceArmToArm(void)
 {
 	for (int nCntUse = 0; nCntUse < 10; nCntUse++)
 	{
-		float fMove = (float)Random(150, 250) * 0.1f;		// 移動量
-		float fMoveY = (float)Random(150, 250) * 0.1f;		// 移動量
+		float fMove = (float)UtilFunc::Transformation::Random(150, 250) * 0.1f;		// 移動量
+		float fMoveY = (float)UtilFunc::Transformation::Random(150, 250) * 0.1f;		// 移動量
 
 		// 移動量の設定
-		m_move.x = sinf(GetRandomCircleValue()) * fMove;
-		m_move.y = cosf(GetRandomCircleValue()) * fMoveY;
-		m_move.z = cosf(GetRandomCircleValue()) * fMove;
+		m_move.x = sinf(UtilFunc::Transformation::GetRandomPi()) * fMove;
+		m_move.y = cosf(UtilFunc::Transformation::GetRandomPi()) * fMoveY;
+		m_move.z = cosf(UtilFunc::Transformation::GetRandomPi()) * fMove;
 
 		m_col = D3DXCOLOR(
-			0.9f + Random(-100, 100) * 0.001f,
-			0.0f + Random(0, 150) * 0.001f,
-			0.0f + Random(0, 150) * 0.001f,
+			0.9f + UtilFunc::Transformation::Random(-100, 100) * 0.001f,
+			0.0f + UtilFunc::Transformation::Random(0, 150) * 0.001f,
+			0.0f + UtilFunc::Transformation::Random(0, 150) * 0.001f,
 			1.0f);
 
 		// 半径設定
@@ -1525,18 +1525,18 @@ void AppearanceArmToArm(void)
 
 	for (int nCntUse = 0; nCntUse < 10; nCntUse++)
 	{
-		float fMove = (float)Random(150, 250) * 0.1f;		// 移動量
-		float fMoveY = (float)Random(150, 250) * 0.01f;		// 移動量
+		float fMove = (float)UtilFunc::Transformation::Random(150, 250) * 0.1f;		// 移動量
+		float fMoveY = (float)UtilFunc::Transformation::Random(150, 250) * 0.01f;		// 移動量
 
 		// 移動量の設定
-		m_move.x = sinf(GetRandomCircleValue()) * fMove;
-		m_move.y = cosf(GetRandomCircleValue()) * fMoveY;
-		m_move.z = cosf(GetRandomCircleValue()) * fMove;
+		m_move.x = sinf(UtilFunc::Transformation::GetRandomPi()) * fMove;
+		m_move.y = cosf(UtilFunc::Transformation::GetRandomPi()) * fMoveY;
+		m_move.z = cosf(UtilFunc::Transformation::GetRandomPi()) * fMove;
 
 		m_col = D3DXCOLOR(
-			0.8f + Random(0, 200) * 0.001f,
-			0.5f + Random(-100, 100) * 0.001f,
-			0.0f + Random(0, 100) * 0.001f,
+			0.8f + UtilFunc::Transformation::Random(0, 200) * 0.001f,
+			0.5f + UtilFunc::Transformation::Random(-100, 100) * 0.001f,
+			0.0f + UtilFunc::Transformation::Random(0, 100) * 0.001f,
 			1.0f);
 
 		// 半径設定
@@ -1564,17 +1564,17 @@ void AttackBody(void)
 
 	for (int nCntUse = 0; nCntUse < 2; nCntUse++)
 	{	
-		float fBuff = (float)Random(80, 100) * 0.01f;
+		float fBuff = (float)UtilFunc::Transformation::Random(80, 100) * 0.01f;
 		float fDistance = 150.0f * fBuff;
 		m_nLife = (int)(20.0f * fBuff);
 
 		// 出現位置
-		pos = GetRandomSpherePosition(m_pos, fDistance);
+		pos = UtilFunc::Transformation::GetRandomPositionSphere(m_pos, fDistance);
 
 		m_col = D3DXCOLOR(
-			mylib_const::PLAYERBEAM_COLOR.r + Random(-100, 100) * 0.001f,
-			mylib_const::PLAYERBEAM_COLOR.g + Random(-100, 100) * 0.001f,
-			mylib_const::PLAYERBEAM_COLOR.b + Random(-100, 100) * 0.001f,
+			mylib_const::PLAYERBEAM_COLOR.r + UtilFunc::Transformation::Random(-100, 100) * 0.001f,
+			mylib_const::PLAYERBEAM_COLOR.g + UtilFunc::Transformation::Random(-100, 100) * 0.001f,
+			mylib_const::PLAYERBEAM_COLOR.b + UtilFunc::Transformation::Random(-100, 100) * 0.001f,
 			1.0f);
 
 		// 半径設定
@@ -1603,24 +1603,24 @@ void BeamHitField(void)
 {
 	for (int nCntUse = 0; nCntUse < 4; nCntUse++)
 	{
-		float fBuff = (float)Random(80, 100) * 0.01f;
+		float fBuff = (float)UtilFunc::Transformation::Random(80, 100) * 0.01f;
 		m_nLife = (int)(30.0f * fBuff);
 
 		float fMove = 5.0f * fBuff;		// 移動量
 		float fMoveY = 7.0f * fBuff;	// 移動量
 
 		// 球範囲ランダムベクトル取得
-		D3DXVECTOR3 vecSphere = GetRandomSphereVec();
+		D3DXVECTOR3 vecSphere = UtilFunc::Transformation::GetRandomVecSphere();
 
 		// 移動量の設定
 		m_move.x = vecSphere.x * fMove;
-		m_move.y = sinf(D3DX_PI * 0.5f + (float)Random(-20, 20) * 0.01f) * fMoveY;
+		m_move.y = sinf(D3DX_PI * 0.5f + (float)UtilFunc::Transformation::Random(-20, 20) * 0.01f) * fMoveY;
 		m_move.z = vecSphere.z * fMove;
 
 		m_col = D3DXCOLOR(
-			mylib_const::PLAYERBEAM_COLOR.r + Random(-100, 100) * 0.001f,
-			mylib_const::PLAYERBEAM_COLOR.g + Random(-100, 100) * 0.001f,
-			mylib_const::PLAYERBEAM_COLOR.b + Random(-100, 100) * 0.001f,
+			mylib_const::PLAYERBEAM_COLOR.r + UtilFunc::Transformation::Random(-100, 100) * 0.001f,
+			mylib_const::PLAYERBEAM_COLOR.g + UtilFunc::Transformation::Random(-100, 100) * 0.001f,
+			mylib_const::PLAYERBEAM_COLOR.b + UtilFunc::Transformation::Random(-100, 100) * 0.001f,
 			1.0f);
 
 		// 半径設定
@@ -1650,17 +1650,17 @@ void UnderBossSpawn(void)
 
 	for (int nCntUse = 0; nCntUse < 2; nCntUse++)
 	{
-		float fBuff = (float)Random(80, 100) * 0.01f;
+		float fBuff = (float)UtilFunc::Transformation::Random(80, 100) * 0.01f;
 		float fDistance = 350.0f * fBuff;
 		m_nLife = (int)(20.0f * fBuff);
 
 		// 出現位置
-		pos = GetRandomSpherePosition(m_pos, fDistance);
+		pos = UtilFunc::Transformation::GetRandomPositionSphere(m_pos, fDistance);
 
 		m_col = D3DXCOLOR(
-			0.9f + Random(-100, 100) * 0.001f,
-			0.2f + Random(-100, 100) * 0.001f,
-			0.9f + Random(-100, 100) * 0.001f,
+			0.9f + UtilFunc::Transformation::Random(-100, 100) * 0.001f,
+			0.2f + UtilFunc::Transformation::Random(-100, 100) * 0.001f,
+			0.9f + UtilFunc::Transformation::Random(-100, 100) * 0.001f,
 			1.0f);
 
 		// 半径設定
@@ -1693,23 +1693,23 @@ void EvolusionDecide(void)
 	for (int nCntUse = 0; nCntUse < nCircleDivision; nCntUse++)
 	{
 		float fRot = fff * nCntUse;
-		float fBuff = (float)Random(80, 100) * 0.01f;
+		float fBuff = (float)UtilFunc::Transformation::Random(80, 100) * 0.01f;
 		m_nLife = (int)(50.0f * fBuff);
 
 		float fMove = 6.0f * fBuff;		// 移動量
 
 		// 球範囲ランダムベクトル取得
-		D3DXVECTOR3 vecSphere = GetRandomSphereVec();
+		D3DXVECTOR3 vecSphere = UtilFunc::Transformation::GetRandomVecSphere();
 
 		// 移動量の設定
 		m_move.x = sinf(fRot) * fMove;
-		m_move.y = static_cast<float>(Random(10, 15));
+		m_move.y = static_cast<float>(UtilFunc::Transformation::Random(10, 15));
 		m_move.z = cosf(fRot) * fMove;
 
 		m_col = D3DXCOLOR(
-			0.9f + Random(-100, 100) * 0.001f,
-			0.4f + Random(-100, 100) * 0.001f,
-			0.1f + Random(-100, 100) * 0.001f,
+			0.9f + UtilFunc::Transformation::Random(-100, 100) * 0.001f,
+			0.4f + UtilFunc::Transformation::Random(-100, 100) * 0.001f,
+			0.1f + UtilFunc::Transformation::Random(-100, 100) * 0.001f,
 			1.0f);
 
 		// 半径設定
@@ -1741,19 +1741,19 @@ void BeamCharge(void)
 	for (int nCntUse = 0; nCntUse < 2; nCntUse++)
 	{
 		//ランダム付与値
-		float fBuff = (float)Random(80, 100) * 0.01f;
+		float fBuff = (float)UtilFunc::Transformation::Random(80, 100) * 0.01f;
 
 		//発生位置
 		float fDistance = 300.0f * fBuff;
 		m_nLife = (int)(20.0f * fBuff);
 
 		// 出現位置
-		pos = GetRandomSpherePosition(m_pos, fDistance);
+		pos = UtilFunc::Transformation::GetRandomPositionSphere(m_pos, fDistance);
 
 		m_col = D3DXCOLOR(
-			mylib_const::ENEMYBEAM_COLOR.r + Random(-100, 100) * 0.001f,
-			mylib_const::ENEMYBEAM_COLOR.g + Random(-100, 100) * 0.001f,
-			mylib_const::ENEMYBEAM_COLOR.b + Random(-100, 100) * 0.001f,
+			mylib_const::ENEMYBEAM_COLOR.r + UtilFunc::Transformation::Random(-100, 100) * 0.001f,
+			mylib_const::ENEMYBEAM_COLOR.g + UtilFunc::Transformation::Random(-100, 100) * 0.001f,
+			mylib_const::ENEMYBEAM_COLOR.b + UtilFunc::Transformation::Random(-100, 100) * 0.001f,
 			1.0f);
 
 		// 半径設定
@@ -1787,19 +1787,19 @@ void MortarCharge(void)
 	for (int nCntUse = 0; nCntUse < 2; nCntUse++)
 	{
 		//ランダム付与値
-		float fBuff = (float)Random(80, 100) * 0.01f;
+		float fBuff = (float)UtilFunc::Transformation::Random(80, 100) * 0.01f;
 
 		//発生位置
 		float fDistance = 100.0f * fBuff;
 		m_nLife = (int)(20.0f * fBuff);
 
 		// 出現位置
-		pos = GetRandomSpherePosition(m_pos, fDistance);
+		pos = UtilFunc::Transformation::GetRandomPositionSphere(m_pos, fDistance);
 
 		m_col = D3DXCOLOR(
-			0.9f + Random(-100, 100) * 0.001f,
-			0.1f + Random(-100, 100) * 0.001f,
-			0.1f + Random(-100, 100) * 0.001f,
+			0.9f + UtilFunc::Transformation::Random(-100, 100) * 0.001f,
+			0.1f + UtilFunc::Transformation::Random(-100, 100) * 0.001f,
+			0.1f + UtilFunc::Transformation::Random(-100, 100) * 0.001f,
 			1.0f);
 
 		// 半径設定
@@ -1830,11 +1830,11 @@ void UnionWalk(void)
 	m_nLife = 30;
 	for (int nCntUse = 0; nCntUse < 10; nCntUse++)
 	{
-		float fMove = (float)Random(80, 100) * 0.1f;		// 移動量
-		float fMoveY = (float)Random(40, 60) * 0.1f;		// 移動量
+		float fMove = (float)UtilFunc::Transformation::Random(80, 100) * 0.1f;		// 移動量
+		float fMoveY = (float)UtilFunc::Transformation::Random(40, 60) * 0.1f;		// 移動量
 
-		float fRot = GetRandomCircleValue();
-		float fRandCol = Random(-100, 100) * 0.001f;
+		float fRot = UtilFunc::Transformation::GetRandomPi();
+		float fRandCol = UtilFunc::Transformation::Random(-100, 100) * 0.001f;
 
 		// 移動量の設定
 		m_move.x = sinf(fRot) * fMove;
@@ -1872,17 +1872,17 @@ void UltBeamCharge(void)
 
 	for (int nCntUse = 0; nCntUse < 2; nCntUse++)
 	{
-		float fBuff = (float)Random(80, 100) * 0.01f;
+		float fBuff = (float)UtilFunc::Transformation::Random(80, 100) * 0.01f;
 		float fDistance = 250.0f * fBuff;
 		m_nLife = (int)(20.0f * fBuff);
 
 		// 出現位置
-		pos = GetRandomSpherePosition(m_pos, fDistance);
+		pos = UtilFunc::Transformation::GetRandomPositionSphere(m_pos, fDistance);
 
 		m_col = D3DXCOLOR(
-			mylib_const::PLAYERBEAM_COLOR.r + Random(-100, 100) * 0.001f,
-			mylib_const::PLAYERBEAM_COLOR.g + Random(-100, 100) * 0.001f,
-			mylib_const::PLAYERBEAM_COLOR.b + Random(-100, 100) * 0.001f,
+			mylib_const::PLAYERBEAM_COLOR.r + UtilFunc::Transformation::Random(-100, 100) * 0.001f,
+			mylib_const::PLAYERBEAM_COLOR.g + UtilFunc::Transformation::Random(-100, 100) * 0.001f,
+			mylib_const::PLAYERBEAM_COLOR.b + UtilFunc::Transformation::Random(-100, 100) * 0.001f,
 			1.0f);
 
 		// 半径設定
@@ -1901,22 +1901,22 @@ void UltBeamCharge(void)
 
 		// 目標の位置設定
 		pEffect->SetPositionDest(m_pos);
-		pEffect->SetRotation(D3DXVECTOR3(0.0f, 0.0f, GetRandomCircleValue()));
+		pEffect->SetRotation(D3DXVECTOR3(0.0f, 0.0f, UtilFunc::Transformation::GetRandomPi()));
 	}
 
 	for (int nCntUse = 0; nCntUse < 2; nCntUse++)
 	{
-		float fBuff = (float)Random(80, 100) * 0.01f;
+		float fBuff = (float)UtilFunc::Transformation::Random(80, 100) * 0.01f;
 		float fDistance = 80.0f * fBuff;
 		m_nLife = (int)(15.0f * fBuff);
 
 		// 出現位置
-		pos = GetRandomSpherePosition(m_pos, fDistance);
+		pos = UtilFunc::Transformation::GetRandomPositionSphere(m_pos, fDistance);
 
 		m_col = D3DXCOLOR(
-			mylib_const::PLAYERBEAM_COLOR.r + Random(-100, 100) * 0.001f,
-			mylib_const::PLAYERBEAM_COLOR.g + Random(-100, 100) * 0.001f,
-			mylib_const::PLAYERBEAM_COLOR.b + Random(-100, 100) * 0.001f,
+			mylib_const::PLAYERBEAM_COLOR.r + UtilFunc::Transformation::Random(-100, 100) * 0.001f,
+			mylib_const::PLAYERBEAM_COLOR.g + UtilFunc::Transformation::Random(-100, 100) * 0.001f,
+			mylib_const::PLAYERBEAM_COLOR.b + UtilFunc::Transformation::Random(-100, 100) * 0.001f,
 			1.0f);
 
 		// 半径設定
@@ -1935,7 +1935,7 @@ void UltBeamCharge(void)
 
 		// 目標の位置設定
 		pEffect->SetPositionDest(m_pos);
-		pEffect->SetRotation(D3DXVECTOR3(0.0f, 0.0f, GetRandomCircleValue()));
+		pEffect->SetRotation(D3DXVECTOR3(0.0f, 0.0f, UtilFunc::Transformation::GetRandomPi()));
 	}
 }
 
@@ -1948,19 +1948,19 @@ void FallSnow(void)
 
 	for (int nCntUse = 0; nCntUse < 2; nCntUse++)
 	{
-		float fBuff = (float)Random(80, 100) * 0.01f;
+		float fBuff = (float)UtilFunc::Transformation::Random(80, 100) * 0.01f;
 		m_nLife = (int)(600.0f * fBuff);
 
-		float fRot = GetRandomCircleValue();
+		float fRot = UtilFunc::Transformation::GetRandomPi();
 
 		// 出現位置
-		float fDistance = (float)Random(-200, 200) * 10.0f;
-		pos = GetRandomSpherePosition(m_pos, fDistance);
+		float fDistance = (float)UtilFunc::Transformation::Random(-200, 200) * 10.0f;
+		pos = UtilFunc::Transformation::GetRandomPositionSphere(m_pos, fDistance);
 		pos.x = sinf(fRot) * fDistance;
 		pos.y = 1000.0f;
 		pos.z = cosf(fRot) * fDistance;
 
-		float fDiff = Random(-100, 100) * 0.001f;
+		float fDiff = UtilFunc::Transformation::Random(-100, 100) * 0.001f;
 		m_col = D3DXCOLOR(
 			0.9f + fDiff,
 			0.9f + fDiff,
@@ -1982,7 +1982,7 @@ void FallSnow(void)
 			0.0f);
 
 		// 目標の位置設定
-		pEffect->SetRotation(D3DXVECTOR3(0.0f, 0.0f, GetRandomCircleValue()));
+		pEffect->SetRotation(D3DXVECTOR3(0.0f, 0.0f, UtilFunc::Transformation::GetRandomPi()));
 		pEffect->SetGravityValue(0.01f);
 	}
 }

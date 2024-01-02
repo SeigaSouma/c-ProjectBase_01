@@ -197,7 +197,7 @@ void CTimer::Update(void)
 	if (fDeltaTime <= 10)
 	{
 		m_fTime -= fDeltaTime;
-		ValueNormalize(m_fTime, static_cast<float>(MAX_TIME), 0.0f);
+		UtilFunc::Transformation::ValueNormalize(m_fTime, static_cast<float>(MAX_TIME), 0.0f);
 
 		// ï™ÅAïbÅAÉ~ÉäïbÇÃåvéZ
 		int minutes = static_cast<int>(m_fTime) / (60);
@@ -288,8 +288,8 @@ void CTimer::StateAdjustment(void)
 	// éûä‘â¡éZ
 	m_fStateTime += CManager::GetInstance()->GetDeltaTime();
 
-	m_pos.x = EasingLinear(m_posOrigin.x, DEST_POSITION.x, m_fStateTime / TIME_ADJUSTMENT);
-	m_pos.y = EasingLinear(m_posOrigin.y, DEST_POSITION.y, m_fStateTime / TIME_ADJUSTMENT);
+	m_pos.x = UtilFunc::Correction::EasingLinear(m_posOrigin.x, DEST_POSITION.x, m_fStateTime / TIME_ADJUSTMENT);
+	m_pos.y = UtilFunc::Correction::EasingLinear(m_posOrigin.y, DEST_POSITION.y, m_fStateTime / TIME_ADJUSTMENT);
 
 	D3DXVECTOR3 setpos = m_pos;
 

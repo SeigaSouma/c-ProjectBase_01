@@ -141,7 +141,7 @@ void CEnemyCookie::ActWait(void)
 		m_Action = ACTION_PROXIMITY;
 
 		// í«Ç¢íÖÇ´îªíË
-		m_bCatchUp = CircleRange3D(GetPosition(), m_TargetPosition, LENGTH_PUNCH, 0.0f);
+		m_bCatchUp = UtilFunc::Collision::CircleRange3D(GetPosition(), m_TargetPosition, LENGTH_PUNCH, 0.0f);
 	}
 }
 
@@ -201,7 +201,7 @@ void CEnemyCookie::ActAttackProximity(void)
 		fLength = LENGTH_PUNCH;
 
 		// í«Ç¢íÖÇ´îªíË
-		m_bCatchUp = CircleRange3D(GetPosition(), m_TargetPosition, fLength, 0.0f);
+		m_bCatchUp = UtilFunc::Collision::CircleRange3D(GetPosition(), m_TargetPosition, fLength, 0.0f);
 	}
 	else
 	{// çUåÇÇÃí∑Ç≥ì‡
@@ -329,11 +329,11 @@ void CEnemyCookie::RotationTarget(void)
 	float fRotDiff = fRotDest - rot.y;
 
 	//äpìxÇÃê≥ãKâª
-	RotNormalize(fRotDiff);
+	UtilFunc::Transformation::RotNormalize(fRotDiff);
 
 	//äpìxÇÃï‚ê≥ÇÇ∑ÇÈ
 	rot.y += fRotDiff * 0.1f;
-	RotNormalize(rot.y);
+	UtilFunc::Transformation::RotNormalize(rot.y);
 
 	// å¸Ç´ê›íË
 	SetRotation(rot);

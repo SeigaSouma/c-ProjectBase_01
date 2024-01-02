@@ -535,7 +535,7 @@ void CEnemy::CollisionPlayer(void)
 #endif
 
 		// ‹…‚Ì”»’è
-		if (SphereRange(pos, PlayerPos, fRadius, PlayerRadius) &&
+		if (UtilFunc::Collision::SphereRange(pos, PlayerPos, fRadius, PlayerRadius) &&
 			PlayerState != CPlayer::STATE_DEAD &&
 			PlayerState != CPlayer::STATE_DMG &&
 			PlayerState != CPlayer::STATE_KNOCKBACK &&
@@ -634,9 +634,9 @@ bool CEnemy::Hit(const int nValue)
 			CManager::GetInstance()->GetSound()->PlaySound(CSound::LABEL_SE_ENEMYEXPLOSION);
 
 			D3DXVECTOR3 move = GetMove();
-			move.x = Random(-5, 5) + 20.0f;
-			move.y = Random(0, 5) + 15.0f;
-			move.z = Random(-5, 5) + 20.0f;
+			move.x = UtilFunc::Transformation::Random(-5, 5) + 20.0f;
+			move.y = UtilFunc::Transformation::Random(0, 5) + 15.0f;
+			move.z = UtilFunc::Transformation::Random(-5, 5) + 20.0f;
 			SetMove(move);
 
 			// “–‚½‚Á‚½
@@ -644,7 +644,7 @@ bool CEnemy::Hit(const int nValue)
 		}
 
 		// •â³
-		ValueNormalize(nLife, GetLifeOrigin(), 0);
+		UtilFunc::Transformation::ValueNormalize(nLife, GetLifeOrigin(), 0);
 
 		// ‰ß‹Ž‚Ìó‘Ô•Û‘¶
 		m_Oldstate = m_state;
@@ -727,13 +727,13 @@ void CEnemy::RotationPlayer(void)
 	float fRotDiff = fRotDest - rot.y;
 
 	//Šp“x‚Ì³‹K‰»
-	RotNormalize(fRotDiff);
+	UtilFunc::Transformation::RotNormalize(fRotDiff);
 
 	//Šp“x‚Ì•â³‚ð‚·‚é
 	rot.y += fRotDiff * 0.025f;
 
 	// Šp“x‚Ì³‹K‰»
-	RotNormalize(rot.y);
+	UtilFunc::Transformation::RotNormalize(rot.y);
 
 	// Œü‚«Ý’è
 	SetRotation(rot);
@@ -755,7 +755,7 @@ bool CEnemy::CalcLenPlayer(float fLen)
 		return false;
 	}
 
-	return CircleRange3D(GetPosition(), pPlayer->GetPosition(), fLen, pPlayer->GetRadius());
+	return UtilFunc::Collision::CircleRange3D(GetPosition(), pPlayer->GetPosition(), fLen, pPlayer->GetRadius());
 }
 
 //==========================================================================
@@ -771,7 +771,7 @@ void CEnemy::MoveRotation(void)
 	float fRot = atan2f(-move.x, -move.z);
 
 	// Šp“x‚Ì³‹K‰»
-	RotNormalize(fRot);
+	UtilFunc::Transformation::RotNormalize(fRot);
 
 	// Šp“x‚Ì•â³‚ð‚·‚é
 	rot.y += (fRot - rot.y) * 0.025f;
@@ -1016,7 +1016,7 @@ void CEnemy::Dead(void)
 
 	if (m_nCntState % 6 == 0)
 	{
-		CEffect3D::Create(pos, D3DXVECTOR3(Random(-10, 10) * 0.1f, -move.y, Random(-10, 10) * 0.1f), D3DXCOLOR(0.2f, 0.2f, 0.2f, 1.0f), (float)Random(80, 120), 20, CEffect3D::MOVEEFFECT_ADD, CEffect3D::TYPE_SMOKEBLACK);
+		CEffect3D::Create(pos, D3DXVECTOR3(UtilFunc::Transformation::Random(-10, 10) * 0.1f, -move.y, UtilFunc::Transformation::Random(-10, 10) * 0.1f), D3DXCOLOR(0.2f, 0.2f, 0.2f, 1.0f), (float)UtilFunc::Transformation::Random(80, 120), 20, CEffect3D::MOVEEFFECT_ADD, CEffect3D::TYPE_SMOKEBLACK);
 	}
 
 	// FÝ’è
@@ -1029,7 +1029,7 @@ void CEnemy::Dead(void)
 
 	// ‰ñ“]
 	rot.y += D3DX_PI * 0.025f;
-	rot.x += D3DX_PI * (Random(5, 25) * 0.001f);
+	rot.x += D3DX_PI * (UtilFunc::Transformation::Random(5, 25) * 0.001f);
 
 	if(CGame::GetElevation()->IsHit(pos))
 	{
@@ -1165,13 +1165,13 @@ void CEnemy::PlayerChase(void)
 		fRotDiff = fRotDest - rot.y;
 
 		//Šp“x‚Ì³‹K‰»
-		RotNormalize(fRotDiff);
+		UtilFunc::Transformation::RotNormalize(fRotDiff);
 
 		//Šp“x‚Ì•â³‚ð‚·‚é
 		rot.y += fRotDiff * 0.025f;
 
 		// Šp“x‚Ì³‹K‰»
-		RotNormalize(rot.y);
+		UtilFunc::Transformation::RotNormalize(rot.y);
 
 		// Œü‚«Ý’è
 		SetRotation(rot);
@@ -1187,7 +1187,7 @@ void CEnemy::PlayerChase(void)
 			ChaseMove(fMove);
 		}
 
-		if (CircleRange3D(pos, pPlayer->GetPosition(), 200.0f, PLAYER_SERCH) == false)
+		if (UtilFunc::Collision::CircleRange3D(pos, pPlayer->GetPosition(), 200.0f, PLAYER_SERCH) == false)
 		{// ƒvƒŒƒCƒ„[‚ªŽ‹ŠE‚©‚çÁ‚¦‚½‚ç
 			m_state = STATE_NONE;
 		}
@@ -1264,18 +1264,18 @@ void CEnemy::ParentChase(void)
 		fRotDiff = fRotDest - rot.y;
 
 		//Šp“x‚Ì³‹K‰»
-		RotNormalize(fRotDiff);
+		UtilFunc::Transformation::RotNormalize(fRotDiff);
 
 		//Šp“x‚Ì•â³‚ð‚·‚é
 		rot.y += fRotDiff * 0.025f;
 
 		// Šp“x‚Ì³‹K‰»
-		RotNormalize(rot.y);
+		UtilFunc::Transformation::RotNormalize(rot.y);
 
 		// Œü‚«Ý’è
 		SetRotation(rot);
 
-		if (CircleRange3D(pos, posDest, 25.0f, CHACE_DISTABCE) == true)
+		if (UtilFunc::Collision::CircleRange3D(pos, posDest, 25.0f, CHACE_DISTABCE) == true)
 			{// ˆê’è‹——£ŠÔ‚Ée‚ª“ü‚Á‚½‚ç
 				bLen = true;	// ’·‚³”»’è
 			}
@@ -1300,20 +1300,20 @@ void CEnemy::ParentChase(void)
 		// –Ú•W‚ÌŠp“x‚ð‹‚ß‚é
 		if (m_nCntState == 0)
 		{
-			fRotDest = Random(-31, 31) * 0.1f;
+			fRotDest = UtilFunc::Transformation::Random(-31, 31) * 0.1f;
 		}
 
 		// –Ú•W‚Æ‚Ì·•ª
 		fRotDiff = fRotDest - rot.y;
 
 		//Šp“x‚Ì³‹K‰»
-		RotNormalize(fRotDiff);
+		UtilFunc::Transformation::RotNormalize(fRotDiff);
 
 		//Šp“x‚Ì•â³‚ð‚·‚é
 		rot.y += fRotDiff * 0.025f;
 
 		// Šp“x‚Ì³‹K‰»
-		RotNormalize(rot.y);
+		UtilFunc::Transformation::RotNormalize(rot.y);
 
 		// Œü‚«Ý’è
 		SetRotation(rot);
@@ -1435,7 +1435,7 @@ void CEnemy::StateAttack(void)
 		if (nType == 0 && pPlayer != NULL)
 		{// ƒjƒ…[ƒgƒ‰ƒ‹‚É–ß‚ê‚Î
 
-			if (CircleRange3D(pos, pPlayer->GetPosition(), 400.0f, PLAYER_SERCH) == false)
+			if (UtilFunc::Collision::CircleRange3D(pos, pPlayer->GetPosition(), 400.0f, PLAYER_SERCH) == false)
 			{// ƒvƒŒƒCƒ„[‚Æ—£‚ê‚·‚¬‚Ä‚¢‚½‚ç
 
 				// ŠÔŠu‚ð‚ ‚¯‚éó‘Ô‚É‚·‚é
@@ -1544,7 +1544,7 @@ void CEnemy::TriggerChasePlayer(void)
 
 			float fRadius = PLAYER_SERCH;
 
-			if (CircleRange3D(pos, pPlayer->GetPosition(), 200.0f, fRadius) == true)
+			if (UtilFunc::Collision::CircleRange3D(pos, pPlayer->GetPosition(), 200.0f, fRadius) == true)
 			{// ƒvƒŒƒCƒ„[‚ª”ÍˆÍ‚É“ü‚ê‚Î
 				m_state = STATE_PLAYERCHASE;
 
@@ -1622,7 +1622,7 @@ void CEnemy::ChangeToAttackState(void)
 		// e‚ÌˆÊ’uŽæ“¾
 		D3DXVECTOR3 posPlayer = pPlayer->GetPosition();
 
-		if (CircleRange3D(pos, posPlayer, 400.0f, pPlayer->GetRadius()) == true && m_sMotionFrag.bJump == false)
+		if (UtilFunc::Collision::CircleRange3D(pos, posPlayer, 400.0f, pPlayer->GetRadius()) == true && m_sMotionFrag.bJump == false)
 		{// ˆê’è‹——£ŠÔ‚ÉƒvƒŒƒCƒ„[‚ª“ü‚Á‚½‚ç
 
 			// UŒ‚ó‘Ô‚É‚·‚é
@@ -1735,7 +1735,7 @@ void CEnemy::AttackInDicision(CMotion::AttackInfo ATKInfo, int nCntATK)
 		// ”»’èƒTƒCƒYŽæ“¾
 		float fRadius = pPlayer->GetRadius();
 
-		if (SphereRange(weponpos, PlayerPos, ATKInfo.fRangeSize, fRadius))
+		if (UtilFunc::Collision::SphereRange(weponpos, PlayerPos, ATKInfo.fRangeSize, fRadius))
 		{// ‹…‚Ì”»’è
 
 			// ƒvƒŒƒCƒ„[‚ÌŒü‚«
@@ -1748,7 +1748,7 @@ void CEnemy::AttackInDicision(CMotion::AttackInfo ATKInfo, int nCntATK)
 			fRot = D3DX_PI + fRot;
 
 			// Šp“x‚Ì³‹K‰»
-			RotNormalize(fRot);
+			UtilFunc::Transformation::RotNormalize(fRot);
 
 			// Œü‚«Ý’è
 			pPlayer->SetRotation(D3DXVECTOR3(PlayerRot.x, fRot, PlayerRot.z));
@@ -1779,7 +1779,7 @@ void CEnemy::AttackInDicision(CMotion::AttackInfo ATKInfo, int nCntATK)
 		while (BagList.ListLoop(&pBag))
 		{
 			// “–‚½‚è”»’è
-			if (CircleRange3D(weponpos, pBag->GetPosition(), ATKInfo.fRangeSize, 80.0f))
+			if (UtilFunc::Collision::CircleRange3D(weponpos, pBag->GetPosition(), ATKInfo.fRangeSize, 80.0f))
 			{
 				pBag->Hit();
 			}

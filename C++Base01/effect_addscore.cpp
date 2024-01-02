@@ -108,9 +108,9 @@ HRESULT CEffectAddScore::Init(void)
 		float fRot = fff * nCntCircle;
 
 		// バラバラ向き
-		float fRotRand = (float)Random(-10, 10) / 100.0f;
+		float fRotRand = (float)UtilFunc::Transformation::Random(-10, 10) / 100.0f;
 
-		float fMove = Random(100, 200) * 0.1f;
+		float fMove = UtilFunc::Transformation::Random(100, 200) * 0.1f;
 		fMove *= 2.5f;
 
 		//移動量の設定
@@ -122,7 +122,7 @@ HRESULT CEffectAddScore::Init(void)
 		float fRadius = 45.0f;
 
 		// ランダムで半径減衰
-		int nRand = Random(0, 2);
+		int nRand = UtilFunc::Transformation::Random(0, 2);
 		if (nRand == 0)
 		{
 			fRadius *= 0.95f;
@@ -203,13 +203,13 @@ void CEffectAddScore::UpdatePos(void)
 
 		// 目標との差分
 		float fRotDiff = fRotDest - rot.z;
-		RotNormalize(fRotDiff);
+		UtilFunc::Transformation::RotNormalize(fRotDiff);
 
 		//角度の補正をする
 		rot.z += fRotDiff * 0.1f;
 
 		// 角度の正規化
-		RotNormalize(rot.z);
+		UtilFunc::Transformation::RotNormalize(rot.z);
 
 		// 移動量補正
 		move.x += ((sinf(D3DX_PI + rot.z) * 6.0f) - move.x) * 0.15f;
@@ -218,7 +218,7 @@ void CEffectAddScore::UpdatePos(void)
 		// 位置更新
 		pos += move;
 
-		if (CircleRange2D(pos, ScorePos, size.x, 50.0f))
+		if (UtilFunc::Collision::CircleRange2D(pos, ScorePos, size.x, 50.0f))
 		{
 			m_pEffect[nCntCircle]->Uninit();
 			m_pEffect[nCntCircle] = NULL;

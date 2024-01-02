@@ -196,7 +196,7 @@ void CExplosion::UpdatePos(void)
 
 	// âÒì]
 	rot.y += D3DX_PI * 0.025f;
-	RotNormalize(rot.y);
+	UtilFunc::Transformation::RotNormalize(rot.y);
 
 	// à íuê›íË
 	SetPosition(pos);
@@ -216,8 +216,8 @@ void CExplosion::StateNone(void)
 	float fWidthLen = GetWidthLen();
 	float fHeightLen = GetHeightLen();
 
-	fWidthLen = EasingEaseInOut(0.0f, m_fDestSize, static_cast<float>((m_nLifeMax - m_nLife)) / static_cast<float>(TIME_ADDSIZE));
-	fHeightLen = EasingEaseInOut(0.0f, m_fDestSize, static_cast<float>((m_nLifeMax - m_nLife)) / static_cast<float>(TIME_ADDSIZE));
+	fWidthLen = UtilFunc::Correction::EasingEaseInOut(0.0f, m_fDestSize, static_cast<float>((m_nLifeMax - m_nLife)) / static_cast<float>(TIME_ADDSIZE));
+	fHeightLen = UtilFunc::Correction::EasingEaseInOut(0.0f, m_fDestSize, static_cast<float>((m_nLifeMax - m_nLife)) / static_cast<float>(TIME_ADDSIZE));
 	SetWidthLen(fWidthLen);
 	SetHeightLen(fHeightLen);
 
@@ -299,7 +299,7 @@ void CExplosion::CollisionPlayer(void)
 		D3DXVECTOR3 pos = GetPosition();
 		float fRadius = GetWidthLen();
 
-		if (SphereRange(pos, PlayerPosition, fRadius, fPlayerRadius))
+		if (UtilFunc::Collision::SphereRange(pos, PlayerPosition, fRadius, fPlayerRadius))
 		{// ìñÇΩÇ¡ÇƒÇ¢ÇΩÇÁ
 
 			// ÉqÉbÉgèàóù
@@ -334,7 +334,7 @@ void CExplosion::CollisionEnemy(void)
 		D3DXVECTOR3 EnemyPosition = pEnemy->GetCenterPosition();
 		float fEnemyRadius = pEnemy->GetRadius();
 
-		if (SphereRange(pos, EnemyPosition, fRadius, fEnemyRadius))
+		if (UtilFunc::Collision::SphereRange(pos, EnemyPosition, fRadius, fEnemyRadius))
 		{// ìñÇΩÇ¡ÇƒÇ¢ÇΩÇÁ
 			bHit = true;
 			break;

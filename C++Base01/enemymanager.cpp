@@ -232,7 +232,7 @@ void CEnemyManager::SetStageEnemy(void)
 	int nNumBase = pEnemyBase->GetNumBase(nNowStage);
 
 	// 拠点決定
-	int nBase = Random(0, nNumBase - 1);
+	int nBase = UtilFunc::Transformation::Random(0, nNumBase - 1);
 
 	// 拠点ごとのデータ取得
 	CEnemyBase::sInfo sEnemyBaseInfo = pEnemyBase->GetEnemyBaseInfo(nNowStage, nBase);

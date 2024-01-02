@@ -403,9 +403,9 @@ void CMotion::Update(float fBuff)
 			aPartsOld[nCntParts].rot.z;
 
 		// Šp“x‚Ì³‹K‰»
-		RotNormalize(rotDiffX);
-		RotNormalize(rotDiffY);
-		RotNormalize(rotDiffZ);
+		UtilFunc::Transformation::RotNormalize(rotDiffX);
+		UtilFunc::Transformation::RotNormalize(rotDiffY);
+		UtilFunc::Transformation::RotNormalize(rotDiffZ);
 
 		// ƒp[ƒc‚ÌŒü‚«‚ðÝ’è
 		D3DXVECTOR3 rot = mylib_const::DEFAULT_VECTOR3;
@@ -438,9 +438,9 @@ void CMotion::Update(float fBuff)
 			);
 
 		// Šp“x‚Ì³‹K‰»
-		RotNormalize(rot.x);
-		RotNormalize(rot.y);
-		RotNormalize(rot.z);
+		UtilFunc::Transformation::RotNormalize(rot.x);
+		UtilFunc::Transformation::RotNormalize(rot.y);
+		UtilFunc::Transformation::RotNormalize(rot.z);
 
 		// Œü‚«Ý’è
 		m_ppModel[nCntModel]->SetRotation(rot);

@@ -180,8 +180,8 @@ void CStageClearText::StateScaleUP(void)
 	m_nCntState--;
 
 	// èôÅXÇ…â¡ë¨
-	size.x = EasingEaseIn(0.0f, DestImageSize.x, 1.0f - (float)m_nCntState / (float)TIME_SCALEUP);
-	size.y = EasingEaseIn(0.0f, DestImageSize.y, 1.0f - (float)m_nCntState / (float)TIME_SCALEUP);
+	size.x = UtilFunc::Correction::EasingEaseIn(0.0f, DestImageSize.x, 1.0f - (float)m_nCntState / (float)TIME_SCALEUP);
+	size.y = UtilFunc::Correction::EasingEaseIn(0.0f, DestImageSize.y, 1.0f - (float)m_nCntState / (float)TIME_SCALEUP);
 
 	if (m_nCntState <= 0)
 	{
@@ -206,8 +206,8 @@ void CStageClearText::StateScaleDOWN(void)
 	m_nCntState--;
 
 	// èôÅXÇ…å∏ë¨
-	size.x = EasingEaseOut(ImageSize.x * SIZE_SCALEUP, ImageSize.x * SIZE_SCALEDOWN, 1.0f - (float)m_nCntState / (float)TIME_SCALEDOWN);
-	size.y = EasingEaseOut(ImageSize.y * SIZE_SCALEUP, ImageSize.y * SIZE_SCALEDOWN, 1.0f - (float)m_nCntState / (float)TIME_SCALEDOWN);
+	size.x = UtilFunc::Correction::EasingEaseOut(ImageSize.x * SIZE_SCALEUP, ImageSize.x * SIZE_SCALEDOWN, 1.0f - (float)m_nCntState / (float)TIME_SCALEDOWN);
+	size.y = UtilFunc::Correction::EasingEaseOut(ImageSize.y * SIZE_SCALEUP, ImageSize.y * SIZE_SCALEDOWN, 1.0f - (float)m_nCntState / (float)TIME_SCALEDOWN);
 
 	if (m_nCntState <= 0)
 	{
@@ -233,8 +233,8 @@ void CStageClearText::StateScaleNone(void)
 	m_nCntState--;
 
 	// èôÅXÇ…å∏ë¨
-	size.x = EasingEaseOut(ImageSize.x * SIZE_SCALEDOWN, sizeOrigin.x, 1.0f - (float)m_nCntState / (float)TIME_SCALENONE);
-	size.y = EasingEaseOut(ImageSize.y * SIZE_SCALEDOWN, sizeOrigin.y, 1.0f - (float)m_nCntState / (float)TIME_SCALENONE);
+	size.x = UtilFunc::Correction::EasingEaseOut(ImageSize.x * SIZE_SCALEDOWN, sizeOrigin.x, 1.0f - (float)m_nCntState / (float)TIME_SCALENONE);
+	size.y = UtilFunc::Correction::EasingEaseOut(ImageSize.y * SIZE_SCALEDOWN, sizeOrigin.y, 1.0f - (float)m_nCntState / (float)TIME_SCALENONE);
 
 	if (m_nCntState <= 0)
 	{

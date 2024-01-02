@@ -822,7 +822,7 @@ int CManager::GetNumPlayer(void)
 void CManager::SetNumPlayer(int nNum)
 {
 	// ’l‚Ì³‹K‰»ˆ—
-	ValueNormalize(nNum, mylib_const::MAX_PLAYER, 0);
+	UtilFunc::Transformation::ValueNormalize(nNum, mylib_const::MAX_PLAYER, 0);
 
 	m_nNumPlayer = nNum;
 }

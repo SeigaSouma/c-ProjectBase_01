@@ -156,7 +156,7 @@ void CEnemyBase::CreatePos(int nStage, int nPattern, D3DXVECTOR3 pos, int nRush)
 void CEnemyBase::DeletePos(int nStage, int nIdx)
 {
 	// ソート処理
-	CalSort(&m_EnemyBaseInfo[nStage][0], nIdx, m_nNumAll);
+	UtilFunc::Calculation::CalSort(&m_EnemyBaseInfo[nStage][0], nIdx, m_nNumAll);
 
 	// 位置生成
 	m_EnemyBaseInfo[nStage].pop_back();

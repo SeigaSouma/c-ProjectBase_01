@@ -222,7 +222,7 @@ void CCollisionObject::CollisionEnemy(void)
 		// ”»’èƒTƒCƒYŽæ“¾
 		float fTargetRadius = pEnemy->GetRadius();
 
-		if (SphereRange(pos, TargetPos, m_fRadius, fTargetRadius))
+		if (UtilFunc::Collision::SphereRange(pos, TargetPos, m_fRadius, fTargetRadius))
 		{// ‹…‚Ì”»’è
 
 			if (pEnemy->Hit(m_nDamage) == true)
@@ -257,7 +257,7 @@ void CCollisionObject::CollisionPlayer(void)
 		CPlayer::STATE PlayerState = pPlayer->GetState();
 
 		// ‹…‚Ì”»’è
-		if (SphereRange(pos, PlayerPos, m_fRadius, PlayerRadius) &&
+		if (UtilFunc::Collision::SphereRange(pos, PlayerPos, m_fRadius, PlayerRadius) &&
 			PlayerState != CPlayer::STATE_DEAD &&
 			PlayerState != CPlayer::STATE_DMG &&
 			PlayerState != CPlayer::STATE_KNOCKBACK &&

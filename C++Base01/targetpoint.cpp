@@ -131,7 +131,7 @@ void CTargetPoint::Update(void)
 	D3DXCOLOR col = GetColor();
 
 	// “ñŸ‹Èü•â³
-	CuadricCurveComp(col.a, 100, 0.3f, 1.0f, m_nAlphaCnt);
+	UtilFunc::Correction::CuadricCurveComp(col.a, 100, 0.3f, 1.0f, m_nAlphaCnt);
 	//col.a = 0.3f;
 
 	// Fİ’è

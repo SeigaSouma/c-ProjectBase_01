@@ -268,7 +268,7 @@ HRESULT CXLoad::Load(const char *pFileName)
 	m_pXFile[nIdx].pMesh->UnlockVertexBuffer();
 
 	// 全頂点チェック
-	CheckVtx(0.0f, &m_pXFile[nIdx].vtxMax, &m_pXFile[nIdx].vtxMin, m_pXFile[nIdx].pMesh, m_pXFile[nIdx].pVtxBuff);
+	UtilFunc::Calculation::CalModelVtx(0.0f, &m_pXFile[nIdx].vtxMax, &m_pXFile[nIdx].vtxMin, m_pXFile[nIdx].pMesh, m_pXFile[nIdx].pVtxBuff);
 
 
 

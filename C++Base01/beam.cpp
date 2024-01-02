@@ -291,19 +291,19 @@ void CBeam::UpdateBillboard(void)
 
 	float fAlpha = (float)m_nLife / (float)m_nLifeOrigin;
 	float fSubRatio = (float)(m_nLife + (m_nLifeOrigin * (1.0f - RATIO_SUBSIZE))) / (float)m_nLifeOrigin;
-	ValueNormalize(fSubRatio, 1.0f, 0.0f);
+	UtilFunc::Transformation::ValueNormalize(fSubRatio, 1.0f, 0.0f);
 
 	// óvëfï™åJÇËï‘Çµ
 	int nCntBillboard = 0;
 
 	// í∑Ç≥ï‚ê≥
-	//InertiaCorrection(m_fLength, m_fDestLength, 0.25f);
+	//UtilFunc::Correction::InertiaCorrection(m_fLength, m_fDestLength, 0.25f);
 
 	if (m_moveRatio < 1.0f)
 	{
 		m_moveRatio = (float)(m_nLifeOrigin - m_nLife) / TIME_LENGTH;
-		m_fLength = EasingEaseOut(0.0f, m_fDestLength, m_moveRatio);
-		ValueNormalize(m_moveRatio, 1.0f, 0.0f);
+		m_fLength = UtilFunc::Correction::EasingEaseOut(0.0f, m_fDestLength, m_moveRatio);
+		UtilFunc::Transformation::ValueNormalize(m_moveRatio, 1.0f, 0.0f);
 
 		// î≠ê∂ï®ÉJÉEÉìÉ^Å[â¡éZ
 		m_nCntEmission = (m_nCntEmission + 1) % 1;

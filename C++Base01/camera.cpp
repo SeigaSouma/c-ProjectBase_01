@@ -255,7 +255,7 @@ void CCamera::MoveCameraStick(int nIdx)
 	//m_rot.z += pInputGamepad->GetStickMoveR(nIdx).y * ROT_MOVE_STICK;
 #endif
 	// 角度の正規化
-	RotNormalize(m_rot);
+	UtilFunc::Transformation::RotNormalize(m_rot);
 
 	// 視点の代入処理
 	SetCameraV();
@@ -288,8 +288,8 @@ void CCamera::MoveCameraMouse(void)
 		MoveCameraVR();
 
 		// 角度の正規化
-		RotNormalize(m_rot.y);
-		RotNormalize(m_rot.z);
+		UtilFunc::Transformation::RotNormalize(m_rot.y);
+		UtilFunc::Transformation::RotNormalize(m_rot.z);
 
 		// 注視点設定
 		SetCameraR();
@@ -305,11 +305,11 @@ void CCamera::MoveCameraMouse(void)
 //#endif
 
 		// 角度の正規化
-		RotNormalize(m_rot.y);
-		RotNormalize(m_rot.z);
+		UtilFunc::Transformation::RotNormalize(m_rot.y);
+		UtilFunc::Transformation::RotNormalize(m_rot.z);
 
 		// 値の正規化
-		ValueNormalize(m_rot.z, MAX_ROT, MIN_ROT);
+		UtilFunc::Transformation::ValueNormalize(m_rot.z, MAX_ROT, MIN_ROT);
 
 		// 視点の代入処理
 		SetCameraV();
@@ -325,11 +325,11 @@ void CCamera::MoveCameraMouse(void)
 //#endif
 
 		// 角度の正規化
-		RotNormalize(m_rot.y);
-		RotNormalize(m_rot.z);
+		UtilFunc::Transformation::RotNormalize(m_rot.y);
+		UtilFunc::Transformation::RotNormalize(m_rot.z);
 
 		// 値の正規化
-		ValueNormalize(m_rot.z, MAX_ROT, MIN_ROT);
+		UtilFunc::Transformation::ValueNormalize(m_rot.z, MAX_ROT, MIN_ROT);
 
 		// 注視点の位置更新
 		SetCameraR();
@@ -379,11 +379,11 @@ void CCamera::MoveCameraV(void)
 
 
 	// 角度の正規化
-	RotNormalize(m_rot.y);
-	RotNormalize(m_rot.z);
+	UtilFunc::Transformation::RotNormalize(m_rot.y);
+	UtilFunc::Transformation::RotNormalize(m_rot.z);
 
 	// 値の正規化
-	ValueNormalize(m_rot.z, MAX_ROT, MIN_ROT);
+	UtilFunc::Transformation::ValueNormalize(m_rot.z, MAX_ROT, MIN_ROT);
 
 	// 視点の代入処理
 	SetCameraV();
@@ -430,11 +430,11 @@ void CCamera::MoveCameraR(void)
 
 
 	// 角度の正規化
-	RotNormalize(m_rot.y);
-	RotNormalize(m_rot.z);
+	UtilFunc::Transformation::RotNormalize(m_rot.y);
+	UtilFunc::Transformation::RotNormalize(m_rot.z);
 
 	// 値の正規化
-	ValueNormalize(m_rot.z, MAX_ROT, MIN_ROT);
+	UtilFunc::Transformation::ValueNormalize(m_rot.z, MAX_ROT, MIN_ROT);
 
 	// 注視点の位置更新
 	SetCameraR();
@@ -492,7 +492,7 @@ void CCamera::MoveCameraDistance(void)
 	}
 
 	// 目標の距離へ補正
-	InertiaCorrection(m_fDistance, m_fDestDistance, m_fDistanceCorrection);
+	UtilFunc::Correction::InertiaCorrection(m_fDistance, m_fDestDistance, m_fDistanceCorrection);
 
 }
 
@@ -949,22 +949,22 @@ void CCamera::Shake(void)
 	int nLength = (int)m_nShakeLength;
 	int nLengthY = (int)m_nShakeLengthY;
 
-	m_fMoveShake = (float)Random(-nLength, nLength) * sinf((float)Random(-314, 314) * 0.01f);	// 揺れの移動量
-	m_fMoveShakeY = (float)Random(-nLengthY, nLengthY);						// Yの揺れの移動量
+	m_fMoveShake = (float)UtilFunc::Transformation::Random(-nLength, nLength) * sinf((float)UtilFunc::Transformation::Random(-314, 314) * 0.01f);	// 揺れの移動量
+	m_fMoveShakeY = (float)UtilFunc::Transformation::Random(-nLengthY, nLengthY);						// Yの揺れの移動量
 
 	// 視点の代入処理
-	m_posV.x += (float)Random(-nLength, nLength) * sinf((float)Random(-314, 314) * 0.01f);
-	m_posV.y += (float)Random(-nLengthY, nLengthY);
-	m_posV.z += (float)Random(-nLength, nLength) * cosf((float)Random(-314, 314) * 0.01f);
+	m_posV.x += (float)UtilFunc::Transformation::Random(-nLength, nLength) * sinf((float)UtilFunc::Transformation::Random(-314, 314) * 0.01f);
+	m_posV.y += (float)UtilFunc::Transformation::Random(-nLengthY, nLengthY);
+	m_posV.z += (float)UtilFunc::Transformation::Random(-nLength, nLength) * cosf((float)UtilFunc::Transformation::Random(-314, 314) * 0.01f);
 
 	// 注視点の代入処理
-	m_posR.x += (float)Random(-nLength, nLength) * sinf((float)Random(-314, 314) * 0.01f);
-	m_posR.y += (float)Random(-nLengthY, nLengthY);
-	m_posR.z += (float)Random(-nLength, nLength) * cosf((float)Random(-314, 314) * 0.01f);
+	m_posR.x += (float)UtilFunc::Transformation::Random(-nLength, nLength) * sinf((float)UtilFunc::Transformation::Random(-314, 314) * 0.01f);
+	m_posR.y += (float)UtilFunc::Transformation::Random(-nLengthY, nLengthY);
+	m_posR.z += (float)UtilFunc::Transformation::Random(-nLength, nLength) * cosf((float)UtilFunc::Transformation::Random(-314, 314) * 0.01f);
 
 	// 慣性補正
-	InertiaCorrection(m_nShakeLength, 0.0f, 0.1f);
-	InertiaCorrection(m_nShakeLengthY, 0.0f, 0.1f);
+	UtilFunc::Correction::InertiaCorrection(m_nShakeLength, 0.0f, 0.1f);
+	UtilFunc::Correction::InertiaCorrection(m_nShakeLengthY, 0.0f, 0.1f);
 }
 
 //==================================================================================
@@ -997,8 +997,8 @@ void CCamera::UpdateState(void)
 			m_posR.z += m_fMoveShake;
 
 			// 慣性補正
-			InertiaCorrection(m_nShakeLength, 0.0f, 0.01f);
-			InertiaCorrection(m_nShakeLengthY, 0.0f, 0.01f);
+			UtilFunc::Correction::InertiaCorrection(m_nShakeLength, 0.0f, 0.01f);
+			UtilFunc::Correction::InertiaCorrection(m_nShakeLengthY, 0.0f, 0.01f);
 		}
 
 		// 状態遷移カウンター減算

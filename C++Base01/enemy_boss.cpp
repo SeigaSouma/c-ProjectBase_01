@@ -196,7 +196,7 @@ void CEnemyBoss::DrawingAction(void)
 	switch (m_Action)
 	{
 	case CEnemyBoss::ACTION_CHASE:	// 追従
-		if (CircleRange3D(GetPosition(), m_TargetPosition, LENGTH_CHASEWALK, 0.0f))
+		if (UtilFunc::Collision::CircleRange3D(GetPosition(), m_TargetPosition, LENGTH_CHASEWALK, 0.0f))
 		{// 歩きの範囲
 			m_ActionBranch = ACTBRANCH_CHASE_SLOW;
 		}
@@ -207,7 +207,7 @@ void CEnemyBoss::DrawingAction(void)
 		break;
 
 	case CEnemyBoss::ACTION_PROXIMITY:	// 近接攻撃
-		nActRand = Random(ACTBRANCH_PROXIMITY_PUNCH, ACTBRANCH_PROXIMITY_KICK);
+		nActRand = UtilFunc::Transformation::Random(ACTBRANCH_PROXIMITY_PUNCH, ACTBRANCH_PROXIMITY_KICK);
 		m_ActionBranch = static_cast<eActionBranch>(nActRand);
 
 		// 行動別移動処理
@@ -224,7 +224,7 @@ void CEnemyBoss::DrawingAction(void)
 		}
 
 		// 行動する為の行動決定
-		if (CircleRange3D(GetPosition(), m_TargetPosition, fLength, 0.0f))
+		if (UtilFunc::Collision::CircleRange3D(GetPosition(), m_TargetPosition, fLength, 0.0f))
 		{// 攻撃範囲内
 
 			// 追い着いた
@@ -235,7 +235,7 @@ void CEnemyBoss::DrawingAction(void)
 			// 追い着いてない
 			m_bCatchUp = false;
 
-			if (CircleRange3D(GetPosition(), m_TargetPosition, LENGTH_CHASEWALK, 0.0f))
+			if (UtilFunc::Collision::CircleRange3D(GetPosition(), m_TargetPosition, LENGTH_CHASEWALK, 0.0f))
 			{// 歩きの範囲
 				m_MakeForActionBranch = ACTBRANCH_CHASE_SLOW;
 			}
@@ -416,7 +416,7 @@ void CEnemyBoss::ActAttackProximity(void)
 		}
 
 		// 追い着き判定
-		m_bCatchUp = CircleRange3D(GetPosition(), m_TargetPosition, fLength, 0.0f);
+		m_bCatchUp = UtilFunc::Collision::CircleRange3D(GetPosition(), m_TargetPosition, fLength, 0.0f);
 
 		// 行動カウンター加算
 		m_fActTime += CManager::GetInstance()->GetDeltaTime();;
@@ -617,7 +617,7 @@ void CEnemyBoss::ChargeTackle(void)
 		pMotion->Set(MOTION_TACKLE);
 
 		// 目標との距離算出
-		m_fAssultLengthDest = GetFabsPosLength(GetPosition(), m_TargetPosition);
+		m_fAssultLengthDest = UtilFunc::Calculation::GetFabsPosLength3D(GetPosition(), m_TargetPosition);
 		
 		// 目標の突撃長さ
 		m_fAssultLengthDest *= 1.5f;
@@ -824,11 +824,11 @@ void CEnemyBoss::RotationTarget(void)
 	float fRotDiff = fRotDest - rot.y;
 
 	//角度の正規化
-	RotNormalize(fRotDiff);
+	UtilFunc::Transformation::RotNormalize(fRotDiff);
 
 	//角度の補正をする
 	rot.y += fRotDiff * 0.1f;
-	RotNormalize(rot.y);
+	UtilFunc::Transformation::RotNormalize(rot.y);
 
 	// 向き設定
 	SetRotation(rot);
@@ -869,9 +869,9 @@ void CEnemyBoss::AttackAction(CMotion::AttackInfo ATKInfo, int nCntATK)
 	case MOTION_BEAM:
 	{
 		D3DXCOLOR col = D3DXCOLOR(
-			0.5f + Random(-100, 100) * 0.001f,
-			0.1f + Random(-100, 100) * 0.001f,
-			0.5f + Random(-100, 100) * 0.001f,	// 色
+			0.5f + UtilFunc::Transformation::Random(-100, 100) * 0.001f,
+			0.1f + UtilFunc::Transformation::Random(-100, 100) * 0.001f,
+			0.5f + UtilFunc::Transformation::Random(-100, 100) * 0.001f,	// 色
 			1.0f);
 
 		CBeam::Create(

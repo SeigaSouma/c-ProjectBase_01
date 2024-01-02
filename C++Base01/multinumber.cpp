@@ -254,7 +254,7 @@ void CMultiNumber::Update(void)
 		return;
 	}
 
-	int nNumberDigit = GetDigit(m_nNum);
+	int nNumberDigit = UtilFunc::Calculation::GetDigit(m_nNum);
 
 	for (int nCntNum = 0; nCntNum < m_nNumNumber; nCntNum++)
 	{
@@ -310,7 +310,7 @@ void CMultiNumber::Draw(void)
 	int nNumNumber = m_nNumNumber;
 	if (m_bDigitDraw == true)
 	{// Œ…”•`‰æ‚¾‚Á‚½‚ç
-		nNumNumber = GetDigit(m_nNum);
+		nNumNumber = UtilFunc::Calculation::GetDigit(m_nNum);
 	}
 
 	for (int nCntNum = 0; nCntNum < nNumNumber; nCntNum++)

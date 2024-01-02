@@ -307,7 +307,7 @@ void CRankingScore::UpdateNewRecord(void)
 		D3DXCOLOR col = m_pScore[m_nIdxNewRecord][nCntScore]->GetObject2D()->GetColor();
 
 		// ‹Èü•â³
-		CuadricCurveComp(col.a, 180, 0.3f, 1.0f, m_nCntNewRecord);
+		UtilFunc::Correction::CuadricCurveComp(col.a, 180, 0.3f, 1.0f, m_nCntNewRecord);
 
 		// ˆÊ’uÝ’è
 		m_pScore[m_nIdxNewRecord][nCntScore]->GetObject2D()->SetPosition(pos);

@@ -152,7 +152,6 @@
     <ClCompile Include="bg.cpp" />
     <ClCompile Include="blackframe.cpp" />
     <ClCompile Include="bullet.cpp" />
-    <ClCompile Include="calculation.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="collision.cpp" />
     <ClCompile Include="collisionobject.cpp" />
