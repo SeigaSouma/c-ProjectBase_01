@@ -72,7 +72,6 @@ HRESULT CGame::Init(void)
 {
 	// エディット判定OFF
 	m_bEdit = false;
-	m_nIntervalSnow = 0;
 
 	// プレイヤーの数設定
 	CManager::GetInstance()->SetNumPlayer(1);
@@ -137,12 +136,6 @@ HRESULT CGame::Init(void)
 	info.fMinZ = -1200.0f;
 	m_pLimitArea = CLimitArea::Create(info);
 	m_pLimitArea->SetEnableDisp(false);
-
-	// タイマー
-	m_pTimer = CTimer::Create(D3DXVECTOR3(640.0f, 360.0f, 0.0f));
-
-	// サンタの袋生成
-	CSantaBag::Create(D3DXVECTOR3(200.0f, 0.0f, 200.0f));
 
 	// クリアの判定
 	SetEnableClear(true);
@@ -229,13 +222,6 @@ void CGame::Uninit(void)
 //==========================================================================
 void CGame::Update(void)
 {
-
-	// 雪
-	m_nIntervalSnow = (m_nIntervalSnow + 1) % 8;
-	if (m_nIntervalSnow == 0)
-	{
-		my_particle::Create(mylib_const::DEFAULT_VECTOR3, my_particle::TYPE_FALLSNOW);
-	}
 
 	// ゲームマネージャ
 	if (m_pGameManager != NULL)

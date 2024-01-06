@@ -39,13 +39,14 @@
 #include "santabag.h"
 #include "meshsphere.h"
 #include "particle.h"
+#include "MyEffekseer.h"
 
 //==========================================================================
 // 定数定義
 //==========================================================================
 namespace
 {
-	const char* CHARAFILE = "data\\TEXT\\character\\player\\mainplayer\\setup_player.txt";	// キャラクターファイル
+	const char* CHARAFILE = "data\\TEXT\\character\\player\\tyuuniplayer\\setup_player.txt";	// キャラクターファイル
 	const float JUMP = 20.0f * 1.5f;	// ジャンプ力初期値
 	const int INVINCIBLE_INT = 2;		// 無敵の間隔
 	const int INVINCIBLE_TIME = 90;		// 無敵の時間
@@ -590,6 +591,28 @@ void CPlayer::Controll(void)
 	{
 
 		m_sMotionFrag.bATK = true;		// 攻撃判定OFF
+	}
+
+	if (pInputKeyboard->GetTrigger(DIK_SPACE) == true)
+	{
+		D3DXVECTOR3 weponpos = pos;
+		//weponpos.y += 150.0f;
+
+		CMyEffekseer::GetInstance()->SetEffect(
+			"data/Effekseer/LightningStrike.efkefc",
+			weponpos, rot, mylib_const::DEFAULT_VECTOR3, 20.0f);
+	}
+
+	if (pInputKeyboard->GetRepeat(DIK_O, 8) == true)
+	{
+		D3DXVECTOR3 weponpos = pos;
+		weponpos.y += 150.0f;
+
+		D3DXVECTOR3 spawnpos = UtilFunc::Transformation::GetRandomPositionSphere(weponpos, 300.0f);
+
+		CMyEffekseer::GetInstance()->SetEffect(
+			"data/Effekseer/Laser01.efkefc",
+			spawnpos, UtilFunc::Transformation::GetRandomVecSphere() * D3DX_PI, mylib_const::DEFAULT_VECTOR3, 10.0f);
 	}
 
 }

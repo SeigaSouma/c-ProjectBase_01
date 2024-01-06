@@ -75,14 +75,6 @@ void CTitle::Update(void)
 		"現在のモード：【タイトル】\n"
 		"切り替え：【 F 】\n\n");
 
-
-	// 雪
-	/*m_nIntervalSnow = (m_nIntervalSnow + 1) % 8;
-	if (m_nIntervalSnow == 0)*/
-	{
-		my_particle::Create(mylib_const::DEFAULT_VECTOR3, my_particle::TYPE_FALLSNOW);
-	}
-
 	// キーボード情報取得
 	CInputKeyboard *pInputKeyboard = CManager::GetInstance()->GetInputKeyboard();
 

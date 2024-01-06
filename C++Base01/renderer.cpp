@@ -14,6 +14,7 @@
 #include "blackframe.h"
 #include "pause.h"
 #include "input.h"
+#include "MyEffekseer.h"
 
 //==========================================================================
 // マクロ定義
@@ -188,6 +189,9 @@ void CRenderer::Draw(void)
 
 		// 全ての描画
 		CObject::DrawAll();
+
+		// エフェクシアの更新兼描画
+		GetEffekseer()->Update();
 
 		// カメラの設定
 		CManager::GetInstance()->GetCamera()->SetCamera();

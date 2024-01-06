@@ -49,7 +49,7 @@ mapdate::SMap g_Map;
 //==========================================================================
 // 生成処理
 //==========================================================================
-HRESULT map::Create(const char *pTextFile)
+HRESULT MyMap::Create(const char *pTextFile)
 {
 	// 総数
 	mapdate::nNumModelAll = 0;
@@ -73,7 +73,7 @@ HRESULT map::Create(const char *pTextFile)
 //==========================================================================
 // 解放処理
 //==========================================================================
-void map::Release(void)
+void MyMap::Release(void)
 {
 	for (int nCntObj = 0; nCntObj < mylib_const::MAX_OBJ; nCntObj++)
 	{
@@ -96,7 +96,7 @@ void map::Release(void)
 //==========================================================================
 // 外部ファイル書き込み処理
 //==========================================================================
-HRESULT map::SaveText(void)
+HRESULT MyMap::SaveText(void)
 {
 #if TOPCUR
 	FILE *pFile = NULL;	// ファイルポインタを宣言
@@ -365,7 +365,7 @@ HRESULT map::SaveText(void)
 //==========================================================================
 // テクスチャ読み込み処理
 //==========================================================================
-HRESULT map::ReadTexture(void)
+HRESULT MyMap::ReadTexture(void)
 {
 	char aComment[MAX_COMMENT] = {};	// コメント用
 	int nFileNum = 0;					// ファイルの数
@@ -463,7 +463,7 @@ HRESULT map::ReadTexture(void)
 //==========================================================================
 // モデル読み込み処理
 //==========================================================================
-HRESULT map::ReadXFile(const char *pTextFile)
+HRESULT MyMap::ReadXFile(const char *pTextFile)
 {
 	// リセット
 	mapdate::nNumModelAll = 0;
@@ -540,7 +540,7 @@ HRESULT map::ReadXFile(const char *pTextFile)
 //==========================================================================
 // 外部テキスト読み込み処理
 //==========================================================================
-HRESULT map::ReadText(const char *pTextFile)
+HRESULT MyMap::ReadText(const char *pTextFile)
 {
 	std::string FileName;	// ファイル名
 	char aComment[MAX_COMMENT] = {};	//コメント用
@@ -823,7 +823,7 @@ HRESULT map::ReadText(const char *pTextFile)
 //==========================================================================
 // 総数取得
 //==========================================================================
-int map::GetNumModelAll(void)
+int MyMap::GetNumModelAll(void)
 {
 	return mapdate::nNumModelAll;
 }

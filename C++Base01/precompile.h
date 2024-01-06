@@ -11,6 +11,8 @@
 #include <stdio.h>
 #include <time.h>
 #include <string.h>
+#include <DirectXMath.h>
+#include <D3DX9Math.h>
 
 // C++のstd用
 #include <vector>
@@ -20,6 +22,7 @@
 #include <iostream>
 #include <cmath>
 #include <iterator>
+#include <codecvt>
 
 #include <d3dx9.h>						// 描画処理に必要
 #define DIRECTINPUT_VERSION	(0x0800)	// ビルド時の警告用マクロ
@@ -27,6 +30,23 @@
 #include <xaudio2.h>					// サウンド処理に必要
 #include <dsound.h>						// サウンド内部処理に必要
 #include <Xinput.h>
+
+
+
+#ifndef _DEBUG
+#pragma comment(lib, "Effekseer.lib")
+#else
+#pragma comment(lib, "Effekseerd.lib")
+#endif
+#include <Effekseer.h>
+
+#ifndef _DEBUG
+#pragma comment(lib, "EffekseerRendererDX9.lib")
+#else
+#pragma comment(lib, "EffekseerRendererDX9d.lib")
+#endif
+#include <EffekseerRendererDX9.h>
+
 
 // メモリリーク出力用マクロ
 #define _CRTDBG_MAP_ALLOC

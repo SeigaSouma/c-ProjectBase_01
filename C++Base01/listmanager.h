@@ -110,7 +110,10 @@ template<class T> bool CListManager<T>::ListLoop(T** ppList)
 	}
 
 	// 先頭のイテレーターを取得
-	Iterator itr = m_ListObj.begin();
+	Iterator it = m_ListObj.begin();
+	std::advance(it, 0);
+
+	Iterator itr = it;
 
 	if (*ppList == nullptr)
 	{

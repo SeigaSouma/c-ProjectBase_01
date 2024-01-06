@@ -137,10 +137,10 @@ HRESULT CShadow::Init(void)
 	}
 
 	// テクスチャの割り当て
-	//m_nTexIdx = CManager::GetInstance()->GetTexture()->Regist("data\\TEXTURE\\shadow000.jpg");
+	m_nTexIdx = CManager::GetInstance()->GetTexture()->Regist("data\\TEXTURE\\shadow000.jpg");
 
 	// テクスチャの割り当て
-	//BindTexture(m_nTexIdx);
+	BindTexture(m_nTexIdx);
 
 	return S_OK;
 }

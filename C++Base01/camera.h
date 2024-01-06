@@ -57,6 +57,7 @@ public:
 	void SetTargetRotation(const D3DXVECTOR3 rot);	// ’Ç]–Ú•W‚ÌŒü‚«İ’è
 	D3DXVECTOR3 GetTargetRotation(void);			// ’Ç]–Ú•W‚ÌŒü‚«æ“¾
 	D3DXMATRIX GetMtxView(void) { return m_mtxView; }
+	D3DXMATRIX GetMtxProjection(void) { return m_mtxProjection; }
 
 	void SetShake(int nTime, float fLength, float fLengthY);	// U“®İ’è
 	void SetLenDest(float fLength, int nCntTime = 120, float DecrementValue = 2.0f, float fCorrection = 0.1f);	// –Ú•W‚Ì’·‚³İ’è

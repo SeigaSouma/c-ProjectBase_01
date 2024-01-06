@@ -58,7 +58,7 @@ CTexture::~CTexture()
 HRESULT CTexture::LoadAll(void)
 {
 	// マップ用の読み込み
-	if (FAILED(map::ReadTexture()))
+	if (FAILED(MyMap::ReadTexture()))
 	{// 失敗した場合
 		return E_FAIL;
 	}

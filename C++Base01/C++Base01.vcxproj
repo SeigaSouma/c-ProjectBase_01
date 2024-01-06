@@ -93,11 +93,13 @@
       <PrecompiledHeaderFile>precompile.h</PrecompiledHeaderFile>
       <ForcedIncludeFiles>precompile.h</ForcedIncludeFiles>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\student\Documents\Visual Studio 2019\Projects\C++Base01\Effekseer\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\Libraries\Effekseer\Include\Effekseer;.\Libraries\Effekseer\Include\EffekseerRendererCommon;.\Libraries\Effekseer\Include\EffekseerRendererDX9;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>.\Libraries\Effekseer\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -195,6 +197,7 @@
     <ClCompile Include="model.cpp" />
     <ClCompile Include="motion.cpp" />
     <ClCompile Include="multinumber.cpp" />
+    <ClCompile Include="MyEffekseer.cpp" />
     <ClCompile Include="number.cpp" />
     <ClCompile Include="number_2D.cpp" />
     <ClCompile Include="number_3D.cpp" />
@@ -293,6 +296,7 @@
     <ClInclude Include="model.h" />
     <ClInclude Include="motion.h" />
     <ClInclude Include="multinumber.h" />
+    <ClInclude Include="MyEffekseer.h" />
     <ClInclude Include="number.h" />
     <ClInclude Include="number_2D.h" />
     <ClInclude Include="number_3D.h" />

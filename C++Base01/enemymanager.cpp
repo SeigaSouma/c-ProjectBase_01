@@ -168,29 +168,29 @@ void CEnemyManager::Update(void)
 		
 	}
 
-	// 時間の取得
-	m_fTimer += CManager::GetInstance()->GetDeltaTime();
+	//// 時間の取得
+	//m_fTimer += CManager::GetInstance()->GetDeltaTime();
 
-	// タイムによる割合を計算
-	float fRate =  0.0f;
+	//// タイムによる割合を計算
+	//float fRate =  0.0f;
 
-	CTimer *pTimer = CTimer::GetInstance();
+	//CTimer *pTimer = CTimer::GetInstance();
 
-	if (pTimer != nullptr)
-	{
-		float fTime = pTimer->GetTime();
+	//if (pTimer != nullptr)
+	//{
+	//	float fTime = pTimer->GetTime();
 
-		fRate = fTime / START_TIME;
-	}
+	//	fRate = fTime / START_TIME;
+	//}
 
-	float fTime = INITIAL_TIME - (INITIAL_TIME - MIN_TIME) * (1.0f - fRate);
+	//float fTime = INITIAL_TIME - (INITIAL_TIME - MIN_TIME) * (1.0f - fRate);
 
-	if (m_fTimer >= fTime)
-	{// ランダムな敵スポーン
-		SetStageEnemy();
+	//if (m_fTimer >= fTime)
+	//{// ランダムな敵スポーン
+	//	SetStageEnemy();
 
-		m_fTimer = 0.0f;
-	}
+	//	m_fTimer = 0.0f;
+	//}
 
 	// テキストの描画
 	CManager::GetInstance()->GetDebugProc()->Print(

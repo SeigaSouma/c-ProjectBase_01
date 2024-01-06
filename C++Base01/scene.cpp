@@ -121,7 +121,7 @@ HRESULT CScene::Init(void)
 	//**********************************
 	// マップの生成
 	//**********************************
-	if (FAILED(map::Create("data\\TEXT\\map\\info.txt")))
+	if (FAILED(MyMap::Create("data\\TEXT\\map\\info.txt")))
 	{// 失敗した場合
 		return E_FAIL;
 	}
@@ -225,13 +225,13 @@ void CScene::ResetScene(void)
 	}
 
 	// マップ
-	map::Release();
+	MyMap::Release();
 
 	//**********************************
 	// 生成フェーズ
 	//**********************************
 	// マップ
-	if (FAILED(map::Create("data\\TEXT\\map\\info_boss.txt")))
+	if (FAILED(MyMap::Create("data\\TEXT\\map\\info_boss.txt")))
 	{// 失敗した場合
 		return;
 	}

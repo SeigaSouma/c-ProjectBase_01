@@ -181,7 +181,7 @@ void CEdit::Update(void)
 	{// セーブ
 
 		// テキストにセーブ
-		map::SaveText();
+		MyMap::SaveText();
 	}
 
 	// デバッグ情報
@@ -389,7 +389,7 @@ void CEdit::Control(CObjectX *pObjX)
 //==========================================================================
 void CEdit::ChangeType(void)
 {
-	int nNumAll = map::GetNumModelAll();
+	int nNumAll = MyMap::GetNumModelAll();
 
 	// キーボード情報取得
 	CInputKeyboard *pInputKeyboard = CManager::GetInstance()->GetInputKeyboard();

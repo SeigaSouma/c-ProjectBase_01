@@ -24,7 +24,7 @@
 #define MOVE			(2.5f)				// 移動量
 #define MAX_LENGTH		(50000.0f)			// 最大距離
 #define MIN_LENGTH		(10.0f)				// 最少距離
-#define START_CAMERALEN	(1300.0f)			// 元の距離
+#define START_CAMERALEN	(800.0f)			// 元の距離
 #define ROT_MOVE_MOUSE	(0.01f)				// 回転移動量
 #define ROT_MOVE_STICK	(0.0015f)			// 回転移動量
 #define ROT_MOVE		(0.025f)			// 回転移動量
@@ -32,8 +32,8 @@
 #define MAX_ROT			(D3DX_PI * 0.49f)	// カメラ固定用
 #define BACKFOLLOW_TIME	(20)				// 背面補正までの時間
 #define TITLE_POSR_DEST	(D3DXVECTOR3(0.0f, 0.0f, 0.0f))
-#define TITLE_LEN_DEST	(3660.0f)
-#define TITLECAMERAROT_NONE		(D3DXVECTOR3(0.0f, 0.0f, D3DX_PI * 0.01f))
+#define TITLE_LEN_DEST	(500.0f)
+#define TITLECAMERAROT_NONE		(D3DXVECTOR3(0.0f, 0.0f, -D3DX_PI * 0.1f))
 #define TITLECAMERAROT_ENEMY	(D3DXVECTOR3(0.0f, -0.79f, -0.12f))
 #define TITLESTATE_CHANGE	(60 * 14)
 #define TITLESTATE_CHASE	(60 * 20)
@@ -552,7 +552,7 @@ void CCamera::SetCameraVTitle(void)
 		m_posVDest.x = m_posR.x + cosf(m_rot.z) * sinf(m_rot.y) * -m_fDistance;
 		m_posVDest.z = m_posR.z + cosf(m_rot.z) * cosf(m_rot.y) * -m_fDistance;
 		m_posVDest.y = m_posR.y + sinf(m_rot.z) * -m_fDistance;
-
+#if 0
 		float fDistance = 0.0f;
 		m_fHeightMaxDest = m_posVDest.y;
 		// 目標の角度を求める
@@ -598,6 +598,7 @@ void CCamera::SetCameraVTitle(void)
 			// 高さの差分
 			m_fDiffHeightSave += m_fHeightMax - m_posV.y;
 		}
+#endif
 
 		// 補正する
 		m_posV += (m_posVDest - m_posV) * 0.12f;
@@ -858,7 +859,7 @@ void CCamera::SetCamera(void)
 	D3DXMatrixPerspectiveFovLH(&m_mtxProjection,
 								D3DXToRadian(45.0f),	// 視野角
 								(float)m_viewport.Width / (float)m_viewport.Height,	// アスペクト比
-								10.0f,		// 奥行きの制限
+								10.0f,		// 手前の制限
 								30000.0f);	// 奥行きの制限
 
 	// プロジェクションマトリックスの設定
@@ -1085,7 +1086,7 @@ void CCamera::ResetGame(void)
 	m_posRDest = m_posR;									// 目標の注視点
 	m_vecU = D3DXVECTOR3(0.0f, 1.0f, 0.0f);					// 上方向ベクトル
 	m_move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);					// 移動量
-	m_rot = D3DXVECTOR3(0.0f, 0.0f, -0.40f);					// 向き
+	m_rot = D3DXVECTOR3(0.0f, 0.0f, -0.20f);					// 向き
 	m_rotVDest = m_rot;										// 目標の視点の向き
 	m_TargetPos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);			// 目標の位置
 	m_fDistance = START_CAMERALEN;							// 距離
@@ -1158,7 +1159,7 @@ bool CCamera::OnScreen(const D3DXVECTOR3 pos)
 //==========================================================================
 void CCamera::ResetTitle(void)
 {
-	m_posR = D3DXVECTOR3(0.0f, 300.0f, 30.0f);	// 注視点(見たい場所)
+	m_posR = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	// 注視点(見たい場所)
 	m_posV = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	// 視点(カメラの位置)
 	m_posVDest = m_posV;								// 目標の視点
 	m_posRDest = m_posR;								// 目標の注視点

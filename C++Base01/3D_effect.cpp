@@ -288,13 +288,13 @@ HRESULT CEffect3D::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 move, const D3D
 	SetType(TYPE_EFFECT3D);
 
 	// テクスチャの割り当て
-	//if (m_nTexIdx[m_nType] == 0)
-	//{
-	//	m_nTexIdx[m_nType] = CManager::GetInstance()->GetTexture()->Regist(m_apTextureFile[m_nType]);
-	//}
+	if (m_nTexIdx[m_nType] == 0)
+	{
+		m_nTexIdx[m_nType] = CManager::GetInstance()->GetTexture()->Regist(m_apTextureFile[m_nType]);
+	}
 
-	//// テクスチャの割り当て
-	//BindTexture(m_nTexIdx[m_nType]);
+	// テクスチャの割り当て
+	BindTexture(m_nTexIdx[m_nType]);
 
 	// 初期化処理
 	hr = CObjectBillboard::Init();

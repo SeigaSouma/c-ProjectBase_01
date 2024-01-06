@@ -7,12 +7,13 @@
 #include <stdio.h>
 #include "main.h"
 #include "manager.h"
+#include "MyEffekseer.h"
 
 //==========================================================================
 // マクロ定義
 //==========================================================================
 #define CLASS_NAME		"WindowsClass"	// ウインドウクラスの名前
-#define WINDOW_NAME		"サンタのスノーボールマッチ"	// ウインドウの名前(キャプション)
+#define WINDOW_NAME		"Effekseerテスト"	// ウインドウの名前(キャプション)
 
 //==========================================================================
 // プロトタイプ宣言
@@ -23,6 +24,7 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 // グローバル変数宣言
 //==========================================================================
 int g_nCountFPS;
+CMyEffekseer* pMyEffekseer = nullptr;
 
 //==========================================================================
 // メイン関数
@@ -103,6 +105,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR lpCmbLine
 		}
 	}
 
+	pMyEffekseer = CMyEffekseer::Create();
+
 	g_nCountFPS = 0;
 
 	// 分解能を設定
@@ -151,6 +155,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR lpCmbLine
 				// 処理開始の時刻[現在時刻]を保存
 				dwExecLastTime = dwCurrentTime;
 
+				/*if (pMyEffekseer != nullptr)
+				{
+					pMyEffekseer->Update();
+				}*/
+
 				if (pManager != NULL)
 				{// メモリの確保が出来ていたら
 
@@ -160,6 +169,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR lpCmbLine
 					// 描画処理
 					pManager->Draw();
 				}
+
+				if (pMyEffekseer != nullptr)
+				{
+					//pMyEffekseer->Update();
+				}
+				
 
 				// フレームカウントを加算
 				dwFrameCount++;
@@ -252,4 +267,9 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 int GetFPS(void)
 {
 	return g_nCountFPS;
+}
+
+CMyEffekseer* GetEffekseer(void)
+{
+	return pMyEffekseer;
 }
