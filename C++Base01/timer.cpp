@@ -24,7 +24,7 @@ namespace
 {
 	const char* TEXTURE = "data\\TEXTURE\\number\\degital_01.png";	// テクスチャのファイル
 	const char* TEXTURE_WINDOW = "data\\TEXTURE\\timerwindow.png";		// ウィンドウテクスチャのファイル
-	const D3DXVECTOR3 DEST_POSITION = D3DXVECTOR3(1100.0f, 100.0f, 0.0f);
+	const MyLib::Vector3 DEST_POSITION = MyLib::Vector3(1100.0f, 100.0f, 0.0f);
 	const float START_RATIO = 4.5;			// 初期割合
 	const float DEST_RATIO_WINDOW = 0.1f;	// 目標のウィンドウ割合
 	const float WIDTH = 25.0f;			// 横幅
@@ -108,7 +108,7 @@ CTimer *CTimer::Create(void)
 //==========================================================================
 // 生成処理
 //==========================================================================
-CTimer *CTimer::Create(D3DXVECTOR3 pos)
+CTimer *CTimer::Create(MyLib::Vector3 pos)
 {
 	if (m_pTimer == NULL)
 	{// NULLだったら
@@ -132,7 +132,7 @@ CTimer *CTimer::Create(D3DXVECTOR3 pos)
 //==========================================================================
 // 初期化処理
 //==========================================================================
-HRESULT CTimer::Init(D3DXVECTOR3 pos)
+HRESULT CTimer::Init(MyLib::Vector3 pos)
 {
 	// 各種変数初期化
 	m_pos = pos;
@@ -152,7 +152,7 @@ HRESULT CTimer::Init(D3DXVECTOR3 pos)
 			{
 				m_apCircle[i]->SetType(CObject::TYPE::TYPE_OBJECT2D);
 
-				D3DXVECTOR3 pos =
+				MyLib::Vector3 pos =
 				{
 					170.0f + SIZE_CIRCLE * i * 2,
 					SIZE_CIRCLE,
@@ -291,7 +291,7 @@ void CTimer::StateAdjustment(void)
 	m_pos.x = UtilFunc::Correction::EasingLinear(m_posOrigin.x, DEST_POSITION.x, m_fStateTime / TIME_ADJUSTMENT);
 	m_pos.y = UtilFunc::Correction::EasingLinear(m_posOrigin.y, DEST_POSITION.y, m_fStateTime / TIME_ADJUSTMENT);
 
-	D3DXVECTOR3 setpos = m_pos;
+	MyLib::Vector3 setpos = m_pos;
 
 	if (m_fStateTime >= TIME_ADJUSTMENT)
 	{

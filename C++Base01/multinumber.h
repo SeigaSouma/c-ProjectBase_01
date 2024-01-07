@@ -35,8 +35,8 @@ public:
 	CMultiNumber(int nPriority = 8);
 	~CMultiNumber();
 
-	static CMultiNumber *Create(D3DXVECTOR3 pos, D3DXVECTOR2 size, int nNum, CNumber::EObjectType objtype, bool bDigitDraw = false, int nPriority = 8);
-	static CMultiNumber *Create(D3DXVECTOR3 pos, D3DXVECTOR2 size, int nNum, CNumber::EObjectType objtype, const char *pTextureFile, bool bDigitDraw = false, int nPriority = 8);
+	static CMultiNumber *Create(MyLib::Vector3 pos, D3DXVECTOR2 size, int nNum, CNumber::EObjectType objtype, bool bDigitDraw = false, int nPriority = 8);
+	static CMultiNumber *Create(MyLib::Vector3 pos, D3DXVECTOR2 size, int nNum, CNumber::EObjectType objtype, const char *pTextureFile, bool bDigitDraw = false, int nPriority = 8);
 
 	// メンバ関数
 	HRESULT Init(void);
@@ -48,12 +48,12 @@ public:
 	void SetValue(void);		// 値の設定処理
 	void SetValue(int nValue);	// 値の設定処理(オーバーロード)
 	int GetValue(void);			// 値の取得処理
-	void SetPosition(const D3DXVECTOR3 pos);	// 位置設定
-	D3DXVECTOR3 GetPosition(void) const;		// 位置取得
-	void SetOriginPosition(const D3DXVECTOR3 pos);	// 位置設定
-	D3DXVECTOR3 GetOriginPosition(void) const;		// 位置取得
-	void SetRotation(const D3DXVECTOR3 pos);	// 位置設定
-	D3DXVECTOR3 GetRotation(void) const;		// 位置取得
+	void SetPosition(const MyLib::Vector3 pos);	// 位置設定
+	MyLib::Vector3 GetPosition(void) const;		// 位置取得
+	void SetOriginPosition(const MyLib::Vector3 pos);	// 位置設定
+	MyLib::Vector3 GetOriginPosition(void) const;		// 位置取得
+	void SetRotation(const MyLib::Vector3 pos);	// 位置設定
+	MyLib::Vector3 GetRotation(void) const;		// 位置取得
 	void SetColor(const D3DXCOLOR col);			// 色設定
 	D3DXCOLOR GetColor(void) const;				// 色取得
 	void Release(void);	// 開放処理
@@ -65,9 +65,9 @@ public:
 private:
 
 	// メンバ変数
-	D3DXVECTOR3 m_pos;				// 位置
-	D3DXVECTOR3 m_posOrigin;				// 位置
-	D3DXVECTOR3 m_rot;				// 向き
+	MyLib::Vector3 m_pos;				// 位置
+	MyLib::Vector3 m_posOrigin;				// 位置
+	MyLib::Vector3 m_rot;				// 向き
 	D3DXCOLOR m_col;				// 色
 	D3DXVECTOR2 m_size;				// 数字のサイズ
 	D3DXVECTOR2 m_sizeOrigin;				// 数字のサイズ

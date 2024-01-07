@@ -29,8 +29,8 @@ public:
 		int nStart;				// 最初からあるかどうか
 		int nSwitchType;		// 切り替えの種類
 		int nIDSwitchModel;		// 切り替えモデルのID
-		D3DXVECTOR3 pos;		// 位置
-		D3DXVECTOR3 rot;		// 向き
+		MyLib::Vector3 pos;		// 位置
+		MyLib::Vector3 rot;		// 向き
 	};
 
 	struct Load
@@ -42,7 +42,7 @@ public:
 		int nLife;				// 体力
 		int nMotionStartIdx;	// モーション開始のインデックス番号
 		int nAddScore;			// スコア加算量
-		D3DXVECTOR3 posOrigin;	// 最初の位置
+		MyLib::Vector3 posOrigin;	// 最初の位置
 		LoadData LoadData[mylib_const::MAX_MODEL];
 	};
 
@@ -66,9 +66,9 @@ public:
 
 	void SetmtxWorld(const D3DXMATRIX mtxWorld);
 	D3DXMATRIX GetmtxWorld(void) const;			// ワールドマトリックス取得
-	D3DXVECTOR3 GetCenterPosition(void) const;		// 中心の位置取得
-	void SetOriginPosition(const D3DXVECTOR3 pos);	// 最初の位置設定
-	D3DXVECTOR3 GetOriginPosition(void) const;		// 最初の位置取得
+	MyLib::Vector3 GetCenterPosition(void) const;		// 中心の位置取得
+	void SetOriginPosition(const MyLib::Vector3 pos);	// 最初の位置設定
+	MyLib::Vector3 GetOriginPosition(void) const;		// 最初の位置取得
 	void SetRadius(const float fRadius);		// 半径設定
 	float GetRadius(void) const;				// 半径取得
 
@@ -104,7 +104,7 @@ private:
 
 	// メンバ変数
 	D3DXMATRIX	m_mtxWorld;		// ワールドマトリックス
-	D3DXVECTOR3 m_posOrigin;	// 最初の位置
+	MyLib::Vector3 m_posOrigin;	// 最初の位置
 	float m_fRadius;			// 半径
 	int m_nNumModel;			// モデルの数
 	int m_nIdxFile;				// ファイルのインデックス番号

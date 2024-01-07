@@ -39,7 +39,7 @@
 //==========================================================================
 typedef struct
 {
-	D3DXVECTOR3 pos;	// 頂点座標
+	MyLib::Vector3 pos;	// 頂点座標
 	float rhw;			// 座標変換用係数(1.0fで固定)
 	D3DCOLOR col;		// 頂点カラー
 	D3DXVECTOR2 tex;	// テクスチャ座標
@@ -48,8 +48,8 @@ typedef struct
 // 頂点情報[3D]の構造体を定義
 typedef struct
 {
-	D3DXVECTOR3 pos;		// 頂点座標
-	D3DXVECTOR3 nor;		// 法線ベクトル
+	MyLib::Vector3 pos;		// 頂点座標
+	MyLib::Vector3 nor;		// 法線ベクトル
 	D3DCOLOR col;			// 頂点カラー
 	D3DXVECTOR2 tex;		// テクスチャ座標
 } VERTEX_3D;

@@ -80,7 +80,7 @@ CShadow *CShadow::Create(void)
 //==========================================================================
 // 生成処理(オーバーロード)
 //==========================================================================
-CShadow *CShadow::Create(D3DXVECTOR3 pos, float size)
+CShadow *CShadow::Create(MyLib::Vector3 pos, float size)
 {
 	// 生成用のオブジェクト
 	CShadow *pShadow = NULL;
@@ -103,7 +103,7 @@ CShadow *CShadow::Create(D3DXVECTOR3 pos, float size)
 
 			// 位置割り当て
 			pShadow->SetPosition(pos);
-			pShadow->SetSize(D3DXVECTOR3(size, 0.0f, size));	// サイズ
+			pShadow->SetSize(MyLib::Vector3(size, 0.0f, size));	// サイズ
 
 			// 初期化処理
 			pShadow->Init();
@@ -174,7 +174,7 @@ void CShadow::Update(void)
 	}*/
 
 	// 位置取得
-	D3DXVECTOR3 pos = GetPosition();
+	MyLib::Vector3 pos = GetPosition();
 
 	// 高さ取得
 	bool bLand = false;

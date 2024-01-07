@@ -57,7 +57,7 @@ void CEffectEnemySpawn::LoadTexture(void)
 //==========================================================================
 // 生成処理
 //==========================================================================
-CEffectEnemySpawn *CEffectEnemySpawn::Create(const D3DXVECTOR3 pos)
+CEffectEnemySpawn *CEffectEnemySpawn::Create(const MyLib::Vector3 pos)
 {
 	// 生成用のオブジェクト
 	CEffectEnemySpawn *pExplosion = NULL;
@@ -131,7 +131,7 @@ void CEffectEnemySpawn::Uninit(void)
 void CEffectEnemySpawn::Update(void)
 {
 	//// 位置取得
-	//D3DXVECTOR3 pos = GetPosition();
+	//MyLib::Vector3 pos = GetPosition();
 
 	//// サイズ
 	//D3DXVECTOR2 size = GetSize();

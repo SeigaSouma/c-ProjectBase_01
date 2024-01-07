@@ -22,7 +22,7 @@ public:
 	CStageClearText(int nPriority = 8);
 	~CStageClearText();
 
-	static CStageClearText *Create(const D3DXVECTOR3 pos);
+	static CStageClearText *Create(const MyLib::Vector3 pos);
 	
 	//  オーバーライドされた関数
 	HRESULT Init(void);

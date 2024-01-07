@@ -65,7 +65,7 @@ public:
 	CEnemy(int nPriority = mylib_const::ENEMY_PRIORITY);
 	virtual ~CEnemy();
 
-	static CEnemy *Create(const char *pFileName, D3DXVECTOR3 pos, TYPE type = TYPE_BOSS);
+	static CEnemy *Create(const char *pFileName, MyLib::Vector3 pos, TYPE type = TYPE_BOSS);
 
 	// オーバーライドされた関数
 	virtual HRESULT Init(void) override;
@@ -76,14 +76,14 @@ public:
 	void SetState(STATE state, int nCntState);	// 状態設定
 	virtual bool Hit(const int nValue);
 
-	void SetSpawnPosition(D3DXVECTOR3 pos);	// スポーン地点設定
-	D3DXVECTOR3 GetSpawnPosition(void);	// スポーン地点取得
-	void SetTargetPosition(D3DXVECTOR3 pos) { m_TargetPosition = pos; }	// 目標の位置設定
+	void SetSpawnPosition(MyLib::Vector3 pos);	// スポーン地点設定
+	MyLib::Vector3 GetSpawnPosition(void);	// スポーン地点取得
+	void SetTargetPosition(MyLib::Vector3 pos) { m_TargetPosition = pos; }	// 目標の位置設定
 
 	HRESULT RoadText(const char *pFileName);
 	virtual void Kill(void);	// 削除
 	void SetParent(CEnemy *pParent);		// 親のポインタ設定
-	void SetOriginRotation(D3DXVECTOR3 rot);	// 元の向き
+	void SetOriginRotation(MyLib::Vector3 rot);	// 元の向き
 	CEnemy *GetEnemy(void);
 	static CListManager<CEnemy> GetListObj(void) { return m_List; }	// リスト取得
 
@@ -110,7 +110,7 @@ protected:
 	// 隊列の構造体定義
 	struct SFormationInfo
 	{
-		D3DXVECTOR3 pos;	// 隊列の位置
+		MyLib::Vector3 pos;	// 隊列の位置
 		float fAngle;		// 向き
 		float fLength;		// 長さ
 	};
@@ -147,13 +147,13 @@ protected:
 	int m_nCntState;						// 状態遷移カウンター
 	int m_nTargetPlayerIndex;				// 追い掛けるプレイヤーのインデックス番号
 	float m_fActCounter;						// 移動カウンター
-	D3DXVECTOR3 m_posOrigin;				// 最初の位置
-	D3DXVECTOR3 m_posKnokBack;				// ノックバックの位置
+	MyLib::Vector3 m_posOrigin;				// 最初の位置
+	MyLib::Vector3 m_posKnokBack;				// ノックバックの位置
 	SMotionFrag m_sMotionFrag;				// モーションのフラグ
 	CHP_Gauge *m_pHPGauge;					// HPゲージの情報
 	CEnemy *m_pParent;		// 親のポインタ
 	D3DXCOLOR m_mMatcol;	// マテリアルの色
-	D3DXVECTOR3 m_TargetPosition;	// 目標の位置
+	MyLib::Vector3 m_TargetPosition;	// 目標の位置
 private:
 
 	enum MOTION
@@ -178,7 +178,7 @@ private:
 
 	TYPE m_type;			// 種類
 	SFormationInfo m_sFormationInfo;	// 隊列の情報
-	D3DXVECTOR3 m_rotOrigin;	// 最初の向き
+	MyLib::Vector3 m_rotOrigin;	// 最初の向き
 	int m_nTexIdx;			// テクスチャのインデックス番号
 	int m_nNumChild;		// 子の数
 	bool m_bAddScore;		// スコア加算するかの判定

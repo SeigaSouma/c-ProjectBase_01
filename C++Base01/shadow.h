@@ -22,7 +22,7 @@ public:
 	~CShadow();
 
 	static CShadow *Create();
-	static CShadow *Create(D3DXVECTOR3 pos, float size = 50.0f);
+	static CShadow *Create(MyLib::Vector3 pos, float size = 50.0f);
 
 	// オーバーライドされた関数ああ
 	HRESULT Init(void);

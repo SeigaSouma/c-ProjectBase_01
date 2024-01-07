@@ -34,10 +34,10 @@ public:
 	void Draw(void) override;
 	void Release(void) override;	// 開放処理
 
-	void SetPosition(const D3DXVECTOR3 pos) override;	// 位置設定
-	D3DXVECTOR3 GetPosition(void) const override;		// 位置取得
-	void SetMove(const D3DXVECTOR3 move) override;		// 移動量設定
-	D3DXVECTOR3 GetMove(void) const override;			// 移動量取得
+	void SetPosition(const MyLib::Vector3 pos) override;	// 位置設定
+	MyLib::Vector3 GetPosition(void) const override;		// 位置取得
+	void SetMove(const MyLib::Vector3 move) override;		// 移動量設定
+	MyLib::Vector3 GetMove(void) const override;			// 移動量取得
 
 	void SetColor(const D3DXCOLOR col) override;			// 色設定
 	D3DXCOLOR GetColor(void) const override;				// 色取得

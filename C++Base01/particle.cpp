@@ -13,8 +13,8 @@ using namespace my_particle;	// 名前空間を指定
 //==========================================================================
 // 静的メンバ変数宣言
 //==========================================================================
-D3DXVECTOR3 m_pos;		// 位置
-D3DXVECTOR3 m_move;		// 移動量
+MyLib::Vector3 m_pos;		// 位置
+MyLib::Vector3 m_move;		// 移動量
 D3DXCOLOR m_col;		// 色
 float m_fRadius;		// 半径
 float m_fAngle;			// 向き
@@ -67,8 +67,8 @@ HRESULT Init(void)
 {
 
 	// パーティクルの情報の初期化
-	m_pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);		// 位置
-	m_move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);		// 移動量
+	m_pos = MyLib::Vector3(0.0f, 0.0f, 0.0f);		// 位置
+	m_move = MyLib::Vector3(0.0f, 0.0f, 0.0f);		// 移動量
 	m_col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 	m_fRadius = 0.0f;
 	m_nLife = 0;
@@ -80,7 +80,7 @@ HRESULT Init(void)
 //==================================================================================
 // パーティクルの設定処理
 //==================================================================================
-void my_particle::Create(D3DXVECTOR3 pos, TYPE nType)
+void my_particle::Create(MyLib::Vector3 pos, TYPE nType)
 {
 	Init();
 
@@ -834,7 +834,7 @@ void ExplosionRemain(void)
 		m_move.y = sinf((float)UtilFunc::Transformation::Random(0, 314) * 0.01f) * fMoveY;
 		m_move.z = cosf(UtilFunc::Transformation::GetRandomPi()) * fMove;
 
-		D3DXVECTOR3 pos = m_pos;
+		MyLib::Vector3 pos = m_pos;
 		pos.x += UtilFunc::Transformation::Random(-150, 150);
 		pos.z += UtilFunc::Transformation::Random(-150, 150);
 
@@ -903,7 +903,7 @@ void ExplosionStart(void)
 		m_move.y = sinf((float)UtilFunc::Transformation::Random(0, 314) * 0.01f) * fMoveY;
 		m_move.z = cosf(UtilFunc::Transformation::GetRandomPi()) * fMove;
 
-		D3DXVECTOR3 pos = m_pos;
+		MyLib::Vector3 pos = m_pos;
 		pos.x += UtilFunc::Transformation::Random(-50, 50);
 		pos.z += UtilFunc::Transformation::Random(-50, 50);
 
@@ -1405,7 +1405,7 @@ void AddScore(void)
 			CEffect2D::Create(
 				m_pos,
 				m_move,
-				D3DXVECTOR3(0.0f, 0.0f, fRot + fRotRand),
+				MyLib::Vector3(0.0f, 0.0f, fRot + fRotRand),
 				m_col,
 				m_fRadius,
 				m_nLife,
@@ -1560,7 +1560,7 @@ void AppearanceArmToArm(void)
 //==========================================================================
 void AttackBody(void)
 {
-	D3DXVECTOR3 pos = mylib_const::DEFAULT_VECTOR3;
+	MyLib::Vector3 pos = mylib_const::DEFAULT_VECTOR3;
 
 	for (int nCntUse = 0; nCntUse < 2; nCntUse++)
 	{	
@@ -1610,7 +1610,7 @@ void BeamHitField(void)
 		float fMoveY = 7.0f * fBuff;	// 移動量
 
 		// 球範囲ランダムベクトル取得
-		D3DXVECTOR3 vecSphere = UtilFunc::Transformation::GetRandomVecSphere();
+		MyLib::Vector3 vecSphere = UtilFunc::Transformation::GetRandomVecSphere();
 
 		// 移動量の設定
 		m_move.x = vecSphere.x * fMove;
@@ -1646,7 +1646,7 @@ void BeamHitField(void)
 //==========================================================================
 void UnderBossSpawn(void)
 {
-	D3DXVECTOR3 pos = mylib_const::DEFAULT_VECTOR3;
+	MyLib::Vector3 pos = mylib_const::DEFAULT_VECTOR3;
 
 	for (int nCntUse = 0; nCntUse < 2; nCntUse++)
 	{
@@ -1699,7 +1699,7 @@ void EvolusionDecide(void)
 		float fMove = 6.0f * fBuff;		// 移動量
 
 		// 球範囲ランダムベクトル取得
-		D3DXVECTOR3 vecSphere = UtilFunc::Transformation::GetRandomVecSphere();
+		MyLib::Vector3 vecSphere = UtilFunc::Transformation::GetRandomVecSphere();
 
 		// 移動量の設定
 		m_move.x = sinf(fRot) * fMove;
@@ -1736,7 +1736,7 @@ void EvolusionDecide(void)
 void BeamCharge(void)
 {
 	//寿命で動く
-	D3DXVECTOR3 pos = mylib_const::DEFAULT_VECTOR3;
+	MyLib::Vector3 pos = mylib_const::DEFAULT_VECTOR3;
 
 	for (int nCntUse = 0; nCntUse < 2; nCntUse++)
 	{
@@ -1782,7 +1782,7 @@ void BeamCharge(void)
 void MortarCharge(void)
 {
 	//寿命で動く
-	D3DXVECTOR3 pos = mylib_const::DEFAULT_VECTOR3;
+	MyLib::Vector3 pos = mylib_const::DEFAULT_VECTOR3;
 
 	for (int nCntUse = 0; nCntUse < 2; nCntUse++)
 	{
@@ -1868,7 +1868,7 @@ void UnionWalk(void)
 //==========================================================================
 void UltBeamCharge(void)
 {
-	D3DXVECTOR3 pos = mylib_const::DEFAULT_VECTOR3;
+	MyLib::Vector3 pos = mylib_const::DEFAULT_VECTOR3;
 
 	for (int nCntUse = 0; nCntUse < 2; nCntUse++)
 	{
@@ -1901,7 +1901,7 @@ void UltBeamCharge(void)
 
 		// 目標の位置設定
 		pEffect->SetPositionDest(m_pos);
-		pEffect->SetRotation(D3DXVECTOR3(0.0f, 0.0f, UtilFunc::Transformation::GetRandomPi()));
+		pEffect->SetRotation(MyLib::Vector3(0.0f, 0.0f, UtilFunc::Transformation::GetRandomPi()));
 	}
 
 	for (int nCntUse = 0; nCntUse < 2; nCntUse++)
@@ -1935,7 +1935,7 @@ void UltBeamCharge(void)
 
 		// 目標の位置設定
 		pEffect->SetPositionDest(m_pos);
-		pEffect->SetRotation(D3DXVECTOR3(0.0f, 0.0f, UtilFunc::Transformation::GetRandomPi()));
+		pEffect->SetRotation(MyLib::Vector3(0.0f, 0.0f, UtilFunc::Transformation::GetRandomPi()));
 	}
 }
 
@@ -1944,7 +1944,7 @@ void UltBeamCharge(void)
 //==========================================================================
 void FallSnow(void)
 {
-	D3DXVECTOR3 pos = mylib_const::DEFAULT_VECTOR3;
+	MyLib::Vector3 pos = mylib_const::DEFAULT_VECTOR3;
 
 	for (int nCntUse = 0; nCntUse < 2; nCntUse++)
 	{
@@ -1982,7 +1982,7 @@ void FallSnow(void)
 			0.0f);
 
 		// 目標の位置設定
-		pEffect->SetRotation(D3DXVECTOR3(0.0f, 0.0f, UtilFunc::Transformation::GetRandomPi()));
+		pEffect->SetRotation(MyLib::Vector3(0.0f, 0.0f, UtilFunc::Transformation::GetRandomPi()));
 		pEffect->SetGravityValue(0.01f);
 	}
 }

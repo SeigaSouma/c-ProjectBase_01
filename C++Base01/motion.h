@@ -31,7 +31,7 @@ public:
 	{
 		int nCollisionNum;		// 当たり判定のパーツ番号
 		float fRangeSize;		// 判定のサイズ
-		D3DXVECTOR3 Offset;		// 判定のオフセット
+		MyLib::Vector3 Offset;		// 判定のオフセット
 		int nMinCnt;			// 判定の最低カウント
 		int nMaxCnt;			// 判定の最大カウント
 		int nDamage;			// ダメージ
@@ -44,12 +44,12 @@ public:
 	// モーションの構造体
 	typedef struct
 	{
-		D3DXVECTOR3 rot;		// 向き
-		D3DXVECTOR3 rotDest;	// 目標の向き
-		D3DXVECTOR3 pos;		// 位置
-		D3DXVECTOR3 posDest;	// 目標の位置
-		D3DXVECTOR3 posOrigin;	// 位置の原点
-		D3DXVECTOR3 scale;		// スケール
+		MyLib::Vector3 rot;		// 向き
+		MyLib::Vector3 rotDest;	// 目標の向き
+		MyLib::Vector3 pos;		// 位置
+		MyLib::Vector3 posDest;	// 目標の位置
+		MyLib::Vector3 posOrigin;	// 位置の原点
+		MyLib::Vector3 scale;		// スケール
 	}Parts;
 
 	typedef struct
@@ -85,8 +85,8 @@ public:
 	void SetSlowFactor(float fFactor);	// 遅延係数の設定
 
 	bool IsImpactFrame(AttackInfo attackInfo);	// 衝撃のフレームかどうか取得
-	D3DXVECTOR3 GetAttackPosition(CModel **ppModel, AttackInfo attackInfo);	// 攻撃の位置取得
-	D3DXVECTOR3 GetAttackPosition(CModel *pModel, AttackInfo attackInfo);	// 攻撃の位置取得
+	MyLib::Vector3 GetAttackPosition(CModel **ppModel, AttackInfo attackInfo);	// 攻撃の位置取得
+	MyLib::Vector3 GetAttackPosition(CModel *pModel, AttackInfo attackInfo);	// 攻撃の位置取得
 	float GetAllCount(void);	// 全てのカウント取得
 	float GetMaxAllCount(void) { return m_fMaxAllFrame; }
 	int GetMaxAllCount(int nType);	// 全てのカウント取得
@@ -106,7 +106,7 @@ public:
 	void SetAttackInfo(AttackInfo info);	// 攻撃情報の登録
 	Info GetInfo(int nType);	// モーション情報の取得
 	Info *GetInfoPtr(int nType);	// モーション情報の取得
-	void SetInfoSave(int nType, int nKey, int nParts, D3DXVECTOR3 rot);	// モーション情報の登録
+	void SetInfoSave(int nType, int nKey, int nParts, MyLib::Vector3 rot);	// モーション情報の登録
 	void ChangeKeyNum(int nType, int nNum);	// キー総数変更
 	void ChangeKeyFrame(int nType, int nKey, int nNum);	// キーフレーム変更
 	void ChangeAttackInfo(int nType, int nIdx, AttackInfo info);	// 攻撃情報変更

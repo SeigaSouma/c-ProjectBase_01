@@ -107,7 +107,7 @@ CMeshCylinder *CMeshCylinder::Create(const char *aFileName)
 		{// メモリの確保が出来ていたら
 
 			// 位置・向き
-			pObjMeshCylinder->SetPosition(D3DXVECTOR3(0.0f, -800.0f, 0.0f));
+			pObjMeshCylinder->SetPosition(MyLib::Vector3(0.0f, -800.0f, 0.0f));
 			pObjMeshCylinder->SetWidthBlock(32);
 			pObjMeshCylinder->SetHeightBlock(1);
 			pObjMeshCylinder->SetWidthLen(POS_MESHCYLINDER);

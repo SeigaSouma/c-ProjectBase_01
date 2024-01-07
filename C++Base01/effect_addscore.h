@@ -31,7 +31,7 @@ public:
 	virtual void Update(void);
 	virtual void Draw(void);
 
-	static CEffectAddScore *Create(const D3DXVECTOR3 pos);
+	static CEffectAddScore *Create(const MyLib::Vector3 pos);
 
 private:
 	enum STATE

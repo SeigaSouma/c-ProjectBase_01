@@ -32,7 +32,7 @@ public:
 	void Hit(void);	// ヒット処理
 
 	// 静的関数
-	static CSantaBag *Create(const D3DXVECTOR3 pos);
+	static CSantaBag *Create(const MyLib::Vector3 pos);
 	static CListManager<CSantaBag> GetListObj(void) { return m_List; }	// リスト取得
 
 private:

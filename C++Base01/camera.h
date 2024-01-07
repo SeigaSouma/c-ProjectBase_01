@@ -44,18 +44,18 @@ public:
 	void Update(void);
 	void SetCamera(void);
 
-	void SetRotation(const D3DXVECTOR3 rot);	// 向き設定
-	D3DXVECTOR3 GetRotation(void) const;		// 向き取得
-	D3DXVECTOR3 GetPositionV(void) const;		// カメラの位置取得
-	D3DXVECTOR3 GetPositionR(void) const;		// カメラの注視点取得
+	void SetRotation(const MyLib::Vector3 rot);	// 向き設定
+	MyLib::Vector3 GetRotation(void) const;		// 向き取得
+	MyLib::Vector3 GetPositionV(void) const;		// カメラの位置取得
+	MyLib::Vector3 GetPositionR(void) const;		// カメラの注視点取得
 	void SetOriginDistance(float fDistance);	// 元になるカメラの距離設定
 	float GetOriginDistance(void);				// 元になるカメラの距離取得
-	void SetDestRotation(const D3DXVECTOR3 rot);	// 目標の向き設定
-	D3DXVECTOR3 GetDestRotation(void);				// 目標の向き取得
-	void SetTargetPosition(const D3DXVECTOR3 pos);	// 追従目標の位置設定
-	D3DXVECTOR3 GetTargetPosition(void);			// 追従目標の位置取得
-	void SetTargetRotation(const D3DXVECTOR3 rot);	// 追従目標の向き設定
-	D3DXVECTOR3 GetTargetRotation(void);			// 追従目標の向き取得
+	void SetDestRotation(const MyLib::Vector3 rot);	// 目標の向き設定
+	MyLib::Vector3 GetDestRotation(void);				// 目標の向き取得
+	void SetTargetPosition(const MyLib::Vector3 pos);	// 追従目標の位置設定
+	MyLib::Vector3 GetTargetPosition(void);			// 追従目標の位置取得
+	void SetTargetRotation(const MyLib::Vector3 rot);	// 追従目標の向き設定
+	MyLib::Vector3 GetTargetRotation(void);			// 追従目標の向き取得
 	D3DXMATRIX GetMtxView(void) { return m_mtxView; }
 	D3DXMATRIX GetMtxProjection(void) { return m_mtxProjection; }
 
@@ -65,10 +65,10 @@ public:
 	int GetPlayerChaseIndex(void);					// 追従するプレイヤーのインデックス番号取得
 	void SetEnableFollow(bool bFollow);	// 追従の判定設定
 	bool IsFollow(void);				// 追従状態取得
-	void SetViewPort(D3DXVECTOR3 pos, D3DXVECTOR2 size);		// ビューポートの設定
+	void SetViewPort(MyLib::Vector3 pos, D3DXVECTOR2 size);		// ビューポートの設定
 	void Reset(CScene::MODE mode);	// リセット
 	void ResetBoss(void);	// リセット
-	bool OnScreen(const D3DXVECTOR3 pos); // スクリーン内の判定
+	bool OnScreen(const MyLib::Vector3 pos); // スクリーン内の判定
 	void MoveCameraStick(int nIdx = 0);	// スティック操作
 
 private:
@@ -106,16 +106,16 @@ private:
 	D3DXMATRIX	m_mtxProjection;	// プロジェクションマトリックス
 	D3DXMATRIX	m_mtxView;			// ビューマトリックス
 	D3DVIEWPORT9 m_viewport;		// ビューポート
-	D3DXVECTOR3 m_posV;				// 視点(カメラの位置)
-	D3DXVECTOR3 m_posR;				// 注視点(見たい場所)
-	D3DXVECTOR3 m_posVDest;			// 目標の視点
-	D3DXVECTOR3 m_posRDest;			// 目標の注視点
-	D3DXVECTOR3 m_vecU;				// 上方向ベクトル
-	D3DXVECTOR3 m_move;				// 移動量
-	D3DXVECTOR3 m_rot;				// 向き
-	D3DXVECTOR3 m_rotVDest;			// 目標の視点の向き
-	D3DXVECTOR3 m_TargetPos;		// 追従目標の位置
-	D3DXVECTOR3 m_TargetRot;		// 追従目標の向き
+	MyLib::Vector3 m_posV;				// 視点(カメラの位置)
+	MyLib::Vector3 m_posR;				// 注視点(見たい場所)
+	MyLib::Vector3 m_posVDest;			// 目標の視点
+	MyLib::Vector3 m_posRDest;			// 目標の注視点
+	MyLib::Vector3 m_vecU;				// 上方向ベクトル
+	MyLib::Vector3 m_move;				// 移動量
+	MyLib::Vector3 m_rot;				// 向き
+	MyLib::Vector3 m_rotVDest;			// 目標の視点の向き
+	MyLib::Vector3 m_TargetPos;		// 追従目標の位置
+	MyLib::Vector3 m_TargetRot;		// 追従目標の向き
 	float m_fDistance;				// 距離
 	float m_fDestDistance;			// 目標の距離
 	float m_fOriginDistance;		// 元の距離

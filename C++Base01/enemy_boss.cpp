@@ -92,7 +92,7 @@ HRESULT CEnemyBoss::Init(void)
 	CEnemy::Init();
 
 	// HPの設定
-	m_pBossHPGauge = CHP_GaugeBoss::Create(D3DXVECTOR3(640.0f, 50.0f, 0.0f), GetLifeOrigin());	// ボスのHPゲージ
+	m_pBossHPGauge = CHP_GaugeBoss::Create(MyLib::Vector3(640.0f, 50.0f, 0.0f), GetLifeOrigin());	// ボスのHPゲージ
 	m_pBossHPGauge->SetLife(0);
 
 	// 黒フレーム捌ける
@@ -346,8 +346,8 @@ void CEnemyBoss::ActChase(void)
 void CEnemyBoss::ChaseSlow(void)
 {
 	// 情報取得
-	D3DXVECTOR3 move = GetMove();
-	D3DXVECTOR3 rot = GetRotation();
+	MyLib::Vector3 move = GetMove();
+	MyLib::Vector3 rot = GetRotation();
 	float fMove = GetVelocity();
 
 	// 移動量設定
@@ -364,8 +364,8 @@ void CEnemyBoss::ChaseSlow(void)
 void CEnemyBoss::ChaseDash(void)
 {
 	// 情報取得
-	D3DXVECTOR3 move = GetMove();
-	D3DXVECTOR3 rot = GetRotation();
+	MyLib::Vector3 move = GetMove();
+	MyLib::Vector3 rot = GetRotation();
 	float fMove = GetVelocity();
 
 	// 移動量設定
@@ -667,8 +667,8 @@ void CEnemyBoss::AttackTackle(void)
 	// 攻撃判定中に追加する予定
 #if 1
 	// 情報取得
-	D3DXVECTOR3 move = GetMove();
-	D3DXVECTOR3 rot = GetRotation();
+	MyLib::Vector3 move = GetMove();
+	MyLib::Vector3 rot = GetRotation();
 
 	// タックル移動量設定
 	move.x = sinf(D3DX_PI + rot.y) * fMove * VELOCITY_TACKLE;
@@ -814,8 +814,8 @@ void CEnemyBoss::MotionSet(void)
 void CEnemyBoss::RotationTarget(void)
 {
 	// 位置取得
-	D3DXVECTOR3 pos = GetPosition();
-	D3DXVECTOR3 rot = GetRotation();
+	MyLib::Vector3 pos = GetPosition();
+	MyLib::Vector3 rot = GetRotation();
 
 	// 目標の角度を求める
 	float fRotDest = atan2f((pos.x - m_TargetPosition.x), (pos.z - m_TargetPosition.z));
@@ -851,11 +851,11 @@ void CEnemyBoss::AttackAction(CMotion::AttackInfo ATKInfo, int nCntATK)
 
 	// モーション情報取得
 	int nMotionType = pMotion->GetType();
-	D3DXVECTOR3 weponpos = pMotion->GetAttackPosition(GetModel(), ATKInfo);
+	MyLib::Vector3 weponpos = pMotion->GetAttackPosition(GetModel(), ATKInfo);
 
 	// 情報取得
-	D3DXVECTOR3 pos = GetPosition();
-	D3DXVECTOR3 rot = GetRotation();
+	MyLib::Vector3 pos = GetPosition();
+	MyLib::Vector3 rot = GetRotation();
 
 	// モーション別処理
 	switch (nMotionType)
@@ -876,7 +876,7 @@ void CEnemyBoss::AttackAction(CMotion::AttackInfo ATKInfo, int nCntATK)
 
 		CBeam::Create(
 			weponpos,	// 位置
-			D3DXVECTOR3(
+			MyLib::Vector3(
 				sinf(D3DX_PI + rot.y) * 100.0f,
 				cosf(D3DX_PI * 0.55f) * 100.0f,
 				cosf(D3DX_PI + rot.y) * 100.0f),	// 移動量
@@ -916,7 +916,7 @@ void CEnemyBoss::AttackInDicision(CMotion::AttackInfo ATKInfo, int nCntATK)
 
 	// モーション情報取得
 	int nMotionType = pMotion->GetType();
-	D3DXVECTOR3 weponpos = pMotion->GetAttackPosition(GetModel(), ATKInfo);
+	MyLib::Vector3 weponpos = pMotion->GetAttackPosition(GetModel(), ATKInfo);
 
 	// モーション別処理
 	switch (nMotionType)
@@ -942,7 +942,7 @@ void CEnemyBoss::AttackInDicision(CMotion::AttackInfo ATKInfo, int nCntATK)
 //==========================================================================
 // 目標の位置設定
 //==========================================================================
-void CEnemyBoss::SetTargetPosition(D3DXVECTOR3 pos)
+void CEnemyBoss::SetTargetPosition(MyLib::Vector3 pos)
 {
 	m_TargetPosition = pos;
 }

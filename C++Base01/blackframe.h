@@ -71,7 +71,7 @@ private:
 	STATE m_state;	// 状態
 	int m_nCntMove;	// 移動カウント
 	CObject2D *m_pObj3D[VTX_MAX];	// オブジェクト2Dのオブジェクト
-	static const D3DXVECTOR3 m_DestPosition[VTX_MAX];	// 目標の位置
+	static const MyLib::Vector3 m_DestPosition[VTX_MAX];	// 目標の位置
 };
 
 

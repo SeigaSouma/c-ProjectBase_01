@@ -44,33 +44,33 @@ public:
 
 	void SetWorldMtx(const D3DXMATRIX mtx);		// マトリックス設定
 	D3DXMATRIX GetWorldMtx(void) const;			// マトリックス取得
-	void SetScale(const D3DXVECTOR3 scale);		// スケール設定
-	D3DXVECTOR3 GetScale(void) const;			// スケール取得
+	void SetScale(const MyLib::Vector3 scale);		// スケール設定
+	MyLib::Vector3 GetScale(void) const;			// スケール取得
 	void SetColor(const D3DXCOLOR col);			// 色設定
 	D3DXCOLOR GetColor(void) const;				// 色取得
-	void SetSize(const D3DXVECTOR3 size);		// サイズの設定
-	D3DXVECTOR3 GetSize(void) const;			// サイズの取得
-	D3DXVECTOR3 GetVtxMax(void) const;			// 頂点の最大値取得
-	D3DXVECTOR3 GetVtxMin(void) const;			// 頂点の最小値取得
+	void SetSize(const MyLib::Vector3 size);		// サイズの設定
+	MyLib::Vector3 GetSize(void) const;			// サイズの取得
+	MyLib::Vector3 GetVtxMax(void) const;			// 頂点の最大値取得
+	MyLib::Vector3 GetVtxMin(void) const;			// 頂点の最小値取得
 	int GetIdxXFile(void) const;				// Xファイルのインデックス取得
 	bool GetUseShadow(void) const;				// 影を使っているかどうか
 
-	float GetHeight(D3DXVECTOR3 pos, bool &bLand);	// 高さ取得
+	float GetHeight(MyLib::Vector3 pos, bool &bLand);	// 高さ取得
 
 	void Kill(void);
 	static CObjectX *Create();
 	static CObjectX *Create(const char *pFileName);
-	static CObjectX *Create(const char *pFileName, D3DXVECTOR3 pos, D3DXVECTOR3 rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f), bool bShadow = false);
-	static CObjectX *Create(int nIdxXFile, D3DXVECTOR3 pos, D3DXVECTOR3 rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f), bool bShadow = false);
+	static CObjectX *Create(const char *pFileName, MyLib::Vector3 pos, MyLib::Vector3 rot = MyLib::Vector3(0.0f, 0.0f, 0.0f), bool bShadow = false);
+	static CObjectX *Create(int nIdxXFile, MyLib::Vector3 pos, MyLib::Vector3 rot = MyLib::Vector3(0.0f, 0.0f, 0.0f), bool bShadow = false);
 	CObjectX *GetObjectX(void);
 	static int GetNumAll(void);
 protected:
 
 private:
 	D3DXMATRIX	m_mtxWorld;	// ワールドマトリックス
-	D3DXVECTOR3 m_scale;	// スケール
+	MyLib::Vector3 m_scale;	// スケール
 	D3DXCOLOR m_col;		// 色
-	D3DXVECTOR3 m_fSize;	// サイズ
+	MyLib::Vector3 m_fSize;	// サイズ
 	bool m_bShadow;			// 影を使うかどうか
 	int m_nIdxTexure;		// テクスチャのインデックス番号
 	int m_nIdxXFile;		// Xファイルのインデックス番号

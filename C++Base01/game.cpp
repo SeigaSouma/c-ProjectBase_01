@@ -113,8 +113,8 @@ HRESULT CGame::Init(void)
 		CPlayer *pPlayer = CManager::GetInstance()->GetScene()->GetPlayer(nCntPlayer);
 		if (pPlayer != NULL)
 		{
-			pPlayer->SetPosition(D3DXVECTOR3(0.0f, 10.0f, 0.0f));
-			pPlayer->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+			pPlayer->SetPosition(MyLib::Vector3(0.0f, 10.0f, 0.0f));
+			pPlayer->SetRotation(MyLib::Vector3(0.0f, 0.0f, 0.0f));
 		}
 	}
 
@@ -122,7 +122,7 @@ HRESULT CGame::Init(void)
 	m_pStage = CStage::Create("data\\TEXT\\stage\\info.txt");
 
 	// ƒXƒRƒA‚Ì¶¬ˆ—
-	//m_pScore = CScore::Create(D3DXVECTOR3(1000.0f, 50.0f, 0.0f));
+	//m_pScore = CScore::Create(MyLib::Vector3(1000.0f, 50.0f, 0.0f));
 
 	CManager::GetInstance()->GetCamera()->Reset(CScene::MODE_GAME);
 

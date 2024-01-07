@@ -103,7 +103,7 @@ CEffect2D *CEffect2D::Create(void)
 //==========================================================================
 // 生成処理
 //==========================================================================
-CEffect2D *CEffect2D::Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 move, const D3DXCOLOR col, const float fRadius, const int nLife, const int moveType, const TYPE type)
+CEffect2D *CEffect2D::Create(const MyLib::Vector3 pos, const MyLib::Vector3 move, const D3DXCOLOR col, const float fRadius, const int nLife, const int moveType, const TYPE type)
 {
 	// 生成用のオブジェクト
 	CEffect2D *pEffect = NULL;
@@ -131,7 +131,7 @@ CEffect2D *CEffect2D::Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 move, cons
 //==========================================================================
 // 生成処理
 //==========================================================================
-CEffect2D *CEffect2D::Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 move, const D3DXVECTOR3 rot, const D3DXCOLOR col, const float fRadius, const int nLife, const int moveType, const TYPE type)
+CEffect2D *CEffect2D::Create(const MyLib::Vector3 pos, const MyLib::Vector3 move, const MyLib::Vector3 rot, const D3DXCOLOR col, const float fRadius, const int nLife, const int moveType, const TYPE type)
 {
 	// 生成用のオブジェクト
 	CEffect2D *pEffect = NULL;
@@ -201,7 +201,7 @@ HRESULT CEffect2D::Init(void)
 //==================================================================================
 // エフェクトの初期化処理
 //==================================================================================
-HRESULT CEffect2D::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 move, const D3DXCOLOR col, const float fRadius, const int nLife, const int moveType, const TYPE type)
+HRESULT CEffect2D::Init(const MyLib::Vector3 pos, const MyLib::Vector3 move, const D3DXCOLOR col, const float fRadius, const int nLife, const int moveType, const TYPE type)
 {
 	HRESULT hr;
 
@@ -287,10 +287,10 @@ void CEffect2D::Update(void)
 {
 
 	// 位置取得
-	D3DXVECTOR3 pos = GetPosition();
+	MyLib::Vector3 pos = GetPosition();
 
 	// 移動量取得
-	D3DXVECTOR3 move = GetMove();
+	MyLib::Vector3 move = GetMove();
 
 	// 色取得
 	D3DXCOLOR col = GetColor();
@@ -409,7 +409,7 @@ void CEffect2D::AddSize(void)
 void CEffect2D::Gensui(void)
 {
 	// 移動量取得
-	D3DXVECTOR3 move = GetMove();
+	MyLib::Vector3 move = GetMove();
 
 	move.x += (0.0f - move.x) * 0.15f;
 	move.y += (0.0f - move.y) * 0.15f;

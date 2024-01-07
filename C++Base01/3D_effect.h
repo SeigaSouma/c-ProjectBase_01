@@ -53,23 +53,23 @@ public:
 	~CEffect3D();
 
 	static CEffect3D *Create(void);
-	static CEffect3D *Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 move, const D3DXCOLOR col, const float fRadius, const int nLife, const int moveType, const TYPE type, const float fAddSizeValue = 0.0f);
+	static CEffect3D *Create(const MyLib::Vector3 pos, const MyLib::Vector3 move, const D3DXCOLOR col, const float fRadius, const int nLife, const int moveType, const TYPE type, const float fAddSizeValue = 0.0f);
 	static void LoadTexture(void);	// テクスチャ読み込み
 
 	//  オーバーライドされた関数
 	HRESULT Init(void);
-	HRESULT Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 move, const D3DXCOLOR col, const float fRadius, const int nLife, const int moveType, const TYPE type);
+	HRESULT Init(const MyLib::Vector3 pos, const MyLib::Vector3 move, const D3DXCOLOR col, const float fRadius, const int nLife, const int moveType, const TYPE type);
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
 	void SetVtx(void);
 
 	void SetDisableAddAlpha(void) { m_bAddAlpha = false; }	// 加算合成取り消し
-	void SetPositionDest(D3DXVECTOR3 pos);	// 目標の位置設定
+	void SetPositionDest(MyLib::Vector3 pos);	// 目標の位置設定
 	void SetEnableGravity(void) { m_bGravity = true; }	// 重力有効
 	void SetGravityValue(float fValue);					// 重力の値設定
-	void SetUp(D3DXVECTOR3 setup, D3DXMATRIX *pMtxParent, CObject *pObj, int nParentIdx);	// セットアップ
-	void UpdatePosition(D3DXVECTOR3 rot);	// 位置更新
+	void SetUp(MyLib::Vector3 setup, D3DXMATRIX *pMtxParent, CObject *pObj, int nParentIdx);	// セットアップ
+	void UpdatePosition(MyLib::Vector3 rot);	// 位置更新
 	void UninitParent(void);	// 親の破棄
 	static int GetNumAll(void);	// 総数取得
 
@@ -83,11 +83,11 @@ private:
 	void Gensui(void);
 
 	// メンバ変数
-	D3DXVECTOR3 m_posOrigin;		// 原点
-	D3DXVECTOR3 m_updatePosition;	// 更新後の位置
-	D3DXVECTOR3 m_setupPosition;	// セットアップ位置
-	D3DXVECTOR3 m_setupRotation;	// セットアップ位置
-	D3DXVECTOR3 m_posDest;			// 目標の位置
+	MyLib::Vector3 m_posOrigin;		// 原点
+	MyLib::Vector3 m_updatePosition;	// 更新後の位置
+	MyLib::Vector3 m_setupPosition;	// セットアップ位置
+	MyLib::Vector3 m_setupRotation;	// セットアップ位置
+	MyLib::Vector3 m_posDest;			// 目標の位置
 	D3DXCOLOR m_colOrigin;		// 色
 	D3DXMATRIX *m_pMtxParent;	// 親マトリックスのポインタ
 	float m_fRadius;			// 半径

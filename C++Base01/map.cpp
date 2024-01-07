@@ -23,8 +23,8 @@ namespace mapdate
 	struct SMap
 	{
 		int nType;						// 種類
-		D3DXVECTOR3 pos;				// 位置
-		D3DXVECTOR3 rot;				// 向き
+		MyLib::Vector3 pos;				// 位置
+		MyLib::Vector3 rot;				// 向き
 		int nWidth, nHeight;			// 分割数
 		float fWidthLen, fHeightLen;	// サイズ
 		float fMove;					// 移動量
@@ -273,8 +273,8 @@ HRESULT MyMap::SaveText(void)
 
 				// テクスチャのインデックス番号
 				int nType = pObjMesh->GetIdxTex();	// 種類
-				D3DXVECTOR3 pos = pObjMesh->GetPosition();		// 位置
-				D3DXVECTOR3 rot = pObjMesh->GetRotation();		// 向き
+				MyLib::Vector3 pos = pObjMesh->GetPosition();		// 位置
+				MyLib::Vector3 rot = pObjMesh->GetRotation();		// 向き
 				int nWidth = pObjMesh->GetWidthBlock();			// 横分割数
 				int nHeight = pObjMesh->GetHeightBlock();		// 縦分割数
 				float fWidthLen = pObjMesh->GetWidthLen();		// 横長さ
@@ -328,8 +328,8 @@ HRESULT MyMap::SaveText(void)
 				CObjectX *pObjX = pObj->GetObjectX();
 
 				int nType = pObjX->GetIdxXFile();		// 種類
-				D3DXVECTOR3 pos = pObjX->GetPosition();	// 位置
-				D3DXVECTOR3 rot = pObjX->GetRotation();	// 向き
+				MyLib::Vector3 pos = pObjX->GetPosition();	// 位置
+				MyLib::Vector3 rot = pObjX->GetRotation();	// 向き
 				int nShadow = 0;						// 影使うかどうか
 
 				if (pObjX->GetUseShadow() == true)

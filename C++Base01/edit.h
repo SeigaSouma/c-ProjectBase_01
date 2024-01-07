@@ -44,7 +44,7 @@ private:
 	void DeleteModel(void);
 
 	static CObjectX *m_pObjX;
-	D3DXVECTOR3 m_posOld;	// 前回の位置
+	MyLib::Vector3 m_posOld;	// 前回の位置
 	static int m_nNumAll;	// 総数
 	static int m_nType;		// タイプ
 	static bool m_bShadow;	// 影を使うかどうか

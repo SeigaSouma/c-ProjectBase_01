@@ -76,7 +76,7 @@ CScore *CScore::Create(void)
 //==========================================================================
 // 生成処理
 //==========================================================================
-CScore *CScore::Create(D3DXVECTOR3 pos)
+CScore *CScore::Create(MyLib::Vector3 pos)
 {
 	// 生成用のオブジェクト
 	CScore *pScore = NULL;
@@ -112,7 +112,7 @@ HRESULT CScore::Init(void)
 //==========================================================================
 // 初期化処理
 //==========================================================================
-HRESULT CScore::Init(D3DXVECTOR3 pos)
+HRESULT CScore::Init(MyLib::Vector3 pos)
 {
 	// 生成処理
 	m_apNumber = CMultiNumber::Create(pos, D3DXVECTOR2(WIDTH, HEIGHT), NUM_SCORE, CNumber::OBJECTTYPE_2D, TEXTURE);
@@ -198,7 +198,7 @@ void CScore::Add(int nValue)
 //==========================================================================
 // 位置設定
 //==========================================================================
-void CScore::SetPosition(const D3DXVECTOR3 pos)
+void CScore::SetPosition(const MyLib::Vector3 pos)
 {
 	m_apNumber->SetPosition(pos);
 }
@@ -206,7 +206,7 @@ void CScore::SetPosition(const D3DXVECTOR3 pos)
 //==========================================================================
 // 位置取得
 //==========================================================================
-D3DXVECTOR3 CScore::GetPosition(void) const
+MyLib::Vector3 CScore::GetPosition(void) const
 {
 	return m_apNumber->GetPosition();
 }

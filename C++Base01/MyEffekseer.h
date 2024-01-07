@@ -25,7 +25,7 @@ public:
 	
 	struct MyEffekseerInfo
 	{
-		D3DXVECTOR3 move;	// 移動量
+		MyLib::Vector3 move;	// 移動量
 		Effekseer::Handle handle;	// エフェクトのオブジェクト
 	};
 
@@ -48,7 +48,7 @@ public:
 	@param	scale	[in]	拡大率
 	@return	void
 	*/
-	void SetEffect(std::string efkpath, D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXVECTOR3 move, float scale);
+	void SetEffect(std::string efkpath, MyLib::Vector3 pos, MyLib::Vector3 rot, MyLib::Vector3 move, float scale);
 	static CMyEffekseer* GetInstance() { return m_pMyEffekseer; }	// インスタンス取得
 	static CMyEffekseer* Create(void);								// インスタンス生成
 

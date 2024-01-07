@@ -38,7 +38,7 @@ HRESULT CLight::Init(void)
 	//  デバイスの取得
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
 
-	D3DXVECTOR3 vecDir;	// 設定用方向ベクトル
+	MyLib::Vector3 vecDir;	// 設定用方向ベクトル
 
 	for (int nCntLight = 0; nCntLight < TYPE_MAX; nCntLight++)
 	{
@@ -55,7 +55,7 @@ HRESULT CLight::Init(void)
 			m_aLight[nCntLight].Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 
 			// ライトの方向を設定
-			vecDir = D3DXVECTOR3(0.22f, -0.87f, 0.44f);
+			vecDir = MyLib::Vector3(0.22f, -0.87f, 0.44f);
 			break;
 
 		case TYPE_DIRECTIONAL_02:
@@ -66,7 +66,7 @@ HRESULT CLight::Init(void)
 			m_aLight[nCntLight].Diffuse = D3DXCOLOR(0.65f, 0.65f, 0.65f, 1.0f);
 
 			// ライトの方向を設定
-			vecDir = D3DXVECTOR3(-0.18f, 0.88f, -0.44f);
+			vecDir = MyLib::Vector3(-0.18f, 0.88f, -0.44f);
 			break;
 
 		case TYPE_DIRECTIONAL_03:
@@ -77,7 +77,7 @@ HRESULT CLight::Init(void)
 			m_aLight[nCntLight].Diffuse = D3DXCOLOR(0.15f, 0.15f, 0.15f, 1.0f);
 
 			// ライトの方向を設定
-			vecDir = D3DXVECTOR3(0.89f, -0.11f, 0.44f);
+			vecDir = MyLib::Vector3(0.89f, -0.11f, 0.44f);
 			break;
 
 		case TYPE_SPOT_01:
@@ -88,7 +88,7 @@ HRESULT CLight::Init(void)
 			m_aLight[nCntLight].Diffuse = D3DXCOLOR(0.6f, 0.6f, 0.6f, 1.0f);
 
 			// スポットライトの方向を設定
-			vecDir = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+			vecDir = MyLib::Vector3(0.0f, 0.0f, 0.0f);
 			break;
 		}
 
@@ -125,13 +125,13 @@ void CLight::Update(void)
 //==================================================================================
 // スポットライトの向き更新
 //==================================================================================
-void CLight::UpdateSpotLightDirection(D3DXVECTOR3 vec)
+void CLight::UpdateSpotLightDirection(MyLib::Vector3 vec)
 {
 	//  デバイスの取得
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
 
 	// スポットライトの方向を設定
-	D3DXVECTOR3 vecDir = vec;
+	MyLib::Vector3 vecDir = vec;
 
 	// ベクトルを正規化する(1.0にする)
 	D3DXVec3Normalize(&vecDir, &vecDir);

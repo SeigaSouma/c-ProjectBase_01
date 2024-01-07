@@ -179,7 +179,7 @@ void CMeshDome::Uninit(void)
 //==========================================================================
 void CMeshDome::Update(void)
 {
-	D3DXVECTOR3 rot = GetRotation();	// Œü‚«
+	MyLib::Vector3 rot = GetRotation();	// Œü‚«
 
 	// ‰ñ“]
 	rot.y += m_fMove;

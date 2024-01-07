@@ -21,7 +21,7 @@
 #define LOGOMOVE_TIME	(180)	// ロゴ移動の時間
 #define SLASH_TIME		(60)	// 斬撃の時間
 #define SLASH_MOVETIME	(8)		// 斬撃の移動時間
-#define LOGO_POSITION	(D3DXVECTOR3(640.0f, 200.0f, 0.0f))
+#define LOGO_POSITION	(MyLib::Vector3(640.0f, 200.0f, 0.0f))
 #define LOGOSIZE_MULTIPLY	(0.55f)
 #define CHANGE_TIME		(40)
 
@@ -122,7 +122,7 @@ HRESULT CTitleScreen::Init(void)
 		case VTX_BLACK:
 			// サイズ取得
 			m_pObj2D[nCntSelect]->SetSize(D3DXVECTOR2(640.0f, 360.0f));	// サイズ
-			m_pObj2D[nCntSelect]->SetPosition(D3DXVECTOR3(640.0f, 360.0f, 0.0f));	// 位置
+			m_pObj2D[nCntSelect]->SetPosition(MyLib::Vector3(640.0f, 360.0f, 0.0f));	// 位置
 			m_pObj2D[nCntSelect]->SetColor(D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.0f));	// 色
 			break;
 
@@ -190,7 +190,7 @@ HRESULT CTitleScreen::Init(void)
 			// サイズ取得
 			size = CManager::GetInstance()->GetTexture()->GetImageSize(m_nTexIdx_Select[nCntSelect]);
 			m_pSelect2D[nCntSelect]->SetSize(D3DXVECTOR2(size.x * 0.4f, size.y * 0.4f));	// サイズ
-			m_pSelect2D[nCntSelect]->SetPosition(D3DXVECTOR3(640.0f, 550.0f, 0.0f));	// 位置
+			m_pSelect2D[nCntSelect]->SetPosition(MyLib::Vector3(640.0f, 550.0f, 0.0f));	// 位置
 			break;
 		}
 	}
@@ -398,11 +398,11 @@ void CTitleScreen::UpdateSlashAlpha(int nCntSelect)
 {
 	// 情報取得
 	D3DXCOLOR col = m_pObj2D[nCntSelect]->GetColor();
-	D3DXVECTOR3 pos = m_pObj2D[nCntSelect]->GetPosition();
+	MyLib::Vector3 pos = m_pObj2D[nCntSelect]->GetPosition();
 
-	D3DXVECTOR3 posDest[VTX_LOGO_MAX];
-	posDest[VTX_LOGOALPHA1] = D3DXVECTOR3(640.0f + 250.0f, LOGO_POSITION.y - 120.0f, 0.0f);
-	posDest[VTX_LOGOALPHA2] = D3DXVECTOR3(640.0f - 250.0f, LOGO_POSITION.y + 120.0f, 0.0f);
+	MyLib::Vector3 posDest[VTX_LOGO_MAX];
+	posDest[VTX_LOGOALPHA1] = MyLib::Vector3(640.0f + 250.0f, LOGO_POSITION.y - 120.0f, 0.0f);
+	posDest[VTX_LOGOALPHA2] = MyLib::Vector3(640.0f - 250.0f, LOGO_POSITION.y + 120.0f, 0.0f);
 
 	// 差分
 	int nCntTime = m_nCntLogo - SLASH_TIME;
@@ -425,7 +425,7 @@ void CTitleScreen::UpdateSlashAlpha(int nCntSelect)
 void CTitleScreen::UpdateLogo(int nCntSelect)
 {
 	// 位置取得
-	D3DXVECTOR3 pos = m_pObj2D[nCntSelect]->GetPosition();
+	MyLib::Vector3 pos = m_pObj2D[nCntSelect]->GetPosition();
 
 
 	// 位置設定

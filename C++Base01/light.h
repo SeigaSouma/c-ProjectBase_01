@@ -24,7 +24,7 @@ public:
 	void Uninit(void);
 	void Update(void);
 
-	void UpdateSpotLightDirection(D3DXVECTOR3 vec);	// スポットライトの向き更新
+	void UpdateSpotLightDirection(MyLib::Vector3 vec);	// スポットライトの向き更新
 private:
 
 	enum TYPE

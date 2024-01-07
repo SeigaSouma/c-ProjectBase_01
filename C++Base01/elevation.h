@@ -25,12 +25,12 @@ private:
 	struct Info
 	{
 		std::string TextureFileName;	// テクスチャファイル名
-		D3DXVECTOR3 pos;		// 位置
+		MyLib::Vector3 pos;		// 位置
 		float fWidthLength;		// 横長さ
 		float fHeightLength;	// 縦長さ
 		int nWidthBlock;		// 横分割数
 		int nHeightBlock;		// 縦分割数
-		D3DXVECTOR3 *pVtxPos;	// 頂点座標
+		MyLib::Vector3 *pVtxPos;	// 頂点座標
 	};
 
 public:
@@ -54,22 +54,22 @@ public:
 
 	static CElevation *Create(const char *pText);
 	CElevation *GetElevation(void);
-	float GetHeight(const D3DXVECTOR3& pos, bool *pLand);	// 高さ取得
-	bool IsHit(const D3DXVECTOR3& pos);	// 当たったかの判定
+	float GetHeight(const MyLib::Vector3& pos, bool *pLand);	// 高さ取得
+	bool IsHit(const MyLib::Vector3& pos);	// 当たったかの判定
 
 protected:
 
 private:
 
 	void UpdateState(void);				// 状態更新処理
-	void UPVtxField(D3DXVECTOR3 pos);	// 頂点上げ下げ(デバッグ)
+	void UPVtxField(MyLib::Vector3 pos);	// 頂点上げ下げ(デバッグ)
 
 	Info m_aInfo;	// 起伏の情報
 	float m_fBrushStrength;							// ブラシ強さ
 	float m_fBrushRange;							// 範囲
 	bool m_bEdit;									// エディットON/OFF
 	CTargetPoint *m_pTargetP;						// 目標の地点
-	D3DXVECTOR3 m_VtxPos[mylib_const::MAX_VTX];		// 頂点座標
+	MyLib::Vector3 m_VtxPos[mylib_const::MAX_VTX];		// 頂点座標
 	int m_nTexIdx;									// テクスチャのインデックス番号
 	bool m_bChange;	// 変更のフラグ
 	static bool m_bLoadInfo;						// 情報読み込み判定

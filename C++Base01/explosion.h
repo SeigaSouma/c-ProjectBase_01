@@ -49,7 +49,7 @@ public:
 	void SetState(STATE state, int nCntState);	// ó‘Ôİ’è
 	STATE GetState(void);	// ó‘Ôæ“¾
 
-	static CExplosion *Create(TYPE type, const D3DXVECTOR3 pos, const float fSize);
+	static CExplosion *Create(TYPE type, const MyLib::Vector3 pos, const float fSize);
 
 private:
 

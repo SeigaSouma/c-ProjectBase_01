@@ -36,10 +36,10 @@
 CObject3D::CObject3D(int nPriority) : CObject(nPriority)
 {
 	D3DXMatrixIdentity(&m_mtxWorld);				// ワールドマトリックス
-	m_posOrigin = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	// 元の位置
-	m_rotOrigin = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	// 元の向き
+	m_posOrigin = MyLib::Vector3(0.0f, 0.0f, 0.0f);	// 元の位置
+	m_rotOrigin = MyLib::Vector3(0.0f, 0.0f, 0.0f);	// 元の向き
 	m_col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);		// 色
-	m_fSize = D3DXVECTOR3(0.0f, 0.0f, 0.0f);		// サイズ
+	m_fSize = MyLib::Vector3(0.0f, 0.0f, 0.0f);		// サイズ
 	m_pVtxBuff = NULL;								// 頂点バッファ
 	m_nTexIdx = 0;									// テクスチャのインデックス番号
 
@@ -102,7 +102,7 @@ CObject3D *CObject3D::Create(int nPriority)
 //==========================================================================
 // 生成処理
 //==========================================================================
-CObject3D *CObject3D::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot)
+CObject3D *CObject3D::Create(MyLib::Vector3 pos, MyLib::Vector3 rot)
 {
 	// 生成用のオブジェクト
 	CObject3D *pObject3D = NULL;
@@ -200,8 +200,8 @@ void CObject3D::Draw(void)
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
 
 	// 情報取得
-	D3DXVECTOR3 pos = GetPosition();
-	D3DXVECTOR3 rot = GetRotation();
+	MyLib::Vector3 pos = GetPosition();
+	MyLib::Vector3 rot = GetRotation();
 
 	// 計算用マトリックス宣言
 	D3DXMATRIX mtxRot, mtxTrans, mtxRotOrigin;
@@ -250,21 +250,21 @@ void CObject3D::SetVtx(void)
 	// 頂点バッファをロックし、頂点情報へのポインタを取得
 	m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
 
-	D3DXVECTOR3 size = GetSize();
+	MyLib::Vector3 size = GetSize();
 	D3DXCOLOR col = GetColor();
 
 	// 位置を更新
-	pVtx[0].pos = D3DXVECTOR3(-size.x, +size.y, +size.z);
-	pVtx[1].pos = D3DXVECTOR3(+size.x, +size.y, +size.z);
-	pVtx[2].pos = D3DXVECTOR3(-size.x, -size.y, -size.z);
-	pVtx[3].pos = D3DXVECTOR3(+size.x, -size.y, -size.z);
+	pVtx[0].pos = MyLib::Vector3(-size.x, +size.y, +size.z);
+	pVtx[1].pos = MyLib::Vector3(+size.x, +size.y, +size.z);
+	pVtx[2].pos = MyLib::Vector3(-size.x, -size.y, -size.z);
+	pVtx[3].pos = MyLib::Vector3(+size.x, -size.y, -size.z);
 
 	// 境界線のベクトル
-	D3DXVECTOR3 vecLine0 = pVtx[1].pos - pVtx[0].pos;
-	D3DXVECTOR3 vecLine1 = pVtx[2].pos - pVtx[0].pos;
+	MyLib::Vector3 vecLine0 = pVtx[1].pos - pVtx[0].pos;
+	MyLib::Vector3 vecLine1 = pVtx[2].pos - pVtx[0].pos;
 
 	// 外積求める
-	D3DXVECTOR3 Nor[4];
+	MyLib::Vector3 Nor[4];
 
 	// 外積
 	D3DXVec3Cross(&Nor[0], &vecLine0, &vecLine1);
@@ -272,7 +272,7 @@ void CObject3D::SetVtx(void)
 	// 正規化
 	D3DXVec3Normalize(&Nor[0], &Nor[0]);
 
-	Nor[0] = D3DXVECTOR3(
+	Nor[0] = MyLib::Vector3(
 		((vecLine0.y * vecLine1.z) - (vecLine0.z * vecLine1.y)),
 		((vecLine0.z * vecLine1.x) - (vecLine0.x * vecLine1.z)),
 		((vecLine0.x * vecLine1.y) - (vecLine0.y * vecLine1.x)));
@@ -286,7 +286,7 @@ void CObject3D::SetVtx(void)
 	vecLine1 = pVtx[1].pos - pVtx[3].pos;
 
 	// 外積求める
-	Nor[3] = D3DXVECTOR3(
+	Nor[3] = MyLib::Vector3(
 		((vecLine0.y * vecLine1.z) - (vecLine0.z * vecLine1.y)),
 		((vecLine0.z * vecLine1.x) - (vecLine0.x * vecLine1.z)),
 		((vecLine0.x * vecLine1.y) - (vecLine0.y * vecLine1.x)));
@@ -347,7 +347,7 @@ D3DXMATRIX CObject3D::GetWorldMtx(void) const
 //==========================================================================
 //	元の位置設定
 //==========================================================================
-void CObject3D::SetOriginPosition(const D3DXVECTOR3 pos)
+void CObject3D::SetOriginPosition(const MyLib::Vector3 pos)
 {
 	m_posOrigin = pos;
 }
@@ -355,7 +355,7 @@ void CObject3D::SetOriginPosition(const D3DXVECTOR3 pos)
 //==========================================================================
 //	元の位置取得
 //==========================================================================
-D3DXVECTOR3 CObject3D::GetOriginPosition(void) const
+MyLib::Vector3 CObject3D::GetOriginPosition(void) const
 {
 	return m_posOrigin;
 }
@@ -363,7 +363,7 @@ D3DXVECTOR3 CObject3D::GetOriginPosition(void) const
 //==========================================================================
 // 元の向き設定
 //==========================================================================
-void CObject3D::SetOriginRotation(const D3DXVECTOR3 rot)
+void CObject3D::SetOriginRotation(const MyLib::Vector3 rot)
 {
 	m_rotOrigin = rot;
 }
@@ -371,7 +371,7 @@ void CObject3D::SetOriginRotation(const D3DXVECTOR3 rot)
 //==========================================================================
 // 元の向き取得
 //==========================================================================
-D3DXVECTOR3 CObject3D::GetOriginRotation(void) const
+MyLib::Vector3 CObject3D::GetOriginRotation(void) const
 {
 	return m_rotOrigin;
 }
@@ -395,7 +395,7 @@ D3DXCOLOR CObject3D::GetColor(void) const
 //==========================================================================
 // サイズ設定
 //==========================================================================
-void CObject3D::SetSize(const D3DXVECTOR3 size)
+void CObject3D::SetSize(const MyLib::Vector3 size)
 {
 	m_fSize = size;
 }
@@ -403,7 +403,7 @@ void CObject3D::SetSize(const D3DXVECTOR3 size)
 //==========================================================================
 // サイズ取得
 //==========================================================================
-D3DXVECTOR3 CObject3D::GetSize(void) const
+MyLib::Vector3 CObject3D::GetSize(void) const
 {
 	return m_fSize;
 }

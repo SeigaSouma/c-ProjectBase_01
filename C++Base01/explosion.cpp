@@ -72,7 +72,7 @@ CExplosion::~CExplosion()
 //==========================================================================
 // 生成処理
 //==========================================================================
-CExplosion *CExplosion::Create(TYPE type, const D3DXVECTOR3 pos, const float fSize)
+CExplosion *CExplosion::Create(TYPE type, const MyLib::Vector3 pos, const float fSize)
 {
 	// 生成用のオブジェクト
 	CExplosion *pBullet = NULL;
@@ -183,13 +183,13 @@ void CExplosion::Update(void)
 void CExplosion::UpdatePos(void)
 {
 	// 位置取得
-	D3DXVECTOR3 pos = GetPosition();
+	MyLib::Vector3 pos = GetPosition();
 
 	// 移動量取得
-	D3DXVECTOR3 move = GetMove();
+	MyLib::Vector3 move = GetMove();
 
 	// 向き取得
-	D3DXVECTOR3 rot = GetRotation();
+	MyLib::Vector3 rot = GetRotation();
 
 	// 位置更新
 	pos += move;
@@ -291,12 +291,12 @@ void CExplosion::CollisionPlayer(void)
 		}
 
 		// プレイヤーの情報取得
-		D3DXVECTOR3 PlayerPosition = pPlayer->GetCenterPosition();
-		D3DXVECTOR3 PlayerRotation = pPlayer->GetRotation();
+		MyLib::Vector3 PlayerPosition = pPlayer->GetCenterPosition();
+		MyLib::Vector3 PlayerRotation = pPlayer->GetRotation();
 		float fPlayerRadius = pPlayer->GetRadius();
 
 		// 情報取得
-		D3DXVECTOR3 pos = GetPosition();
+		MyLib::Vector3 pos = GetPosition();
 		float fRadius = GetWidthLen();
 
 		if (UtilFunc::Collision::SphereRange(pos, PlayerPosition, fRadius, fPlayerRadius))
@@ -319,7 +319,7 @@ void CExplosion::CollisionPlayer(void)
 void CExplosion::CollisionEnemy(void)
 {
 	// 情報取得
-	D3DXVECTOR3 pos = GetPosition();
+	MyLib::Vector3 pos = GetPosition();
 	float fRadius = GetWidthLen();
 	bool bHit = false;
 
@@ -331,7 +331,7 @@ void CExplosion::CollisionEnemy(void)
 	while (enemyList.ListLoop(&pEnemy))
 	{
 		// 敵の情報取得
-		D3DXVECTOR3 EnemyPosition = pEnemy->GetCenterPosition();
+		MyLib::Vector3 EnemyPosition = pEnemy->GetCenterPosition();
 		float fEnemyRadius = pEnemy->GetRadius();
 
 		if (UtilFunc::Collision::SphereRange(pos, EnemyPosition, fRadius, fEnemyRadius))

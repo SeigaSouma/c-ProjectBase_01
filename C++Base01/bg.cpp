@@ -112,7 +112,7 @@ HRESULT CBG::Init(void)
 
 		// 各種変数の初期化
 		m_aBg[nCntBg].pObject2D->SetSize(D3DXVECTOR2(WIDTH, HEIGHT));	// サイズ
-		m_aBg[nCntBg].pObject2D->SetPosition(D3DXVECTOR3(640.0f, 360.0f, 0.0f));	// 位置
+		m_aBg[nCntBg].pObject2D->SetPosition(MyLib::Vector3(640.0f, 360.0f, 0.0f));	// 位置
 		m_aBg[nCntBg].Info = m_aBgInfo[nCntBg];	// 情報渡す
 
 		// テクスチャの割り当て
@@ -230,7 +230,7 @@ void CBG::SetVtx(int nCntBg)
 //==========================================================================
 // 背景移動量設定）
 //==========================================================================
-void CBG::SetMoveTex(const D3DXVECTOR3 move)
+void CBG::SetMoveTex(const MyLib::Vector3 move)
 {
 	for (int nCntBg = 0; nCntBg < NUM_BG; nCntBg++)
 	{

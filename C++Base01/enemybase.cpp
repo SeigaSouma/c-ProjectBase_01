@@ -115,7 +115,7 @@ HRESULT CEnemyBase::Init(void)
 //==========================================================================
 // à íuçÏê¨
 //==========================================================================
-void CEnemyBase::CreatePos(int nStage, int nPattern, D3DXVECTOR3 pos, int nRush)
+void CEnemyBase::CreatePos(int nStage, int nPattern, MyLib::Vector3 pos, int nRush)
 {
 
 	if (nStage < 0)
@@ -388,7 +388,7 @@ int CEnemyBase::GetSpawnPointNum(void)
 //==========================================================================
 // à íuéÊìæ
 //==========================================================================
-D3DXVECTOR3 CEnemyBase::GetSpawnPoint(int nStage, int nIdx)
+MyLib::Vector3 CEnemyBase::GetSpawnPoint(int nStage, int nIdx)
 {
 	if (nIdx < 0)
 	{
@@ -408,7 +408,7 @@ D3DXVECTOR3 CEnemyBase::GetSpawnPoint(int nStage, int nIdx)
 //==========================================================================
 // à íuê›íË
 //==========================================================================
-void CEnemyBase::SetSpawnPoint(int nStage, int nIdx, D3DXVECTOR3 pos)
+void CEnemyBase::SetSpawnPoint(int nStage, int nIdx, MyLib::Vector3 pos)
 {
 	if (nIdx < 0)
 	{

@@ -95,7 +95,7 @@ void CModel::SetParent(CModel *pModel)
 //==========================================================================
 // 生成処理
 //==========================================================================
-CModel *CModel::Create(const char *pFileName, D3DXVECTOR3 pos, D3DXVECTOR3 rot)
+CModel *CModel::Create(const char *pFileName, MyLib::Vector3 pos, MyLib::Vector3 rot)
 {
 	// 生成用のオブジェクト
 	CModel *pModel = NULL;
@@ -243,16 +243,16 @@ void CModel::CalWorldMtx(void)
 		// 親のマトリックスを渡す
 		mtxnParent = m_pParent->GetWorldMtx();
 
-		D3DXVECTOR3 scaleVector = mylib_const::DEFAULT_VECTOR3;
-		D3DXVECTOR3 vec1 = D3DXVECTOR3(mtxnParent._11, mtxnParent._12, mtxnParent._13);
-		D3DXVECTOR3 vec2 = D3DXVECTOR3(mtxnParent._21, mtxnParent._22, mtxnParent._23);
-		D3DXVECTOR3 vec3 = D3DXVECTOR3(mtxnParent._31, mtxnParent._32, mtxnParent._33);
+		MyLib::Vector3 scaleVector = mylib_const::DEFAULT_VECTOR3;
+		MyLib::Vector3 vec1 = MyLib::Vector3(mtxnParent._11, mtxnParent._12, mtxnParent._13);
+		MyLib::Vector3 vec2 = MyLib::Vector3(mtxnParent._21, mtxnParent._22, mtxnParent._23);
+		MyLib::Vector3 vec3 = MyLib::Vector3(mtxnParent._31, mtxnParent._32, mtxnParent._33);
 
 		// マトリックスからスケール情報を抽出
 		scaleVector.x = D3DXVec3Length(&vec1);
 		scaleVector.y = D3DXVec3Length(&vec2);
 		scaleVector.z = D3DXVec3Length(&vec3);
-		if (scaleVector != D3DXVECTOR3(1.0f, 1.0f, 1.0f))
+		if (scaleVector != MyLib::Vector3(1.0f, 1.0f, 1.0f))
 		{
 			bScale = true;
 		}
@@ -264,7 +264,7 @@ void CModel::CalWorldMtx(void)
 	// ワールドマトリックスの設定
 	pDevice->SetTransform(D3DTS_WORLD, &m_mtxWorld);
 
-	if (m_scale != D3DXVECTOR3(1.0f, 1.0f, 1.0f))
+	if (m_scale != MyLib::Vector3(1.0f, 1.0f, 1.0f))
 	{// 少しでも違う場合
 
 		bScale = true;
@@ -293,7 +293,7 @@ void CModel::DrawShadowMtx(void)
 
 	D3DXMATRIX mtxShadow;
 	D3DXVECTOR4 posLight;	// ライトの位置
-	D3DXVECTOR3 pos, normal;	// 平面上の任意の点,法線ベクトル
+	MyLib::Vector3 pos, normal;	// 平面上の任意の点,法線ベクトル
 	D3DXPLANE plane;		// 平面情報
 	D3DLIGHT9 light;		// ライト情報
 	D3DXMATERIAL *pMat;				// マテリアルデータへのポインタ
@@ -310,8 +310,8 @@ void CModel::DrawShadowMtx(void)
 	D3DXMatrixIdentity(&mtxShadow);
 
 	// 平面情報を生成
-	pos = D3DXVECTOR3(0.0f, 3.0f, 0.0f);
-	normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+	pos = MyLib::Vector3(0.0f, 3.0f, 0.0f);
+	normal = MyLib::Vector3(0.0f, 1.0f, 0.0f);
 	D3DXPlaneFromPointNormal(&plane, &pos, &normal);
 
 	// シャドウマトリックスの作成
@@ -548,7 +548,7 @@ D3DXMATRIX *CModel::GetPtrWorldMtx(void)
 //==========================================================================
 // 位置設定
 //==========================================================================
-void CModel::SetPosition(const D3DXVECTOR3 pos)
+void CModel::SetPosition(const MyLib::Vector3 pos)
 {
 	m_pos = pos;
 }
@@ -556,7 +556,7 @@ void CModel::SetPosition(const D3DXVECTOR3 pos)
 //==========================================================================
 // 位置取得
 //==========================================================================
-D3DXVECTOR3 CModel::GetPosition(void) const
+MyLib::Vector3 CModel::GetPosition(void) const
 {
 	return m_pos;
 }
@@ -564,7 +564,7 @@ D3DXVECTOR3 CModel::GetPosition(void) const
 //==========================================================================
 // 位置設定
 //==========================================================================
-void CModel::SetOldPosition(const D3DXVECTOR3 posOld)
+void CModel::SetOldPosition(const MyLib::Vector3 posOld)
 {
 	m_posOld = posOld;
 }
@@ -572,7 +572,7 @@ void CModel::SetOldPosition(const D3DXVECTOR3 posOld)
 //==========================================================================
 // 位置取得
 //==========================================================================
-D3DXVECTOR3 CModel::GetOldPosition(void) const
+MyLib::Vector3 CModel::GetOldPosition(void) const
 {
 	return m_posOld;
 }
@@ -580,7 +580,7 @@ D3DXVECTOR3 CModel::GetOldPosition(void) const
 //==========================================================================
 // 元の位置設定
 //==========================================================================
-void  CModel::SetOriginPosition(const D3DXVECTOR3 pos)
+void  CModel::SetOriginPosition(const MyLib::Vector3 pos)
 {
 	m_posOrigin = pos;
 }
@@ -588,7 +588,7 @@ void  CModel::SetOriginPosition(const D3DXVECTOR3 pos)
 //==========================================================================
 // 元の位置取得
 //==========================================================================
-D3DXVECTOR3  CModel::GetOriginPosition(void) const
+MyLib::Vector3  CModel::GetOriginPosition(void) const
 {
 	return m_posOrigin;
 }
@@ -596,7 +596,7 @@ D3DXVECTOR3  CModel::GetOriginPosition(void) const
 //==========================================================================
 // 向き設定
 //==========================================================================
-void CModel::SetRotation(const D3DXVECTOR3 rot)
+void CModel::SetRotation(const MyLib::Vector3 rot)
 {
 	m_rot = rot;
 }
@@ -604,7 +604,7 @@ void CModel::SetRotation(const D3DXVECTOR3 rot)
 //==========================================================================
 // 向き取得
 //==========================================================================
-D3DXVECTOR3 CModel::GetRotation(void) const
+MyLib::Vector3 CModel::GetRotation(void) const
 {
 	return m_rot;
 }
@@ -612,7 +612,7 @@ D3DXVECTOR3 CModel::GetRotation(void) const
 //==========================================================================
 // 元の向き設定
 //==========================================================================
-void CModel::SetOriginRotation(const D3DXVECTOR3 rot)
+void CModel::SetOriginRotation(const MyLib::Vector3 rot)
 {
 	m_rotOrigin = rot;
 }
@@ -620,7 +620,7 @@ void CModel::SetOriginRotation(const D3DXVECTOR3 rot)
 //==========================================================================
 // 元の向き取得
 //==========================================================================
-D3DXVECTOR3 CModel::GetOriginRotation(void) const
+MyLib::Vector3 CModel::GetOriginRotation(void) const
 {
 	return m_rotOrigin;
 }
@@ -628,7 +628,7 @@ D3DXVECTOR3 CModel::GetOriginRotation(void) const
 //==========================================================================
 // スケール設定
 //==========================================================================
-void CModel::SetScale(const D3DXVECTOR3 scale)
+void CModel::SetScale(const MyLib::Vector3 scale)
 {
 	m_scale = scale;
 }
@@ -636,7 +636,7 @@ void CModel::SetScale(const D3DXVECTOR3 scale)
 //==========================================================================
 // スケール取得
 //==========================================================================
-D3DXVECTOR3 CModel::GetScale(void) const
+MyLib::Vector3 CModel::GetScale(void) const
 {
 	return m_scale;
 }
@@ -644,7 +644,7 @@ D3DXVECTOR3 CModel::GetScale(void) const
 //==========================================================================
 // 頂点の最大値取得
 //==========================================================================
-D3DXVECTOR3 CModel::GetVtxMax(void) const
+MyLib::Vector3 CModel::GetVtxMax(void) const
 {
 	// Xファイルのデータ取得
 	return CScene::GetXLoad()->GetMyObject(m_nIdxXFile)->vtxMax;
@@ -653,7 +653,7 @@ D3DXVECTOR3 CModel::GetVtxMax(void) const
 //==========================================================================
 // 頂点の最小値取得
 //==========================================================================
-D3DXVECTOR3 CModel::GetVtxMin(void) const
+MyLib::Vector3 CModel::GetVtxMin(void) const
 {
 	// Xファイルのデータ取得
 	return CScene::GetXLoad()->GetMyObject(m_nIdxXFile)->vtxMin;

@@ -52,7 +52,7 @@ void CEffectStartupEye::LoadTexture(void)
 //==========================================================================
 // 生成処理
 //==========================================================================
-CEffectStartupEye *CEffectStartupEye::Create(const D3DXVECTOR3 pos)
+CEffectStartupEye *CEffectStartupEye::Create(const MyLib::Vector3 pos)
 {
 	// 生成用のオブジェクト
 	CEffectStartupEye *pExplosion = NULL;
@@ -114,7 +114,7 @@ void CEffectStartupEye::Update(void)
 {
 	for (int i = 0; i < 2; i++)
 	{
-		D3DXVECTOR3 pos = GetPosition();
+		MyLib::Vector3 pos = GetPosition();
 		pos.x = (256.0f * 0.2f) - i * (512.0f * 0.2f);
 
 		CEffect3D *pEffect = CEffect3D::Create(

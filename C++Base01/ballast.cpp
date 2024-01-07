@@ -35,8 +35,8 @@ int CBallast::m_nIdxXFile[TYPE_MAX] = {};			// Xファイルのインデックス番号
 //==========================================================================
 CBallast::CBallast(int nPriority) : CObject(nPriority)
 {
-	m_posOrigin = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	// 原点
-	m_moveOrigin = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	// 元の移動量
+	m_posOrigin = MyLib::Vector3(0.0f, 0.0f, 0.0f);	// 原点
+	m_moveOrigin = MyLib::Vector3(0.0f, 0.0f, 0.0f);	// 元の移動量
 	m_col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);		// 色
 	m_colOrigin = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);	// 原色
 	m_nCntParabola = 0;	// 瓦礫の移動カウント
@@ -58,7 +58,7 @@ CBallast::~CBallast()
 //==========================================================================
 // 生成処理
 //==========================================================================
-CBallast *CBallast::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, int nNum, float fAlpha, TYPE type)
+CBallast *CBallast::Create(MyLib::Vector3 pos, MyLib::Vector3 move, int nNum, float fAlpha, TYPE type)
 {
 	// 生成用のオブジェクト
 	CBallast *pBallast = NULL;
@@ -124,8 +124,8 @@ HRESULT CBallast::Init(void)
 		// 生成処理
 		m_pObjX[nCntBallast] = CObjectX::Create(
 			m_pFileName[m_type],
-			D3DXVECTOR3(m_posOrigin.x + UtilFunc::Transformation::Random(-20, 20), m_posOrigin.y, m_posOrigin.z + UtilFunc::Transformation::Random(-20, 20)),
-			D3DXVECTOR3((float)UtilFunc::Transformation::Random(-314, 314) * 0.01f, (float)UtilFunc::Transformation::Random(-314, 314) * 0.01f, (float)UtilFunc::Transformation::Random(-314, 314) * 0.01f), false);
+			MyLib::Vector3(m_posOrigin.x + UtilFunc::Transformation::Random(-20, 20), m_posOrigin.y, m_posOrigin.z + UtilFunc::Transformation::Random(-20, 20)),
+			MyLib::Vector3((float)UtilFunc::Transformation::Random(-314, 314) * 0.01f, (float)UtilFunc::Transformation::Random(-314, 314) * 0.01f, (float)UtilFunc::Transformation::Random(-314, 314) * 0.01f), false);
 
 		if (m_pObjX[nCntBallast] == NULL)
 		{// 失敗したとき
@@ -137,7 +137,7 @@ HRESULT CBallast::Init(void)
 		}
 		
 		// 移動量設定
-		m_pObjX[nCntBallast]->SetMove(D3DXVECTOR3(
+		m_pObjX[nCntBallast]->SetMove(MyLib::Vector3(
 			(float)UtilFunc::Transformation::Random(-314, 314) * 0.01f * m_moveOrigin.x,
 			m_moveOrigin.y + ((float)UtilFunc::Transformation::Random(-20, 20) * 0.1f),
 			(float)UtilFunc::Transformation::Random(-314, 314) * 0.01f * m_moveOrigin.z));
@@ -147,14 +147,14 @@ HRESULT CBallast::Init(void)
 		{
 		case TYPE_STONE:
 
-			m_pObjX[nCntBallast]->SetScale(D3DXVECTOR3(
+			m_pObjX[nCntBallast]->SetScale(MyLib::Vector3(
 				(float)UtilFunc::Transformation::Random(-20, 20) * 0.05f,
 				(float)UtilFunc::Transformation::Random(-20, 20) * 0.05f,
 				(float)UtilFunc::Transformation::Random(-20, 20) * 0.05f));
 			break;
 
 		case TYPE_ICE:
-			m_pObjX[nCntBallast]->SetScale(D3DXVECTOR3(
+			m_pObjX[nCntBallast]->SetScale(MyLib::Vector3(
 				(float)UtilFunc::Transformation::Random(-10, 10) * 0.1f,
 				(float)UtilFunc::Transformation::Random(-10, 10) * 0.1f,
 				(float)UtilFunc::Transformation::Random(-10, 10) * 0.1f));
@@ -204,18 +204,18 @@ void CBallast::Update(void)
 		}
 
 		// 位置取得
-		D3DXVECTOR3 pos = m_pObjX[nCntBallast]->GetPosition();
+		MyLib::Vector3 pos = m_pObjX[nCntBallast]->GetPosition();
 
 		// 移動量取得
-		D3DXVECTOR3 move = m_pObjX[nCntBallast]->GetMove();
+		MyLib::Vector3 move = m_pObjX[nCntBallast]->GetMove();
 
 		// 向き取得
-		D3DXVECTOR3 rot = m_pObjX[nCntBallast]->GetRotation();
+		MyLib::Vector3 rot = m_pObjX[nCntBallast]->GetRotation();
 
 		if (m_type == TYPE_ICE)
 		{
 			// 向き取得
-			D3DXVECTOR3 scale = m_pObjX[nCntBallast]->GetScale();
+			MyLib::Vector3 scale = m_pObjX[nCntBallast]->GetScale();
 
 			scale *= 0.98f;
 
@@ -224,7 +224,7 @@ void CBallast::Update(void)
 
 		}
 
-		D3DXVECTOR3 HitPos = pos;
+		MyLib::Vector3 HitPos = pos;
 		HitPos.y = pos.y;
 		if (CGame::GetElevation()->IsHit(HitPos) == true || GetPosition().y <= mylib_const::KILL_Y)
 		{// 地面を下回ったら
@@ -237,10 +237,10 @@ void CBallast::Update(void)
 		else
 		{
 			// 位置更新
-			pos = (D3DXVECTOR3(0.0f, -0.5f * BAI, 0.0f) * (float)(m_nCntParabola * m_nCntParabola) + move * (float)m_nCntParabola) + m_posOrigin;
+			pos = (MyLib::Vector3(0.0f, -0.5f * BAI, 0.0f) * (float)(m_nCntParabola * m_nCntParabola) + move * (float)m_nCntParabola) + m_posOrigin;
 
 			// 向き更新
-			rot += D3DXVECTOR3(0.05f, 0.05f, -0.02f);
+			rot += MyLib::Vector3(0.05f, 0.05f, -0.02f);
 		}
 
 		// 不透明度更新

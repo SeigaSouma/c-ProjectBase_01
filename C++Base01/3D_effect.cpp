@@ -121,7 +121,7 @@ CEffect3D *CEffect3D::Create(void)
 //==========================================================================
 // 生成処理
 //==========================================================================
-CEffect3D *CEffect3D::Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 move, const D3DXCOLOR col, const float fRadius, const int nLife, const int moveType, const TYPE type, const float fAddSizeValue)
+CEffect3D *CEffect3D::Create(const MyLib::Vector3 pos, const MyLib::Vector3 move, const D3DXCOLOR col, const float fRadius, const int nLife, const int moveType, const TYPE type, const float fAddSizeValue)
 {
 	// 生成用のオブジェクト
 	CEffect3D *pEffect = NULL;
@@ -158,9 +158,9 @@ HRESULT CEffect3D::Init(void)
 	HRESULT hr;
 
 	// 各種変数の初期化
-	m_posOrigin = D3DXVECTOR3(0.0f, 0.0f, 0.0f);		// 原点
-	m_updatePosition = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	// 更新後の位置
-	m_setupPosition = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	// セットアップ位置
+	m_posOrigin = MyLib::Vector3(0.0f, 0.0f, 0.0f);		// 原点
+	m_updatePosition = MyLib::Vector3(0.0f, 0.0f, 0.0f);	// 更新後の位置
+	m_setupPosition = MyLib::Vector3(0.0f, 0.0f, 0.0f);	// セットアップ位置
 	m_colOrigin = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);	// 色の元
 	m_fRadius = DEF_RADIUS;						// 半径
 	m_fMaxRadius = m_fRadius;					// 最大半径
@@ -199,14 +199,14 @@ HRESULT CEffect3D::Init(void)
 //==================================================================================
 // エフェクトの初期化処理
 //==================================================================================
-HRESULT CEffect3D::Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 move, const D3DXCOLOR col, const float fRadius, const int nLife, const int moveType, const TYPE type)
+HRESULT CEffect3D::Init(const MyLib::Vector3 pos, const MyLib::Vector3 move, const D3DXCOLOR col, const float fRadius, const int nLife, const int moveType, const TYPE type)
 {
 	HRESULT hr;
 
 	// 各種変数の初期化
 	m_posOrigin = pos;							// 原点
-	m_updatePosition = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	// 更新後の位置
-	m_setupPosition = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	// セットアップ位置
+	m_updatePosition = MyLib::Vector3(0.0f, 0.0f, 0.0f);	// 更新後の位置
+	m_setupPosition = MyLib::Vector3(0.0f, 0.0f, 0.0f);	// セットアップ位置
 	SetPosition(pos);							// 位置
 	SetMove(move);								// 移動量
 	m_colOrigin = col;							// 色の元
@@ -400,11 +400,11 @@ void CEffect3D::Update(void)
 void CEffect3D::UpdateMove(void)
 {
 	// 位置取得
-	D3DXVECTOR3 pos = GetPosition();
-	D3DXVECTOR3 posOld = GetOldPosition();
+	MyLib::Vector3 pos = GetPosition();
+	MyLib::Vector3 posOld = GetOldPosition();
 
 	// 移動量取得
-	D3DXVECTOR3 move = GetMove();
+	MyLib::Vector3 move = GetMove();
 
 	// 位置更新
 	if (m_bGravity == true)
@@ -438,7 +438,7 @@ void CEffect3D::UpdateMove(void)
 //==================================================================================
 // セットアップ
 //==================================================================================
-void CEffect3D::SetUp(D3DXVECTOR3 setup, D3DXMATRIX *pMtxParent, CObject *pObj, int nParentIdx)
+void CEffect3D::SetUp(MyLib::Vector3 setup, D3DXMATRIX *pMtxParent, CObject *pObj, int nParentIdx)
 {
 	// 親のポインタ渡す
 	if (m_pParent == NULL)
@@ -459,7 +459,7 @@ void CEffect3D::SetUp(D3DXVECTOR3 setup, D3DXMATRIX *pMtxParent, CObject *pObj, 
 //==================================================================================
 // 位置更新
 //==================================================================================
-void CEffect3D::UpdatePosition(D3DXVECTOR3 rot)
+void CEffect3D::UpdatePosition(MyLib::Vector3 rot)
 {
 
 	D3DXMATRIX mtxRot, mtxTrans, mtxWorld;	// 計算用マトリックス宣言
@@ -526,7 +526,7 @@ void CEffect3D::AddSize(void)
 void CEffect3D::Gensui(void)
 {
 	// 移動量取得
-	D3DXVECTOR3 move = GetMove();
+	MyLib::Vector3 move = GetMove();
 
 	move.x += (0.0f - move.x) * 0.15f;
 	move.y += (0.0f - move.y) * 0.15f;
@@ -592,7 +592,7 @@ void CEffect3D::SetVtx(void)
 //==========================================================================
 // 目標の位置設定
 //==========================================================================
-void CEffect3D::SetPositionDest(D3DXVECTOR3 pos)
+void CEffect3D::SetPositionDest(MyLib::Vector3 pos)
 {
 	m_posDest = pos;
 	m_bChaseDest = true;	// 有効

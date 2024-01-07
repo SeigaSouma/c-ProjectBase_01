@@ -272,7 +272,7 @@ void CEnemyManager::SetStageBoss(void)
 //==========================================================================
 // 敵配置
 //==========================================================================
-CEnemy **CEnemyManager::SetEnemy(D3DXVECTOR3 pos, D3DXVECTOR3 rot, int nPattern)
+CEnemy **CEnemyManager::SetEnemy(MyLib::Vector3 pos, MyLib::Vector3 rot, int nPattern)
 {
 	int nNumSpawn = m_aPattern[nPattern].nNumEnemy;	// スポーンする数
 	int nCntStart = 0;
@@ -299,7 +299,7 @@ CEnemy **CEnemyManager::SetEnemy(D3DXVECTOR3 pos, D3DXVECTOR3 rot, int nPattern)
 		D3DXMatrixMultiply(&mtxWorld, &mtxWorld, &mtxTrans);
 
 		// スポーン時の向きを掛け合わせる
-		D3DXVECTOR3 spawnPos = D3DXVECTOR3(mtxWorld._41, mtxWorld._42, mtxWorld._43);
+		MyLib::Vector3 spawnPos = MyLib::Vector3(mtxWorld._41, mtxWorld._42, mtxWorld._43);
 
 		// 拠点の位置分加算
 		spawnPos += pos;

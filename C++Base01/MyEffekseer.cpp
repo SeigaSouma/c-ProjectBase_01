@@ -96,7 +96,7 @@ HRESULT CMyEffekseer::Init(void)
 //==========================================================================
 // エフェクトの設定
 //==========================================================================
-void CMyEffekseer::SetEffect(std::string efkpath, D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXVECTOR3 move, float scale)
+void CMyEffekseer::SetEffect(std::string efkpath, MyLib::Vector3 pos, MyLib::Vector3 rot, MyLib::Vector3 move, float scale)
 {
 	MyEffekseerInfo loacalInfo = {};
 

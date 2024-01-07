@@ -15,17 +15,17 @@
 // マクロ定義
 //==========================================================================
 #define SIZE		(D3DXVECTOR2(640.0f, 50.0f))
-#define START_UP	(D3DXVECTOR3(640.0f, -SIZE.y, 0.0f))
-#define START_DOWN	(D3DXVECTOR3(640.0f, SCREEN_HEIGHT + SIZE.y, 0.0f))
+#define START_UP	(MyLib::Vector3(640.0f, -SIZE.y, 0.0f))
+#define START_DOWN	(MyLib::Vector3(640.0f, SCREEN_HEIGHT + SIZE.y, 0.0f))
 #define MOVETIME	(50)
 
 //==========================================================================
 // 静的メンバ変数宣言
 //==========================================================================
-const D3DXVECTOR3 CBlackFrame::m_DestPosition[VTX_MAX] =	// 目標の位置
+const MyLib::Vector3 CBlackFrame::m_DestPosition[VTX_MAX] =	// 目標の位置
 {
-	D3DXVECTOR3(640.0f, SIZE.y, 0.0f),
-	D3DXVECTOR3(640.0f, SCREEN_HEIGHT - SIZE.y, 0.0f),
+	MyLib::Vector3(640.0f, SIZE.y, 0.0f),
+	MyLib::Vector3(640.0f, SCREEN_HEIGHT - SIZE.y, 0.0f),
 };
 
 //==========================================================================
@@ -127,7 +127,7 @@ void CBlackFrame::Reset(void)
 		if (m_pObj3D[nCntVtx] != NULL)
 		{// NULLじゃなかったら
 
-			D3DXVECTOR3 pos = mylib_const::DEFAULT_VECTOR3;
+			MyLib::Vector3 pos = mylib_const::DEFAULT_VECTOR3;
 			if (nCntVtx == VTX_UP)
 			{
 				pos = START_UP;
@@ -224,10 +224,10 @@ void CBlackFrame::StateIn(int nCntVtx)
 	}
 
 	// 情報取得
-	D3DXVECTOR3 pos = m_pObj3D[nCntVtx]->GetPosition();
+	MyLib::Vector3 pos = m_pObj3D[nCntVtx]->GetPosition();
 
 	// 初期位置
-	D3DXVECTOR3 start = mylib_const::DEFAULT_VECTOR3;
+	MyLib::Vector3 start = mylib_const::DEFAULT_VECTOR3;
 	if (nCntVtx == VTX_UP)
 	{
 		start = START_UP;
@@ -261,10 +261,10 @@ void CBlackFrame::StateOut(int nCntVtx)
 	}
 
 	// 情報取得
-	D3DXVECTOR3 pos = m_pObj3D[nCntVtx]->GetPosition();
+	MyLib::Vector3 pos = m_pObj3D[nCntVtx]->GetPosition();
 
 	// 初期位置
-	D3DXVECTOR3 start = mylib_const::DEFAULT_VECTOR3;
+	MyLib::Vector3 start = mylib_const::DEFAULT_VECTOR3;
 	if (nCntVtx == VTX_UP)
 	{
 		start = START_UP;

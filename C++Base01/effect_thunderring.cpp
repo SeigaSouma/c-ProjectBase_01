@@ -63,7 +63,7 @@ void CThunderRing::LoadTexture(void)
 //==========================================================================
 // 生成処理
 //==========================================================================
-CThunderRing *CThunderRing::Create(const D3DXVECTOR3 pos, const D3DXVECTOR2 size)
+CThunderRing *CThunderRing::Create(const MyLib::Vector3 pos, const D3DXVECTOR2 size)
 {
 	// 生成用のオブジェクト
 	CThunderRing *pExplosion = NULL;

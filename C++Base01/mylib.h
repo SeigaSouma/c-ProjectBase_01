@@ -13,6 +13,13 @@
 */
 namespace MyLib
 {
+
+	//==========================================================================
+	// 
+	// Vector3
+	// Author : 相馬靜雅
+	// 
+	//==========================================================================
 	struct Vector3 : public D3DXVECTOR3
 	{
 		using D3DXVECTOR3::D3DXVECTOR3;
@@ -20,8 +27,69 @@ namespace MyLib
 		Vector3();					// コンストラクタ
 		Vector3(const float xyz);	// コンストラクタ
 
-		Vector3 operator + (const float& o);	// 加算
-		Vector3& operator += (const float& o);	// 加算代入
+		//--------------------------
+		// 加算
+		//--------------------------
+		inline Vector3 operator + (const float& o) const
+		{
+			return Vector3(x + o, y + o, z + o);
+		}
+
+		inline Vector3 operator + (const Vector3& o) const
+		{
+			return Vector3(x + o.x, y + o.y, z + o.z);
+		}
+
+		//--------------------------
+		// 減算
+		//--------------------------
+		inline Vector3 operator - (const float& o) const
+		{
+			return Vector3(x - o, y - o, z - o);
+		}
+
+		inline Vector3 operator - (const Vector3& o) const
+		{
+			return Vector3(x - o.x, y - o.y, z - o.z);
+		}
+
+		//--------------------------
+		// 加算代入
+		//--------------------------
+		inline Vector3& operator += (const float& o)
+		{
+			x += o;
+			y += o;
+			z += o;
+			return *this;
+		}
+
+		inline Vector3& operator += (const Vector3& o)
+		{
+			x += o.x;
+			y += o.y;
+			z += o.z;
+			return *this;
+		}
+
+		//--------------------------
+		// 減算代入
+		//--------------------------
+		inline Vector3& operator -= (const float& o)
+		{
+			x -= o;
+			y -= o;
+			z -= o;
+			return *this;
+		}
+
+		inline Vector3& operator -= (const Vector3& o)
+		{
+			x -= o.x;
+			y -= o.y;
+			z -= o.z;
+			return *this;
+		}
 
 		/**
 		@brief	ベクトルの長さ

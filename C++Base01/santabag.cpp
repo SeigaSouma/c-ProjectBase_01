@@ -65,7 +65,7 @@ CSantaBag::~CSantaBag()
 //==========================================================================
 // 生成処理
 //==========================================================================
-CSantaBag *CSantaBag::Create(const D3DXVECTOR3 pos)
+CSantaBag *CSantaBag::Create(const MyLib::Vector3 pos)
 {
 	// 生成用のオブジェクト
 	CSantaBag *pBag = NULL;

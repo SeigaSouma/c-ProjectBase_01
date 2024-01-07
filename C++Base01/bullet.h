@@ -59,14 +59,14 @@ public:
 	TYPE GetType(void);			// 種類取得
 	void SetState(STATE state, int nCntState);	// 状態設定
 	STATE GetState(void);	// 状態取得
-	void SetTargetPosition(D3DXVECTOR3 pos);	// 目標の位置
+	void SetTargetPosition(MyLib::Vector3 pos);	// 目標の位置
 	void SetParabolaHeight(float fHeight);		// 放物線の最大高さ
 
 	void SetReverseAutoDeath(void) { m_bAutoDeath = m_bAutoDeath ?  false : true; }	// 自動削除の判定削除
 	bool IsFinish(void) { return m_bFinish; }					// 終了の判定
 
 	static int GetNumAll(void);
-	static CBullet *Create(TYPE type, MOVETYPE movetype, const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, const D3DXVECTOR3 move, const float fSize);
+	static CBullet *Create(TYPE type, MOVETYPE movetype, const MyLib::Vector3 pos, const MyLib::Vector3 rot, const MyLib::Vector3 move, const float fSize);
 	static CListManager<CBullet> GetListObj(void) { return m_List; }	// リスト取得
 
 private:
@@ -85,8 +85,8 @@ private:
 	TYPE m_type;				// 弾の種類
 	STATE m_state;				// 状態
 	MOVETYPE m_MoveType;		// 移動の種類
-	D3DXVECTOR3 m_OriginPosition;	// 元の位置
-	D3DXVECTOR3 m_TargetPosition;	// 目標の位置
+	MyLib::Vector3 m_OriginPosition;	// 元の位置
+	MyLib::Vector3 m_TargetPosition;	// 目標の位置
 	int m_nCntState;			// 状態遷移カウンター
 	int m_nLife;				// 寿命
 	int m_nLifeMax;				// 寿命の最大値

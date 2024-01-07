@@ -29,7 +29,7 @@ public:
 	void SetVtx(void);
 
 	void Control(void);	// ëÄçÏ
-	static CTargetPoint *Create(D3DXVECTOR3 pos, float fWidthLen, float fHeightLen);
+	static CTargetPoint *Create(MyLib::Vector3 pos, float fWidthLen, float fHeightLen);
 	CTargetPoint *GetObject3DMesh(void);
 
 private:

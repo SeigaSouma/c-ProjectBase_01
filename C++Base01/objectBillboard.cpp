@@ -87,7 +87,7 @@ CObjectBillboard *CObjectBillboard::Create(void)
 //==========================================================================
 // 生成処理
 //==========================================================================
-CObjectBillboard *CObjectBillboard::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot)
+CObjectBillboard *CObjectBillboard::Create(MyLib::Vector3 pos, MyLib::Vector3 rot)
 {
 	// 生成用のオブジェクト
 	CObjectBillboard *pObjBillBoard = NULL;
@@ -193,7 +193,7 @@ void CObjectBillboard::Draw(void)
 	D3DXMATRIX mtxRot, mtxTrans;
 
 	// 情報取得
-	D3DXVECTOR3 pos = GetPosition();
+	MyLib::Vector3 pos = GetPosition();
 
 	// ビューマトリックス取得用
 	D3DXMATRIX mtxView;
@@ -262,7 +262,7 @@ void CObjectBillboard::SetVtx(void)
 
 	D3DXVECTOR2 size = GetSize();
 	D3DXCOLOR col = GetColor();
-	D3DXVECTOR3 rot = GetRotation();
+	MyLib::Vector3 rot = GetRotation();
 
 	// 頂点座標の設定
 	pVtx[0].pos.x = sinf(rot.z - m_fAngle) * m_fLength;
@@ -283,10 +283,10 @@ void CObjectBillboard::SetVtx(void)
 
 
 	// 法線ベクトルの設定
-	pVtx[0].nor = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
-	pVtx[1].nor = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
-	pVtx[2].nor = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
-	pVtx[3].nor = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+	pVtx[0].nor = MyLib::Vector3(0.0f, 1.0f, 0.0f);
+	pVtx[1].nor = MyLib::Vector3(0.0f, 1.0f, 0.0f);
+	pVtx[2].nor = MyLib::Vector3(0.0f, 1.0f, 0.0f);
+	pVtx[3].nor = MyLib::Vector3(0.0f, 1.0f, 0.0f);
 
 	// 頂点カラーの設定
 	pVtx[0].col = col;
@@ -308,7 +308,7 @@ void CObjectBillboard::SetVtx(void)
 //==========================================================================
 // 向き設定
 //==========================================================================
-void CObjectBillboard::SetRotation(const D3DXVECTOR3 rot)
+void CObjectBillboard::SetRotation(const MyLib::Vector3 rot)
 {
 	// 向き設定
 	CObject::SetRotation(rot);

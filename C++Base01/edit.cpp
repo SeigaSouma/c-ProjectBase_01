@@ -36,7 +36,7 @@ bool CEdit::m_bShadow = false;	// 影を使うかどうか
 //==========================================================================
 CEdit::CEdit(int nPriority) : CObject(nPriority)
 {
-	m_posOld = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	// 前回の位置
+	m_posOld = MyLib::Vector3(0.0f, 0.0f, 0.0f);	// 前回の位置
 	m_bShadow = true;	// 影を使うかどうか
 
 	// 総数加算
@@ -155,10 +155,10 @@ void CEdit::Update(void)
 	CInputKeyboard *pInputKeyboard = CManager::GetInstance()->GetInputKeyboard();
 
 	// 位置取得
-	D3DXVECTOR3 pos = m_pObjX->GetPosition();
+	MyLib::Vector3 pos = m_pObjX->GetPosition();
 
 	// 向き取得
-	D3DXVECTOR3 rot = m_pObjX->GetRotation();
+	MyLib::Vector3 rot = m_pObjX->GetRotation();
 
 	// 操作
 	Control(m_pObjX);
@@ -210,16 +210,16 @@ void CEdit::Control(CObjectX *pObjX)
 	CCamera *pCamera = CManager::GetInstance()->GetCamera();
 
 	// カメラの向き取得
-	D3DXVECTOR3 Camerarot = pCamera->GetRotation();
+	MyLib::Vector3 Camerarot = pCamera->GetRotation();
 
 	// キーボード情報取得
 	CInputKeyboard *pInputKeyboard = CManager::GetInstance()->GetInputKeyboard();
 
 	// 位置取得
-	D3DXVECTOR3 pos = pObjX->GetPosition();
+	MyLib::Vector3 pos = pObjX->GetPosition();
 
 	// 向き取得
-	D3DXVECTOR3 rot = pObjX->GetRotation();
+	MyLib::Vector3 rot = pObjX->GetRotation();
 
 	if (pInputKeyboard->GetPress(DIK_LEFT) == true)
 	{// ←キーが押された,左移動
@@ -458,25 +458,25 @@ void CEdit::GrabModel(void)
 			CObjectX *pObjX = pObj->GetObjectX();
 
 			// オブジェクトXの位置取得
-			D3DXVECTOR3 pObjPos = pObjX->GetPosition();
+			MyLib::Vector3 pObjPos = pObjX->GetPosition();
 
 			// オブジェクトXの向き取得
-			D3DXVECTOR3 pObjRot = pObjX->GetRotation();
+			MyLib::Vector3 pObjRot = pObjX->GetRotation();
 
 			// オブジェクトXの最大値取得
-			D3DXVECTOR3 pObjVtxMax = pObjX->GetVtxMax();
+			MyLib::Vector3 pObjVtxMax = pObjX->GetVtxMax();
 
 			// オブジェクトXの最小値取得
-			D3DXVECTOR3 pObjVtxMin = pObjX->GetVtxMin();
+			MyLib::Vector3 pObjVtxMin = pObjX->GetVtxMin();
 
 			// 位置取得
-			D3DXVECTOR3 pos = m_pObjX->GetPosition();
+			MyLib::Vector3 pos = m_pObjX->GetPosition();
 
 			// 最大値取得
-			D3DXVECTOR3 vtxMax = m_pObjX->GetVtxMax();
+			MyLib::Vector3 vtxMax = m_pObjX->GetVtxMax();
 
 			// 最小値取得
-			D3DXVECTOR3 vtxMin = m_pObjX->GetVtxMin();
+			MyLib::Vector3 vtxMin = m_pObjX->GetVtxMin();
 
 			if (pObjPos.x + pObjVtxMax.x >= pos.x + vtxMin.x &&	// 右からめり込んでる
 				pObjPos.x + pObjVtxMin.x <= pos.x + vtxMax.x &&	// 左からめり込んでる

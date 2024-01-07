@@ -182,8 +182,8 @@ void CObjectCircleGauge2D::SetVtx(void)
 	m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
 
 	// 情報取得
-	D3DXVECTOR3 pos = GetPosition();
-	D3DXVECTOR3 rot = GetRotation();
+	MyLib::Vector3 pos = GetPosition();
+	MyLib::Vector3 rot = GetRotation();
 
 	// 頂点座標の設定
 	pVtx[0].pos = pos;
@@ -203,7 +203,7 @@ void CObjectCircleGauge2D::SetVtx(void)
 	float fRotDivision = (D3DX_PI * 2.0f) / (m_nNumVertex - 2);	// 分割毎の向き
 	float fOldRot = m_fRate * (D3DX_PI * 2.0f);	// 前回の向き
 	float fEndRot = 0.0f;	// 最後の向き
-	D3DXVECTOR3 EndPos = mylib_const::DEFAULT_VECTOR3;
+	MyLib::Vector3 EndPos = mylib_const::DEFAULT_VECTOR3;
 
 	// 頂点座標の設定
 	for (int i = 0; i < m_nNumVertex - 1; i++)
@@ -232,12 +232,12 @@ void CObjectCircleGauge2D::SetVtx(void)
 				float fRate = (fEndRot - (fRotDivision * nIdx)) / fRotDivision;
 
 				// 前回の頂点と今回の頂点
-				D3DXVECTOR3 p1 = D3DXVECTOR3(
+				MyLib::Vector3 p1 = MyLib::Vector3(
 					pos.x + cosf(D3DX_PI * -0.5f + (fRotDivision * nIdx) + rot.z) * m_fSize,
 					pos.y + sinf(D3DX_PI * -0.5f + (fRotDivision * nIdx) + rot.z) * m_fSize,
 					0.0f);
 
-				D3DXVECTOR3 p2 = D3DXVECTOR3(
+				MyLib::Vector3 p2 = MyLib::Vector3(
 					pos.x + cosf(D3DX_PI * -0.5f + (fRotDivision * i) + rot.z) * m_fSize,
 					pos.y + sinf(D3DX_PI * -0.5f + (fRotDivision * i) + rot.z) * m_fSize,
 					0.0f);
@@ -253,7 +253,7 @@ void CObjectCircleGauge2D::SetVtx(void)
 		if (bEnd == false)
 		{
 			// 頂点座標の設定
-			pVtx[0].pos = D3DXVECTOR3(
+			pVtx[0].pos = MyLib::Vector3(
 				pos.x + cosf(D3DX_PI * -0.5f + fRot + rot.z) * m_fSize,
 				pos.y + sinf(D3DX_PI * -0.5f + fRot + rot.z) * m_fSize,
 				0.0f);

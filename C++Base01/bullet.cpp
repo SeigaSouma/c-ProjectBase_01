@@ -90,7 +90,7 @@ CBullet::~CBullet()
 //==========================================================================
 // 生成処理
 //==========================================================================
-CBullet *CBullet::Create(TYPE type, MOVETYPE movetype, const D3DXVECTOR3 pos, const D3DXVECTOR3 rot, const D3DXVECTOR3 move, const float fSize)
+CBullet *CBullet::Create(TYPE type, MOVETYPE movetype, const MyLib::Vector3 pos, const MyLib::Vector3 rot, const MyLib::Vector3 move, const float fSize)
 {
 	// 生成用のオブジェクト
 	CBullet *pBullet = NULL;
@@ -206,7 +206,7 @@ void CBullet::Update(void)
 {
 	if (GetHeightLen() < 40.0f)
 	{// 重力
-		D3DXVECTOR3 move = GetMove();
+		MyLib::Vector3 move = GetMove();
 
 		move.y -= 0.16f;
 
@@ -261,13 +261,13 @@ void CBullet::Update(void)
 void CBullet::UpdatePos(void)
 {
 	// 位置取得
-	D3DXVECTOR3 pos = GetPosition();
+	MyLib::Vector3 pos = GetPosition();
 
 	// 移動量取得
-	D3DXVECTOR3 move = GetMove();
+	MyLib::Vector3 move = GetMove();
 
 	// 向き取得
-	D3DXVECTOR3 rot = GetRotation();
+	MyLib::Vector3 rot = GetRotation();
 
 	// 位置更新
 	switch (m_MoveType)
@@ -335,12 +335,12 @@ void CBullet::CollisionPlayer(void)
 		}
 
 		// プレイヤーの情報取得
-		D3DXVECTOR3 PlayerPosition = pPlayer->GetCenterPosition();
-		D3DXVECTOR3 PlayerRotation = pPlayer->GetRotation();
+		MyLib::Vector3 PlayerPosition = pPlayer->GetCenterPosition();
+		MyLib::Vector3 PlayerRotation = pPlayer->GetRotation();
 		float fPlayerRadius = pPlayer->GetRadius();
 
 		// 情報取得
-		D3DXVECTOR3 pos = GetPosition();
+		MyLib::Vector3 pos = GetPosition();
 		float fRadius = GetWidthLen();
 
 		if (UtilFunc::Collision::SphereRange(pos, PlayerPosition, fRadius, fPlayerRadius))
@@ -366,7 +366,7 @@ void CBullet::CollisionPlayer(void)
 void CBullet::CollisionEnemy(void)
 {
 	// 情報取得
-	D3DXVECTOR3 pos = GetPosition();
+	MyLib::Vector3 pos = GetPosition();
 	float fRadius = GetWidthLen();
 	bool bHit = false;
 
@@ -378,7 +378,7 @@ void CBullet::CollisionEnemy(void)
 	while (enemyList.ListLoop(&pEnemy))
 	{
 		// 敵の情報取得
-		D3DXVECTOR3 EnemyPosition = pEnemy->GetCenterPosition();
+		MyLib::Vector3 EnemyPosition = pEnemy->GetCenterPosition();
 		float fEnemyRadius = pEnemy->GetRadius();
 
 		if (UtilFunc::Collision::SphereRange(pos, EnemyPosition, fRadius, fEnemyRadius))
@@ -492,7 +492,7 @@ CBullet::TYPE CBullet::GetType(void)
 //==========================================================================
 // 目標の位置
 //==========================================================================
-void CBullet::SetTargetPosition(D3DXVECTOR3 pos)
+void CBullet::SetTargetPosition(MyLib::Vector3 pos)
 {
 	m_TargetPosition = pos;
 }

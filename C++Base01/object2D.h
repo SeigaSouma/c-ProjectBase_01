@@ -44,8 +44,8 @@ public:
 	virtual D3DXVECTOR2 GetSizeOrigin(void) const;		// 元のサイズの取得
 	virtual void SetTex(D3DXVECTOR2 *tex);				// テクスチャ座標の設定
 	virtual D3DXVECTOR2 *GetTex(void);					// テクスチャ座標の取得
-	virtual D3DXVECTOR3 *GetVtxPos(void);				// 頂点座標取得
-	virtual void SetVtxPos(D3DXVECTOR3 *pos);			// 頂点座標取得
+	virtual MyLib::Vector3 *GetVtxPos(void);				// 頂点座標取得
+	virtual void SetVtxPos(MyLib::Vector3 *pos);			// 頂点座標取得
 	
 	template<class T>T *GetTemplate(void);
 
@@ -69,7 +69,7 @@ private:
 	D3DXVECTOR2 m_fTex[32];		// テクスチャ座標
 	float m_fLength;			// 対角線の長さ
 	float m_fAngle;				// 対角線の向き
-	D3DXVECTOR3 m_VtxPos[32];		// 頂点座標
+	MyLib::Vector3 m_VtxPos[32];		// 頂点座標
 	LPDIRECT3DVERTEXBUFFER9 m_pVtxBuff;	// 頂点バッファ
 	int m_nTexIdx;					// テクスチャのインデックス番号
 };

@@ -35,7 +35,7 @@ namespace UtilFunc
 
 	namespace Collision
 	{
-		bool CollisionTriangle(D3DXVECTOR3 posCenter, D3DXVECTOR3 posLeft, D3DXVECTOR3 posRight, D3DXVECTOR3 MainPos, D3DXVECTOR3 MainPosOld);	// 三角形の内側にいるか判定
+		bool CollisionTriangle(MyLib::Vector3 posCenter, MyLib::Vector3 posLeft, MyLib::Vector3 posRight, MyLib::Vector3 MainPos, MyLib::Vector3 MainPosOld);	// 三角形の内側にいるか判定
 
 	}
 }
@@ -155,13 +155,13 @@ namespace UtilFunc	// 便利関数
 		@param	time		[in]	補正割合(0.0f ～ 1.0f)
 		@return	補間された値
 		*/
-		inline D3DXVECTOR3 CatmullRomSplineInterp(D3DXVECTOR3 PointMili1, D3DXVECTOR3 Point0, D3DXVECTOR3 Point1, D3DXVECTOR3 Point2, float time)
+		inline MyLib::Vector3 CatmullRomSplineInterp(MyLib::Vector3 PointMili1, MyLib::Vector3 Point0, MyLib::Vector3 Point1, MyLib::Vector3 Point2, float time)
 		{
 			// 4点で補正
-			D3DXVECTOR3 a4 = Point0;
-			D3DXVECTOR3 a3 = (Point1 - PointMili1) / 2.0f;
-			D3DXVECTOR3 a1 = (Point2 - Point0) / 2.0f - 2.0f * Point1 + a3 + 2.0f * a4;
-			D3DXVECTOR3 a2 = 3.0f * Point1 - (Point2 - Point0) / 2.0f - 2.0f * a3 - 3.0f * a4;
+			MyLib::Vector3 a4 = Point0;
+			MyLib::Vector3 a3 = (Point1 - PointMili1) / 2.0f;
+			MyLib::Vector3 a1 = (Point2 - Point0) / 2.0f - 2.0f * Point1 + a3 + 2.0f * a4;
+			MyLib::Vector3 a2 = 3.0f * Point1 - (Point2 - Point0) / 2.0f - 2.0f * a3 - 3.0f * a4;
 
 			return (a1 * time * time * time + a2 * time * time + a3 * time + a4);
 		}
@@ -239,7 +239,7 @@ namespace UtilFunc	// 便利関数
 		@param	pos2	[in]	終点
 		@return	長さ
 		*/
-		inline float GetPosLength2D(D3DXVECTOR3 pos1, D3DXVECTOR3 pos2)
+		inline float GetPosLength2D(MyLib::Vector3 pos1, MyLib::Vector3 pos2)
 		{
 			return sqrtf((pos1.x - pos2.x) * (pos1.x - pos2.x)
 				+ (pos1.y - pos2.y) * (pos1.y - pos2.y));
@@ -251,7 +251,7 @@ namespace UtilFunc	// 便利関数
 		@param	pos2	[in]	終点
 		@return	長さ
 		*/
-		inline float GetPosLength3D(D3DXVECTOR3 pos1, D3DXVECTOR3 pos2)
+		inline float GetPosLength3D(MyLib::Vector3 pos1, MyLib::Vector3 pos2)
 		{
 			return sqrtf((pos1.x - pos2.x) * (pos1.x - pos2.x)
 				+ (pos1.z - pos2.z) * (pos1.z - pos2.z));
@@ -263,7 +263,7 @@ namespace UtilFunc	// 便利関数
 		@param	pos2	[in]	終点
 		@return	長さの絶対値
 		*/
-		inline float GetFabsPosLength3D(D3DXVECTOR3 pos1, D3DXVECTOR3 pos2)
+		inline float GetFabsPosLength3D(MyLib::Vector3 pos1, MyLib::Vector3 pos2)
 		{
 			return fabsf(GetPosLength3D(pos1, pos2));
 		}
@@ -275,9 +275,9 @@ namespace UtilFunc	// 便利関数
 		@param	fRate	[in]	割合
 		@return	位置
 		*/
-		inline D3DXVECTOR3 GetPointOnEdge2D(D3DXVECTOR3 point1, D3DXVECTOR3 point2, float fRate)
+		inline MyLib::Vector3 GetPointOnEdge2D(MyLib::Vector3 point1, MyLib::Vector3 point2, float fRate)
 		{
-			return D3DXVECTOR3(
+			return MyLib::Vector3(
 				point1.x + fRate * (point2.x - point1.x),
 				point1.y + fRate * (point2.y - point1.y),
 				0.0f);
@@ -291,10 +291,10 @@ namespace UtilFunc	// 便利関数
 		@param	time		[in]	補正割合(0.0f ～ 1.0f)
 		@return	放物線上の位置取得
 		*/
-		inline D3DXVECTOR3 GetParabola3D(D3DXVECTOR3 start, D3DXVECTOR3 end, float fMaxHeight, float time)
+		inline MyLib::Vector3 GetParabola3D(MyLib::Vector3 start, MyLib::Vector3 end, float fMaxHeight, float time)
 		{
 			// 位置
-			D3DXVECTOR3 pos = mylib_const::DEFAULT_VECTOR3;
+			MyLib::Vector3 pos = mylib_const::DEFAULT_VECTOR3;
 
 			// XZ移動
 			pos.x = start.x + (end.x - start.x) * time;
@@ -315,11 +315,11 @@ namespace UtilFunc	// 便利関数
 		@param	pVtxBuff	[in]	頂点バッファ
 		@return	void
 		*/
-		inline void CalModelVtx(float RotY, D3DXVECTOR3* pVtxMax, D3DXVECTOR3* pVtxMin, LPD3DXMESH pMesh, BYTE* pVtxBuff)
+		inline void CalModelVtx(float RotY, MyLib::Vector3* pVtxMax, MyLib::Vector3* pVtxMin, LPD3DXMESH pMesh, BYTE* pVtxBuff)
 		{
 			// リセット
-			*pVtxMin = D3DXVECTOR3(10000.0f, 10000.0f, 10000.0f);
-			*pVtxMax = D3DXVECTOR3(-10000.0f, -10000.0f, -10000.0f);
+			*pVtxMin = MyLib::Vector3(10000.0f, 10000.0f, 10000.0f);
+			*pVtxMax = MyLib::Vector3(-10000.0f, -10000.0f, -10000.0f);
 
 			// モデルの頂点数を取得
 			int nNumVtx = pMesh->GetNumVertices();
@@ -334,7 +334,7 @@ namespace UtilFunc	// 便利関数
 			for (int nCntVtx = 0; nCntVtx < nNumVtx; nCntVtx++)
 			{
 				// 今回のデータ
-				D3DXVECTOR3 vtx = *(D3DXVECTOR3*)pVtxBuff;
+				MyLib::Vector3 vtx = *(MyLib::Vector3*)pVtxBuff;
 
 				// X
 				if (pVtxMin->x > vtx.x)
@@ -378,7 +378,7 @@ namespace UtilFunc	// 便利関数
 			// 頂点バッファをアンロック
 			pMesh->UnlockVertexBuffer();
 
-			D3DXVECTOR3 VtxMax = *pVtxMax, VtxMin = *pVtxMin;
+			MyLib::Vector3 VtxMax = *pVtxMax, VtxMin = *pVtxMin;
 
 			if (RotY <= D3DX_PI * 0.5f + 0.05f && RotY >= D3DX_PI * 0.5f - 0.05f)
 			{// 1.57fのとき
@@ -427,19 +427,19 @@ namespace UtilFunc	// 便利関数
 		@param	posRight	[out]	着地判定
 		@return	3頂点からなる高さ
 		*/
-		inline float GetVtxHeight(D3DXVECTOR3 pos, D3DXVECTOR3 posCenter, D3DXVECTOR3 posRight, D3DXVECTOR3 posLeft, bool* pLand)
+		inline float GetVtxHeight(MyLib::Vector3 pos, MyLib::Vector3 posCenter, MyLib::Vector3 posRight, MyLib::Vector3 posLeft, bool* pLand)
 		{
 			// 高さ
 			float fHeight = 0.0f;
 
 			// 直角部分と位置のベクトル
-			D3DXVECTOR3 calvec = pos - posCenter;
+			MyLib::Vector3 calvec = pos - posCenter;
 
 			// ベクトルと法線
-			D3DXVECTOR3
+			MyLib::Vector3
 				vec1 = posRight - posCenter,
 				vec2 = posLeft - posRight,
-				nor = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+				nor = MyLib::Vector3(0.0f, 0.0f, 0.0f);
 
 			if (UtilFunc::Collision::CollisionTriangle(posCenter, posRight, posLeft, pos, pos) == true)
 			{// 三角に入っていたら
@@ -505,7 +505,7 @@ namespace UtilFunc	// 便利関数
 		@param	fRadius2	[in]	対象2の半径
 		@return	当たったかのbool値
 		*/
-		inline bool CircleRange2D(D3DXVECTOR3 pos1, D3DXVECTOR3 pos2, float fRadius1, float fRadius2)
+		inline bool CircleRange2D(MyLib::Vector3 pos1, MyLib::Vector3 pos2, float fRadius1, float fRadius2)
 		{
 			float fLength =
 				(pos1.x - pos2.x) * (pos1.x - pos2.x) +
@@ -527,7 +527,7 @@ namespace UtilFunc	// 便利関数
 		@param	fRadius2	[in]	対象2の半径
 		@return	当たったかのbool値
 		*/
-		inline bool CircleRange3D(D3DXVECTOR3 pos1, D3DXVECTOR3 pos2, float fRadius1, float fRadius2)
+		inline bool CircleRange3D(MyLib::Vector3 pos1, MyLib::Vector3 pos2, float fRadius1, float fRadius2)
 		{
 			float fLength =
 				(pos1.x - pos2.x) * (pos1.x - pos2.x) +
@@ -549,7 +549,7 @@ namespace UtilFunc	// 便利関数
 		@param	fRadius2	[in]	対象2の半径
 		@return	当たったかのbool値
 		*/
-		inline bool SphereRange(D3DXVECTOR3 pos1, D3DXVECTOR3 pos2, float fRadius1, float fRadius2)
+		inline bool SphereRange(MyLib::Vector3 pos1, MyLib::Vector3 pos2, float fRadius1, float fRadius2)
 		{
 			float fLength =
 				(pos1.x - pos2.x) * (pos1.x - pos2.x) +
@@ -574,7 +574,7 @@ namespace UtilFunc	// 便利関数
 		@param	fHeight2	[in]	対象2の高さ
 		@return	当たったかのbool値
 		*/
-		inline bool CylinderRange(D3DXVECTOR3 pos1, D3DXVECTOR3 pos2, float fRadius1, float fRadius2, float fHeight1, float fHeight2)
+		inline bool CylinderRange(MyLib::Vector3 pos1, MyLib::Vector3 pos2, float fRadius1, float fRadius2, float fHeight1, float fHeight2)
 		{
 			if (CircleRange3D(pos1, pos2, fHeight1, fHeight2) &&
 				pos1.y + fHeight1 >= pos2.y &&
@@ -597,7 +597,7 @@ namespace UtilFunc	// 便利関数
 		@param	TargetVtxMin	[in]	対象の頂点最小値
 		@return	void
 		*/
-		inline void CollisionCharacter(D3DXVECTOR3& MainPos, D3DXVECTOR3& MainPosOld, D3DXVECTOR3 MainVtxMax, D3DXVECTOR3 MainVtxMin, D3DXVECTOR3& TargetPos, D3DXVECTOR3 TargetVtxMax, D3DXVECTOR3 TargetVtxMin)
+		inline void CollisionCharacter(MyLib::Vector3& MainPos, MyLib::Vector3& MainPosOld, MyLib::Vector3 MainVtxMax, MyLib::Vector3 MainVtxMin, MyLib::Vector3& TargetPos, MyLib::Vector3 TargetVtxMax, MyLib::Vector3 TargetVtxMin)
 		{
 			// 横の判定
 			if (MainPos.z + MainVtxMax.z > TargetPos.z + TargetVtxMin.z &&	// 敵の最小値に入ってる
@@ -649,7 +649,7 @@ namespace UtilFunc	// 便利関数
 		@param	TargetVtxMin	[in]	対象の頂点最小値
 		@return	当たったかのbool値
 		*/
-		inline bool bHitCharacter(D3DXVECTOR3 MainPos, D3DXVECTOR3 MainPosOld, D3DXVECTOR3 MainVtxMax, D3DXVECTOR3 MainVtxMin, D3DXVECTOR3 TargetPos, D3DXVECTOR3 TargetVtxMax, D3DXVECTOR3 TargetVtxMin)
+		inline bool bHitCharacter(MyLib::Vector3 MainPos, MyLib::Vector3 MainPosOld, MyLib::Vector3 MainVtxMax, MyLib::Vector3 MainVtxMin, MyLib::Vector3 TargetPos, MyLib::Vector3 TargetVtxMax, MyLib::Vector3 TargetVtxMin)
 		{
 			// 横の判定
 			if (MainPos.z + MainVtxMax.z > TargetPos.z + TargetVtxMin.z &&	// 敵の最小値に入ってる
@@ -696,20 +696,20 @@ namespace UtilFunc	// 便利関数
 		@param	posOld		[in]	自分の前回位置
 		@return	void
 		*/
-		inline void CollisionLimitLine(D3DXVECTOR3 pos0, D3DXVECTOR3 pos1, D3DXVECTOR3& pPos, D3DXVECTOR3 posOld)
+		inline void CollisionLimitLine(MyLib::Vector3 pos0, MyLib::Vector3 pos1, MyLib::Vector3& pPos, MyLib::Vector3 posOld)
 		{
 			// 境界線のベクトル
-			D3DXVECTOR3 vecLine;
+			MyLib::Vector3 vecLine;
 			vecLine.x = pos1.x - pos0.x;
 			vecLine.z = pos1.z - pos0.z;
 
 			// プレイヤーの境界線のベクトル
-			D3DXVECTOR3 vecLinePlayer;
+			MyLib::Vector3 vecLinePlayer;
 			vecLinePlayer.x = pPos.x - posOld.x;
 			vecLinePlayer.z = pPos.z - posOld.z;
 
 			// プレイヤーと壁のベクトル
-			D3DXVECTOR3 vecToPosPlayer;
+			MyLib::Vector3 vecToPosPlayer;
 			vecToPosPlayer.x = pos1.x - posOld.x;
 			vecToPosPlayer.z = pos1.z - posOld.z;
 
@@ -729,13 +729,13 @@ namespace UtilFunc	// 便利関数
 				{// 壁に当たったら
 
 					// 法線ベクトル(境界線ベクトルのXとZ反転)
-					D3DXVECTOR3 vecNor = D3DXVECTOR3(vecLine.z, 0.0f, -vecLine.x);
+					MyLib::Vector3 vecNor = MyLib::Vector3(vecLine.z, 0.0f, -vecLine.x);
 
 					// ベクトルの正規化
 					D3DXVec3Normalize(&vecNor, &vecNor);
 
 					// プレイヤーの逆移動量
-					D3DXVECTOR3 PlayerInverceMove;
+					MyLib::Vector3 PlayerInverceMove;
 					PlayerInverceMove.x = vecLinePlayer.x * (fRatePlayer - 1.0f);
 					PlayerInverceMove.z = vecLinePlayer.z * (fRatePlayer - 1.0f);
 
@@ -743,7 +743,7 @@ namespace UtilFunc	// 便利関数
 					float fDot = (PlayerInverceMove.x * vecNor.x) + (PlayerInverceMove.z * vecNor.z);
 
 					// 壁ずり移動量
-					D3DXVECTOR3 MoveWall = vecNor * fDot;
+					MyLib::Vector3 MoveWall = vecNor * fDot;
 
 					// ぶつかった点に補正
 					pPos += MoveWall + (vecNor * 0.1f);
@@ -761,15 +761,15 @@ namespace UtilFunc	// 便利関数
 		@param	MainPos		[in]	判定する対象の前回の位置
 		@return	線分の右側にいるかのbool値
 		*/
-		inline bool CollisionLine2D(D3DXVECTOR3 pos0, D3DXVECTOR3 pos1, D3DXVECTOR3 MainPos, D3DXVECTOR3 MainPosOld)
+		inline bool CollisionLine2D(MyLib::Vector3 pos0, MyLib::Vector3 pos1, MyLib::Vector3 MainPos, MyLib::Vector3 MainPosOld)
 		{
 			// 境界線のベクトル
-			D3DXVECTOR3 vecLine;
+			MyLib::Vector3 vecLine;
 			vecLine.x = pos1.x - pos0.x;
 			vecLine.y = pos0.y - pos1.y;
 
 			// 弾と壁のベクトル
-			D3DXVECTOR3 vecToPos;
+			MyLib::Vector3 vecToPos;
 			vecToPos.x = MainPos.x - pos0.x;
 			vecToPos.y = pos0.y - MainPos.y;
 
@@ -790,15 +790,15 @@ namespace UtilFunc	// 便利関数
 		@param	MainPos		[in]	判定する対象の前回の位置
 		@return	線分の右側にいるかのbool値
 		*/
-		inline bool CollisionLine3D(D3DXVECTOR3 pos0, D3DXVECTOR3 pos1, D3DXVECTOR3 MainPos, D3DXVECTOR3 MainPosOld)
+		inline bool CollisionLine3D(MyLib::Vector3 pos0, MyLib::Vector3 pos1, MyLib::Vector3 MainPos, MyLib::Vector3 MainPosOld)
 		{
 			// 境界線のベクトル
-			D3DXVECTOR3 vecLine;
+			MyLib::Vector3 vecLine;
 			vecLine.x = pos1.x - pos0.x;
 			vecLine.z = pos1.z - pos0.z;
 
 			// 弾と壁のベクトル
-			D3DXVECTOR3 vecToPos;
+			MyLib::Vector3 vecToPos;
 			vecToPos.x = MainPos.x - pos0.x;
 			vecToPos.z = MainPos.z - pos0.z;
 
@@ -819,7 +819,7 @@ namespace UtilFunc	// 便利関数
 		@param	MainPosOld	[in]	自分の前回位置
 		@return	中にいるかのbool値
 		*/
-		inline bool CollisionTriangle(D3DXVECTOR3 posCenter, D3DXVECTOR3 posLeft, D3DXVECTOR3 posRight, D3DXVECTOR3 MainPos, D3DXVECTOR3 MainPosOld)
+		inline bool CollisionTriangle(MyLib::Vector3 posCenter, MyLib::Vector3 posLeft, MyLib::Vector3 posRight, MyLib::Vector3 MainPos, MyLib::Vector3 MainPosOld)
 		{
 			// 当たったかの判定
 			bool bHit = false;
@@ -853,7 +853,7 @@ namespace UtilFunc	// 便利関数
 		@param	MainPos		[in]	自分の位置
 		@return	中にいるかのbool値
 		*/
-		inline bool CollisionSquare(D3DXVECTOR3 posLeftUP, D3DXVECTOR3 posRightUP, D3DXVECTOR3 posLeftDW, D3DXVECTOR3 posRightDW, D3DXVECTOR3 MainPos)
+		inline bool CollisionSquare(MyLib::Vector3 posLeftUP, MyLib::Vector3 posRightUP, MyLib::Vector3 posLeftDW, MyLib::Vector3 posRightDW, MyLib::Vector3 MainPos)
 		{
 			// 当たったかの判定
 			bool bHit = false;
@@ -890,7 +890,7 @@ namespace UtilFunc	// 便利関数
 		@param	MainPos		[in]	自分の位置
 		@return	中にいるかのbool値
 		*/
-		inline bool CollisionSquare(D3DXVECTOR3 posSquare, D3DXVECTOR2 SquareSize, float fSquareRot, D3DXVECTOR3 MainPos)
+		inline bool CollisionSquare(MyLib::Vector3 posSquare, D3DXVECTOR2 SquareSize, float fSquareRot, MyLib::Vector3 MainPos)
 		{
 			// 当たったかの判定
 			bool bHit = false;
@@ -900,10 +900,10 @@ namespace UtilFunc	// 便利関数
 			float fAngle = atan2f(SquareSize.x, SquareSize.y);									// 対角線の向き
 
 			// 判定する四角の4頂点
-			D3DXVECTOR3 LeftUp = D3DXVECTOR3(posSquare.x + sinf(fSquareRot - fAngle) * fLength, posSquare.y, posSquare.z + cosf(fSquareRot - fAngle) * fLength);
-			D3DXVECTOR3 RightUp = D3DXVECTOR3(posSquare.x + sinf(fSquareRot + fAngle) * fLength, posSquare.y, posSquare.z + cosf(fSquareRot + fAngle) * fLength);
-			D3DXVECTOR3 LeftDown = D3DXVECTOR3(posSquare.x + sinf(fSquareRot - D3DX_PI + fAngle) * fLength, posSquare.y, posSquare.z + cosf(fSquareRot - D3DX_PI + fAngle) * fLength);
-			D3DXVECTOR3 RightDown = D3DXVECTOR3(posSquare.x + sinf(fSquareRot + D3DX_PI - fAngle) * fLength, posSquare.y, posSquare.z + cosf(fSquareRot + D3DX_PI - fAngle) * fLength);
+			MyLib::Vector3 LeftUp = MyLib::Vector3(posSquare.x + sinf(fSquareRot - fAngle) * fLength, posSquare.y, posSquare.z + cosf(fSquareRot - fAngle) * fLength);
+			MyLib::Vector3 RightUp = MyLib::Vector3(posSquare.x + sinf(fSquareRot + fAngle) * fLength, posSquare.y, posSquare.z + cosf(fSquareRot + fAngle) * fLength);
+			MyLib::Vector3 LeftDown = MyLib::Vector3(posSquare.x + sinf(fSquareRot - D3DX_PI + fAngle) * fLength, posSquare.y, posSquare.z + cosf(fSquareRot - D3DX_PI + fAngle) * fLength);
+			MyLib::Vector3 RightDown = MyLib::Vector3(posSquare.x + sinf(fSquareRot + D3DX_PI - fAngle) * fLength, posSquare.y, posSquare.z + cosf(fSquareRot + D3DX_PI - fAngle) * fLength);
 
 			// 左上と右上
 			bLine1 = UtilFunc::Collision::CollisionLine3D(RightUp, LeftUp, MainPos, MainPos);
@@ -937,7 +937,7 @@ namespace UtilFunc	// 便利関数
 		@param	MainPos		[in]	自分の位置
 		@return	中にいるかのbool値
 		*/
-		inline bool CollisionSquare2D(D3DXVECTOR3 posLeftUP, D3DXVECTOR3 posRightUP, D3DXVECTOR3 posLeftDW, D3DXVECTOR3 posRightDW, D3DXVECTOR3 MainPos)
+		inline bool CollisionSquare2D(MyLib::Vector3 posLeftUP, MyLib::Vector3 posRightUP, MyLib::Vector3 posLeftDW, MyLib::Vector3 posRightDW, MyLib::Vector3 MainPos)
 		{
 			// 当たったかの判定
 			bool bHit = false;
@@ -975,7 +975,7 @@ namespace UtilFunc	// 便利関数
 		@param	fTargetRot	[in]	対象のY軸の向き
 		@return	衝突したかのbool値
 		*/
-		inline bool CollisionSquareSquare2D(D3DXVECTOR3& MainPos, D3DXVECTOR3& TargetPos, D3DXVECTOR2 MainSize, D3DXVECTOR2 TargetSize, float fMainRot, float fTargetRot)
+		inline bool CollisionSquareSquare2D(MyLib::Vector3& MainPos, MyLib::Vector3& TargetPos, D3DXVECTOR2 MainSize, D3DXVECTOR2 TargetSize, float fMainRot, float fTargetRot)
 		{
 			float fTargetLength = sqrtf(
 				TargetSize.x * TargetSize.x +
@@ -983,22 +983,22 @@ namespace UtilFunc	// 便利関数
 			float fTargetAngle = atan2f(TargetSize.x, TargetSize.y);	// 対角線の向き
 
 			// 判定する四角の4頂点
-			D3DXVECTOR3 LeftUp = D3DXVECTOR3(
+			MyLib::Vector3 LeftUp = MyLib::Vector3(
 				TargetPos.x + sinf(fTargetRot - fTargetAngle) * fTargetLength,
 				TargetPos.y,
 				TargetPos.z + cosf(fTargetRot - fTargetAngle) * fTargetLength);
 
-			D3DXVECTOR3 RightUp = D3DXVECTOR3(
+			MyLib::Vector3 RightUp = MyLib::Vector3(
 				TargetPos.x + sinf(fTargetRot + fTargetAngle) * fTargetLength,
 				TargetPos.y,
 				TargetPos.z + cosf(fTargetRot + fTargetAngle) * fTargetLength);
 
-			D3DXVECTOR3 LeftDown = D3DXVECTOR3(
+			MyLib::Vector3 LeftDown = MyLib::Vector3(
 				TargetPos.x + sinf(fTargetRot - D3DX_PI + fTargetAngle) * fTargetLength,
 				TargetPos.y,
 				TargetPos.z + cosf(fTargetRot - D3DX_PI + fTargetAngle) * fTargetLength);
 
-			D3DXVECTOR3 RightDown = D3DXVECTOR3(
+			MyLib::Vector3 RightDown = MyLib::Vector3(
 				TargetPos.x + sinf(fTargetRot + D3DX_PI - fTargetAngle) * fTargetLength,
 				TargetPos.y,
 				TargetPos.z + cosf(fTargetRot + D3DX_PI - fTargetAngle) * fTargetLength);
@@ -1035,7 +1035,7 @@ namespace UtilFunc	// 便利関数
 		@param	SquareSize		[in]	矩形のサイズ
 		@return	衝突したかのbool値
 		*/
-		inline bool CollisionCircleSquare2D(D3DXVECTOR3& posCircle, D3DXVECTOR3& posSquare, D3DXVECTOR3 rotSquare, float fCircleRadius, D3DXVECTOR2 SquareSize)
+		inline bool CollisionCircleSquare2D(MyLib::Vector3& posCircle, MyLib::Vector3& posSquare, MyLib::Vector3 rotSquare, float fCircleRadius, D3DXVECTOR2 SquareSize)
 		{
 			float fSquareSizeX = SquareSize.x;	// 矩形のサイズX
 			float fSquareSizeY = SquareSize.y;	// 矩形のサイズY
@@ -1043,7 +1043,7 @@ namespace UtilFunc	// 便利関数
 			float fLength = 0.0f;	// 対角線の長さ
 			float fAngle = 0.0f;	// 対角線の向き
 
-			D3DXVECTOR3 LeftUp, RightUp, LeftDown, RightDown;
+			MyLib::Vector3 LeftUp, RightUp, LeftDown, RightDown;
 
 			//****************************************************
 			// Xのサイズに円の半径を足した矩形の判定
@@ -1168,7 +1168,7 @@ namespace UtilFunc	// 便利関数
 		@param	SquareSize		[in]	矩形のサイズ
 		@return	衝突したかのbool値
 		*/
-		inline bool CollisionCircleSquare3D(D3DXVECTOR3& posCircle, D3DXVECTOR3& posSquare, D3DXVECTOR3 rotSquare, float fCircleRadius, D3DXVECTOR2 SquareSize)
+		inline bool CollisionCircleSquare3D(MyLib::Vector3& posCircle, MyLib::Vector3& posSquare, MyLib::Vector3 rotSquare, float fCircleRadius, D3DXVECTOR2 SquareSize)
 		{
 			float fSquareSizeX = SquareSize.x;	// 矩形のサイズX
 			float fSquareSizeY = SquareSize.y;	// 矩形のサイズY
@@ -1176,7 +1176,7 @@ namespace UtilFunc	// 便利関数
 			float fLength = 0.0f;	// 対角線の長さ
 			float fAngle = 0.0f;	// 対角線の向き
 
-			D3DXVECTOR3 LeftUp, RightUp, LeftDown, RightDown;
+			MyLib::Vector3 LeftUp, RightUp, LeftDown, RightDown;
 
 			//****************************************************
 			// Xのサイズに円の半径を足した矩形の判定
@@ -1188,10 +1188,10 @@ namespace UtilFunc	// 便利関数
 			fAngle = atan2f(fSquareSizeX, fSquareSizeY);								// 対角線の向き
 
 			// 判定する四角の4頂点
-			LeftUp = D3DXVECTOR3(posSquare.x + cosf(rotSquare.x) * sinf(rotSquare.y - fAngle) * fLength, posSquare.y, posSquare.z + cosf(rotSquare.x) * cosf(rotSquare.y - fAngle) * fLength);
-			RightUp = D3DXVECTOR3(posSquare.x + cosf(rotSquare.x) * sinf(rotSquare.y + fAngle) * fLength, posSquare.y, posSquare.z + cosf(rotSquare.x) * cosf(rotSquare.y + fAngle) * fLength);
-			LeftDown = D3DXVECTOR3(posSquare.x + cosf(rotSquare.x) * sinf(rotSquare.y - D3DX_PI + fAngle) * fLength, posSquare.y, posSquare.z + cosf(rotSquare.x) * cosf(rotSquare.y - D3DX_PI + fAngle) * fLength);
-			RightDown = D3DXVECTOR3(posSquare.x + cosf(rotSquare.x) * sinf(rotSquare.y + D3DX_PI - fAngle) * fLength, posSquare.y, posSquare.z + cosf(rotSquare.x) * cosf(rotSquare.y + D3DX_PI - fAngle) * fLength);
+			LeftUp = MyLib::Vector3(posSquare.x + cosf(rotSquare.x) * sinf(rotSquare.y - fAngle) * fLength, posSquare.y, posSquare.z + cosf(rotSquare.x) * cosf(rotSquare.y - fAngle) * fLength);
+			RightUp = MyLib::Vector3(posSquare.x + cosf(rotSquare.x) * sinf(rotSquare.y + fAngle) * fLength, posSquare.y, posSquare.z + cosf(rotSquare.x) * cosf(rotSquare.y + fAngle) * fLength);
+			LeftDown = MyLib::Vector3(posSquare.x + cosf(rotSquare.x) * sinf(rotSquare.y - D3DX_PI + fAngle) * fLength, posSquare.y, posSquare.z + cosf(rotSquare.x) * cosf(rotSquare.y - D3DX_PI + fAngle) * fLength);
+			RightDown = MyLib::Vector3(posSquare.x + cosf(rotSquare.x) * sinf(rotSquare.y + D3DX_PI - fAngle) * fLength, posSquare.y, posSquare.z + cosf(rotSquare.x) * cosf(rotSquare.y + D3DX_PI - fAngle) * fLength);
 
 			// 矩形の判定
 			if (UtilFunc::Collision::CollisionSquare(LeftUp, RightUp, LeftDown, RightDown, posCircle) == true)
@@ -1209,10 +1209,10 @@ namespace UtilFunc	// 便利関数
 			fAngle = atan2f(fSquareSizeX, fSquareSizeY);								// 対角線の向き
 
 			// 判定する四角の4頂点
-			LeftUp = D3DXVECTOR3(posSquare.x + cosf(rotSquare.x) * sinf(rotSquare.y - fAngle) * fLength, posSquare.y, posSquare.z + cosf(rotSquare.x) * cosf(rotSquare.y - fAngle) * fLength);
-			RightUp = D3DXVECTOR3(posSquare.x + cosf(rotSquare.x) * sinf(rotSquare.y + fAngle) * fLength, posSquare.y, posSquare.z + cosf(rotSquare.x) * cosf(rotSquare.y + fAngle) * fLength);
-			LeftDown = D3DXVECTOR3(posSquare.x + cosf(rotSquare.x) * sinf(rotSquare.y - D3DX_PI + fAngle) * fLength, posSquare.y, posSquare.z + cosf(rotSquare.x) * cosf(rotSquare.y - D3DX_PI + fAngle) * fLength);
-			RightDown = D3DXVECTOR3(posSquare.x + cosf(rotSquare.x) * sinf(rotSquare.y + D3DX_PI - fAngle) * fLength, posSquare.y, posSquare.z + cosf(rotSquare.x) * cosf(rotSquare.y + D3DX_PI - fAngle) * fLength);
+			LeftUp = MyLib::Vector3(posSquare.x + cosf(rotSquare.x) * sinf(rotSquare.y - fAngle) * fLength, posSquare.y, posSquare.z + cosf(rotSquare.x) * cosf(rotSquare.y - fAngle) * fLength);
+			RightUp = MyLib::Vector3(posSquare.x + cosf(rotSquare.x) * sinf(rotSquare.y + fAngle) * fLength, posSquare.y, posSquare.z + cosf(rotSquare.x) * cosf(rotSquare.y + fAngle) * fLength);
+			LeftDown = MyLib::Vector3(posSquare.x + cosf(rotSquare.x) * sinf(rotSquare.y - D3DX_PI + fAngle) * fLength, posSquare.y, posSquare.z + cosf(rotSquare.x) * cosf(rotSquare.y - D3DX_PI + fAngle) * fLength);
+			RightDown = MyLib::Vector3(posSquare.x + cosf(rotSquare.x) * sinf(rotSquare.y + D3DX_PI - fAngle) * fLength, posSquare.y, posSquare.z + cosf(rotSquare.x) * cosf(rotSquare.y + D3DX_PI - fAngle) * fLength);
 
 			// 矩形の判定
 			if (UtilFunc::Collision::CollisionSquare(LeftUp, RightUp, LeftDown, RightDown, posCircle) == true)
@@ -1253,7 +1253,7 @@ namespace UtilFunc	// 便利関数
 		@param	fTargetRadius	[in]	判定する対象の半径
 		@return	衝突したかのbool値
 		*/
-		inline bool CollisionFan3D(D3DXVECTOR3 posCenter, D3DXVECTOR3 posLeft, D3DXVECTOR3 posRight, D3DXVECTOR3 TargetPos, float fTargetRadius)
+		inline bool CollisionFan3D(MyLib::Vector3 posCenter, MyLib::Vector3 posLeft, MyLib::Vector3 posRight, MyLib::Vector3 TargetPos, float fTargetRadius)
 		{
 			// 当たったかの判定
 			bool bHit = false;
@@ -1327,7 +1327,7 @@ namespace UtilFunc	// 便利関数
 		@param	fRot	[inout]	補正する角度
 		@return	void
 		*/
-		inline void RotNormalize(D3DXVECTOR3& rot)
+		inline void RotNormalize(MyLib::Vector3& rot)
 		{
 			// それぞれの正規化
 			UtilFunc::Transformation::RotNormalize(rot.x);
@@ -1381,9 +1381,9 @@ namespace UtilFunc	// 便利関数
 		@param	worldmtx	[in]	ワールドマトリックス
 		@return	位置
 		*/
-		inline D3DXVECTOR3 WorldMtxChangeToPosition(D3DXMATRIX worldmtx)
+		inline MyLib::Vector3 WorldMtxChangeToPosition(D3DXMATRIX worldmtx)
 		{
-			return D3DXVECTOR3(worldmtx._41, worldmtx._42, worldmtx._43);
+			return MyLib::Vector3(worldmtx._41, worldmtx._42, worldmtx._43);
 		}
 
 		/**
@@ -1391,9 +1391,9 @@ namespace UtilFunc	// 便利関数
 		@param	worldmtx	[in]	ワールドマトリックス
 		@return	向き(絶対値)
 		*/
-		inline D3DXVECTOR3 WorldMtxChangeToRotation(D3DXMATRIX worldmtx)
+		inline MyLib::Vector3 WorldMtxChangeToRotation(D3DXMATRIX worldmtx)
 		{
-			D3DXVECTOR3 rot = mylib_const::DEFAULT_VECTOR3;
+			MyLib::Vector3 rot = mylib_const::DEFAULT_VECTOR3;
 
 			rot.x = atan2f(worldmtx._32, worldmtx._33);
 			rot.y = atan2f(-worldmtx._31, sqrtf(worldmtx._32 * worldmtx._32 + worldmtx._33 * worldmtx._33));
@@ -1440,10 +1440,10 @@ namespace UtilFunc	// 便利関数
 		@brief	球範囲のランダムベクトル取得
 		@return	球のランダムなベクトル値
 		*/
-		inline D3DXVECTOR3 GetRandomVecSphere(void)
+		inline MyLib::Vector3 GetRandomVecSphere(void)
 		{
 			// 球ベクトル
-			D3DXVECTOR3 vecSphere = mylib_const::DEFAULT_VECTOR3;
+			MyLib::Vector3 vecSphere = mylib_const::DEFAULT_VECTOR3;
 
 			// 球の範囲内でランダム生成
 			float fRot = UtilFunc::Transformation::GetRandomPi(), fRotPhi = UtilFunc::Transformation::GetRandomPi();
@@ -1461,10 +1461,10 @@ namespace UtilFunc	// 便利関数
 		@param	fRadius	[in]	取得する球の半径
 		@return	抽選されたランダムな位置
 		*/
-		inline D3DXVECTOR3 GetRandomPositionSphere(D3DXVECTOR3 pos, float fRadius)
+		inline MyLib::Vector3 GetRandomPositionSphere(MyLib::Vector3 pos, float fRadius)
 		{
-			D3DXVECTOR3 spherepos = mylib_const::DEFAULT_VECTOR3;
-			D3DXVECTOR3 vec = GetRandomVecSphere();
+			MyLib::Vector3 spherepos = mylib_const::DEFAULT_VECTOR3;
+			MyLib::Vector3 vec = GetRandomVecSphere();
 
 			// 引数情報計算
 			spherepos *= fRadius;

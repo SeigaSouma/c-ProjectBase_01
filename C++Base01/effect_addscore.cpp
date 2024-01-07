@@ -53,7 +53,7 @@ CEffectAddScore::~CEffectAddScore()
 //==========================================================================
 // 生成処理
 //==========================================================================
-CEffectAddScore *CEffectAddScore::Create(const D3DXVECTOR3 pos)
+CEffectAddScore *CEffectAddScore::Create(const MyLib::Vector3 pos)
 {
 	// 生成用のオブジェクト
 	CEffectAddScore *pBullet = NULL;
@@ -114,7 +114,7 @@ HRESULT CEffectAddScore::Init(void)
 		fMove *= 2.5f;
 
 		//移動量の設定
-		D3DXVECTOR3 move;
+		MyLib::Vector3 move;
 		move.x = sinf(fRot + fRotRand) * fMove;
 		move.z = 0.0f;
 		move.y = cosf(fRot + fRotRand) * fMove;
@@ -183,7 +183,7 @@ void CEffectAddScore::Update(void)
 void CEffectAddScore::UpdatePos(void)
 {
 	// スコアの位置取得
-	D3DXVECTOR3 ScorePos = CGame::GetScore()->GetPosition();
+	MyLib::Vector3 ScorePos = CGame::GetScore()->GetPosition();
 
 	for (int nCntCircle = 0; nCntCircle < ADDSCORE_CIRCLE; nCntCircle++)
 	{
@@ -193,9 +193,9 @@ void CEffectAddScore::UpdatePos(void)
 		}
 
 		// 情報取得
-		D3DXVECTOR3 pos = m_pEffect[nCntCircle]->GetPosition();
-		D3DXVECTOR3 rot = m_pEffect[nCntCircle]->GetRotation();
-		D3DXVECTOR3 move = m_pEffect[nCntCircle]->GetMove();
+		MyLib::Vector3 pos = m_pEffect[nCntCircle]->GetPosition();
+		MyLib::Vector3 rot = m_pEffect[nCntCircle]->GetRotation();
+		MyLib::Vector3 move = m_pEffect[nCntCircle]->GetMove();
 		D3DXVECTOR2 size = m_pEffect[nCntCircle]->GetSize();
 
 		// 目標の角度を求める

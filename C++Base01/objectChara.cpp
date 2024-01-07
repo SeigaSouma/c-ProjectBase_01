@@ -163,8 +163,8 @@ void CObjectChara::MotionInProgressAction(void)
 	}
 
 	// î•ñŽæ“¾
-	D3DXVECTOR3 pos = GetPosition();
-	D3DXVECTOR3 rot = GetRotation();
+	MyLib::Vector3 pos = GetPosition();
+	MyLib::Vector3 rot = GetRotation();
 	CMotion::Info aInfo = m_pMotion->GetInfo(m_pMotion->GetType());
 	int nType = m_pMotion->GetType();
 
@@ -205,7 +205,7 @@ void CObjectChara::MotionInProgressAction(void)
 void CObjectChara::AttackAction(CMotion::AttackInfo ATKInfo, int nCntATK)
 {
 	// •Ší‚ÌˆÊ’u
-	D3DXVECTOR3 weponpos = m_pMotion->GetAttackPosition(GetModel(), ATKInfo);
+	MyLib::Vector3 weponpos = m_pMotion->GetAttackPosition(GetModel(), ATKInfo);
 }
 
 //==========================================================================
@@ -214,7 +214,7 @@ void CObjectChara::AttackAction(CMotion::AttackInfo ATKInfo, int nCntATK)
 void CObjectChara::AttackInDicision(CMotion::AttackInfo ATKInfo, int nCntATK)
 {
 	// •Ší‚ÌˆÊ’u
-	D3DXVECTOR3 weponpos = m_pMotion->GetAttackPosition(GetModel(), ATKInfo);
+	MyLib::Vector3 weponpos = m_pMotion->GetAttackPosition(GetModel(), ATKInfo);
 }
 
 //==========================================================================

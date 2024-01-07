@@ -76,7 +76,7 @@ public:
 	void Kill(void) override;
 
 	void SetAction(ACTION action) { m_Action = action; }	// アクション設定
-	void SetTargetPosition(D3DXVECTOR3 pos);	// 目標の位置設定
+	void SetTargetPosition(MyLib::Vector3 pos);	// 目標の位置設定
 
 private:
 
@@ -123,7 +123,7 @@ private:
 	ACTION m_Action;		// 行動
 	eActionBranch m_ActionBranch;	// 行動分岐
 	eActionBranch m_MakeForActionBranch;	// 行動する為の行動
-	D3DXVECTOR3 m_TargetPosition;	// 目標の位置
+	MyLib::Vector3 m_TargetPosition;	// 目標の位置
 	float m_fActTime;		// 行動カウンター
 	float m_fAssultLength;		// 突撃長さ
 	float m_fAssultLengthDest;	// 目標の突撃長さ

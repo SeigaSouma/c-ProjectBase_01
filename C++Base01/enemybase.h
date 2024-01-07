@@ -28,8 +28,8 @@ public:
 	// 構造体定義
 	struct sInfo
 	{
-		D3DXVECTOR3 pos;		// 位置
-		D3DXVECTOR3 rot;		// 向き
+		MyLib::Vector3 pos;		// 位置
+		MyLib::Vector3 rot;		// 向き
 		int nPattern;			// 種類
 		int nRush;				// ラッシュ用かどうか
 	};
@@ -41,15 +41,15 @@ public:
 	void Uninit(void);
 	void Update(void);
 
-	void CreatePos(int nStage, int nPattern, D3DXVECTOR3 pos, int nRush);	// 位置作成
+	void CreatePos(int nStage, int nPattern, MyLib::Vector3 pos, int nRush);	// 位置作成
 	void DeletePos(int nStage, int nIdx);					// 位置削除
 	HRESULT ReadText(const char *pFileName);	// 外部ファイル読み込み処理
 	void Save(void);			// 外部ファイル書き出し処理
 
 	static CEnemyBase *Create(const char *pFileName);
 	int GetSpawnPointNum(void);			// 位置数取得
-	D3DXVECTOR3 GetSpawnPoint(int nStage, int nIdx);	// 位置取得
-	void SetSpawnPoint(int nStage, int nIdx, D3DXVECTOR3 pos);	// 位置設定
+	MyLib::Vector3 GetSpawnPoint(int nStage, int nIdx);	// 位置取得
+	void SetSpawnPoint(int nStage, int nIdx, MyLib::Vector3 pos);	// 位置設定
 	sInfo GetEnemyBaseInfo(int nStage, int nIdx);	// 変更の情報取得
 
 	int GetNumBase(int nStage) { return m_nBaseNum[nStage]; }	// ステージ毎の拠点の数取得

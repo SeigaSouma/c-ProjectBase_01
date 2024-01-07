@@ -114,19 +114,19 @@ HRESULT CPause::Init(void)
 		if (nCntVtx == VTX_FADE)
 		{// 黒幕の時
 			m_aObject2D[nCntVtx]->SetSize(D3DXVECTOR2(640.0f, 360.0f));				// サイズ
-			m_aObject2D[nCntVtx]->SetPosition(D3DXVECTOR3(640.0f, 360.0f, 0.0f));	// 位置
+			m_aObject2D[nCntVtx]->SetPosition(MyLib::Vector3(640.0f, 360.0f, 0.0f));	// 位置
 			m_aObject2D[nCntVtx]->SetColor(D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.4f));		// 色設定
 		}
 		else if (nCntVtx == VTX_WINDOW)
 		{// ウィンドウの時
 			m_aObject2D[nCntVtx]->SetSize(D3DXVECTOR2(640.0f, 360.0f));				// サイズ
-			m_aObject2D[nCntVtx]->SetPosition(D3DXVECTOR3(640.0f, 360.0f, 0.0f));	// 位置
+			m_aObject2D[nCntVtx]->SetPosition(MyLib::Vector3(640.0f, 360.0f, 0.0f));	// 位置
 			m_aObject2D[nCntVtx]->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));		// 色設定
 		}
 		else
 		{// 選択肢
 			m_aObject2D[nCntVtx]->SetSize(CManager::GetInstance()->GetTexture()->GetImageSize(m_nTexIdx[nCntVtx]) * 0.45f);	// サイズ
-			m_aObject2D[nCntVtx]->SetPosition(D3DXVECTOR3(640.0f, 430.0f + ((nCntVtx - VTX_RETRY) * DIS_POSY), 0.0f));	// 位置
+			m_aObject2D[nCntVtx]->SetPosition(MyLib::Vector3(640.0f, 430.0f + ((nCntVtx - VTX_RETRY) * DIS_POSY), 0.0f));	// 位置
 			m_aObject2D[nCntVtx]->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));	// 色設定
 		}
 	}

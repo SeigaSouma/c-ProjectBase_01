@@ -28,8 +28,8 @@ CXLoad::CXLoad()
 {
 	for (int nCntData = 0; nCntData < mylib_const::MAX_OBJ; nCntData++)
 	{
-		m_pXFile[nCntData].vtxMin = D3DXVECTOR3(0.0f, 0.0f, 0.0f);		// モデルの最小値
-		m_pXFile[nCntData].vtxMax = D3DXVECTOR3(0.0f, 0.0f, 0.0f);		// モデルの最大値
+		m_pXFile[nCntData].vtxMin = MyLib::Vector3(0.0f, 0.0f, 0.0f);		// モデルの最小値
+		m_pXFile[nCntData].vtxMax = MyLib::Vector3(0.0f, 0.0f, 0.0f);		// モデルの最大値
 		m_pXFile[nCntData].pVtxBuff = NULL;								// 頂点バッファのポインタ
 		m_pXFile[nCntData].pMesh = NULL;								// メッシュ(頂点情報)へのポインタ
 		m_pXFile[nCntData].pBuffMat = NULL;								// マテリアルへのポインタ
@@ -218,7 +218,7 @@ HRESULT CXLoad::Load(const char *pFileName)
 	m_pXFile[nIdx].nVtxNum = m_pXFile[nIdx].pMesh->GetNumVertices();
 
 	// 頂点数分でメモリ確保
-	m_pXFile[nIdx].pVtxPos = DEBUG_NEW D3DXVECTOR3[m_pXFile[nIdx].nVtxNum];
+	m_pXFile[nIdx].pVtxPos = DEBUG_NEW MyLib::Vector3[m_pXFile[nIdx].nVtxNum];
 
 	// 面の数取得
 	m_pXFile[nIdx].nFaceNum = m_pXFile[nIdx].pMesh->GetNumFaces();
@@ -258,7 +258,7 @@ HRESULT CXLoad::Load(const char *pFileName)
 	for (int nCntVtx = 0; nCntVtx < m_pXFile[nIdx].nVtxNum; nCntVtx++)
 	{
 		// 頂点座標代入
-		m_pXFile[nIdx].pVtxPos[nCntVtx] = *(D3DXVECTOR3*)pVtxBuff;
+		m_pXFile[nIdx].pVtxPos[nCntVtx] = *(MyLib::Vector3*)pVtxBuff;
 
 		// サイズ分ポインタ移動
 		pVtxBuff += dwSizeFVF;
@@ -284,9 +284,9 @@ HRESULT CXLoad::Load(const char *pFileName)
 		int nIdx3 = (int)pIndexBuff[nCntIdx * 3 + 2];
 
 		// 一時代入
-		D3DXVECTOR3 pos1 = m_pXFile[nIdx].pVtxPos[nIdx1];
-		D3DXVECTOR3 pos2 = m_pXFile[nIdx].pVtxPos[nIdx2];
-		D3DXVECTOR3 pos3 = m_pXFile[nIdx].pVtxPos[nIdx3];
+		MyLib::Vector3 pos1 = m_pXFile[nIdx].pVtxPos[nIdx1];
+		MyLib::Vector3 pos2 = m_pXFile[nIdx].pVtxPos[nIdx2];
+		MyLib::Vector3 pos3 = m_pXFile[nIdx].pVtxPos[nIdx3];
 
 		// 頂点間の最大距離
 		float fVtxDistance = 0.0f;

@@ -57,7 +57,7 @@ CBeam::~CBeam()
 // 生成処理
 //==========================================================================
 CBeam *CBeam::Create(
-	const D3DXVECTOR3 pos, const D3DXVECTOR3 move, const D3DXCOLOR col,
+	const MyLib::Vector3 pos, const MyLib::Vector3 move, const D3DXCOLOR col,
 	const float fRadius, const float fLength, const int nLife,
 	const int nDisity, const int nDamage, CCollisionObject::eMyTag TagType, eBeamType BeamType)
 {
@@ -124,9 +124,9 @@ HRESULT CBeam::Init(void)
 	SetType(TYPE_OBJECT3D);
 
 	// 位置取得
-	D3DXVECTOR3 pos = GetPosition();
-	D3DXVECTOR3 move = GetMove();
-	D3DXVECTOR3 vecmove = move - mylib_const::DEFAULT_VECTOR3;
+	MyLib::Vector3 pos = GetPosition();
+	MyLib::Vector3 move = GetMove();
+	MyLib::Vector3 vecmove = move - mylib_const::DEFAULT_VECTOR3;
 
 	m_nLifeOrigin = m_nLife;
 
@@ -256,7 +256,7 @@ void CBeam::UpdateEffect(void)
 		}
 
 		// 位置取得
-		D3DXVECTOR3 pos = m_pEffect[i]->GetPosition();
+		MyLib::Vector3 pos = m_pEffect[i]->GetPosition();
 
 		if (CGame::GetElevation()->IsHit(pos) == true)
 		{
@@ -264,7 +264,7 @@ void CBeam::UpdateEffect(void)
 			CManager::GetInstance()->GetCamera()->SetShake(6, 4.0f, 0.0f);
 
 			// 瓦礫
-			CBallast::Create(pos, D3DXVECTOR3(2.0f, 6.0f, 2.0f), 1, 1.0f, CBallast::TYPE_STONE);
+			CBallast::Create(pos, MyLib::Vector3(2.0f, 6.0f, 2.0f), 1, 1.0f, CBallast::TYPE_STONE);
 
 			// ビームヒットパーティクル
 			my_particle::Create(pos, my_particle::TYPE_BEAMHIT_FIELD);
@@ -284,8 +284,8 @@ void CBeam::UpdateEffect(void)
 void CBeam::UpdateBillboard(void)
 {
 	// 位置取得
-	D3DXVECTOR3 pos = GetPosition();
-	D3DXVECTOR3 move = GetMove();
+	MyLib::Vector3 pos = GetPosition();
+	MyLib::Vector3 move = GetMove();
 	pos += move;
 	SetPosition(pos);
 
@@ -311,14 +311,14 @@ void CBeam::UpdateBillboard(void)
 		if (m_nCntEmission == 0)
 		{
 			// 先端の位置
-			D3DXVECTOR3 spawnpos = pos + (move * m_fLength);
+			MyLib::Vector3 spawnpos = pos + (move * m_fLength);
 			float moverot = atan2f(move.x, move.z);
 
 			// 衝撃波生成
 			CImpactWave::Create
 			(
 				spawnpos,	// 位置
-				D3DXVECTOR3(D3DX_PI * 0.5f, moverot, 0.0f),				// 向き
+				MyLib::Vector3(D3DX_PI * 0.5f, moverot, 0.0f),				// 向き
 				mylib_const::PLAYERBEAM_COLOR,			// 色
 				50.0f,						// 幅
 				20.0f,						// 高さ
@@ -349,7 +349,7 @@ void CBeam::UpdateBillboard(void)
 		billboard->SetColor(col);
 
 		// 位置取得
-		D3DXVECTOR3 posbillboard = billboard->GetPosition();
+		MyLib::Vector3 posbillboard = billboard->GetPosition();
 
 		// サイズ取得
 		D3DXVECTOR2 sizeorigin = billboard->GetSizeOrigin();
@@ -371,7 +371,7 @@ void CBeam::UpdateBillboard(void)
 			CManager::GetInstance()->GetCamera()->SetShake(6, 4.0f, 0.0f);
 
 			// 瓦礫
-			CBallast::Create(pos, D3DXVECTOR3(2.0f, 6.0f, 2.0f), 1, 1.0f, CBallast::TYPE_STONE);
+			CBallast::Create(pos, MyLib::Vector3(2.0f, 6.0f, 2.0f), 1, 1.0f, CBallast::TYPE_STONE);
 
 			// ビームヒットパーティクル
 			my_particle::Create(pos, my_particle::TYPE_BEAMHIT_FIELD);

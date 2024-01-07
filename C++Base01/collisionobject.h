@@ -30,7 +30,7 @@ public:
 	~CCollisionObject();
 
 	static CCollisionObject *Create(void);
-	static CCollisionObject *Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 move, const float fRadius, const int nLife, const int nDamage, eMyTag tag);
+	static CCollisionObject *Create(const MyLib::Vector3 pos, const MyLib::Vector3 move, const float fRadius, const int nLife, const int nDamage, eMyTag tag);
 
 	//  オーバーライドされた関数
 	HRESULT Init(void);

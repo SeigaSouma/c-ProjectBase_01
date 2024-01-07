@@ -155,7 +155,7 @@ HRESULT CPlayer::Init(void)
 	}
 
 	// 位置取得
-	D3DXVECTOR3 pos = GetPosition();
+	MyLib::Vector3 pos = GetPosition();
 
 	// 影の生成
 	//m_pShadow = CShadow::Create(pos, 50.0f);
@@ -226,8 +226,8 @@ void CPlayer::Update(void)
 	CInputKeyboard* pInputKeyboard = CManager::GetInstance()->GetInputKeyboard();
 	if (pInputKeyboard->GetTrigger(DIK_F5) == true)
 	{// F5でリセット
-		SetPosition(D3DXVECTOR3(0.0f, 0.0f, -1000.0f));
-		SetMove(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+		SetPosition(MyLib::Vector3(0.0f, 0.0f, -1000.0f));
+		SetMove(MyLib::Vector3(0.0f, 0.0f, 0.0f));
 	}
 
 	// エディット中は抜ける
@@ -258,14 +258,14 @@ void CPlayer::Update(void)
 	UpdateState();
 
 	// 位置取得
-	D3DXVECTOR3 pos = GetPosition();
-	D3DXVECTOR3 posCenter = GetCenterPosition();
+	MyLib::Vector3 pos = GetPosition();
+	MyLib::Vector3 posCenter = GetCenterPosition();
 
 	// 移動量取得
-	D3DXVECTOR3 move = GetMove();
+	MyLib::Vector3 move = GetMove();
 
 	// 向き取得
-	D3DXVECTOR3 rot = GetRotation();
+	MyLib::Vector3 rot = GetRotation();
 
 	// カメラの情報取得
 	CCamera* pCamera = CManager::GetInstance()->GetCamera();
@@ -275,7 +275,7 @@ void CPlayer::Update(void)
 	// 影の位置更新
 	if (m_pShadow != NULL)
 	{
-		m_pShadow->SetPosition(D3DXVECTOR3(pos.x, m_pShadow->GetPosition().y, pos.z));
+		m_pShadow->SetPosition(MyLib::Vector3(pos.x, m_pShadow->GetPosition().y, pos.z));
 	}
 
 
@@ -330,18 +330,18 @@ void CPlayer::Controll(void)
 	CCamera *pCamera = CManager::GetInstance()->GetCamera();
 
 	// カメラの向き取得
-	D3DXVECTOR3 Camerarot = pCamera->GetRotation();
+	MyLib::Vector3 Camerarot = pCamera->GetRotation();
 
 	// 位置取得
-	D3DXVECTOR3 pos = GetPosition();
-	D3DXVECTOR3 newPosition = GetPosition();
-	D3DXVECTOR3 sakiPos = GetPosition();
+	MyLib::Vector3 pos = GetPosition();
+	MyLib::Vector3 newPosition = GetPosition();
+	MyLib::Vector3 sakiPos = GetPosition();
 
 	// 移動量取得
-	D3DXVECTOR3 move = GetMove();
+	MyLib::Vector3 move = GetMove();
 
 	// 向き取得
-	D3DXVECTOR3 rot = GetRotation();
+	MyLib::Vector3 rot = GetRotation();
 
 	// 目標の向き取得
 	float fRotDest = GetRotDest();
@@ -559,7 +559,7 @@ void CPlayer::Controll(void)
 	}
 	else
 	{
-		D3DXVECTOR3 posOld = GetOldPosition();
+		MyLib::Vector3 posOld = GetOldPosition();
 		pos.x = posOld.x;
 		pos.z = posOld.z;
 		pos = posOld;
@@ -589,13 +589,12 @@ void CPlayer::Controll(void)
 
 	if (pInputKeyboard->GetPress(DIK_RETURN) == true)
 	{
-
 		m_sMotionFrag.bATK = true;		// 攻撃判定OFF
 	}
 
 	if (pInputKeyboard->GetTrigger(DIK_SPACE) == true)
 	{
-		D3DXVECTOR3 weponpos = pos;
+		MyLib::Vector3 weponpos = pos;
 		//weponpos.y += 150.0f;
 
 		CMyEffekseer::GetInstance()->SetEffect(
@@ -603,12 +602,12 @@ void CPlayer::Controll(void)
 			weponpos, rot, mylib_const::DEFAULT_VECTOR3, 20.0f);
 	}
 
-	if (pInputKeyboard->GetRepeat(DIK_O, 8) == true)
+	if (pInputKeyboard->GetRepeat(DIK_O, 4) == true)
 	{
-		D3DXVECTOR3 weponpos = pos;
+		MyLib::Vector3 weponpos = pos;
 		weponpos.y += 150.0f;
 
-		D3DXVECTOR3 spawnpos = UtilFunc::Transformation::GetRandomPositionSphere(weponpos, 300.0f);
+		MyLib::Vector3 spawnpos = UtilFunc::Transformation::GetRandomPositionSphere(weponpos, 300.0f);
 
 		CMyEffekseer::GetInstance()->SetEffect(
 			"data/Effekseer/Laser01.efkefc",
@@ -693,7 +692,7 @@ void CPlayer::AttackInDicision(CMotion::AttackInfo ATKInfo, int nCntATK)
 	CMotion* pMotion = GetMotion();
 
 	// 武器の位置
-	D3DXVECTOR3 weponpos = pMotion->GetAttackPosition(GetModel(), ATKInfo);
+	MyLib::Vector3 weponpos = pMotion->GetAttackPosition(GetModel(), ATKInfo);
 
 	CEffect3D* pEffect = NULL;
 
@@ -705,7 +704,7 @@ void CPlayer::AttackInDicision(CMotion::AttackInfo ATKInfo, int nCntATK)
 	}
 
 #if _DEBUG
-	CEffect3D::Create(weponpos, D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f), ATKInfo.fRangeSize, 2, CEffect3D::MOVEEFFECT_NONE, CEffect3D::TYPE_NORMAL);
+	CEffect3D::Create(weponpos, MyLib::Vector3(0.0f, 0.0f, 0.0f), D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f), ATKInfo.fRangeSize, 2, CEffect3D::MOVEEFFECT_NONE, CEffect3D::TYPE_NORMAL);
 #endif
 
 	// 敵のリスト取得
@@ -716,7 +715,7 @@ void CPlayer::AttackInDicision(CMotion::AttackInfo ATKInfo, int nCntATK)
 	while (enemyList.ListLoop(&pEnemy))
 	{
 		// 敵の位置取得
-		D3DXVECTOR3 TargetPos = pEnemy->GetPosition();
+		MyLib::Vector3 TargetPos = pEnemy->GetPosition();
 
 		// 判定サイズ取得
 		float fTargetRadius = pEnemy->GetRadius();
@@ -737,7 +736,7 @@ void CPlayer::AttackInDicision(CMotion::AttackInfo ATKInfo, int nCntATK)
 //==========================================================================
 void CPlayer::LimitPos(void)
 {
-	D3DXVECTOR3 pos = GetPosition();
+	MyLib::Vector3 pos = GetPosition();
 
 	float fLength = sqrtf(pos.x * pos.x + pos.z * pos.z);
 
@@ -754,10 +753,10 @@ void CPlayer::LimitPos(void)
 //==========================================================================
 // 当たり判定
 //==========================================================================
-bool CPlayer::Collision(D3DXVECTOR3 &pos, D3DXVECTOR3 &move)
+bool CPlayer::Collision(MyLib::Vector3 &pos, MyLib::Vector3 &move)
 {
 	// 向き取得
-	D3DXVECTOR3 rot = GetRotation();
+	MyLib::Vector3 rot = GetRotation();
 
 	// 着地したかどうか
 	bool bLand = false;
@@ -930,15 +929,15 @@ bool CPlayer::Hit(const int nValue)
 			//pMotion->Set(MOTION_KNOCKBACK);
 
 			// ノックバックの位置更新
-			D3DXVECTOR3 pos = GetPosition();
-			D3DXVECTOR3 rot = GetRotation();
+			MyLib::Vector3 pos = GetPosition();
+			MyLib::Vector3 rot = GetRotation();
 			m_posKnokBack = pos;
 
 			// 衝撃波生成
 			CImpactWave::Create
 			(
-				D3DXVECTOR3(pos.x, pos.y + 80.0f, pos.z),	// 位置
-				D3DXVECTOR3(D3DX_PI * 0.5f, D3DX_PI + rot.y, D3DX_PI),				// 向き
+				MyLib::Vector3(pos.x, pos.y + 80.0f, pos.z),	// 位置
+				MyLib::Vector3(D3DX_PI * 0.5f, D3DX_PI + rot.y, D3DX_PI),				// 向き
 				D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.3f),			// 色
 				80.0f,										// 幅
 				80.0f,										// 高さ
@@ -971,8 +970,8 @@ bool CPlayer::Hit(const int nValue)
 		m_nCntState = 0;
 
 		// ノックバックの位置更新
-		D3DXVECTOR3 pos = GetPosition();
-		D3DXVECTOR3 rot = GetRotation();
+		MyLib::Vector3 pos = GetPosition();
+		MyLib::Vector3 rot = GetRotation();
 		m_posKnokBack = pos;
 
 		// ノックバック判定にする
@@ -984,8 +983,8 @@ bool CPlayer::Hit(const int nValue)
 		// 衝撃波生成
 		CImpactWave::Create
 		(
-			D3DXVECTOR3(pos.x, pos.y + 80.0f, pos.z),	// 位置
-			D3DXVECTOR3(D3DX_PI * 0.5f, D3DX_PI + rot.y, D3DX_PI),				// 向き
+			MyLib::Vector3(pos.x, pos.y + 80.0f, pos.z),	// 位置
+			MyLib::Vector3(D3DX_PI * 0.5f, D3DX_PI + rot.y, D3DX_PI),				// 向き
 			D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.3f),			// 色
 			80.0f,										// 幅
 			80.0f,										// 高さ
@@ -1084,13 +1083,13 @@ void CPlayer::Invincible(void)
 void CPlayer::Damage(void)
 {
 	// 位置取得
-	D3DXVECTOR3 pos = GetPosition();
+	MyLib::Vector3 pos = GetPosition();
 
 	// 移動量取得
-	D3DXVECTOR3 move = GetMove();
+	MyLib::Vector3 move = GetMove();
 
 	// 向き取得
-	D3DXVECTOR3 rot = GetRotation();
+	MyLib::Vector3 rot = GetRotation();
 
 	// 状態遷移カウンター減算
 	m_nCntState++;
@@ -1175,10 +1174,10 @@ void CPlayer::Damage(void)
 void CPlayer::Dead(void)
 {
 	// 位置取得
-	D3DXVECTOR3 pos = GetPosition();
+	MyLib::Vector3 pos = GetPosition();
 
 	// 移動量取得
-	D3DXVECTOR3 move = GetMove();
+	MyLib::Vector3 move = GetMove();
 
 	// 位置更新
 	if (m_nCntState > 0)
@@ -1273,13 +1272,13 @@ void CPlayer::FadeOut(void)
 void CPlayer::KnockBack(void)
 {
 	// 位置取得
-	D3DXVECTOR3 pos = GetPosition();
+	MyLib::Vector3 pos = GetPosition();
 
 	// 移動量取得
-	D3DXVECTOR3 move = GetMove();
+	MyLib::Vector3 move = GetMove();
 
 	// 向き取得
-	D3DXVECTOR3 rot = GetRotation();
+	MyLib::Vector3 rot = GetRotation();
 
 	// 目標の向き取得
 	float fRotDest = GetRotDest();

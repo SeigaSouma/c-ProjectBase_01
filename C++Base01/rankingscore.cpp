@@ -118,12 +118,12 @@ HRESULT CRankingScore::Init(void)
 		{
 		case VTX_LOGO:
 			m_pObj2D[nCntVtx]->GetObject2D()->SetSize(CManager::GetInstance()->GetTexture()->GetImageSize(m_nTexIdx[nCntVtx]) * 0.3f);	// サイズ
-			m_pObj2D[nCntVtx]->GetObject2D()->SetPosition(D3DXVECTOR3(280.0f, 60.0f, 0.0f));	// 位置
+			m_pObj2D[nCntVtx]->GetObject2D()->SetPosition(MyLib::Vector3(280.0f, 60.0f, 0.0f));	// 位置
 			break;
 
 		case VTX_NUM:
 			m_pObj2D[nCntVtx]->GetObject2D()->SetSize(CManager::GetInstance()->GetTexture()->GetImageSize(m_nTexIdx[nCntVtx]) * 0.5f);	// サイズ
-			m_pObj2D[nCntVtx]->GetObject2D()->SetPosition(D3DXVECTOR3(m_pObj2D[nCntVtx]->GetSize().x, 360.0f, 0.0f));	// 位置
+			m_pObj2D[nCntVtx]->GetObject2D()->SetPosition(MyLib::Vector3(m_pObj2D[nCntVtx]->GetSize().x, 360.0f, 0.0f));	// 位置
 			break;
 
 		default:
@@ -146,7 +146,7 @@ HRESULT CRankingScore::Init(void)
 
 			// 各種変数の初期化
 			m_pScore[nCntRanking][nCntScore]->GetObject2D()->SetSize(D3DXVECTOR2(BASE_WIDTH, BASE_HEIGHT));	// サイズ
-			m_pScore[nCntRanking][nCntScore]->GetObject2D()->SetPosition(D3DXVECTOR3(INIT_POSX + nCntScore * BASE_DIS_X, nCntRanking * 120.0f + 170.0f, 0.0f));	// 位置
+			m_pScore[nCntRanking][nCntScore]->GetObject2D()->SetPosition(MyLib::Vector3(INIT_POSX + nCntScore * BASE_DIS_X, nCntRanking * 120.0f + 170.0f, 0.0f));	// 位置
 
 			// 種類の設定
 			m_pScore[nCntRanking][nCntScore]->GetObject2D()->SetType(CObject::TYPE_SCORE);
@@ -249,7 +249,7 @@ void CRankingScore::Moving(int nCntRanking)
 	for (int nCntScore = 0; nCntScore < RANKINGSCORE_DIGIT; nCntScore++)
 	{
 		// 位置取得
-		D3DXVECTOR3 pos = m_pScore[nCntRanking][nCntScore]->GetObject2D()->GetPosition();
+		MyLib::Vector3 pos = m_pScore[nCntRanking][nCntScore]->GetObject2D()->GetPosition();
 
 		if (pos.x == INIT_POSX)
 		{
@@ -298,7 +298,7 @@ void CRankingScore::UpdateNewRecord(void)
 	for (int nCntScore = 0; nCntScore < RANKINGSCORE_DIGIT; nCntScore++)
 	{
 		// 位置取得
-		D3DXVECTOR3 pos = m_pScore[m_nIdxNewRecord][nCntScore]->GetObject2D()->GetPosition();
+		MyLib::Vector3 pos = m_pScore[m_nIdxNewRecord][nCntScore]->GetObject2D()->GetPosition();
 
 		// サイズ取得
 		D3DXVECTOR2 size = m_pScore[m_nIdxNewRecord][nCntScore]->GetObject2D()->GetSize();
@@ -336,7 +336,7 @@ void CRankingScore::SetAllArrival(void)
 		for (int nCntScore = 0; nCntScore < RANKINGSCORE_DIGIT; nCntScore++)
 		{
 			// 位置取得
-			D3DXVECTOR3 pos = m_pScore[nCntRanking][nCntScore]->GetObject2D()->GetPosition();
+			MyLib::Vector3 pos = m_pScore[nCntRanking][nCntScore]->GetObject2D()->GetPosition();
 
 			if (pos.x == INIT_POSX)
 			{

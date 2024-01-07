@@ -90,7 +90,7 @@ CMeshField *CMeshField::Create(void)
 //==========================================================================
 // 生成処理(オーバーロード)
 //==========================================================================
-CMeshField *CMeshField::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, float fWidthLen, float fHeightLen, int nWidth, int nHeight, TYPE type, const char *aFileName, int nPriority)
+CMeshField *CMeshField::Create(MyLib::Vector3 pos, MyLib::Vector3 rot, float fWidthLen, float fHeightLen, int nWidth, int nHeight, TYPE type, const char *aFileName, int nPriority)
 {
 	// 生成用のオブジェクト
 	CMeshField *pObjMeshField = NULL;

@@ -134,7 +134,7 @@ void CStage::Update(void)
 			continue;
 		}
 
-		D3DXVECTOR3 pos = m_pObjX[nCntObj]->GetPosition();
+		MyLib::Vector3 pos = m_pObjX[nCntObj]->GetPosition();
 
 		if (pInputKeyboard->GetPress(DIK_UP) == true || pInputGamepad->GetStickMoveR(0).y > 0)
 		{//←キーが押された,左移動
@@ -220,8 +220,8 @@ HRESULT CStage::SaveText(void)
 				CObjectX *pObjX = pObj->GetObjectX();
 
 				int nType = pObjX->GetIdxXFile();		// 種類
-				D3DXVECTOR3 pos = pObjX->GetPosition();	// 位置
-				D3DXVECTOR3 rot = pObjX->GetRotation();	// 向き
+				MyLib::Vector3 pos = pObjX->GetPosition();	// 位置
+				MyLib::Vector3 rot = pObjX->GetRotation();	// 向き
 				int nShadow = 0;						// 影使うかどうか
 
 				if (pObjX->GetUseShadow() == true)
@@ -368,8 +368,8 @@ HRESULT CStage::ReadText(const char *pTextFile)
 
 			int nType = 0;
 			int nShadow = 0;
-			D3DXVECTOR3 pos = mylib_const::DEFAULT_VECTOR3;
-			D3DXVECTOR3 rot = mylib_const::DEFAULT_VECTOR3;
+			MyLib::Vector3 pos = mylib_const::DEFAULT_VECTOR3;
+			MyLib::Vector3 rot = mylib_const::DEFAULT_VECTOR3;
 
 
 			while (strcmp(&aComment[0], "END_MODELSET"))

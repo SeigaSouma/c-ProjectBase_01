@@ -225,7 +225,7 @@ void CHP_Gauge::Update(void)
 //==================================================================================
 // 位置更新
 //==================================================================================
-void CHP_Gauge::UpdatePosition(D3DXVECTOR3 pos, int nLife)
+void CHP_Gauge::UpdatePosition(MyLib::Vector3 pos, int nLife)
 {
 	// 高さ分上にあげる
 	pos.y += m_fPosLength;
@@ -366,10 +366,10 @@ void CHP_Gauge::SetVtx(int nCntGauge)
 	D3DXVECTOR2 size = m_HPGauge[nCntGauge].pObjBillboard->GetSize();
 
 	//頂点座標の設定
-	pVtx[0].pos = D3DXVECTOR3(-size.x - (m_HPGauge[nCntGauge].fMaxWidth - size.x), size.y, 0.0f);
-	pVtx[1].pos = D3DXVECTOR3(size.x - (m_HPGauge[nCntGauge].fMaxWidth - size.x), size.y, 0.0f);
-	pVtx[2].pos = D3DXVECTOR3(-size.x - (m_HPGauge[nCntGauge].fMaxWidth - size.x), -size.y, 0.0f);
-	pVtx[3].pos = D3DXVECTOR3(size.x - (m_HPGauge[nCntGauge].fMaxWidth - size.x), -size.y, 0.0f);
+	pVtx[0].pos = MyLib::Vector3(-size.x - (m_HPGauge[nCntGauge].fMaxWidth - size.x), size.y, 0.0f);
+	pVtx[1].pos = MyLib::Vector3(size.x - (m_HPGauge[nCntGauge].fMaxWidth - size.x), size.y, 0.0f);
+	pVtx[2].pos = MyLib::Vector3(-size.x - (m_HPGauge[nCntGauge].fMaxWidth - size.x), -size.y, 0.0f);
+	pVtx[3].pos = MyLib::Vector3(size.x - (m_HPGauge[nCntGauge].fMaxWidth - size.x), -size.y, 0.0f);
 
 	// 頂点バッファをアンロックロック
 	m_HPGauge[nCntGauge].pObjBillboard->GetVtxBuff()->Unlock();

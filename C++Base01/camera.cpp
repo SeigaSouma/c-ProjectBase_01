@@ -31,19 +31,19 @@
 #define MIN_ROT			(-D3DX_PI * 0.49f)	// カメラ固定用
 #define MAX_ROT			(D3DX_PI * 0.49f)	// カメラ固定用
 #define BACKFOLLOW_TIME	(20)				// 背面補正までの時間
-#define TITLE_POSR_DEST	(D3DXVECTOR3(0.0f, 0.0f, 0.0f))
+#define TITLE_POSR_DEST	(MyLib::Vector3(0.0f, 0.0f, 0.0f))
 #define TITLE_LEN_DEST	(500.0f)
-#define TITLECAMERAROT_NONE		(D3DXVECTOR3(0.0f, 0.0f, -D3DX_PI * 0.1f))
-#define TITLECAMERAROT_ENEMY	(D3DXVECTOR3(0.0f, -0.79f, -0.12f))
+#define TITLECAMERAROT_NONE		(MyLib::Vector3(0.0f, 0.0f, -D3DX_PI * 0.1f))
+#define TITLECAMERAROT_ENEMY	(MyLib::Vector3(0.0f, -0.79f, -0.12f))
 #define TITLESTATE_CHANGE	(60 * 14)
 #define TITLESTATE_CHASE	(60 * 20)
 #define RESULT_LEN	(500.0f)
 #define RANKING_LEN_DEST	(1000.0f)
-#define RANKING_POS_V	(D3DXVECTOR3(70.0f, 362.0f, -160.0f))
+#define RANKING_POS_V	(MyLib::Vector3(70.0f, 362.0f, -160.0f))
 //#define RESULT_LEN	(1000.0f)
-#define RANKINGROT_NONE		(D3DXVECTOR3(0.0f, 0.15f, 0.06f))
-#define DECIDECAMERAROT_NONE		(D3DXVECTOR3(0.0f, 0.0f, 0.0f))
-#define DECIDECAMERAPOS_NONE		(D3DXVECTOR3(0.0f, 230.0f, -50.0f))
+#define RANKINGROT_NONE		(MyLib::Vector3(0.0f, 0.15f, 0.06f))
+#define DECIDECAMERAROT_NONE		(MyLib::Vector3(0.0f, 0.0f, 0.0f))
+#define DECIDECAMERAPOS_NONE		(MyLib::Vector3(0.0f, 230.0f, -50.0f))
 #define DECIDE_LEN	(500.0f)
 
 //==========================================================================
@@ -63,7 +63,7 @@ CCamera::CCamera()
 	m_posV = mylib_const::DEFAULT_VECTOR3;		// 視点(カメラの位置)
 	m_posVDest = mylib_const::DEFAULT_VECTOR3;	// 目標の視点
 	m_posRDest = mylib_const::DEFAULT_VECTOR3;	// 目標の注視点
-	m_vecU = D3DXVECTOR3(0.0f, 1.0f, 0.0f);		// 上方向ベクトル
+	m_vecU = MyLib::Vector3(0.0f, 1.0f, 0.0f);		// 上方向ベクトル
 	m_move = mylib_const::DEFAULT_VECTOR3;		// 移動量
 	m_rot = mylib_const::DEFAULT_VECTOR3;		// 向き
 	m_rotVDest = mylib_const::DEFAULT_VECTOR3;	// 目標の視点の向き
@@ -106,7 +106,7 @@ HRESULT CCamera::Init(void)
 {
 	
 	// ビューポートの設定
-	SetViewPort(D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR2(SCREEN_WIDTH, SCREEN_HEIGHT));
+	SetViewPort(MyLib::Vector3(0.0f, 0.0f, 0.0f), D3DXVECTOR2(SCREEN_WIDTH, SCREEN_HEIGHT));
 
 	// リセット
 	m_bFollow = true;	// 追従するかどうか
@@ -121,7 +121,7 @@ HRESULT CCamera::Init(void)
 //==================================================================================
 // ビューポートの設定
 //==================================================================================
-void CCamera::SetViewPort(D3DXVECTOR3 pos, D3DXVECTOR2 size)
+void CCamera::SetViewPort(MyLib::Vector3 pos, D3DXVECTOR2 size)
 {
 	m_viewport.X = (DWORD)pos.x;			// 描画する画面の左上X座標
 	m_viewport.Y = (DWORD)pos.y;			// 描画する画面の左上Y座標
@@ -178,13 +178,13 @@ void CCamera::Update(void)
 
 	if (pInputKeyboard->GetTrigger(DIK_F5) == true)
 	{// F7が押された,追従切り替え
-		//m_posR = D3DXVECTOR3(0.0f, 100.0f, 0.0f);				// 注視点(見たい場所)
-		//m_posV = D3DXVECTOR3(0.0f, 200.0f, m_posR.z + -500.0f);	// 視点(カメラの位置)
+		//m_posR = MyLib::Vector3(0.0f, 100.0f, 0.0f);				// 注視点(見たい場所)
+		//m_posV = MyLib::Vector3(0.0f, 200.0f, m_posR.z + -500.0f);	// 視点(カメラの位置)
 		//m_posVDest = m_posV;									// 目標の視点
 		//m_posRDest = m_posR;									// 目標の注視点
-		//m_vecU = D3DXVECTOR3(0.0f, 1.0f, 0.0f);					// 上方向ベクトル
-		m_move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);					// 移動量
-		m_rot = D3DXVECTOR3(m_rot.x, 0.0f, m_rot.z);					// 向き
+		//m_vecU = MyLib::Vector3(0.0f, 1.0f, 0.0f);					// 上方向ベクトル
+		m_move = MyLib::Vector3(0.0f, 0.0f, 0.0f);					// 移動量
+		m_rot = MyLib::Vector3(m_rot.x, 0.0f, m_rot.z);					// 向き
 		m_rotVDest = m_rot;										// 目標の視点の向き
 		m_fOriginDistance = START_CAMERALEN;					// 元の距離
 		m_fDestDistance = m_fOriginDistance;
@@ -566,7 +566,7 @@ void CCamera::SetCameraVTitle(void)
 
 			// 高さ取得
 			bool bLand = false;
-			float fHeight = CGame::GetElevation()->GetHeight(D3DXVECTOR3(fPosBulletX, 0.0f, fPosBulletZ), &bLand);
+			float fHeight = CGame::GetElevation()->GetHeight(MyLib::Vector3(fPosBulletX, 0.0f, fPosBulletZ), &bLand);
 
 			if (m_fHeightMaxDest <= fHeight)
 			{// 最大の高さを更新したら
@@ -642,7 +642,7 @@ void CCamera::SetCameraVGame(void)
 
 			// 高さ取得
 			bool bLand = false;
-			float fHeight = CGame::GetElevation()->GetHeight(D3DXVECTOR3(fPosBulletX, 0.0f, fPosBulletZ), &bLand);
+			float fHeight = CGame::GetElevation()->GetHeight(MyLib::Vector3(fPosBulletX, 0.0f, fPosBulletZ), &bLand);
 
 			if (m_fHeightMaxDest <= fHeight)
 			{// 最大の高さを更新したら
@@ -697,7 +697,7 @@ void CCamera::SetCameraVResult(void)
 void CCamera::SetCameraVRanking(void)
 {
 	// 視点の代入処理
-	m_posV = D3DXVECTOR3(RANKING_POS_V.x, RANKING_POS_V.y, RANKING_POS_V.z);
+	m_posV = MyLib::Vector3(RANKING_POS_V.x, RANKING_POS_V.y, RANKING_POS_V.z);
 }
 
 //==================================================================================
@@ -885,7 +885,7 @@ void CCamera::SetCamera(void)
 void CCamera::UpdateSpotLightVec(void)
 {
 	// 方向ベクトル
-	D3DXVECTOR3 vec = mylib_const::DEFAULT_VECTOR3;
+	MyLib::Vector3 vec = mylib_const::DEFAULT_VECTOR3;
 
 	// 視点から注視点への向き
 	vec = m_posR - m_posV;
@@ -1080,15 +1080,15 @@ void CCamera::Reset(CScene::MODE mode)
 //==========================================================================
 void CCamera::ResetGame(void)
 {
-	m_posR = D3DXVECTOR3(0.0f, 200.0f, 0.0f);				// 注視点(見たい場所)
-	m_posV = D3DXVECTOR3(0.0f, 300.0f, m_posR.z + -400.0f);	// 視点(カメラの位置)
+	m_posR = MyLib::Vector3(0.0f, 200.0f, 0.0f);				// 注視点(見たい場所)
+	m_posV = MyLib::Vector3(0.0f, 300.0f, m_posR.z + -400.0f);	// 視点(カメラの位置)
 	m_posVDest = m_posV;									// 目標の視点
 	m_posRDest = m_posR;									// 目標の注視点
-	m_vecU = D3DXVECTOR3(0.0f, 1.0f, 0.0f);					// 上方向ベクトル
-	m_move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);					// 移動量
-	m_rot = D3DXVECTOR3(0.0f, 0.0f, -0.20f);					// 向き
+	m_vecU = MyLib::Vector3(0.0f, 1.0f, 0.0f);					// 上方向ベクトル
+	m_move = MyLib::Vector3(0.0f, 0.0f, 0.0f);					// 移動量
+	m_rot = MyLib::Vector3(0.0f, 0.0f, -0.20f);					// 向き
 	m_rotVDest = m_rot;										// 目標の視点の向き
-	m_TargetPos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);			// 目標の位置
+	m_TargetPos = MyLib::Vector3(0.0f, 0.0f, 0.0f);			// 目標の位置
 	m_fDistance = START_CAMERALEN;							// 距離
 	m_fDestDistance = START_CAMERALEN;						// 目標の距離
 	m_fOriginDistance = START_CAMERALEN;					// 元の距離
@@ -1115,7 +1115,7 @@ void CCamera::ResetBoss(void)
 //==========================================================================
 //  スクリーン内の判定
 //==========================================================================
-bool CCamera::OnScreen(const D3DXVECTOR3 pos)
+bool CCamera::OnScreen(const MyLib::Vector3 pos)
 {
 	// 返り値用の変数
 	bool bIn = false;
@@ -1131,7 +1131,7 @@ bool CCamera::OnScreen(const D3DXVECTOR3 pos)
 	D3DXMatrixIdentity(&mtxWorld);
 
 	//敵のスクリーン座標を算出
-	D3DXVECTOR3 screenPos;
+	MyLib::Vector3 screenPos;
 	D3DXVec3Project
 	(
 		&screenPos,
@@ -1159,12 +1159,12 @@ bool CCamera::OnScreen(const D3DXVECTOR3 pos)
 //==========================================================================
 void CCamera::ResetTitle(void)
 {
-	m_posR = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	// 注視点(見たい場所)
-	m_posV = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	// 視点(カメラの位置)
+	m_posR = MyLib::Vector3(0.0f, 0.0f, 0.0f);	// 注視点(見たい場所)
+	m_posV = MyLib::Vector3(0.0f, 0.0f, 0.0f);	// 視点(カメラの位置)
 	m_posVDest = m_posV;								// 目標の視点
 	m_posRDest = m_posR;								// 目標の注視点
-	m_vecU = D3DXVECTOR3(0.0f, 1.0f, 0.0f);				// 上方向ベクトル
-	m_move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);				// 移動量
+	m_vecU = MyLib::Vector3(0.0f, 1.0f, 0.0f);				// 上方向ベクトル
+	m_move = MyLib::Vector3(0.0f, 0.0f, 0.0f);				// 移動量
 	m_rot = TITLECAMERAROT_NONE;						// 向き
 	m_rotVDest = m_rot;									// 目標の視点の向き
 	m_TargetPos = m_posR;								// 目標の位置
@@ -1189,12 +1189,12 @@ void CCamera::ResetTitle(void)
 //==========================================================================
 void CCamera::ResetResult(void)
 {
-	m_posR = D3DXVECTOR3(0.0f, 300.0f, 30.0f);	// 注視点(見たい場所)
-	m_posV = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	// 視点(カメラの位置)
+	m_posR = MyLib::Vector3(0.0f, 300.0f, 30.0f);	// 注視点(見たい場所)
+	m_posV = MyLib::Vector3(0.0f, 0.0f, 0.0f);	// 視点(カメラの位置)
 	m_posVDest = m_posV;								// 目標の視点
 	m_posRDest = m_posR;								// 目標の注視点
-	m_vecU = D3DXVECTOR3(0.0f, 1.0f, 0.0f);				// 上方向ベクトル
-	m_move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);				// 移動量
+	m_vecU = MyLib::Vector3(0.0f, 1.0f, 0.0f);				// 上方向ベクトル
+	m_move = MyLib::Vector3(0.0f, 0.0f, 0.0f);				// 移動量
 	m_rot = TITLECAMERAROT_NONE;						// 向き
 	m_rotVDest = m_rot;									// 目標の視点の向き
 	m_TargetPos = m_posR;								// 目標の位置
@@ -1219,13 +1219,13 @@ void CCamera::ResetResult(void)
 //==========================================================================
 void CCamera::ResetRanking(void)
 {
-	m_posR = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	// 注視点(見たい場所)
-	m_posV = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	// 視点(カメラの位置)
+	m_posR = MyLib::Vector3(0.0f, 0.0f, 0.0f);	// 注視点(見たい場所)
+	m_posV = MyLib::Vector3(0.0f, 0.0f, 0.0f);	// 視点(カメラの位置)
 	m_posVDest = m_posV;								// 目標の視点
 	m_posRDest = m_posR;								// 目標の注視点
-	m_vecU = D3DXVECTOR3(0.0f, 1.0f, 0.0f);				// 上方向ベクトル
-	m_move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);				// 移動量
-	m_TargetPos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);		// 目標の位置
+	m_vecU = MyLib::Vector3(0.0f, 1.0f, 0.0f);				// 上方向ベクトル
+	m_move = MyLib::Vector3(0.0f, 0.0f, 0.0f);				// 移動量
+	m_TargetPos = MyLib::Vector3(0.0f, 0.0f, 0.0f);		// 目標の位置
 	m_fDistance = RANKING_LEN_DEST;						// 距離
 	m_fDestDistance = RANKING_LEN_DEST;					// 目標の距離
 	m_fOriginDistance = RANKING_LEN_DEST;					// 元の距離
@@ -1244,7 +1244,7 @@ void CCamera::ResetRanking(void)
 	m_rotVDest = m_rot;									// 目標の視点の向き
 
 	// 注視点の代入
-	m_posR = D3DXVECTOR3(0.0f, 0.0f, 0.0f);			// 注視点(見たい場所)
+	m_posR = MyLib::Vector3(0.0f, 0.0f, 0.0f);			// 注視点(見たい場所)
 
 	// 視点の代入
 	m_posV.x = m_posR.x + cosf(m_rot.z) * sinf(m_rot.y) * -m_fDistance;
@@ -1257,7 +1257,7 @@ void CCamera::ResetRanking(void)
 //==========================================================================
 // カメラの位置取得
 //==========================================================================
-D3DXVECTOR3 CCamera::GetPositionV(void) const
+MyLib::Vector3 CCamera::GetPositionV(void) const
 {
 	return m_posV;
 }
@@ -1265,7 +1265,7 @@ D3DXVECTOR3 CCamera::GetPositionV(void) const
 //==========================================================================
 // カメラの注視点取得
 //==========================================================================
-D3DXVECTOR3 CCamera::GetPositionR(void) const
+MyLib::Vector3 CCamera::GetPositionR(void) const
 {
 	return m_posR;
 }
@@ -1273,7 +1273,7 @@ D3DXVECTOR3 CCamera::GetPositionR(void) const
 //==========================================================================
 // 向き設定
 //==========================================================================
-void CCamera::SetRotation(const D3DXVECTOR3 rot)
+void CCamera::SetRotation(const MyLib::Vector3 rot)
 {
 	m_rot = rot;
 }
@@ -1281,7 +1281,7 @@ void CCamera::SetRotation(const D3DXVECTOR3 rot)
 //==========================================================================
 // 向き取得
 //==========================================================================
-D3DXVECTOR3 CCamera::GetRotation(void) const
+MyLib::Vector3 CCamera::GetRotation(void) const
 {
 	return m_rot;
 }
@@ -1289,7 +1289,7 @@ D3DXVECTOR3 CCamera::GetRotation(void) const
 //==========================================================================
 // 目標の向き設定
 //==========================================================================
-void CCamera::SetDestRotation(const D3DXVECTOR3 rot)
+void CCamera::SetDestRotation(const MyLib::Vector3 rot)
 {
 	m_rotVDest = rot;
 }
@@ -1297,7 +1297,7 @@ void CCamera::SetDestRotation(const D3DXVECTOR3 rot)
 //==========================================================================
 // 目標の向き取得
 //==========================================================================
-D3DXVECTOR3 CCamera::GetDestRotation(void)
+MyLib::Vector3 CCamera::GetDestRotation(void)
 {
 	return m_rotVDest;
 }
@@ -1305,7 +1305,7 @@ D3DXVECTOR3 CCamera::GetDestRotation(void)
 //==================================================================================
 // 目標の位置設定
 //==================================================================================
-void CCamera::SetTargetPosition(const D3DXVECTOR3 pos)
+void CCamera::SetTargetPosition(const MyLib::Vector3 pos)
 {
 	// 目標の位置
 	m_TargetPos = pos;
@@ -1314,7 +1314,7 @@ void CCamera::SetTargetPosition(const D3DXVECTOR3 pos)
 //==================================================================================
 // 目標の位置取得
 //==================================================================================
-D3DXVECTOR3 CCamera::GetTargetPosition(void)
+MyLib::Vector3 CCamera::GetTargetPosition(void)
 {
 	return m_TargetPos;
 }
@@ -1322,7 +1322,7 @@ D3DXVECTOR3 CCamera::GetTargetPosition(void)
 //==================================================================================
 // 追従目標の向き設定
 //==================================================================================
-void CCamera::SetTargetRotation(const D3DXVECTOR3 rot)
+void CCamera::SetTargetRotation(const MyLib::Vector3 rot)
 {
 	// 目標の向き
 	m_TargetRot = rot;
@@ -1331,7 +1331,7 @@ void CCamera::SetTargetRotation(const D3DXVECTOR3 rot)
 //==================================================================================
 // 追従目標の向き取得
 //==================================================================================
-D3DXVECTOR3 CCamera::GetTargetRotation(void)
+MyLib::Vector3 CCamera::GetTargetRotation(void)
 {
 	return m_TargetRot;
 }

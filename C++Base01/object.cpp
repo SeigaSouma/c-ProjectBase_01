@@ -338,7 +338,7 @@ float CObject::ScreenZ() const
 	D3DXMATRIX mtxCamera = CManager::GetInstance()->GetCamera()->GetMtxView();
 
 	// オブジェクト座標をカメラからの座標に変換
-	D3DXVECTOR3 screenPos;
+	MyLib::Vector3 screenPos;
 	D3DXVec3TransformCoord(&screenPos, &m_pos, &mtxCamera);
 
 	// カメラ視点から見たZ座標
@@ -549,7 +549,7 @@ bool CObject::Hit(const int nValue)
 //==========================================================================
 // 嘆きのバーチャルヒット処理
 //==========================================================================
-bool CObject::Hit(const int nValue, D3DXVECTOR3 move)
+bool CObject::Hit(const int nValue, MyLib::Vector3 move)
 {
 	// 死んでない
 	return false;
@@ -566,7 +566,7 @@ void CObject::SetVtx(void)
 //==========================================================================
 // 位置設定
 //==========================================================================
-void CObject::SetPosition(const D3DXVECTOR3 pos)
+void CObject::SetPosition(const MyLib::Vector3 pos)
 {
 	m_pos = pos;
 }
@@ -574,7 +574,7 @@ void CObject::SetPosition(const D3DXVECTOR3 pos)
 //==========================================================================
 // 位置取得
 //==========================================================================
-D3DXVECTOR3 CObject::GetPosition(void) const
+MyLib::Vector3 CObject::GetPosition(void) const
 {
 	return m_pos;
 }
@@ -582,7 +582,7 @@ D3DXVECTOR3 CObject::GetPosition(void) const
 //==========================================================================
 // 位置設定
 //==========================================================================
-void CObject::SetOldPosition(const D3DXVECTOR3 posOld)
+void CObject::SetOldPosition(const MyLib::Vector3 posOld)
 {
 	m_posOld = posOld;
 }
@@ -590,7 +590,7 @@ void CObject::SetOldPosition(const D3DXVECTOR3 posOld)
 //==========================================================================
 // 位置取得
 //==========================================================================
-D3DXVECTOR3 CObject::GetOldPosition(void) const
+MyLib::Vector3 CObject::GetOldPosition(void) const
 {
 	return m_posOld;
 }
@@ -598,7 +598,7 @@ D3DXVECTOR3 CObject::GetOldPosition(void) const
 //==========================================================================
 // 元の位置設定
 //==========================================================================
-void CObject::SetOriginPosition(const D3DXVECTOR3 pos)
+void CObject::SetOriginPosition(const MyLib::Vector3 pos)
 {
 	m_posOrigin = pos;
 }
@@ -606,7 +606,7 @@ void CObject::SetOriginPosition(const D3DXVECTOR3 pos)
 //==========================================================================
 // 元の位置取得
 //==========================================================================
-D3DXVECTOR3 CObject::GetOriginPosition(void) const
+MyLib::Vector3 CObject::GetOriginPosition(void) const
 {
 	return m_posOrigin;
 }
@@ -614,7 +614,7 @@ D3DXVECTOR3 CObject::GetOriginPosition(void) const
 //==========================================================================
 // 移動量設定
 //==========================================================================
-void CObject::SetMove(const D3DXVECTOR3 move)
+void CObject::SetMove(const MyLib::Vector3 move)
 {
 	m_move = move;
 }
@@ -622,7 +622,7 @@ void CObject::SetMove(const D3DXVECTOR3 move)
 //==========================================================================
 // 移動量取得
 //==========================================================================
-D3DXVECTOR3 CObject::GetMove(void) const
+MyLib::Vector3 CObject::GetMove(void) const
 {
 	return m_move;
 }
@@ -630,7 +630,7 @@ D3DXVECTOR3 CObject::GetMove(void) const
 //==========================================================================
 // 向き設定
 //==========================================================================
-void CObject::SetRotation(const D3DXVECTOR3 rot)
+void CObject::SetRotation(const MyLib::Vector3 rot)
 {
 	m_rot = rot;
 }
@@ -638,7 +638,7 @@ void CObject::SetRotation(const D3DXVECTOR3 rot)
 //==========================================================================
 // 向き取得
 //==========================================================================
-D3DXVECTOR3 CObject::GetRotation(void) const
+MyLib::Vector3 CObject::GetRotation(void) const
 {
 	return m_rot;
 }

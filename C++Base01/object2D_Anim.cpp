@@ -34,7 +34,7 @@ CObject2D_Anim::~CObject2D_Anim()
 //==========================================================================
 // 生成処理
 //==========================================================================
-CObject2D_Anim *CObject2D_Anim::Create(D3DXVECTOR3 pos, const int nDivisionU, const int nDivisionV, const int nInterval, bool bAutoDeath)
+CObject2D_Anim *CObject2D_Anim::Create(MyLib::Vector3 pos, const int nDivisionU, const int nDivisionV, const int nInterval, bool bAutoDeath)
 {
 	// 生成用のオブジェクト
 	CObject2D_Anim *pObject2D = NULL;

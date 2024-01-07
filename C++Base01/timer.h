@@ -47,10 +47,10 @@ public:
 	~CTimer();
 
 	static CTimer *Create(void);
-	static CTimer *Create(D3DXVECTOR3 pos);
+	static CTimer *Create(MyLib::Vector3 pos);
 	static CTimer *GetInstance(void) { return m_pTimer; }
 
-	HRESULT Init(D3DXVECTOR3 pos);
+	HRESULT Init(MyLib::Vector3 pos);
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
@@ -75,8 +75,8 @@ private:
 	eState m_state;					// 状態
 	float m_fStateTime;				// 状態時間
 	float m_fTime;					// 時間
-	D3DXVECTOR3 m_pos;				// 位置
-	D3DXVECTOR3 m_posOrigin;		// 元の位置
+	MyLib::Vector3 m_pos;				// 位置
+	MyLib::Vector3 m_posOrigin;		// 元の位置
 	bool m_bAddTime;	// タイマー加算のフラグ
 	int m_nProgress;	// 進行状況
 	CObjectCircleGauge2D *m_apCircle[NUM_CIRCLE];	// 数字がわりの円

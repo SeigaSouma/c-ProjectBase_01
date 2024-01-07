@@ -58,10 +58,10 @@ CListManager<CEnemy> CEnemy::m_List = {};	// リスト
 CEnemy::CEnemy(int nPriority) : CObjectChara(nPriority)
 {
 	// 値のクリア
-	m_posOrigin = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	// 最初の位置
+	m_posOrigin = MyLib::Vector3(0.0f, 0.0f, 0.0f);	// 最初の位置
 	memset(&m_sFormationInfo, NULL, sizeof(m_sFormationInfo));	// 隊列の情報
-	m_posKnokBack = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	// ノックバックの位置
-	m_rotOrigin = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	// 最初の向き
+	m_posKnokBack = MyLib::Vector3(0.0f, 0.0f, 0.0f);	// ノックバックの位置
+	m_rotOrigin = MyLib::Vector3(0.0f, 0.0f, 0.0f);	// 最初の向き
 	m_type = TYPE_BOSS;	// 種類
 	m_state = STATE_NONE;	// 状態
 	m_Oldstate = m_state;	// 前回の状態
@@ -97,7 +97,7 @@ CEnemy::~CEnemy()
 //==========================================================================
 // 生成処理
 //==========================================================================
-CEnemy *CEnemy::Create(const char *pFileName, D3DXVECTOR3 pos, TYPE type)
+CEnemy *CEnemy::Create(const char *pFileName, MyLib::Vector3 pos, TYPE type)
 {
 	// 生成用のオブジェクト
 	CEnemy *pEnemy = NULL;
@@ -170,7 +170,7 @@ HRESULT CEnemy::Init(void)
 	SetType(TYPE_ENEMY);
 
 	// 向き設定
-	SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+	SetRotation(MyLib::Vector3(0.0f, 0.0f, 0.0f));
 
 	// リストに追加
 	m_List.Regist(this);
@@ -382,7 +382,7 @@ void CEnemy::Update(void)
 	if (m_pHPGauge != NULL)
 	{
 		// 位置取得
-		D3DXVECTOR3 pos = GetPosition();
+		MyLib::Vector3 pos = GetPosition();
 
 		// 体力取得
 		int nLife = GetLife();
@@ -394,8 +394,8 @@ void CEnemy::Update(void)
 	if (m_pShadow != NULL)
 	{
 		// 位置取得
-		D3DXVECTOR3 pos = GetPosition();
-		m_pShadow->SetPosition(D3DXVECTOR3(pos.x, m_pShadow->GetPosition().y, pos.z));
+		MyLib::Vector3 pos = GetPosition();
+		m_pShadow->SetPosition(MyLib::Vector3(pos.x, m_pShadow->GetPosition().y, pos.z));
 	}
 
 	if (GetPosition().y <= mylib_const::KILL_Y)
@@ -426,13 +426,13 @@ void CEnemy::Update(void)
 void CEnemy::Collision(void)
 {
 	// 位置取得
-	D3DXVECTOR3 pos = GetPosition();
+	MyLib::Vector3 pos = GetPosition();
 
 	// 移動量取得
-	D3DXVECTOR3 move = GetMove();
+	MyLib::Vector3 move = GetMove();
 
 	// 向き取得
-	D3DXVECTOR3 rot = GetRotation();
+	MyLib::Vector3 rot = GetRotation();
 
 	// 重力処理
 	move.y -= mylib_const::GRAVITY;
@@ -509,7 +509,7 @@ void CEnemy::CollisionPlayer(void)
 	}
 
 	// 自分の情報取得
-	D3DXVECTOR3 pos = GetPosition();
+	MyLib::Vector3 pos = GetPosition();
 	float fRadius = GetRadius();
 
 	// プレイヤーの取得
@@ -522,11 +522,11 @@ void CEnemy::CollisionPlayer(void)
 		}
 
 		// 自分の情報取得
-		D3DXVECTOR3 pos = GetPosition();
+		MyLib::Vector3 pos = GetPosition();
 		float fRadius = GetRadius();
 
 		// プレイヤー情報取得
-		D3DXVECTOR3 PlayerPos = pPlayer->GetPosition();
+		MyLib::Vector3 PlayerPos = pPlayer->GetPosition();
 		float PlayerRadius = pPlayer->GetRadius();
 		CPlayer::STATE PlayerState = (CPlayer::STATE)pPlayer->GetState();
 
@@ -546,7 +546,7 @@ void CEnemy::CollisionPlayer(void)
 			{// 死んでなかったら
 
 				// 吹っ飛び移動量設定
-				pPlayer->SetMove(D3DXVECTOR3(8.0f, 0.0f, 0.0f));
+				pPlayer->SetMove(MyLib::Vector3(8.0f, 0.0f, 0.0f));
 			}
 		}
 	}
@@ -558,7 +558,7 @@ void CEnemy::CollisionPlayer(void)
 void CEnemy::ProcessLanding(void)
 {
 	// 移動量取得
-	D3DXVECTOR3 move = GetMove();
+	MyLib::Vector3 move = GetMove();
 
 	// ジャンプ使用可能にする
 	if (m_state != STATE_DMG && m_state != STATE_DEAD)
@@ -577,8 +577,8 @@ void CEnemy::ProcessLanding(void)
 bool CEnemy::Hit(const int nValue)
 {
 	// 向き取得
-	D3DXVECTOR3 rot = GetRotation();
-	D3DXVECTOR3 pos = GetPosition();
+	MyLib::Vector3 rot = GetRotation();
+	MyLib::Vector3 pos = GetPosition();
 
 	// 体力取得
 	int nLife = GetLife();
@@ -633,7 +633,7 @@ bool CEnemy::Hit(const int nValue)
 			// 爆発再生
 			CManager::GetInstance()->GetSound()->PlaySound(CSound::LABEL_SE_ENEMYEXPLOSION);
 
-			D3DXVECTOR3 move = GetMove();
+			MyLib::Vector3 move = GetMove();
 			move.x = UtilFunc::Transformation::Random(-5, 5) + 20.0f;
 			move.y = UtilFunc::Transformation::Random(0, 5) + 15.0f;
 			move.z = UtilFunc::Transformation::Random(-5, 5) + 20.0f;
@@ -707,8 +707,8 @@ void CEnemy::UpdateAction(void)
 void CEnemy::RotationPlayer(void)
 {
 	// 位置取得
-	D3DXVECTOR3 pos = GetPosition();
-	D3DXVECTOR3 rot = GetRotation();
+	MyLib::Vector3 pos = GetPosition();
+	MyLib::Vector3 rot = GetRotation();
 
 	// プレイヤー情報
 	CPlayer* pPlayer = CManager::GetInstance()->GetScene()->GetPlayer(m_nTargetPlayerIndex);
@@ -718,7 +718,7 @@ void CEnemy::RotationPlayer(void)
 	}
 
 	// プレイヤーの位置取得
-	D3DXVECTOR3 posPlayer = pPlayer->GetPosition();
+	MyLib::Vector3 posPlayer = pPlayer->GetPosition();
 
 	// 目標の角度を求める
 	float fRotDest = atan2f((pos.x - posPlayer.x), (pos.z - posPlayer.z));
@@ -764,8 +764,8 @@ bool CEnemy::CalcLenPlayer(float fLen)
 void CEnemy::MoveRotation(void)
 {
 	// 必要な値を取得
-	D3DXVECTOR3 rot = GetRotation();
-	D3DXVECTOR3 move = GetMove();
+	MyLib::Vector3 rot = GetRotation();
+	MyLib::Vector3 move = GetMove();
 
 	// 方向を算出
 	float fRot = atan2f(-move.x, -move.z);
@@ -792,7 +792,7 @@ void CEnemy::Move(void)
 	float fMove = GetVelocity();
 
 	// 移動量を適用
-	D3DXVECTOR3 move = GetMove();
+	MyLib::Vector3 move = GetMove();
 	move.x = sinf(m_fActCounter) * fMove;
 	move.z = cosf(m_fActCounter) * fMove;
 	SetMove(move);
@@ -807,11 +807,11 @@ void CEnemy::Move(void)
 void CEnemy::UpdateState(void)
 {
 	// 位置取得
-	D3DXVECTOR3 pos = GetPosition();
-	D3DXVECTOR3 pos11 = D3DXVECTOR3(GetObjectChara()->GetModel()[0]->GetWorldMtx()._41, GetObjectChara()->GetModel()[0]->GetWorldMtx()._42, GetObjectChara()->GetModel()[0]->GetWorldMtx()._43);
+	MyLib::Vector3 pos = GetPosition();
+	MyLib::Vector3 pos11 = MyLib::Vector3(GetObjectChara()->GetModel()[0]->GetWorldMtx()._41, GetObjectChara()->GetModel()[0]->GetWorldMtx()._42, GetObjectChara()->GetModel()[0]->GetWorldMtx()._43);
 
 	// 移動量取得
-	D3DXVECTOR3 move = GetMove();
+	MyLib::Vector3 move = GetMove();
 
 	// 色設定
 	m_mMatcol = D3DXCOLOR(1.0f, 1.0f, 1.0f, m_mMatcol.a);
@@ -937,13 +937,13 @@ void CEnemy::Spawn(void)
 void CEnemy::Damage(void)
 {
 	// 位置取得
-	D3DXVECTOR3 pos = GetPosition();
+	MyLib::Vector3 pos = GetPosition();
 
 	// 移動量取得
-	D3DXVECTOR3 move = GetMove();
+	MyLib::Vector3 move = GetMove();
 
 	// 向き取得
-	D3DXVECTOR3 rot = GetRotation();
+	MyLib::Vector3 rot = GetRotation();
 
 	// 目標の向き取得
 	float fRotDest = GetRotDest();
@@ -991,13 +991,13 @@ void CEnemy::Damage(void)
 void CEnemy::Dead(void)
 {
 	// 位置取得
-	D3DXVECTOR3 pos = GetPosition();
+	MyLib::Vector3 pos = GetPosition();
 
 	// 移動量取得
-	D3DXVECTOR3 move = GetMove();
+	MyLib::Vector3 move = GetMove();
 
 	// 向き取得
-	D3DXVECTOR3 rot = GetRotation();
+	MyLib::Vector3 rot = GetRotation();
 
 	// 目標の向き取得
 	float fRotDest = GetRotDest();
@@ -1016,7 +1016,7 @@ void CEnemy::Dead(void)
 
 	if (m_nCntState % 6 == 0)
 	{
-		CEffect3D::Create(pos, D3DXVECTOR3(UtilFunc::Transformation::Random(-10, 10) * 0.1f, -move.y, UtilFunc::Transformation::Random(-10, 10) * 0.1f), D3DXCOLOR(0.2f, 0.2f, 0.2f, 1.0f), (float)UtilFunc::Transformation::Random(80, 120), 20, CEffect3D::MOVEEFFECT_ADD, CEffect3D::TYPE_SMOKEBLACK);
+		CEffect3D::Create(pos, MyLib::Vector3(UtilFunc::Transformation::Random(-10, 10) * 0.1f, -move.y, UtilFunc::Transformation::Random(-10, 10) * 0.1f), D3DXCOLOR(0.2f, 0.2f, 0.2f, 1.0f), (float)UtilFunc::Transformation::Random(80, 120), 20, CEffect3D::MOVEEFFECT_ADD, CEffect3D::TYPE_SMOKEBLACK);
 	}
 
 	// 色設定
@@ -1065,7 +1065,7 @@ void CEnemy::FadeOut(void)
 	float fMove = GetVelocity();
 
 	// 位置取得
-	D3DXVECTOR3 pos = GetPosition();
+	MyLib::Vector3 pos = GetPosition();
 
 	// モーション取得
 	CMotion* pMotion = GetMotion();
@@ -1119,10 +1119,10 @@ void CEnemy::FadeOut(void)
 void CEnemy::PlayerChase(void)
 {
 	// 位置取得
-	D3DXVECTOR3 pos = GetPosition();
+	MyLib::Vector3 pos = GetPosition();
 
 	// 向き取得
-	D3DXVECTOR3 rot = GetRotation();
+	MyLib::Vector3 rot = GetRotation();
 
 	// 目標の向き取得
 	float fRotDest = GetRotDest();
@@ -1155,7 +1155,7 @@ void CEnemy::PlayerChase(void)
 	{// NULLじゃないとき
 
 		// 親の位置取得
-		D3DXVECTOR3 posPlayer = pPlayer->GetPosition();
+		MyLib::Vector3 posPlayer = pPlayer->GetPosition();
 		CObject *pMyObj = GetObject();
 
 		// 目標の角度を求める
@@ -1206,13 +1206,13 @@ void CEnemy::PlayerChase(void)
 void CEnemy::ParentChase(void)
 {
 	// 位置取得
-	D3DXVECTOR3 pos = GetPosition();
+	MyLib::Vector3 pos = GetPosition();
 
 	// 移動量取得
-	D3DXVECTOR3 move = GetMove();
+	MyLib::Vector3 move = GetMove();
 
 	// 向き取得
-	D3DXVECTOR3 rot = GetRotation();
+	MyLib::Vector3 rot = GetRotation();
 
 	// 目標の向き取得
 	float fRotDest = GetRotDest();
@@ -1245,16 +1245,16 @@ void CEnemy::ParentChase(void)
 	{// 親がいる場合
 
 		// 親の移動量取得
-		D3DXVECTOR3 moveParent = m_pParent->GetMove();
+		MyLib::Vector3 moveParent = m_pParent->GetMove();
 
 		// 親の位置取得
-		D3DXVECTOR3 posParent = m_pParent->GetPosition();
+		MyLib::Vector3 posParent = m_pParent->GetPosition();
 
 		// 親の向き取得
-		D3DXVECTOR3 rotParent = m_pParent->GetRotation();
+		MyLib::Vector3 rotParent = m_pParent->GetRotation();
 
 		// 目標の位置
-		D3DXVECTOR3 posDest;
+		MyLib::Vector3 posDest;
 		posDest = posParent;
 
 		// 目標の角度を求める
@@ -1340,13 +1340,13 @@ void CEnemy::ParentChase(void)
 void CEnemy::StateAttack(void)
 {
 	// 位置取得
-	D3DXVECTOR3 pos = GetPosition();
+	MyLib::Vector3 pos = GetPosition();
 
 	// 移動量取得
-	D3DXVECTOR3 move = GetMove();
+	MyLib::Vector3 move = GetMove();
 
 	// 向き取得
-	D3DXVECTOR3 rot = GetRotation();
+	MyLib::Vector3 rot = GetRotation();
 
 	// 目標の向き取得
 	float fRotDest = GetRotDest();
@@ -1537,7 +1537,7 @@ void CEnemy::TriggerChasePlayer(void)
 		CPlayer *pPlayer = CManager::GetInstance()->GetScene()->GetPlayer(nCntPlayer);
 
 		// 位置取得
-		D3DXVECTOR3 pos = GetPosition();
+		MyLib::Vector3 pos = GetPosition();
 
 		if (pPlayer != NULL)
 		{// NULLじゃないとき
@@ -1608,7 +1608,7 @@ void CEnemy::TriggerChasePlayer(void)
 void CEnemy::ChangeToAttackState(void)
 {
 	// 位置取得
-	D3DXVECTOR3 pos = GetPosition();
+	MyLib::Vector3 pos = GetPosition();
 
 	// プレイヤー情報
 	for (int nCntPlayer = 0; nCntPlayer < mylib_const::MAX_PLAYER; nCntPlayer++)
@@ -1620,7 +1620,7 @@ void CEnemy::ChangeToAttackState(void)
 		}
 
 		// 親の位置取得
-		D3DXVECTOR3 posPlayer = pPlayer->GetPosition();
+		MyLib::Vector3 posPlayer = pPlayer->GetPosition();
 
 		if (UtilFunc::Collision::CircleRange3D(pos, posPlayer, 400.0f, pPlayer->GetRadius()) == true && m_sMotionFrag.bJump == false)
 		{// 一定距離間にプレイヤーが入ったら
@@ -1642,10 +1642,10 @@ void CEnemy::ChangeToAttackState(void)
 void CEnemy::ChaseMove(float fMove)
 {
 	// 向き取得
-	D3DXVECTOR3 rot = GetRotation();
+	MyLib::Vector3 rot = GetRotation();
 
 	// 移動量取得
-	D3DXVECTOR3 move = GetMove();
+	MyLib::Vector3 move = GetMove();
 
 	// 移動量加算
 	move.x += sinf(D3DX_PI + rot.y) * fMove;
@@ -1661,7 +1661,7 @@ void CEnemy::ChaseMove(float fMove)
 void CEnemy::LimitArea(void)
 {
 	// 自身の値を取得
-	D3DXVECTOR3 pos = GetPosition();
+	MyLib::Vector3 pos = GetPosition();
 
 	// 大人の壁取得
 	CListManager<CLimitArea> limitareaList = CLimitArea::GetListObj();
@@ -1704,10 +1704,10 @@ void CEnemy::AttackInDicision(CMotion::AttackInfo ATKInfo, int nCntATK)
 	}
 
 	// 位置取得
-	D3DXVECTOR3 pos = GetPosition();
+	MyLib::Vector3 pos = GetPosition();
 
 	// 武器の位置
-	D3DXVECTOR3 weponpos = pMotion->GetAttackPosition(GetModel(), ATKInfo);
+	MyLib::Vector3 weponpos = pMotion->GetAttackPosition(GetModel(), ATKInfo);
 
 	if (ATKInfo.fRangeSize == 0.0f)
 	{
@@ -1715,7 +1715,7 @@ void CEnemy::AttackInDicision(CMotion::AttackInfo ATKInfo, int nCntATK)
 	}
 
 #if _DEBUG
-	CEffect3D::Create(weponpos, D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f), ATKInfo.fRangeSize, 10, CEffect3D::MOVEEFFECT_NONE, CEffect3D::TYPE_NORMAL);
+	CEffect3D::Create(weponpos, MyLib::Vector3(0.0f, 0.0f, 0.0f), D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f), ATKInfo.fRangeSize, 10, CEffect3D::MOVEEFFECT_NONE, CEffect3D::TYPE_NORMAL);
 #endif
 
 	//============================
@@ -1730,7 +1730,7 @@ void CEnemy::AttackInDicision(CMotion::AttackInfo ATKInfo, int nCntATK)
 		}
 
 		// プレイヤーの向き
-		D3DXVECTOR3 PlayerPos = pPlayer->GetPosition();
+		MyLib::Vector3 PlayerPos = pPlayer->GetPosition();
 
 		// 判定サイズ取得
 		float fRadius = pPlayer->GetRadius();
@@ -1739,7 +1739,7 @@ void CEnemy::AttackInDicision(CMotion::AttackInfo ATKInfo, int nCntATK)
 		{// 球の判定
 
 			// プレイヤーの向き
-			D3DXVECTOR3 PlayerRot = pPlayer->GetRotation();
+			MyLib::Vector3 PlayerRot = pPlayer->GetRotation();
 
 			// ターゲットと敵との向き
 			float fRot = atan2f((pos.x - PlayerPos.x), (pos.z - PlayerPos.z));
@@ -1751,11 +1751,11 @@ void CEnemy::AttackInDicision(CMotion::AttackInfo ATKInfo, int nCntATK)
 			UtilFunc::Transformation::RotNormalize(fRot);
 
 			// 向き設定
-			pPlayer->SetRotation(D3DXVECTOR3(PlayerRot.x, fRot, PlayerRot.z));
+			pPlayer->SetRotation(MyLib::Vector3(PlayerRot.x, fRot, PlayerRot.z));
 			fRot = pPlayer->GetRotation().y;
 
 			// 吹き飛ばし
-			pPlayer->SetMove(D3DXVECTOR3(
+			pPlayer->SetMove(MyLib::Vector3(
 				sinf(fRot) * 4.0f,
 				12.0f,
 				cosf(fRot) * 4.0f));
@@ -1827,7 +1827,7 @@ void CEnemy::Draw(void)
 //==========================================================================
 // 元の向き
 //==========================================================================
-void CEnemy::SetOriginRotation(D3DXVECTOR3 rot)
+void CEnemy::SetOriginRotation(MyLib::Vector3 rot)
 {
 	m_rotOrigin = rot;
 }
@@ -1835,7 +1835,7 @@ void CEnemy::SetOriginRotation(D3DXVECTOR3 rot)
 //==========================================================================
 // スポーン地点設定
 //==========================================================================
-void CEnemy::SetSpawnPosition(D3DXVECTOR3 pos)
+void CEnemy::SetSpawnPosition(MyLib::Vector3 pos)
 {
 	m_posOrigin = pos;
 }
@@ -1843,7 +1843,7 @@ void CEnemy::SetSpawnPosition(D3DXVECTOR3 pos)
 //==========================================================================
 // スポーン地点取得
 //==========================================================================
-D3DXVECTOR3 CEnemy::GetSpawnPosition(void)
+MyLib::Vector3 CEnemy::GetSpawnPosition(void)
 {
 	return m_posOrigin;
 }

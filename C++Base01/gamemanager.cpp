@@ -179,7 +179,7 @@ void CGameManager::SetEnemy(void)
 		}
 
 		// ˆÊ’uİ’è
-		pPlayer->SetPosition(D3DXVECTOR3(-500.0f + nCntPlayer * 250.0f, 0.0f, 0.0f));
+		pPlayer->SetPosition(MyLib::Vector3(-500.0f + nCntPlayer * 250.0f, 0.0f, 0.0f));
 	}
 
 	// ƒJƒƒ‰‚Ìî•ñæ“¾

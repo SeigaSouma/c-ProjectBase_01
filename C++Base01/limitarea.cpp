@@ -102,42 +102,42 @@ HRESULT CLimitArea::Init(void)
 	m_List.Regist(this);
 
 	// äeéÌïœêîèâä˙âª
-	D3DXVECTOR3 WallPos[mylib_const::SHAPE_LIMITEREA];
+	MyLib::Vector3 WallPos[mylib_const::SHAPE_LIMITEREA];
 	float fWidthLen[mylib_const::SHAPE_LIMITEREA];
 
 	// âú
-	WallPos[WALL_UP] = D3DXVECTOR3(
+	WallPos[WALL_UP] = MyLib::Vector3(
 		(m_sLimitEreaInfo.fMinX + m_sLimitEreaInfo.fMaxX) * 0.5f,
 		0.0f,
 		m_sLimitEreaInfo.fMaxZ);
-	fWidthLen[WALL_UP] = UtilFunc::Calculation::GetPosLength3D(D3DXVECTOR3(m_sLimitEreaInfo.fMinX, 0.0f, 0.0f), D3DXVECTOR3(m_sLimitEreaInfo.fMaxX, 0.0f, 0.0f));
+	fWidthLen[WALL_UP] = UtilFunc::Calculation::GetPosLength3D(MyLib::Vector3(m_sLimitEreaInfo.fMinX, 0.0f, 0.0f), MyLib::Vector3(m_sLimitEreaInfo.fMaxX, 0.0f, 0.0f));
 
 	// âE
-	WallPos[WALL_RIGHT] = D3DXVECTOR3(
+	WallPos[WALL_RIGHT] = MyLib::Vector3(
 		m_sLimitEreaInfo.fMinX,
 		0.0f,
 		(m_sLimitEreaInfo.fMinZ + m_sLimitEreaInfo.fMaxZ) * 0.5f);
-	fWidthLen[WALL_RIGHT] = UtilFunc::Calculation::GetPosLength3D(D3DXVECTOR3(m_sLimitEreaInfo.fMinZ, 0.0f, 0.0f), D3DXVECTOR3(m_sLimitEreaInfo.fMaxZ, 0.0f, 0.0f));
+	fWidthLen[WALL_RIGHT] = UtilFunc::Calculation::GetPosLength3D(MyLib::Vector3(m_sLimitEreaInfo.fMinZ, 0.0f, 0.0f), MyLib::Vector3(m_sLimitEreaInfo.fMaxZ, 0.0f, 0.0f));
 
 	// éËëO
-	WallPos[WALL_DOWN] = D3DXVECTOR3(
+	WallPos[WALL_DOWN] = MyLib::Vector3(
 		(m_sLimitEreaInfo.fMinX + m_sLimitEreaInfo.fMaxX) * 0.5f,
 		0.0f,
 		m_sLimitEreaInfo.fMinZ);
-	fWidthLen[WALL_DOWN] = UtilFunc::Calculation::GetPosLength3D(D3DXVECTOR3(m_sLimitEreaInfo.fMinX, 0.0f, 0.0f), D3DXVECTOR3(m_sLimitEreaInfo.fMaxX, 0.0f, 0.0f));
+	fWidthLen[WALL_DOWN] = UtilFunc::Calculation::GetPosLength3D(MyLib::Vector3(m_sLimitEreaInfo.fMinX, 0.0f, 0.0f), MyLib::Vector3(m_sLimitEreaInfo.fMaxX, 0.0f, 0.0f));
 
 	// ç∂
-	WallPos[WALL_LEFT] = D3DXVECTOR3(
+	WallPos[WALL_LEFT] = MyLib::Vector3(
 		m_sLimitEreaInfo.fMaxX,
 		0.0f,
 		(m_sLimitEreaInfo.fMinZ + m_sLimitEreaInfo.fMaxZ) * 0.5f);
-	fWidthLen[WALL_LEFT] = UtilFunc::Calculation::GetPosLength3D(D3DXVECTOR3(m_sLimitEreaInfo.fMinZ, 0.0f, 0.0f), D3DXVECTOR3(m_sLimitEreaInfo.fMaxZ, 0.0f, 0.0f));
+	fWidthLen[WALL_LEFT] = UtilFunc::Calculation::GetPosLength3D(MyLib::Vector3(m_sLimitEreaInfo.fMinZ, 0.0f, 0.0f), MyLib::Vector3(m_sLimitEreaInfo.fMaxZ, 0.0f, 0.0f));
 
 	float fRot = (D3DX_PI * 2.0f) / (float)mylib_const::SHAPE_LIMITEREA;
 	int nBlock = 4;
 	for (int i = 0; i < mylib_const::SHAPE_LIMITEREA; i++)
 	{
-		m_pMeshWall[i] = CMeshWall::Create(WallPos[i], D3DXVECTOR3(0.0f, D3DX_PI + fRot * i, 0.0f), fWidthLen[i] / (float)nBlock, fWidthLen[i] / (float)nBlock, nBlock, 1, 7, TEXTURE_DEFAULT);
+		m_pMeshWall[i] = CMeshWall::Create(WallPos[i], MyLib::Vector3(0.0f, D3DX_PI + fRot * i, 0.0f), fWidthLen[i] / (float)nBlock, fWidthLen[i] / (float)nBlock, nBlock, 1, 7, TEXTURE_DEFAULT);
 		m_pMeshWall[i]->SetType(CObject::TYPE_NONE);
 	}
 

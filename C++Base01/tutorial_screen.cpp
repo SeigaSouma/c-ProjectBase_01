@@ -21,7 +21,7 @@
 #define LOGOMOVE_TIME	(180)	// ロゴ移動の時間
 #define SLASH_TIME		(60)	// 斬撃の時間
 #define SLASH_MOVETIME	(8)		// 斬撃の移動時間
-#define LOGO_POSITION	(D3DXVECTOR3(640.0f, 200.0f, 0.0f))
+#define LOGO_POSITION	(MyLib::Vector3(640.0f, 200.0f, 0.0f))
 #define LOGOSIZE_MULTIPLY	(0.55f)
 #define CHANGE_TIME		(40)
 
@@ -103,7 +103,7 @@ HRESULT CTutorialScreen::Init(void)
 
 		// サイズ設定
 		m_pObj2D[nCntSelect]->SetSize(D3DXVECTOR2(640.0f, 360.0f));	// サイズ
-		m_pObj2D[nCntSelect]->SetPosition(D3DXVECTOR3(640.0f, 360.0f, 0.0f));	// 位置
+		m_pObj2D[nCntSelect]->SetPosition(MyLib::Vector3(640.0f, 360.0f, 0.0f));	// 位置
 	}
 
 	return S_OK;

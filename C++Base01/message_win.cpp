@@ -20,9 +20,9 @@ namespace
 		"data\\TEXTURE\\result\\perfect.png",
 		"data\\TEXTURE\\result\\win.png"
 	};
-	const D3DXVECTOR3 DEF_POS = D3DXVECTOR3(1000.0f, 0.0f, 100.0f); // カメラからの相対初期位置
-	const D3DXVECTOR3 DIFF_POS = D3DXVECTOR3(51.2f, 0.0f, 150.0f); // カメラからの相対目的地
-	const D3DXVECTOR3 LOGO_SIZE = D3DXVECTOR3(51.2f, 27.2f, 0.0f); //ポリゴンサイズ
+	const MyLib::Vector3 DEF_POS = MyLib::Vector3(1000.0f, 0.0f, 100.0f); // カメラからの相対初期位置
+	const MyLib::Vector3 DIFF_POS = MyLib::Vector3(51.2f, 0.0f, 150.0f); // カメラからの相対目的地
+	const MyLib::Vector3 LOGO_SIZE = MyLib::Vector3(51.2f, 27.2f, 0.0f); //ポリゴンサイズ
 	const float MOVE_SPEED = 5.0f; // (a * x) ^ nにおける定数a
 }
 
@@ -65,7 +65,7 @@ HRESULT CMessageWin::Init(void)
 	BindTexture(CManager::GetInstance()->GetTexture()->Regist(TEXPASS[m_nIdx]));
 
 	// 位置を設定
-	D3DXVECTOR3 pos_Diff = DEF_POS;
+	MyLib::Vector3 pos_Diff = DEF_POS;
 	pos_target = DIFF_POS;
 	if (m_nIdx == 0)
 	{
@@ -142,7 +142,7 @@ void CMessageWin::Move()
 	m_fSec += CManager::GetInstance()->GetDeltaTime() * MOVE_SPEED;
 
 	// 位置を取得
-	D3DXVECTOR3 pos = GetPosition();
+	MyLib::Vector3 pos = GetPosition();
 
 	// 位置を更新
 	if (m_nIdx == 0)

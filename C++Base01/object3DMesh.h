@@ -46,10 +46,10 @@ public:
 	void SetNumIndex(int nWidth, int nHeight);
 	int GetNumVertex(void);		// 頂点数
 	void SetNumVertex(int nWidth, int nHeight);
-	D3DXVECTOR3 *GetVtxPos(void);		// 頂点座標取得
-	void SetVtxPos(D3DXVECTOR3 *pos);	// 頂点座標取得
-	D3DXVECTOR3 *GetVtxNor(void);		// 頂点ベクトル取得
-	void SetVtxNor(D3DXVECTOR3 *nor);	// 頂点ベクトル
+	MyLib::Vector3 *GetVtxPos(void);		// 頂点座標取得
+	void SetVtxPos(MyLib::Vector3 *pos);	// 頂点座標取得
+	MyLib::Vector3 *GetVtxNor(void);		// 頂点ベクトル取得
+	void SetVtxNor(MyLib::Vector3 *nor);	// 頂点ベクトル
 	D3DXCOLOR *GetVtxCol(void);			// 頂点カラー取得
 	void SetVtxCol(D3DXCOLOR *col);		// 頂点カラー設定
 	D3DXVECTOR2 *GetVtxTex(void);		// 頂点テクスチャ取得
@@ -65,8 +65,8 @@ public:
 	int GetIdxTex(void);				// テクスチャのインデックス番号取得
 
 	static CObject3DMesh *Create();
-	static CObject3DMesh *Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, int nPriority = mylib_const::PRIORITY_DEFAULT);
-	static CObject3DMesh *Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, float fWidthLen, float fHeightLen, int nWidth, int nHeight, TYPE type, const char *pFileName, int nPriority = mylib_const::PRIORITY_DEFAULT);
+	static CObject3DMesh *Create(MyLib::Vector3 pos, MyLib::Vector3 rot, int nPriority = mylib_const::PRIORITY_DEFAULT);
+	static CObject3DMesh *Create(MyLib::Vector3 pos, MyLib::Vector3 rot, float fWidthLen, float fHeightLen, int nWidth, int nHeight, TYPE type, const char *pFileName, int nPriority = mylib_const::PRIORITY_DEFAULT);
 	CObject3DMesh *GetObject3DMesh(void);
 protected:
 
@@ -81,11 +81,11 @@ private:
 	void SetVtxDome(void);
 	void SetVtxDonuts(void);
 	void SetVtxSphere(void);
-	void UPVtxField(D3DXVECTOR3 pos);
+	void UPVtxField(MyLib::Vector3 pos);
 	void CalWorldMtx(void);	// ワールドマトリックスの計算処理
 
-	D3DXVECTOR3 *m_pVtxPos;	// 頂点座標
-	D3DXVECTOR3 *m_pVtxNor;	// 頂点法線
+	MyLib::Vector3 *m_pVtxPos;	// 頂点座標
+	MyLib::Vector3 *m_pVtxNor;	// 頂点法線
 	D3DXCOLOR *m_pVtxCol;	// 頂点カラー
 	D3DXVECTOR2 *m_pVtxTex;	// 頂点テクスチャ座標
 	int m_nNumIndex;		// インデックス数

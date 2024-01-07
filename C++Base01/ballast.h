@@ -20,7 +20,7 @@ class CObjectX;
 // マクロ定義
 //==========================================================================
 #define MAX_BALLAST	(64)	// 瓦礫の数
-#define DEFAULTMOVE_BALLAST	(D3DXVECTOR3(2.0f, 12.0f, 2.0f))
+#define DEFAULTMOVE_BALLAST	(MyLib::Vector3(2.0f, 12.0f, 2.0f))
 
 //==========================================================================
 // クラス定義
@@ -41,7 +41,7 @@ public:
 	CBallast(int nPriority = mylib_const::PRIORITY_DEFAULT);
 	~CBallast();
 
-	static CBallast *Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, int nNum = 10, float fAlpha = 1.0f, TYPE type = TYPE_STONE);
+	static CBallast *Create(MyLib::Vector3 pos, MyLib::Vector3 move, int nNum = 10, float fAlpha = 1.0f, TYPE type = TYPE_STONE);
 
 	// オーバーライドされた関数
 	HRESULT Init(void);
@@ -51,8 +51,8 @@ public:
 
 private:
 
-	D3DXVECTOR3 m_posOrigin;		// 原点
-	D3DXVECTOR3 m_moveOrigin;		// 元の移動量
+	MyLib::Vector3 m_posOrigin;		// 原点
+	MyLib::Vector3 m_moveOrigin;		// 元の移動量
 	D3DXCOLOR m_col;				// 色
 	D3DXCOLOR m_colOrigin;			// 原色
 	TYPE m_type;					// 種類

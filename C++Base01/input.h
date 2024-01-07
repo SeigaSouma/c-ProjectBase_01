@@ -122,10 +122,10 @@ public:
 	bool GetTrigger(BUTTON nKey, int nCntPlayer);
 	bool GetRepeat(BUTTON nKey, int nCntPlayer);
 	bool GetRelease(int nKey, int nCntPlayer);
-	D3DXVECTOR3 GetStickMoveL(int nCntPlayer);
-	D3DXVECTOR3 GetStickMoveR(int nCntPlayer);
-	D3DXVECTOR3 GetStickPositionRatioL(int nCntPlayer);
-	D3DXVECTOR3 GetStickPositionRatioR(int nCntPlayer);
+	MyLib::Vector3 GetStickMoveL(int nCntPlayer);
+	MyLib::Vector3 GetStickMoveR(int nCntPlayer);
+	MyLib::Vector3 GetStickPositionRatioL(int nCntPlayer);
+	MyLib::Vector3 GetStickPositionRatioR(int nCntPlayer);
 	float GetStickRotL(int nCntPlayer);					// スティックの向き取得
 	float GetStickRotR(int nCntPlayer);					// スティックの向き取得
 	BYTE GetLeftTriggerPress(int nPlayer);
@@ -174,7 +174,7 @@ public:
 	void Uninit(void);
 	void Update(void);
 	bool GetPress(BUTTON nKey);
-	D3DXVECTOR3 GetMouseMove(void);
+	MyLib::Vector3 GetMouseMove(void);
 
 private:
 	DIMOUSESTATE2 m_MouseState;			//全入力情報の保管

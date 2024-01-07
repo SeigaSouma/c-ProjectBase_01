@@ -34,7 +34,7 @@ CObjectBillboardAnim::~CObjectBillboardAnim()
 //==========================================================================
 // 生成処理
 //==========================================================================
-CObjectBillboardAnim *CObjectBillboardAnim::Create(D3DXVECTOR3 pos, const int nDivisionU, const int nDivisionV, const int nInterval, bool bAutoDeath)
+CObjectBillboardAnim *CObjectBillboardAnim::Create(MyLib::Vector3 pos, const int nDivisionU, const int nDivisionV, const int nInterval, bool bAutoDeath)
 {
 	// 生成用のオブジェクト
 	CObjectBillboardAnim *pObject3D = NULL;
@@ -163,7 +163,7 @@ void CObjectBillboardAnim::SetVtx(void)
 
 	D3DXVECTOR2 size = GetSize();
 	D3DXCOLOR col = GetColor();
-	D3DXVECTOR3 rot = GetRotation();
+	MyLib::Vector3 rot = GetRotation();
 
 	// 頂点座標の設定
 	pVtx[0].pos.x = sinf(rot.z - D3DX_PI + m_fAngle) * m_fLength;
@@ -183,10 +183,10 @@ void CObjectBillboardAnim::SetVtx(void)
 	pVtx[3].pos.z = 0.0f;
 
 	// 法線ベクトルの設定
-	pVtx[0].nor = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
-	pVtx[1].nor = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
-	pVtx[2].nor = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
-	pVtx[3].nor = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+	pVtx[0].nor = MyLib::Vector3(0.0f, 1.0f, 0.0f);
+	pVtx[1].nor = MyLib::Vector3(0.0f, 1.0f, 0.0f);
+	pVtx[2].nor = MyLib::Vector3(0.0f, 1.0f, 0.0f);
+	pVtx[3].nor = MyLib::Vector3(0.0f, 1.0f, 0.0f);
 
 	// 頂点カラーの設定
 	pVtx[0].col = col;

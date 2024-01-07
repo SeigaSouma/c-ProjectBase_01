@@ -156,7 +156,7 @@ void CNumber3D::SetType(const CObject::TYPE type)
 //==========================================================================
 // 位置設定
 //==========================================================================
-void CNumber3D::SetPosition(const D3DXVECTOR3 pos)
+void CNumber3D::SetPosition(const MyLib::Vector3 pos)
 {
 	m_aObject3D->SetPosition(pos);
 }
@@ -164,7 +164,7 @@ void CNumber3D::SetPosition(const D3DXVECTOR3 pos)
 //==========================================================================
 // 位置取得
 //==========================================================================
-D3DXVECTOR3 CNumber3D::GetPosition(void) const
+MyLib::Vector3 CNumber3D::GetPosition(void) const
 {
 	return m_aObject3D->GetPosition();
 }
@@ -172,7 +172,7 @@ D3DXVECTOR3 CNumber3D::GetPosition(void) const
 //==========================================================================
 // 移動量設定
 //==========================================================================
-void CNumber3D::SetMove(const D3DXVECTOR3 move)
+void CNumber3D::SetMove(const MyLib::Vector3 move)
 {
 	m_aObject3D->SetMove(move);
 }
@@ -180,7 +180,7 @@ void CNumber3D::SetMove(const D3DXVECTOR3 move)
 //==========================================================================
 // 移動量取得
 //==========================================================================
-D3DXVECTOR3 CNumber3D::GetMove(void) const
+MyLib::Vector3 CNumber3D::GetMove(void) const
 {
 	return m_aObject3D->GetMove();
 }
@@ -188,7 +188,7 @@ D3DXVECTOR3 CNumber3D::GetMove(void) const
 //==========================================================================
 // 向き設定
 //==========================================================================
-void CNumber3D::SetRotation(const D3DXVECTOR3 rot)
+void CNumber3D::SetRotation(const MyLib::Vector3 rot)
 {
 	m_aObject3D->SetRotation(rot);
 }
@@ -196,7 +196,7 @@ void CNumber3D::SetRotation(const D3DXVECTOR3 rot)
 //==========================================================================
 // 向き取得
 //==========================================================================
-D3DXVECTOR3 CNumber3D::GetRotation(void) const
+MyLib::Vector3 CNumber3D::GetRotation(void) const
 {
 	return m_aObject3D->GetRotation();
 }
@@ -220,7 +220,7 @@ D3DXCOLOR CNumber3D::GetColor(void) const
 //==========================================================================
 // サイズ設定
 //==========================================================================
-void CNumber3D::SetSize3D(const D3DXVECTOR3 size)
+void CNumber3D::SetSize3D(const MyLib::Vector3 size)
 {
 	m_aObject3D->SetSize(size);		// サイズ
 }
@@ -228,7 +228,7 @@ void CNumber3D::SetSize3D(const D3DXVECTOR3 size)
 //==========================================================================
 // サイズ取得
 //==========================================================================
-D3DXVECTOR3 CNumber3D::GetSize3D(void) const
+MyLib::Vector3 CNumber3D::GetSize3D(void) const
 {
 	return m_aObject3D->GetSize();
 }

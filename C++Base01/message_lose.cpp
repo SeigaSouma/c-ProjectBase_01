@@ -16,9 +16,9 @@
 namespace
 {
 	const char* TEXPASS = "data\\TEXTURE\\result\\lose.png"; // テクスチャファイルパス
-	const D3DXVECTOR3 DEF_POS = D3DXVECTOR3(0.0f, 0.0f, 2000.0f); // カメラからの相対初期位置
-	const D3DXVECTOR3 DIFF_POS = D3DXVECTOR3(0.0f, 0.0f, 100.0f); // カメラからの相対目的地
-	const D3DXVECTOR3 LOGO_SIZE = D3DXVECTOR3(64.0f, 32.0f, 0.0f); //ポリゴンサイズ
+	const MyLib::Vector3 DEF_POS = MyLib::Vector3(0.0f, 0.0f, 2000.0f); // カメラからの相対初期位置
+	const MyLib::Vector3 DIFF_POS = MyLib::Vector3(0.0f, 0.0f, 100.0f); // カメラからの相対目的地
+	const MyLib::Vector3 LOGO_SIZE = MyLib::Vector3(64.0f, 32.0f, 0.0f); //ポリゴンサイズ
 	const float MOVE_SPEED = 5.0f; // a * x ^ における定数a
 }
 
@@ -56,7 +56,7 @@ HRESULT CMessageLose::Init(void)
 
 	// ロゴの位置を設定
 	SetPosition(CManager::GetInstance()->GetCamera()->GetPositionV() + DEF_POS);
-	D3DXVECTOR3 pos = GetPosition();
+	MyLib::Vector3 pos = GetPosition();
 
 	// ロゴのサイズを設定
 	SetSize(LOGO_SIZE);
@@ -125,7 +125,7 @@ void CMessageLose::Move()
 	m_fSec += CManager::GetInstance()->GetDeltaTime() * MOVE_SPEED;
 
 	// 位置を取得
-	D3DXVECTOR3 pos = GetPosition();
+	MyLib::Vector3 pos = GetPosition();
 
 	// 位置を更新
 	pos.z -= m_fSec * m_fSec;

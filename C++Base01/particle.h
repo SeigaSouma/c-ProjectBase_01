@@ -58,7 +58,7 @@ namespace my_particle
 		TYPE_MAX
 	}TYPE;
 
-	void Create(D3DXVECTOR3 pos, my_particle::TYPE nType);
+	void Create(MyLib::Vector3 pos, my_particle::TYPE nType);
 }
 
 #endif

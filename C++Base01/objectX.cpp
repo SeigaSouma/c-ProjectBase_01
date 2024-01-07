@@ -27,13 +27,13 @@ int CObjectX::m_nNumAll = 0;	// 総数
 CObjectX::CObjectX(int nPriority) : CObject(nPriority)
 {
 	D3DXMatrixIdentity(&m_mtxWorld);				// ワールドマトリックス
-	SetScale(D3DXVECTOR3(1.0f, 1.0f, 1.0f));		// スケール
-	SetPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));		// 位置
-	SetOldPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));	// 前回の位置
-	SetMove(D3DXVECTOR3(0.0f, 0.0f, 0.0f));			// 移動量
-	SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));		// 向き
+	SetScale(MyLib::Vector3(1.0f, 1.0f, 1.0f));		// スケール
+	SetPosition(MyLib::Vector3(0.0f, 0.0f, 0.0f));		// 位置
+	SetOldPosition(MyLib::Vector3(0.0f, 0.0f, 0.0f));	// 前回の位置
+	SetMove(MyLib::Vector3(0.0f, 0.0f, 0.0f));			// 移動量
+	SetRotation(MyLib::Vector3(0.0f, 0.0f, 0.0f));		// 向き
 	SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));	// 色
-	SetSize(D3DXVECTOR3(0.0f, 0.0f, 0.0f));			// サイズ
+	SetSize(MyLib::Vector3(0.0f, 0.0f, 0.0f));			// サイズ
 	m_bShadow = false;								// 影を使っているかどうか
 	m_nIdxTexure = NULL;							// テクスチャのインデックス番号
 	m_nIdxXFile = 0;								// Xファイルのインデックス番号
@@ -132,7 +132,7 @@ CObjectX *CObjectX::Create(const char *pFileName)
 //==========================================================================
 // 生成処理
 //==========================================================================
-CObjectX *CObjectX::Create(const char *pFileName, D3DXVECTOR3 pos, D3DXVECTOR3 rot, bool bShadow)
+CObjectX *CObjectX::Create(const char *pFileName, MyLib::Vector3 pos, MyLib::Vector3 rot, bool bShadow)
 {
 	// 生成用のオブジェクト
 	CObjectX *pObjectX = NULL;
@@ -176,7 +176,7 @@ CObjectX *CObjectX::Create(const char *pFileName, D3DXVECTOR3 pos, D3DXVECTOR3 r
 //==========================================================================
 // 生成処理
 //==========================================================================
-CObjectX *CObjectX::Create(int nIdxXFile, D3DXVECTOR3 pos, D3DXVECTOR3 rot, bool bShadow)
+CObjectX *CObjectX::Create(int nIdxXFile, MyLib::Vector3 pos, MyLib::Vector3 rot, bool bShadow)
 {
 	// 生成用のオブジェクト
 	CObjectX *pObjectX = NULL;
@@ -343,7 +343,7 @@ void CObjectX::Update(void)
 	// Xファイルのデータ取得
 	CXLoad::SXFile *pXData = CScene::GetXLoad()->GetMyObject(m_nIdxXFile);
 
-	D3DXVECTOR3 pos = GetPosition();
+	MyLib::Vector3 pos = GetPosition();
 	/*bool bLand = false;
 	float fHeight = CScene::GetElevation()->GetHeight(pos, bLand);
 	if (bLand == true)
@@ -361,7 +361,7 @@ void CObjectX::Update(void)
 //==========================================================================
 // 高さ取得
 //==========================================================================
-float CObjectX::GetHeight(D3DXVECTOR3 pos, bool &bLand)
+float CObjectX::GetHeight(MyLib::Vector3 pos, bool &bLand)
 {
 	// Xファイルのデータ取得
 	CXLoad::SXFile *pXData = CScene::GetXLoad()->GetMyObject(m_nIdxXFile);
@@ -375,7 +375,7 @@ float CObjectX::GetHeight(D3DXVECTOR3 pos, bool &bLand)
 	float fHeightMax = 0.0f;
 
 	// 自分の位置
-	D3DXVECTOR3 MyPosition = GetPosition();
+	MyLib::Vector3 MyPosition = GetPosition();
 
 	WORD* pIndexBuff;
 
@@ -390,9 +390,9 @@ float CObjectX::GetHeight(D3DXVECTOR3 pos, bool &bLand)
 		int nIdx3 = (int)pIndexBuff[nCntTri * 3 + 2];
 
 		// 頂点位置代入
-		D3DXVECTOR3 pos1 = pXData->pVtxPos[nIdx1] + MyPosition;
-		D3DXVECTOR3 pos2 = pXData->pVtxPos[nIdx2] + MyPosition;
-		D3DXVECTOR3 pos3 = pXData->pVtxPos[nIdx3] + MyPosition;
+		MyLib::Vector3 pos1 = pXData->pVtxPos[nIdx1] + MyPosition;
+		MyLib::Vector3 pos2 = pXData->pVtxPos[nIdx2] + MyPosition;
+		MyLib::Vector3 pos3 = pXData->pVtxPos[nIdx3] + MyPosition;
 
 		// 絶対値(マイナスいかない)と最大の距離比較
 		if (fabsf(pos1.x - pos.x) > pXData->fMaxVtxDistance ||
@@ -434,8 +434,8 @@ void CObjectX::Draw(void)
 	D3DXMATERIAL *pMat;				// マテリアルデータへのポインタ
 
 	// 情報取得
-	D3DXVECTOR3 pos = GetPosition();
-	D3DXVECTOR3 rot = GetRotation();
+	MyLib::Vector3 pos = GetPosition();
+	MyLib::Vector3 rot = GetRotation();
 
 	// ワールドマトリックスの初期化
 	D3DXMatrixIdentity(&m_mtxWorld);
@@ -474,7 +474,7 @@ void CObjectX::Draw(void)
 		// テクスチャの設定
 		pDevice->SetTexture(0, pTex->GetAdress(pXData->nIdxTexture[nCntMat]));
 
-		if (m_scale != D3DXVECTOR3(1.0f, 1.0f, 1.0f))
+		if (m_scale != MyLib::Vector3(1.0f, 1.0f, 1.0f))
 		{// 少しでも違う場合
 
 			// 自動正規化をONにする
@@ -484,7 +484,7 @@ void CObjectX::Draw(void)
 		// パーツの描画
 		pXData->pMesh->DrawSubset(nCntMat);
 
-		if (m_scale != D3DXVECTOR3(1.0f, 1.0f, 1.0f))
+		if (m_scale != MyLib::Vector3(1.0f, 1.0f, 1.0f))
 		{// 少しでも違う場合
 
 			// 自動正規化をデフォルトにする
@@ -510,8 +510,8 @@ void CObjectX::Draw(D3DXCOLOR col)
 	D3DXMATERIAL *pMat;				// マテリアルデータへのポインタ
 
 	// 情報取得
-	D3DXVECTOR3 pos = GetPosition();
-	D3DXVECTOR3 rot = GetRotation();
+	MyLib::Vector3 pos = GetPosition();
+	MyLib::Vector3 rot = GetRotation();
 
 	D3DXMATERIAL matNow;			// 今回のマテリアル
 
@@ -557,7 +557,7 @@ void CObjectX::Draw(D3DXCOLOR col)
 		// テクスチャの設定
 		pDevice->SetTexture(0, pTex->GetAdress(pXData->nIdxTexture[nCntMat]));
 
-		if (m_scale != D3DXVECTOR3(1.0f, 1.0f, 1.0f))
+		if (m_scale != MyLib::Vector3(1.0f, 1.0f, 1.0f))
 		{// 少しでも違う場合
 
 			// 自動正規化をONにする
@@ -567,7 +567,7 @@ void CObjectX::Draw(D3DXCOLOR col)
 		// パーツの描画
 		pXData->pMesh->DrawSubset(nCntMat);
 
-		if (m_scale != D3DXVECTOR3(1.0f, 1.0f, 1.0f))
+		if (m_scale != MyLib::Vector3(1.0f, 1.0f, 1.0f))
 		{// 少しでも違う場合
 
 			// 自動正規化をデフォルトにする
@@ -593,8 +593,8 @@ void CObjectX::Draw(float fAlpha)
 	D3DXMATERIAL *pMat;				// マテリアルデータへのポインタ
 
 	// 情報取得
-	D3DXVECTOR3 pos = GetPosition();
-	D3DXVECTOR3 rot = GetRotation();
+	MyLib::Vector3 pos = GetPosition();
+	MyLib::Vector3 rot = GetRotation();
 
 	D3DXMATERIAL matNow;			// 今回のマテリアル
 
@@ -644,7 +644,7 @@ void CObjectX::Draw(float fAlpha)
 		// テクスチャの設定
 		pDevice->SetTexture(0, CManager::GetInstance()->GetTexture()->GetAdress(pXData->nIdxTexture[nCntMat]));
 
-		if (m_scale != D3DXVECTOR3(1.0f, 1.0f, 1.0f))
+		if (m_scale != MyLib::Vector3(1.0f, 1.0f, 1.0f))
 		{// 少しでも違う場合
 
 			// 自動正規化をONにする
@@ -654,7 +654,7 @@ void CObjectX::Draw(float fAlpha)
 		// パーツの描画
 		pXData->pMesh->DrawSubset(nCntMat);
 
-		if (m_scale != D3DXVECTOR3(1.0f, 1.0f, 1.0f))
+		if (m_scale != MyLib::Vector3(1.0f, 1.0f, 1.0f))
 		{// 少しでも違う場合
 
 			// 自動正規化をデフォルトにする
@@ -685,7 +685,7 @@ D3DXMATRIX CObjectX::GetWorldMtx(void) const
 //==========================================================================
 // スケール設定
 //==========================================================================
-void CObjectX::SetScale(const D3DXVECTOR3 scale)
+void CObjectX::SetScale(const MyLib::Vector3 scale)
 {
 	m_scale = scale;
 }
@@ -693,7 +693,7 @@ void CObjectX::SetScale(const D3DXVECTOR3 scale)
 //==========================================================================
 // スケール取得
 //==========================================================================
-D3DXVECTOR3 CObjectX::GetScale(void) const
+MyLib::Vector3 CObjectX::GetScale(void) const
 {
 	return m_scale;
 }
@@ -717,7 +717,7 @@ D3DXCOLOR CObjectX::GetColor(void) const
 //==========================================================================
 // サイズ設定
 //==========================================================================
-void CObjectX::SetSize(const D3DXVECTOR3 size)
+void CObjectX::SetSize(const MyLib::Vector3 size)
 {
 	m_fSize = size;
 }
@@ -725,7 +725,7 @@ void CObjectX::SetSize(const D3DXVECTOR3 size)
 //==========================================================================
 // サイズ取得
 //==========================================================================
-D3DXVECTOR3 CObjectX::GetSize(void) const
+MyLib::Vector3 CObjectX::GetSize(void) const
 {
 	return m_fSize;
 }
@@ -733,7 +733,7 @@ D3DXVECTOR3 CObjectX::GetSize(void) const
 //==========================================================================
 // 頂点の最大値取得
 //==========================================================================
-D3DXVECTOR3 CObjectX::GetVtxMax(void) const
+MyLib::Vector3 CObjectX::GetVtxMax(void) const
 {
 	// Xファイルのデータ取得
 	return CScene::GetXLoad()->GetMyObject(m_nIdxXFile)->vtxMax;
@@ -742,7 +742,7 @@ D3DXVECTOR3 CObjectX::GetVtxMax(void) const
 //==========================================================================
 // 頂点の最小値取得
 //==========================================================================
-D3DXVECTOR3 CObjectX::GetVtxMin(void) const
+MyLib::Vector3 CObjectX::GetVtxMin(void) const
 {
 	// Xファイルのデータ取得
 	return CScene::GetXLoad()->GetMyObject(m_nIdxXFile)->vtxMin;

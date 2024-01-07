@@ -32,7 +32,7 @@ public:
 	void SetDesableAutoDeath(void) { m_bAutoDeath = false; }	// 自動削除の判定削除
 	bool IsFinish(void) { return m_bFinish; }					// 終了の判定
 	static int GetNumAll(void);
-	static CThunderRing *Create(const D3DXVECTOR3 pos, const D3DXVECTOR2 size);	// 生成処理
+	static CThunderRing *Create(const MyLib::Vector3 pos, const D3DXVECTOR2 size);	// 生成処理
 	static void LoadTexture(void);	// テクスチャ読み込み
 private:
 

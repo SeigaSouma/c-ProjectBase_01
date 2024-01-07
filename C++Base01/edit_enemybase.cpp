@@ -196,13 +196,13 @@ void CEditEnemyBase::Update(void)
 //==========================================================================
 // 操作処理
 //==========================================================================
-void CEditEnemyBase::Control(D3DXVECTOR3 &pos)
+void CEditEnemyBase::Control(MyLib::Vector3 &pos)
 {
 	// カメラの情報取得
 	CCamera *pCamera = CManager::GetInstance()->GetCamera();
 
 	// カメラの向き取得
-	D3DXVECTOR3 Camerarot = pCamera->GetRotation();
+	MyLib::Vector3 Camerarot = pCamera->GetRotation();
 
 	// キーボード情報取得
 	CInputKeyboard *pInputKeyboard = CManager::GetInstance()->GetInputKeyboard();
@@ -434,7 +434,7 @@ void CEditEnemyBase::Grab(void)
 
 	for (int i = 0; i < pEnemyBase->GetNumBase(m_nStage); i++)
 	{
-		D3DXVECTOR3 TargetPoint = pEnemyBase->GetSpawnPoint(m_nStage, i);
+		MyLib::Vector3 TargetPoint = pEnemyBase->GetSpawnPoint(m_nStage, i);
 		if (bAll == true || UtilFunc::Collision::SphereRange(m_pos, TargetPoint, 50.0f, 50.0f))
 		{// 球に当たってたら
 
@@ -464,7 +464,7 @@ void CEditEnemyBase::Delete(void)
 
 	for (int i = 0; i < pEnemyBase->GetNumAll(); i++)
 	{
-		D3DXVECTOR3 TargetPoint = pEnemyBase->GetSpawnPoint(m_nStage, i);
+		MyLib::Vector3 TargetPoint = pEnemyBase->GetSpawnPoint(m_nStage, i);
 		if (UtilFunc::Collision::SphereRange(m_pos, TargetPoint, 50.0f, 50.0f))
 		{// 球に当たってたら
 			pEnemyBase->DeletePos(m_nStage, i);

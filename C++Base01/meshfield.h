@@ -45,7 +45,7 @@ public:
 	virtual void SetVtx(void);
 
 	static CMeshField *Create();
-	static CMeshField *Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, float fWidthLen, float fHeightLen, int nWidth = 1, int nHeight = 1, TYPE type = TYPE_CONCREAT, const char *aFileName = NULL, int nPriority = mylib_const::PRIORITY_DEFAULT);
+	static CMeshField *Create(MyLib::Vector3 pos, MyLib::Vector3 rot, float fWidthLen, float fHeightLen, int nWidth = 1, int nHeight = 1, TYPE type = TYPE_CONCREAT, const char *aFileName = NULL, int nPriority = mylib_const::PRIORITY_DEFAULT);
 	virtual CMeshField *GetMyObject(void);
 protected:
 

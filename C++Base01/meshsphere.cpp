@@ -45,7 +45,7 @@ CMeshSphere::~CMeshSphere()
 //==========================================================================
 // 生成処理
 //==========================================================================
-CMeshSphere *CMeshSphere::Create(D3DXVECTOR3 pos, float fSize, const char *pFileName, int nPriority)
+CMeshSphere *CMeshSphere::Create(MyLib::Vector3 pos, float fSize, const char *pFileName, int nPriority)
 {
 	// 生成用のオブジェクト
 	CMeshSphere *pObjMeshField = NULL;
@@ -85,7 +85,7 @@ CMeshSphere *CMeshSphere::Create(D3DXVECTOR3 pos, float fSize, const char *pFile
 //==========================================================================
 // 生成処理(オーバーロード)
 //==========================================================================
-CMeshSphere *CMeshSphere::Create(D3DXVECTOR3 pos, float fSize, int nTexIdx, int nPriority,int nBlock)
+CMeshSphere *CMeshSphere::Create(MyLib::Vector3 pos, float fSize, int nTexIdx, int nPriority,int nBlock)
 {
 	// 生成用のオブジェクト
 	CMeshSphere *pObjMeshField = NULL;
@@ -160,10 +160,10 @@ void CMeshSphere::Update(void)
 	CInputKeyboard *pInputKeyboard = CManager::GetInstance()->GetInputKeyboard();
 
 	// 向き取得
-	D3DXVECTOR3 rot = GetRotation();
+	MyLib::Vector3 rot = GetRotation();
 
 	// 位置取得
-	D3DXVECTOR3 pos = GetPosition();
+	MyLib::Vector3 pos = GetPosition();
 
 	// 色取得
 	D3DXCOLOR col = GetColor();

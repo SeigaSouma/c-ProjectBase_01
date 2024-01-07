@@ -36,7 +36,7 @@ CMeshWall::~CMeshWall()
 //==========================================================================
 // 生成処理
 //==========================================================================
-CMeshWall *CMeshWall::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, float fWidthLen, float fHeightLen, int nWidth, int nHeight, int nPriority, const char *aFileName)
+CMeshWall *CMeshWall::Create(MyLib::Vector3 pos, MyLib::Vector3 rot, float fWidthLen, float fHeightLen, int nWidth, int nHeight, int nPriority, const char *aFileName)
 {
 	// 生成用のオブジェクト
 	CMeshWall *pObjMeshField = NULL;

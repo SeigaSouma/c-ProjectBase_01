@@ -34,7 +34,7 @@ CObject3DAnim::~CObject3DAnim()
 //==========================================================================
 // 生成処理
 //==========================================================================
-CObject3DAnim *CObject3DAnim::Create(D3DXVECTOR3 pos, const int nDivisionU, const int nDivisionV, const int nInterval, bool bAutoDeath)
+CObject3DAnim *CObject3DAnim::Create(MyLib::Vector3 pos, const int nDivisionU, const int nDivisionV, const int nInterval, bool bAutoDeath)
 {
 	// 生成用のオブジェクト
 	CObject3DAnim *pObject3D = NULL;
@@ -161,17 +161,17 @@ void CObject3DAnim::SetVtx(void)
 	m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
 
 	// 境界線のベクトル
-	D3DXVECTOR3 vecLine0 = pVtx[1].pos - pVtx[0].pos;
-	D3DXVECTOR3 vecLine1 = pVtx[2].pos - pVtx[0].pos;
+	MyLib::Vector3 vecLine0 = pVtx[1].pos - pVtx[0].pos;
+	MyLib::Vector3 vecLine1 = pVtx[2].pos - pVtx[0].pos;
 
 	// 外積求める
-	D3DXVECTOR3 Nor[4];
+	MyLib::Vector3 Nor[4];
 
 	// 外積
 	D3DXVec3Cross(&Nor[0], &vecLine0, &vecLine1);
 	D3DXVec3Normalize(&Nor[0], &Nor[0]);
 
-	Nor[0] = D3DXVECTOR3(
+	Nor[0] = MyLib::Vector3(
 		((vecLine0.y * vecLine1.z) - (vecLine0.z * vecLine1.y)),
 		((vecLine0.z * vecLine1.x) - (vecLine0.x * vecLine1.z)),
 		((vecLine0.x * vecLine1.y) - (vecLine0.y * vecLine1.x)));
@@ -182,7 +182,7 @@ void CObject3DAnim::SetVtx(void)
 	vecLine1 = pVtx[1].pos - pVtx[3].pos;
 
 	// 外積求める
-	Nor[3] = D3DXVECTOR3(
+	Nor[3] = MyLib::Vector3(
 		((vecLine0.y * vecLine1.z) - (vecLine0.z * vecLine1.y)),
 		((vecLine0.z * vecLine1.x) - (vecLine0.x * vecLine1.z)),
 		((vecLine0.x * vecLine1.y) - (vecLine0.y * vecLine1.x)));
@@ -200,14 +200,14 @@ void CObject3DAnim::SetVtx(void)
 	pVtx[2].nor = Nor[2];
 	pVtx[3].nor = Nor[3];
 
-	D3DXVECTOR3 size = GetSize();
+	MyLib::Vector3 size = GetSize();
 	D3DXCOLOR col = GetColor();
 
 	// 位置を更新
-	pVtx[0].pos = D3DXVECTOR3(-size.x, +size.y, +size.z);
-	pVtx[1].pos = D3DXVECTOR3(+size.x, +size.y, +size.z);
-	pVtx[2].pos = D3DXVECTOR3(-size.x, -size.y, -size.z);
-	pVtx[3].pos = D3DXVECTOR3(+size.x, -size.y, -size.z);
+	pVtx[0].pos = MyLib::Vector3(-size.x, +size.y, +size.z);
+	pVtx[1].pos = MyLib::Vector3(+size.x, +size.y, +size.z);
+	pVtx[2].pos = MyLib::Vector3(-size.x, -size.y, -size.z);
+	pVtx[3].pos = MyLib::Vector3(+size.x, -size.y, -size.z);
 
 	// 頂点カラーの設定
 	pVtx[0].col = col;

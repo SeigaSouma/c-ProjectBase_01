@@ -55,7 +55,7 @@ CHP_GaugeBoss::~CHP_GaugeBoss()
 //==========================================================================
 // 生成処理
 //==========================================================================
-CHP_GaugeBoss *CHP_GaugeBoss::Create(D3DXVECTOR3 pos, int nMaxLife)
+CHP_GaugeBoss *CHP_GaugeBoss::Create(MyLib::Vector3 pos, int nMaxLife)
 {
 	// 生成用のオブジェクト
 	CHP_GaugeBoss *pHPGauge = NULL;
@@ -170,7 +170,7 @@ void CHP_GaugeBoss::Kill(void)
 void CHP_GaugeBoss::Update(void)
 {
 	// 位置取得
-	D3DXVECTOR3 pos = GetPosition();
+	MyLib::Vector3 pos = GetPosition();
 
 	for (int nCntGauge = 0; nCntGauge < VTXTYPE_MAX; nCntGauge++)
 	{
@@ -260,7 +260,7 @@ void CHP_GaugeBoss::SetVtx(int nCntGauge)
 	m_HPGauge[nCntGauge].pObj2D->SetVtx();
 
 	// 位置取得
-	D3DXVECTOR3 pos = GetPosition();
+	MyLib::Vector3 pos = GetPosition();
 
 	D3DXVECTOR2 *pTex = m_HPGauge[nCntGauge].pObj2D->GetTex();
 
@@ -274,10 +274,10 @@ void CHP_GaugeBoss::SetVtx(int nCntGauge)
 	D3DXVECTOR2 size = m_HPGauge[nCntGauge].pObj2D->GetSize();
 
 	// 頂点座標の設定
-	pVtx[0].pos = D3DXVECTOR3(pos.x + -size.x - (m_HPGauge[nCntGauge].fMaxWidth - size.x),	pos.y + -size.y, 0.0f);
-	pVtx[1].pos = D3DXVECTOR3(pos.x + size.x - (m_HPGauge[nCntGauge].fMaxWidth - size.x),	pos.y + -size.y, 0.0f);
-	pVtx[2].pos = D3DXVECTOR3(pos.x + -size.x - (m_HPGauge[nCntGauge].fMaxWidth - size.x),	pos.y + size.y, 0.0f);
-	pVtx[3].pos = D3DXVECTOR3(pos.x + size.x - (m_HPGauge[nCntGauge].fMaxWidth - size.x),	pos.y + size.y, 0.0f);
+	pVtx[0].pos = MyLib::Vector3(pos.x + -size.x - (m_HPGauge[nCntGauge].fMaxWidth - size.x),	pos.y + -size.y, 0.0f);
+	pVtx[1].pos = MyLib::Vector3(pos.x + size.x - (m_HPGauge[nCntGauge].fMaxWidth - size.x),	pos.y + -size.y, 0.0f);
+	pVtx[2].pos = MyLib::Vector3(pos.x + -size.x - (m_HPGauge[nCntGauge].fMaxWidth - size.x),	pos.y + size.y, 0.0f);
+	pVtx[3].pos = MyLib::Vector3(pos.x + size.x - (m_HPGauge[nCntGauge].fMaxWidth - size.x),	pos.y + size.y, 0.0f);
 
 	pTex[0] = D3DXVECTOR2(0.0f, 0.0f);
 	pTex[1] = D3DXVECTOR2(size.x / m_HPGauge[nCntGauge].fMaxWidth, 0.0f);

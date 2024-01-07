@@ -32,7 +32,7 @@ public:
 	void SetVtx(void);
 	void SetVtx(int nCntGauge);
 
-	void UpdatePosition(D3DXVECTOR3 pos, int nLife);
+	void UpdatePosition(MyLib::Vector3 pos, int nLife);
 	static int GetNumAll(void);
 
 private:

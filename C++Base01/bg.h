@@ -61,7 +61,7 @@ public:
 	void SetVtx(void);
 	void SetVtx(int nCntBg);
 
-	void SetMoveTex(const D3DXVECTOR3 move);
+	void SetMoveTex(const MyLib::Vector3 move);
 
 private:
 	static const char *m_apTextureFile[];			// テクスチャのファイル

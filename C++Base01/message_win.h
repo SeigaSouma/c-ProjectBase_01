@@ -36,7 +36,7 @@ private:
 	float m_fSec; // 経過時間
 	bool m_bMove; // 移動完了フラグ
 	int m_nIdx; // 自身のインデックス
-	D3DXVECTOR3 pos_target; // 目標位置
+	MyLib::Vector3 pos_target; // 目標位置
 
 	// 静的メンバ変数
 	static int nIdx;

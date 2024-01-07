@@ -26,8 +26,8 @@ public:
 
 	struct SXFile
 	{
-		D3DXVECTOR3 vtxMin;						// モデルの最小値
-		D3DXVECTOR3	vtxMax;						// モデルの最大値
+		MyLib::Vector3 vtxMin;						// モデルの最小値
+		MyLib::Vector3	vtxMax;						// モデルの最大値
 		BYTE *pVtxBuff;							// 頂点バッファのポインタ
 		LPD3DXMESH pMesh;						// メッシュ(頂点情報)へのポインタ
 		LPD3DXBUFFER pBuffMat;					// マテリアルへのポインタ
@@ -35,7 +35,7 @@ public:
 		D3DXMATERIAL pMatData[MAX_MAT];			// マテリアルのデータ
 		int nVtxNum;							// 頂点数
 		int nFaceNum;							// 面の数
-		D3DXVECTOR3 *pVtxPos;					// 頂点座標
+		MyLib::Vector3 *pVtxPos;					// 頂点座標
 		float fMaxVtxDistance;					// 頂点間の最大距離
 		int *nIdxTexture;						// テクスチャのインデックス番号
 		char acFilename[mylib_const::MAX_STRING];				// ファイル名

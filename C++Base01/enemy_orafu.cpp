@@ -158,7 +158,7 @@ void CEnemyOrafu::ActChase(void)
 	m_sMotionFrag.bMove = true;
 
 	// 位置取得
-	D3DXVECTOR3 pos = GetPosition();
+	MyLib::Vector3 pos = GetPosition();
 
 	// プレイヤー情報
 	CPlayer* pPlayer = CManager::GetInstance()->GetScene()->GetPlayer(m_nTargetPlayerIndex);
@@ -186,8 +186,8 @@ void CEnemyOrafu::ActChase(void)
 void CEnemyOrafu::ChaseNormal(void)
 {
 	// 情報取得
-	D3DXVECTOR3 move = GetMove();
-	D3DXVECTOR3 rot = GetRotation();
+	MyLib::Vector3 move = GetMove();
+	MyLib::Vector3 rot = GetRotation();
 	float fMove = GetVelocity();
 
 	// 移動量設定
@@ -207,7 +207,7 @@ void CEnemyOrafu::ActAttackProximity(void)
 	{// 追い着いてない時
 
 		// 位置取得
-		D3DXVECTOR3 pos = GetPosition();
+		MyLib::Vector3 pos = GetPosition();
 
 		// プレイヤー情報
 		CPlayer* pPlayer = CManager::GetInstance()->GetScene()->GetPlayer(m_nTargetPlayerIndex);
@@ -351,8 +351,8 @@ void CEnemyOrafu::MotionSet(void)
 void CEnemyOrafu::RotationTarget(void)
 {
 	// 位置取得
-	D3DXVECTOR3 pos = GetPosition();
-	D3DXVECTOR3 rot = GetRotation();
+	MyLib::Vector3 pos = GetPosition();
+	MyLib::Vector3 rot = GetRotation();
 
 	// 目標の角度を求める
 	float fRotDest = atan2f((pos.x - m_TargetPosition.x), (pos.z - m_TargetPosition.z));
@@ -388,11 +388,11 @@ void CEnemyOrafu::AttackAction(CMotion::AttackInfo ATKInfo, int nCntATK)
 
 	// モーション情報取得
 	int nMotionType = pMotion->GetType();
-	D3DXVECTOR3 weponpos = pMotion->GetAttackPosition(GetModel(), ATKInfo);
+	MyLib::Vector3 weponpos = pMotion->GetAttackPosition(GetModel(), ATKInfo);
 
 	// 情報取得
-	D3DXVECTOR3 pos = GetPosition();
-	D3DXVECTOR3 rot = GetRotation();
+	MyLib::Vector3 pos = GetPosition();
+	MyLib::Vector3 rot = GetRotation();
 
 	// モーション別処理
 	switch (nMotionType)
@@ -419,7 +419,7 @@ void CEnemyOrafu::AttackInDicision(CMotion::AttackInfo ATKInfo, int nCntATK)
 
 	// モーション情報取得
 	int nMotionType = pMotion->GetType();
-	D3DXVECTOR3 weponpos = pMotion->GetAttackPosition(GetModel(), ATKInfo);
+	MyLib::Vector3 weponpos = pMotion->GetAttackPosition(GetModel(), ATKInfo);
 
 	// モーション別処理
 	switch (nMotionType)

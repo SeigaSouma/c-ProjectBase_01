@@ -74,7 +74,7 @@ CImpactWave::~CImpactWave()
 //==========================================================================
 // 生成処理
 //==========================================================================
-CImpactWave *CImpactWave::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXCOLOR col, float fWidth, float fHeight, float fCenterDistance, int nLife, float fMove, int nTexType, bool bAddBlend)
+CImpactWave *CImpactWave::Create(MyLib::Vector3 pos, MyLib::Vector3 rot, D3DXCOLOR col, float fWidth, float fHeight, float fCenterDistance, int nLife, float fMove, int nTexType, bool bAddBlend)
 {
 	// 生成用のオブジェクト
 	CImpactWave *pObjMeshCylinder = NULL;
@@ -146,7 +146,7 @@ HRESULT CImpactWave::Init(void)
 		return E_FAIL;
 	}
 
-	D3DXVECTOR3 *pVtxPos = GetVtxPos();	// 頂点座標取得
+	MyLib::Vector3 *pVtxPos = GetVtxPos();	// 頂点座標取得
 	D3DXVECTOR2 *pVtxTex = GetVtxTex();	// テクスチャ座標取得
 
 	// 分割数取得
@@ -167,7 +167,7 @@ HRESULT CImpactWave::Init(void)
 			}
 
 			// 頂点座標の設定
-			pVtxPos[nCntWidth + (nCntHeight * (nWidthBlock + 1))] = D3DXVECTOR3
+			pVtxPos[nCntWidth + (nCntHeight * (nWidthBlock + 1))] = MyLib::Vector3
 			(
 				sinf(nCntWidth % nWidthBlock * m_fRotWidth) * fLength,
 				nCntHeight * m_fHeight,
@@ -201,8 +201,8 @@ void CImpactWave::Update(void)
 {
 	// 色取得
 	D3DXCOLOR col = GetColor();
-	D3DXVECTOR3 pos = GetPosition();
-	D3DXVECTOR3 move = GetMove();
+	MyLib::Vector3 pos = GetPosition();
+	MyLib::Vector3 move = GetMove();
 
 	// 位置更新
 	pos += move;
@@ -286,7 +286,7 @@ void CImpactWave::Draw(void)
 //==========================================================================
 void CImpactWave::SetVtx(void)
 {
-	D3DXVECTOR3 *pVtxPos = GetVtxPos();	// 頂点座標取得
+	MyLib::Vector3 *pVtxPos = GetVtxPos();	// 頂点座標取得
 	D3DXVECTOR2 *pVtxTex = GetVtxTex();	// テクスチャ座標取得
 
 	// 分割数取得
@@ -307,7 +307,7 @@ void CImpactWave::SetVtx(void)
 			}
 
 			// 頂点座標の設定
-			pVtxPos[nCntWidth + (nCntHeight * (nWidthBlock + 1))] = D3DXVECTOR3
+			pVtxPos[nCntWidth + (nCntHeight * (nWidthBlock + 1))] = MyLib::Vector3
 			(
 				sinf(nCntWidth % nWidthBlock * m_fRotWidth) * fLength,
 				nCntHeight * m_fHeight,

@@ -61,7 +61,7 @@ void CEffectSlashHit::LoadTexture(void)
 //==========================================================================
 // 生成処理
 //==========================================================================
-CEffectSlashHit *CEffectSlashHit::Create(const D3DXVECTOR3 pos)
+CEffectSlashHit *CEffectSlashHit::Create(const MyLib::Vector3 pos)
 {
 	// 生成用のオブジェクト
 	CEffectSlashHit *pExplosion = NULL;
@@ -138,7 +138,7 @@ void CEffectSlashHit::Uninit(void)
 void CEffectSlashHit::Update(void)
 {
 	// 位置取得
-	D3DXVECTOR3 pos = GetPosition();
+	MyLib::Vector3 pos = GetPosition();
 
 	// サイズ
 	D3DXVECTOR2 size = GetSize();

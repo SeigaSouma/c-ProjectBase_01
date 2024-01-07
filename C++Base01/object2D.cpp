@@ -47,7 +47,7 @@ CObject2D::CObject2D(int nPriority) : CObject(nPriority)
 	for (int nCntVtx = 0; nCntVtx < 32; nCntVtx++)
 	{
 		m_fTex[nCntVtx] = D3DXVECTOR2(0.0f, 0.0f);			// テクスチャ座標
-		m_VtxPos[nCntVtx] = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	// 頂点座標
+		m_VtxPos[nCntVtx] = MyLib::Vector3(0.0f, 0.0f, 0.0f);	// 頂点座標
 	}
 
 }
@@ -312,8 +312,8 @@ void CObject2D::SetVtx(void)
 	// 頂点バッファをロックし、頂点情報へのポインタを取得
 	m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
 
-	D3DXVECTOR3 pos = GetPosition();
-	D3DXVECTOR3 rot = GetRotation();
+	MyLib::Vector3 pos = GetPosition();
+	MyLib::Vector3 rot = GetRotation();
 	D3DXCOLOR col = GetColor();
 	float fAngle = GetAngle();
 	float fLength = GetLength();
@@ -368,10 +368,10 @@ void  CObject2D::SetVtx(int nNumVertex)
 	// 頂点バッファをロックし、頂点情報へのポインタを取得
 	m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
 
-	D3DXVECTOR3 pos = GetPosition();
-	D3DXVECTOR3 rot = GetRotation();
+	MyLib::Vector3 pos = GetPosition();
+	MyLib::Vector3 rot = GetRotation();
 	D3DXCOLOR col = GetColor();
-	D3DXVECTOR3 *pVtxPos = GetVtxPos();
+	MyLib::Vector3 *pVtxPos = GetVtxPos();
 
 	// 頂点座標の設定
 	for (int nCntVtx = 0; nCntVtx < nNumVertex; nCntVtx++)
@@ -496,7 +496,7 @@ float CObject2D::GetAngle(void) const
 //==========================================================================
 // 頂点座標取得
 //==========================================================================
-D3DXVECTOR3 *CObject2D::GetVtxPos(void)
+MyLib::Vector3 *CObject2D::GetVtxPos(void)
 {
 	return &m_VtxPos[0];
 }
@@ -504,7 +504,7 @@ D3DXVECTOR3 *CObject2D::GetVtxPos(void)
 //==========================================================================
 // 頂点座標設定
 //==========================================================================
-void CObject2D::SetVtxPos(D3DXVECTOR3 *pos)
+void CObject2D::SetVtxPos(MyLib::Vector3 *pos)
 {
 	//&m_VtxPos[0] = *pos;
 	memcpy(&m_VtxPos[0], pos, sizeof(m_VtxPos));

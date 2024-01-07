@@ -75,7 +75,7 @@ public:
 	void SetIsAddBlend(bool bAddBlend);			// â¡éZçáê¨ÇÃê›íË
 
 	static const char *GetFileName(int nTexType);	// ÉtÉ@ÉCÉãñºéÊìæ
-	static CImpactWave *Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXCOLOR col, float fWidth, float fHeight, float fCenterDistance, int nLife, float fMove, int nTexType, bool bAddBlend);
+	static CImpactWave *Create(MyLib::Vector3 pos, MyLib::Vector3 rot, D3DXCOLOR col, float fWidth, float fHeight, float fCenterDistance, int nLife, float fMove, int nTexType, bool bAddBlend);
 	CImpactWave *GetMyObject(void);
 
 private:

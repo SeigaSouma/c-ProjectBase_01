@@ -28,13 +28,13 @@ public:
 	~CScore();
 
 	static CScore *Create(void);
-	static CScore *Create(D3DXVECTOR3 pos);
-	void SetPosition(const D3DXVECTOR3 pos);
-	D3DXVECTOR3 GetPosition(void) const;
+	static CScore *Create(MyLib::Vector3 pos);
+	void SetPosition(const MyLib::Vector3 pos);
+	MyLib::Vector3 GetPosition(void) const;
 
 	// オーバーライドされた関数
 	HRESULT Init(void);
-	HRESULT Init(D3DXVECTOR3 pos);
+	HRESULT Init(MyLib::Vector3 pos);
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);

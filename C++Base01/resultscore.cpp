@@ -127,13 +127,13 @@ void CResultScore::CreateToatalScore(void)
 
 	// 各種変数の初期化
 	m_pToatalObj2D->GetObject2D()->SetSize(CManager::GetInstance()->GetTexture()->GetImageSize(m_nTexIdx) * 0.4f);	// サイズ
-	m_pToatalObj2D->GetObject2D()->SetPosition(D3DXVECTOR3(INIT_POSX, POSY, 0.0f));	// 位置
+	m_pToatalObj2D->GetObject2D()->SetPosition(MyLib::Vector3(INIT_POSX, POSY, 0.0f));	// 位置
 
 	// 種類の設定
 	m_pToatalObj2D->GetObject2D()->SetType(CObject::TYPE_SCORE);
 
 	// 生成処理
-	m_pToatalScore = CMultiNumber::Create(D3DXVECTOR3(INIT_POSX + m_pToatalObj2D->GetSize().x + 50.0f, POSY, 0.0f), D3DXVECTOR2(WIDTH, HEIGHT), RESULTSCORE_DIGIT, CNumber::OBJECTTYPE_2D);
+	m_pToatalScore = CMultiNumber::Create(MyLib::Vector3(INIT_POSX + m_pToatalObj2D->GetSize().x + 50.0f, POSY, 0.0f), D3DXVECTOR2(WIDTH, HEIGHT), RESULTSCORE_DIGIT, CNumber::OBJECTTYPE_2D);
 }
 
 //==========================================================================
@@ -188,7 +188,7 @@ void CResultScore::MoveToatalScore(void)
 	}
 
 	// 位置取得
-	D3DXVECTOR3 pos = m_pToatalObj2D->GetPosition();
+	MyLib::Vector3 pos = m_pToatalObj2D->GetPosition();
 
 	if (pos.x == INIT_POSX)
 	{
@@ -213,11 +213,11 @@ void CResultScore::MoveToatalScore(void)
 	}
 
 	// 位置取得
-	D3DXVECTOR3 posNumber = m_pToatalScore->GetPosition();
+	MyLib::Vector3 posNumber = m_pToatalScore->GetPosition();
 
 	// 位置更新
 	m_pToatalScore->SetPosition(
-		D3DXVECTOR3(
+		MyLib::Vector3(
 			pos.x + m_pToatalObj2D->GetSize().x + 50.0f,
 			posNumber.y,
 			0.0f));
@@ -274,7 +274,7 @@ void CResultScore::SetAllArrival(void)
 	m_nToatalNum = m_nToatalNumDest;
 
 	// 位置取得
-	D3DXVECTOR3 pos = m_pToatalObj2D->GetPosition();
+	MyLib::Vector3 pos = m_pToatalObj2D->GetPosition();
 
 	// 移動
 	pos.x = m_fToatalPosDest_X;
@@ -288,11 +288,11 @@ void CResultScore::SetAllArrival(void)
 	}
 
 	// 位置取得
-	D3DXVECTOR3 posNumber = m_pToatalScore->GetPosition();
+	MyLib::Vector3 posNumber = m_pToatalScore->GetPosition();
 
 	// 位置更新
 	m_pToatalScore->SetPosition(
-		D3DXVECTOR3(
+		MyLib::Vector3(
 			pos.x + m_pToatalObj2D->GetSize().x + 50.0f,
 			posNumber.y,
 			0.0f));

@@ -82,18 +82,18 @@ public:
 	virtual void Draw(void) = 0;
 
 	virtual void SetVtx(void);
-	virtual void SetPosition(const D3DXVECTOR3 pos);		// 位置設定
-	virtual D3DXVECTOR3 GetPosition(void) const;			// 位置取得
-	virtual void SetOldPosition(const D3DXVECTOR3 posOld);	// 過去の位置設定
-	virtual D3DXVECTOR3 GetOldPosition(void) const;			// 過去の位置取得
-	virtual void SetOriginPosition(const D3DXVECTOR3 pos);	// 元の位置設定
-	virtual D3DXVECTOR3 GetOriginPosition(void) const;		// 元の位置取得
-	virtual void SetMove(const D3DXVECTOR3 move);			// 移動量設定
-	virtual D3DXVECTOR3 GetMove(void) const;				// 移動量取得
-	virtual void SetRotation(const D3DXVECTOR3 rot);		// 向き設定
-	virtual D3DXVECTOR3 GetRotation(void) const;			// 向き取得
+	virtual void SetPosition(const MyLib::Vector3 pos);		// 位置設定
+	virtual MyLib::Vector3 GetPosition(void) const;			// 位置取得
+	virtual void SetOldPosition(const MyLib::Vector3 posOld);	// 過去の位置設定
+	virtual MyLib::Vector3 GetOldPosition(void) const;			// 過去の位置取得
+	virtual void SetOriginPosition(const MyLib::Vector3 pos);	// 元の位置設定
+	virtual MyLib::Vector3 GetOriginPosition(void) const;		// 元の位置取得
+	virtual void SetMove(const MyLib::Vector3 move);			// 移動量設定
+	virtual MyLib::Vector3 GetMove(void) const;				// 移動量取得
+	virtual void SetRotation(const MyLib::Vector3 rot);		// 向き設定
+	virtual MyLib::Vector3 GetRotation(void) const;			// 向き取得
 	virtual bool Hit(const int nValue);						// 嘆きのバーチャルヒット処理
-	virtual bool Hit(const int nValue, D3DXVECTOR3 move);
+	virtual bool Hit(const int nValue, MyLib::Vector3 move);
 
 	float ScreenZ() const;
 	static bool ZSort(const CObject *obj1, const CObject *obj2);	// Zソートの比較関数
@@ -136,11 +136,11 @@ private:
 	static void DrawNone(int nPriority);	// 通常描画
 	static void DrawZSort(int nPriority);	// Zソート描画
 
-	D3DXVECTOR3 m_pos;			// 位置
-	D3DXVECTOR3 m_posOld;		// 前回の位置
-	D3DXVECTOR3 m_posOrigin;	// 元の位置
-	D3DXVECTOR3 m_rot;			// 向き
-	D3DXVECTOR3 m_move;			// 移動量
+	MyLib::Vector3 m_pos;			// 位置
+	MyLib::Vector3 m_posOld;		// 前回の位置
+	MyLib::Vector3 m_posOrigin;	// 元の位置
+	MyLib::Vector3 m_rot;			// 向き
+	MyLib::Vector3 m_move;			// 移動量
 
 	int m_nPriority;		// 優先順位
 	static int m_nNumAll;	// オブジェクトの総数

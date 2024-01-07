@@ -44,7 +44,7 @@ CTargetPoint::~CTargetPoint()
 //==========================================================================
 // 生成処理
 //==========================================================================
-CTargetPoint *CTargetPoint::Create(D3DXVECTOR3 pos, float fWidthLen, float fHeightLen)
+CTargetPoint *CTargetPoint::Create(MyLib::Vector3 pos, float fWidthLen, float fHeightLen)
 {
 	// 生成用のオブジェクト
 	CTargetPoint *pObjMeshCylinder = NULL;
@@ -150,19 +150,19 @@ void CTargetPoint::Control(void)
 {
 
 	// 位置取得
-	D3DXVECTOR3 pos = GetPosition();
+	MyLib::Vector3 pos = GetPosition();
 
 	// 移動量取得
-	D3DXVECTOR3 move = GetMove();
+	MyLib::Vector3 move = GetMove();
 
 	// 向き取得
-	D3DXVECTOR3 rot = GetRotation();
+	MyLib::Vector3 rot = GetRotation();
 
 	// カメラの情報取得
 	CCamera *pCamera = CManager::GetInstance()->GetCamera();
 
 	// カメラの向き取得
-	D3DXVECTOR3 Camerarot = pCamera->GetRotation();
+	MyLib::Vector3 Camerarot = pCamera->GetRotation();
 
 	// キーボード情報取得
 	CInputKeyboard *pInputKeyboard = CManager::GetInstance()->GetInputKeyboard();

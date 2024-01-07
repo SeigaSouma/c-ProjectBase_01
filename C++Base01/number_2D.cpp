@@ -126,7 +126,7 @@ void CNumber2D::SetType(const CObject::TYPE type)
 //==========================================================================
 // ˆÊ’uÝ’è
 //==========================================================================
-void CNumber2D::SetPosition(const D3DXVECTOR3 pos)
+void CNumber2D::SetPosition(const MyLib::Vector3 pos)
 {
 	m_aObject2D->SetPosition(pos);
 }
@@ -134,7 +134,7 @@ void CNumber2D::SetPosition(const D3DXVECTOR3 pos)
 //==========================================================================
 // ˆÊ’uŽæ“¾
 //==========================================================================
-D3DXVECTOR3 CNumber2D::GetPosition(void) const
+MyLib::Vector3 CNumber2D::GetPosition(void) const
 {
 	return m_aObject2D->GetPosition();
 }
@@ -142,7 +142,7 @@ D3DXVECTOR3 CNumber2D::GetPosition(void) const
 //==========================================================================
 // ˆÚ“®—ÊÝ’è
 //==========================================================================
-void CNumber2D::SetMove(const D3DXVECTOR3 move)
+void CNumber2D::SetMove(const MyLib::Vector3 move)
 {
 	m_aObject2D->SetMove(move);
 }
@@ -150,7 +150,7 @@ void CNumber2D::SetMove(const D3DXVECTOR3 move)
 //==========================================================================
 // ˆÚ“®—ÊŽæ“¾
 //==========================================================================
-D3DXVECTOR3 CNumber2D::GetMove(void) const
+MyLib::Vector3 CNumber2D::GetMove(void) const
 {
 	return m_aObject2D->GetMove();
 }
@@ -158,7 +158,7 @@ D3DXVECTOR3 CNumber2D::GetMove(void) const
 //==========================================================================
 // Œü‚«Ý’è
 //==========================================================================
-void CNumber2D::SetRotation(const D3DXVECTOR3 rot)
+void CNumber2D::SetRotation(const MyLib::Vector3 rot)
 {
 	m_aObject2D->SetRotation(rot);
 }
@@ -166,7 +166,7 @@ void CNumber2D::SetRotation(const D3DXVECTOR3 rot)
 //==========================================================================
 // Œü‚«Žæ“¾
 //==========================================================================
-D3DXVECTOR3 CNumber2D::GetRotation(void) const
+MyLib::Vector3 CNumber2D::GetRotation(void) const
 {
 	return m_aObject2D->GetRotation();
 }

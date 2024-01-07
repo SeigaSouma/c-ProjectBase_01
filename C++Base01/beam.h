@@ -46,7 +46,7 @@ public:
 	void Update(void) override;
 	void Draw(void) override;
 
-	static CBeam *Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 move, const D3DXCOLOR col, const float fRadius, const float fLength, const int nLife, const int nDisity, const int nDamage, CCollisionObject::eMyTag TagType, eBeamType BeamType = TYPE_NORMAL);
+	static CBeam *Create(const MyLib::Vector3 pos, const MyLib::Vector3 move, const D3DXCOLOR col, const float fRadius, const float fLength, const int nLife, const int nDisity, const int nDamage, CCollisionObject::eMyTag TagType, eBeamType BeamType = TYPE_NORMAL);
 	void SetDisableAddAlpha(void);	// â¡éZçáê¨éÊÇËè¡Çµ
 
 private:

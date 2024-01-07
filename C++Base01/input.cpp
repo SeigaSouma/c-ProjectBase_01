@@ -535,12 +535,12 @@ bool CInputGamepad::GetPressRTrigger(BUTTON nKey, int nCntPlayer)
 //==================================================================================
 //  Lスティックの移動量取得
 //==================================================================================
-D3DXVECTOR3 CInputGamepad::GetStickMoveL(int nCntPlayer)
+MyLib::Vector3 CInputGamepad::GetStickMoveL(int nCntPlayer)
 {
 
 	// Lスティックの移動量
-	D3DXVECTOR3 StickMoveL = 
-		D3DXVECTOR3(
+	MyLib::Vector3 StickMoveL = 
+		MyLib::Vector3(
 			(float)m_aGamepadState[nCntPlayer].Gamepad.sThumbLX * 0.001f,
 			(float)m_aGamepadState[nCntPlayer].Gamepad.sThumbLY * 0.001f,
 			0.0f);
@@ -551,12 +551,12 @@ D3DXVECTOR3 CInputGamepad::GetStickMoveL(int nCntPlayer)
 //==================================================================================
 //  Rスティックの移動量取得
 //==================================================================================
-D3DXVECTOR3 CInputGamepad::GetStickMoveR(int nCntPlayer)
+MyLib::Vector3 CInputGamepad::GetStickMoveR(int nCntPlayer)
 {
 
 	// Rスティックの移動量
-	D3DXVECTOR3 StickMoveR =
-		D3DXVECTOR3(
+	MyLib::Vector3 StickMoveR =
+		MyLib::Vector3(
 			(float)m_aGamepadState[nCntPlayer].Gamepad.sThumbRX * 0.001f,
 			(float)m_aGamepadState[nCntPlayer].Gamepad.sThumbRY * 0.001f,
 			0.0f);
@@ -568,11 +568,11 @@ D3DXVECTOR3 CInputGamepad::GetStickMoveR(int nCntPlayer)
 //==================================================================================
 //  Lスティックの割合取得
 //==================================================================================
-D3DXVECTOR3 CInputGamepad::GetStickPositionRatioL(int nCntPlayer)
+MyLib::Vector3 CInputGamepad::GetStickPositionRatioL(int nCntPlayer)
 {
 	// Lスティックの割合
-	D3DXVECTOR3 StickRatio = 
-		D3DXVECTOR3(
+	MyLib::Vector3 StickRatio = 
+		MyLib::Vector3(
 		(float)m_aGamepadState[nCntPlayer].Gamepad.sThumbLX / (float)SHRT_MAX,
 		(float)m_aGamepadState[nCntPlayer].Gamepad.sThumbLY / (float)SHRT_MAX,
 		0.0f);
@@ -583,11 +583,11 @@ D3DXVECTOR3 CInputGamepad::GetStickPositionRatioL(int nCntPlayer)
 //==================================================================================
 //  Rスティックの割合取得
 //==================================================================================
-D3DXVECTOR3 CInputGamepad::GetStickPositionRatioR(int nCntPlayer)
+MyLib::Vector3 CInputGamepad::GetStickPositionRatioR(int nCntPlayer)
 {
 	// Lスティックの割合
-	D3DXVECTOR3 StickRatio =
-		D3DXVECTOR3(
+	MyLib::Vector3 StickRatio =
+		MyLib::Vector3(
 		(float)m_aGamepadState[nCntPlayer].Gamepad.sThumbRX / (float)SHRT_MAX,
 			(float)m_aGamepadState[nCntPlayer].Gamepad.sThumbRY / (float)SHRT_MAX,
 			0.0f);
@@ -776,9 +776,9 @@ bool CInputMouse::GetPress(BUTTON nKey)
 //==========================================
 // マウスの移動量
 //==========================================
-D3DXVECTOR3 CInputMouse::GetMouseMove(void)
+MyLib::Vector3 CInputMouse::GetMouseMove(void)
 {
-	return D3DXVECTOR3(((float)m_MouseState.lX) * MOUSE_SENS, (-(float)m_MouseState.lY) * MOUSE_SENS, (-(float)m_MouseState.lZ) * MOUSE_SENS);
+	return MyLib::Vector3(((float)m_MouseState.lX) * MOUSE_SENS, (-(float)m_MouseState.lY) * MOUSE_SENS, (-(float)m_MouseState.lZ) * MOUSE_SENS);
 }
 
 #endif

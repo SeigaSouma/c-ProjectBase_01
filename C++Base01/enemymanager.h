@@ -30,7 +30,7 @@ public:
 	{
 		int nType;	// キャラクター種類
 		int nStartFrame;	// 初期フレーム
-		D3DXVECTOR3 pos;		// 位置
+		MyLib::Vector3 pos;		// 位置
 	};
 
 	struct Pattern
@@ -58,7 +58,7 @@ public:
 	HRESULT ReadText(const std::string pTextFile);	// 外部ファイル読み込み処理
 	void SetStageEnemy(void);	// ステージ毎の敵配置
 	void SetStageBoss(void);	// ボスステージの敵配置
-	CEnemy **SetEnemy(D3DXVECTOR3 pos, D3DXVECTOR3 rot, int nPattern);	// 敵配置
+	CEnemy **SetEnemy(MyLib::Vector3 pos, MyLib::Vector3 rot, int nPattern);	// 敵配置
 	int GetPatternNum(void);
 
 	bool IsChangeStage(void) { return m_bChangeStage; }	// ステージ変更中か

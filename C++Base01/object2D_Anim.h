@@ -29,7 +29,7 @@ public:
 
 	void SetDesableAutoDeath(void) { m_bAutoDeath = false; }	// ©“®íœ‚Ì”»’èíœ
 	bool IsFinish(void) { return m_bFinish; }					// I—¹‚Ì”»’è
-	static CObject2D_Anim *Create(D3DXVECTOR3 pos, const int nDivisionU, const int nDivisionV, const int nInterval, bool bAutoDeath = true);
+	static CObject2D_Anim *Create(MyLib::Vector3 pos, const int nDivisionU, const int nDivisionV, const int nInterval, bool bAutoDeath = true);
 	CObject2D_Anim *GetObject2DAnim(void) { return this; }
 protected:
 

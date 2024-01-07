@@ -82,7 +82,7 @@ public:
 
 protected:
 
-	bool Collision(D3DXVECTOR3 &pos, D3DXVECTOR3 &move);	// 当たり判定
+	bool Collision(MyLib::Vector3 &pos, MyLib::Vector3 &move);	// 当たり判定
 
 	void UpdateState(void);	// 状態更新処理
 	void MotionSet(void);	// モーションの設定
@@ -113,8 +113,8 @@ private:
 
 	STATE m_Oldstate;			// 前回の状態
 	D3DXCOLOR m_mMatcol;		// マテリアルの色
-	D3DXVECTOR3 m_posKnokBack;	// ノックバックの位置
-	D3DXVECTOR3 m_KnokBackMove;	// ノックバックの移動量
+	MyLib::Vector3 m_posKnokBack;	// ノックバックの位置
+	MyLib::Vector3 m_KnokBackMove;	// ノックバックの移動量
 	int m_nCntState;			// 状態遷移カウンター
 	CTargetPoint *m_pTargetP;	// 目標の地点
 };

@@ -37,7 +37,7 @@ public:
 
 private:
 
-	void Control(D3DXVECTOR3 &pos);	// 操作
+	void Control(MyLib::Vector3 &pos);	// 操作
 	void Grab(void);	// 掴み
 	void Delete(void);	// 削除
 	void ChangeType(void);
@@ -45,8 +45,8 @@ private:
 	int m_nIdxMapPoint;			// マップポイントのインデックス番号
 	float m_fPointRatio;		// 移動割合
 	float m_fMoveValue;			// 移動量
-	D3DXVECTOR3 m_pos;			// 位置
-	D3DXVECTOR3 m_rot;			// 位置
+	MyLib::Vector3 m_pos;			// 位置
+	MyLib::Vector3 m_rot;			// 位置
 	int m_nEnemyType;			// 敵の種類
 	int m_nStage;				// ステージ
 	int m_nRush;				// ラッシュ用かどうか

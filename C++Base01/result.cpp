@@ -28,7 +28,7 @@ namespace
 	const float END_LENGTH = 2000.0f; // 目標距離
 
 	//モデルの配置位置
-	const D3DXVECTOR3 CENTER = D3DXVECTOR3(0.0f, 0.0f, -2000.0f);
+	const MyLib::Vector3 CENTER = MyLib::Vector3(0.0f, 0.0f, -2000.0f);
 }
 
 //==========================================================================

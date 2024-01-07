@@ -143,7 +143,7 @@ void CNumberBillboard::SetType(const CObject::TYPE type)
 //==========================================================================
 // ˆÊ’uÝ’è
 //==========================================================================
-void CNumberBillboard::SetPosition(const D3DXVECTOR3 pos)
+void CNumberBillboard::SetPosition(const MyLib::Vector3 pos)
 {
 	m_pObjBillboard->SetPosition(pos);
 }
@@ -151,7 +151,7 @@ void CNumberBillboard::SetPosition(const D3DXVECTOR3 pos)
 //==========================================================================
 // ˆÊ’uŽæ“¾
 //==========================================================================
-D3DXVECTOR3 CNumberBillboard::GetPosition(void) const
+MyLib::Vector3 CNumberBillboard::GetPosition(void) const
 {
 	return m_pObjBillboard->GetPosition();
 }
@@ -159,7 +159,7 @@ D3DXVECTOR3 CNumberBillboard::GetPosition(void) const
 //==========================================================================
 // ˆÚ“®—ÊÝ’è
 //==========================================================================
-void CNumberBillboard::SetMove(const D3DXVECTOR3 move)
+void CNumberBillboard::SetMove(const MyLib::Vector3 move)
 {
 	m_pObjBillboard->SetMove(move);
 }
@@ -167,7 +167,7 @@ void CNumberBillboard::SetMove(const D3DXVECTOR3 move)
 //==========================================================================
 // ˆÚ“®—ÊŽæ“¾
 //==========================================================================
-D3DXVECTOR3 CNumberBillboard::GetMove(void) const
+MyLib::Vector3 CNumberBillboard::GetMove(void) const
 {
 	return m_pObjBillboard->GetMove();
 }

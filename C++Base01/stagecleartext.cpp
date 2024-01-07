@@ -61,7 +61,7 @@ CStageClearText::~CStageClearText()
 //==========================================================================
 // 生成処理
 //==========================================================================
-CStageClearText *CStageClearText::Create(const D3DXVECTOR3 pos)
+CStageClearText *CStageClearText::Create(const MyLib::Vector3 pos)
 {
 	// 生成用のオブジェクト
 	CStageClearText *pEffect = NULL;

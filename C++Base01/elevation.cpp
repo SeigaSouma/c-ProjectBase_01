@@ -61,7 +61,7 @@ CElevation::CElevation(int nPriority) : CObject3DMesh(nPriority)
 	memset(&m_VtxPos, 0, sizeof(m_VtxPos));		// 頂点座標
 
 	m_aInfo.TextureFileName = {};				// テクスチャファイル名
-	m_aInfo.pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);		// 位置
+	m_aInfo.pos = MyLib::Vector3(0.0f, 0.0f, 0.0f);		// 位置
 	m_aInfo.fWidthLength = 0.0f;				// 横長さ
 	m_aInfo.fHeightLength = 0.0f;				// 縦長さ
 	m_aInfo.nWidthBlock = 0;					// 横分割数
@@ -219,7 +219,7 @@ void CElevation::Update(void)
 		// 目標の地点生成
 		else if (m_pTargetP == NULL)
 		{
-			m_pTargetP = CTargetPoint::Create(D3DXVECTOR3(0.0f, 0.0f, 0.0f), 400.0f, 800.0f);
+			m_pTargetP = CTargetPoint::Create(MyLib::Vector3(0.0f, 0.0f, 0.0f), 400.0f, 800.0f);
 		}
 	}
 
@@ -273,15 +273,15 @@ void CElevation::Draw(void)
 //==========================================================================
 // 高さ取得
 //==========================================================================
-float CElevation::GetHeight(const D3DXVECTOR3& pos, bool *pLand)
+float CElevation::GetHeight(const MyLib::Vector3& pos, bool *pLand)
 {
 	// ベクトルと法線
-	D3DXVECTOR3 vec1, vec2, nor;
+	MyLib::Vector3 vec1, vec2, nor;
 	float fHeight = 0.0f;
-	D3DXVECTOR3 *pVtxPos = GetVtxPos();
+	MyLib::Vector3 *pVtxPos = GetVtxPos();
 
 	// フィールドの位置
-	D3DXVECTOR3 posfield = GetPosition();
+	MyLib::Vector3 posfield = GetPosition();
 
 	// 長さ取得
 	float fWidthLen = GetWidthLen();
@@ -354,15 +354,15 @@ float CElevation::GetHeight(const D3DXVECTOR3& pos, bool *pLand)
 //==========================================================================
 // 地面に当たったか
 //==========================================================================
-bool CElevation::IsHit(const D3DXVECTOR3& pos)
+bool CElevation::IsHit(const MyLib::Vector3& pos)
 {
 	bool bLand = false;
 
 	// ベクトルと法線
-	D3DXVECTOR3 vec1 = D3DXVECTOR3(0.0f, 0.0f, 0.0f), vec2 = D3DXVECTOR3(0.0f, 0.0f, 0.0f), nor = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	MyLib::Vector3 vec1 = MyLib::Vector3(0.0f, 0.0f, 0.0f), vec2 = MyLib::Vector3(0.0f, 0.0f, 0.0f), nor = MyLib::Vector3(0.0f, 0.0f, 0.0f);
 	float fHeight = pos.y;
-	D3DXVECTOR3 *pVtxPos = GetVtxPos();
-	D3DXVECTOR3 posfield = GetPosition();
+	MyLib::Vector3 *pVtxPos = GetVtxPos();
+	MyLib::Vector3 posfield = GetPosition();
 
 	// 長さ取得
 	float fWidthLen = GetWidthLen();
@@ -431,12 +431,12 @@ bool CElevation::IsHit(const D3DXVECTOR3& pos)
 //==========================================================================
 // 頂点上げ下げ
 //==========================================================================
-void CElevation::UPVtxField(D3DXVECTOR3 pos)
+void CElevation::UPVtxField(MyLib::Vector3 pos)
 {
 
 	float m_fWidthLen = GetWidthLen();
 	float m_fHeightLen = GetHeightLen();
-	D3DXVECTOR3 *pVtxPos = GetVtxPos();
+	MyLib::Vector3 *pVtxPos = GetVtxPos();
 
 	// デバッグ表示
 	CManager::GetInstance()->GetDebugProc()->Print(
@@ -523,7 +523,7 @@ void CElevation::UPVtxField(D3DXVECTOR3 pos)
 				continue;
 			}
 
-			D3DXVECTOR3 move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+			MyLib::Vector3 move = MyLib::Vector3(0.0f, 0.0f, 0.0f);
 
 			if (pInputKeyboard->GetPress(DIK_5))
 			{// 5で下げる
@@ -561,7 +561,7 @@ void CElevation::UPVtxField(D3DXVECTOR3 pos)
 		CCamera *pCamera = CManager::GetInstance()->GetCamera();
 
 		// カメラの向き取得
-		D3DXVECTOR3 Camerarot = pCamera->GetRotation();
+		MyLib::Vector3 Camerarot = pCamera->GetRotation();
 
 		if (pInputKeyboard->GetPress(DIK_LEFT) == true)
 		{// ←キーが押された,左移動
@@ -632,10 +632,10 @@ void CElevation::UPVtxField(D3DXVECTOR3 pos)
 void CElevation::SetVtx(void)
 {
 
-	D3DXVECTOR3 *pVtxPos = GetVtxPos();
-	D3DXVECTOR3 *pVtxNor = GetVtxNor();
-	D3DXVECTOR3 vec1, vec2, nor;
-	D3DXVECTOR3 VtxRight, VtxLeft, VtxNow;
+	MyLib::Vector3 *pVtxPos = GetVtxPos();
+	MyLib::Vector3 *pVtxNor = GetVtxNor();
+	MyLib::Vector3 vec1, vec2, nor;
+	MyLib::Vector3 VtxRight, VtxLeft, VtxNow;
 	float fWidthLen = GetWidthLen();
 	float fHeightLen = GetHeightLen();
 
@@ -668,7 +668,7 @@ void CElevation::SetVtx(void)
 			{// 頂点数超えたら
 
 				// 頂点座標の設定
-				VtxRight = D3DXVECTOR3(
+				VtxRight = MyLib::Vector3(
 					(fWidthLen * nCntWidth) - ((fWidthLen * m_aInfo.nWidthBlock) * 0.5f),
 					0.0f,
 					-((fHeightLen * nCntHeight) - ((fHeightLen * m_aInfo.nHeightBlock) * 0.5f)));
@@ -682,7 +682,7 @@ void CElevation::SetVtx(void)
 			{// 頂点数超えたら
 
 				// 頂点座標の設定
-				VtxLeft = D3DXVECTOR3(
+				VtxLeft = MyLib::Vector3(
 					(fWidthLen * nCntWidth) - ((fWidthLen * m_aInfo.nWidthBlock) * 0.5f),
 					0.0f,
 					-((fHeightLen * nCntHeight) - ((fHeightLen * m_aInfo.nHeightBlock) * 0.5f)));
@@ -696,7 +696,7 @@ void CElevation::SetVtx(void)
 			{// 頂点数超えたら
 
 				// 頂点座標の設定
-				VtxNow = D3DXVECTOR3(
+				VtxNow = MyLib::Vector3(
 					(fWidthLen * nCntWidth) - ((fWidthLen * m_aInfo.nWidthBlock) * 0.5f),
 					0.0f,
 					-((fHeightLen * nCntHeight) - ((fHeightLen * m_aInfo.nHeightBlock) * 0.5f)));
@@ -814,7 +814,7 @@ HRESULT CElevation::Load(const char *pText)
 					// 頂点数でメモリ確保
 					if (nCntStage == 0)
 					{
-						m_aInfo.pVtxPos = DEBUG_NEW D3DXVECTOR3[nVtxNum];
+						m_aInfo.pVtxPos = DEBUG_NEW MyLib::Vector3[nVtxNum];
 					}
 
 					// 頂点読み込み用
@@ -908,7 +908,7 @@ void CElevation::Save(void)
 		m_fWidthLen, m_fHeightLen);
 
 	// 頂点取得
-	D3DXVECTOR3 *pVtxPos = GetVtxPos();
+	MyLib::Vector3 *pVtxPos = GetVtxPos();
 
 	// 頂点情報の設定
 	for (int nCntHeight = 0; nCntHeight < m_aInfo.nHeightBlock + 1; nCntHeight++)

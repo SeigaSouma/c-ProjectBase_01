@@ -70,7 +70,7 @@ CCollisionObject *CCollisionObject::Create(void)
 //==========================================================================
 // 生成処理
 //==========================================================================
-CCollisionObject *CCollisionObject::Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 move, const float fRadius, const int nLife, const int nDamage, eMyTag tag)
+CCollisionObject *CCollisionObject::Create(const MyLib::Vector3 pos, const MyLib::Vector3 move, const float fRadius, const int nLife, const int nDamage, eMyTag tag)
 {
 	// 生成用のオブジェクト
 	CCollisionObject *pEffect = NULL;
@@ -158,10 +158,10 @@ void CCollisionObject::Update(void)
 {
 
 	// 位置取得
-	D3DXVECTOR3 pos = GetPosition();
+	MyLib::Vector3 pos = GetPosition();
 
 	// 移動量取得
-	D3DXVECTOR3 move = GetMove();
+	MyLib::Vector3 move = GetMove();
 
 	// 位置更新
 	pos += move;
@@ -207,7 +207,7 @@ void CCollisionObject::CollisionEnemy(void)
 {
 	
 	// 位置取得
-	D3DXVECTOR3 pos = GetPosition();
+	MyLib::Vector3 pos = GetPosition();
 
 	// 敵のリスト取得
 	CListManager<CEnemy> enemyList = CEnemy::GetListObj();
@@ -217,7 +217,7 @@ void CCollisionObject::CollisionEnemy(void)
 	while (enemyList.ListLoop(&pEnemy))
 	{
 		// 敵の位置取得
-		D3DXVECTOR3 TargetPos = pEnemy->GetPosition();
+		MyLib::Vector3 TargetPos = pEnemy->GetPosition();
 
 		// 判定サイズ取得
 		float fTargetRadius = pEnemy->GetRadius();
@@ -240,7 +240,7 @@ void CCollisionObject::CollisionPlayer(void)
 {
 
 	// 自分の情報取得
-	D3DXVECTOR3 pos = GetPosition();
+	MyLib::Vector3 pos = GetPosition();
 
 	// プレイヤーの取得
 	for (int nCntPlayer = 0; nCntPlayer < mylib_const::MAX_PLAYER; nCntPlayer++)
@@ -252,7 +252,7 @@ void CCollisionObject::CollisionPlayer(void)
 		}
 
 		// プレイヤー情報取得
-		D3DXVECTOR3 PlayerPos = pPlayer->GetPosition();
+		MyLib::Vector3 PlayerPos = pPlayer->GetPosition();
 		float PlayerRadius = pPlayer->GetRadius();
 		CPlayer::STATE PlayerState = pPlayer->GetState();
 

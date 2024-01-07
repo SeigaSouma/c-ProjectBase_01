@@ -23,7 +23,7 @@ CObjectHierarchy::CObjectHierarchy(int nPriority) : CObject(nPriority)
 {
 	// 値のクリア
 	D3DXMatrixIdentity(&m_mtxWorld);			// ワールドマトリックス
-	m_posOrigin = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	// 最初の位置
+	m_posOrigin = MyLib::Vector3(0.0f, 0.0f, 0.0f);	// 最初の位置
 	m_fRadius = 0.0f;			// 半径
 	m_nNumModel = 0;			// モデルの数
 	m_nIdxFile = 0;				// ファイルのインデックス番号
@@ -455,8 +455,8 @@ void CObjectHierarchy::CalWorldMtx(void)
 	D3DXMATRIX mtxRot, mtxTrans;	// 計算用マトリックス宣言
 
 	// 情報取得
-	D3DXVECTOR3 pos = GetPosition();
-	D3DXVECTOR3 rot = GetRotation();
+	MyLib::Vector3 pos = GetPosition();
+	MyLib::Vector3 rot = GetRotation();
 
 	// ワールドマトリックスの初期化
 	D3DXMatrixIdentity(&m_mtxWorld);
@@ -776,7 +776,7 @@ D3DXMATRIX CObjectHierarchy::GetmtxWorld(void) const
 //==========================================================================
 // 中心の位置取得
 //==========================================================================
-D3DXVECTOR3 CObjectHierarchy::GetCenterPosition(void) const
+MyLib::Vector3 CObjectHierarchy::GetCenterPosition(void) const
 {
 	if (m_apModel[0] == NULL)
 	{
@@ -788,7 +788,7 @@ D3DXVECTOR3 CObjectHierarchy::GetCenterPosition(void) const
 //==========================================================================
 // 位置設定
 //==========================================================================
-void CObjectHierarchy::SetOriginPosition(const D3DXVECTOR3 pos)
+void CObjectHierarchy::SetOriginPosition(const MyLib::Vector3 pos)
 {
 	m_posOrigin = pos;
 }
@@ -796,7 +796,7 @@ void CObjectHierarchy::SetOriginPosition(const D3DXVECTOR3 pos)
 //==========================================================================
 // 位置取得
 //==========================================================================
-D3DXVECTOR3 CObjectHierarchy::GetOriginPosition(void) const
+MyLib::Vector3 CObjectHierarchy::GetOriginPosition(void) const
 {
 	return m_posOrigin;
 }

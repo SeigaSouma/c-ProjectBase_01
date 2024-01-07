@@ -54,11 +54,11 @@ CMotion::CMotion()
 
 			for (int nCntParts = 0; nCntParts < MAX_PARTS; nCntParts++)
 			{
-				m_aInfo[nCntMotion].aKey[nCntKey].aParts[nCntParts].rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);		// 向き
-				m_aInfo[nCntMotion].aKey[nCntKey].aParts[nCntParts].rotDest = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	// 目標の向き
-				m_aInfo[nCntMotion].aKey[nCntKey].aParts[nCntParts].pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);		// 位置
-				m_aInfo[nCntMotion].aKey[nCntKey].aParts[nCntParts].posDest = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	// 目標の位置
-				m_aInfo[nCntMotion].aKey[nCntKey].aParts[nCntParts].posOrigin = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	// 位置の原点
+				m_aInfo[nCntMotion].aKey[nCntKey].aParts[nCntParts].rot = MyLib::Vector3(0.0f, 0.0f, 0.0f);		// 向き
+				m_aInfo[nCntMotion].aKey[nCntKey].aParts[nCntParts].rotDest = MyLib::Vector3(0.0f, 0.0f, 0.0f);	// 目標の向き
+				m_aInfo[nCntMotion].aKey[nCntKey].aParts[nCntParts].pos = MyLib::Vector3(0.0f, 0.0f, 0.0f);		// 位置
+				m_aInfo[nCntMotion].aKey[nCntKey].aParts[nCntParts].posDest = MyLib::Vector3(0.0f, 0.0f, 0.0f);	// 目標の位置
+				m_aInfo[nCntMotion].aKey[nCntKey].aParts[nCntParts].posOrigin = MyLib::Vector3(0.0f, 0.0f, 0.0f);	// 位置の原点
 			}
 		}
 
@@ -71,11 +71,11 @@ CMotion::CMotion()
 	for (int nCntParts = 0; nCntParts < MAX_PARTS; nCntParts++)
 	{
 		// 過去の情報
-		aPartsOld[nCntParts].rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);		// 向き
-		aPartsOld[nCntParts].rotDest = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	// 目標の向き
-		aPartsOld[nCntParts].pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);		// 位置
-		aPartsOld[nCntParts].posDest = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	// 目標の位置
-		aPartsOld[nCntParts].posOrigin = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	// 位置の原点
+		aPartsOld[nCntParts].rot = MyLib::Vector3(0.0f, 0.0f, 0.0f);		// 向き
+		aPartsOld[nCntParts].rotDest = MyLib::Vector3(0.0f, 0.0f, 0.0f);	// 目標の向き
+		aPartsOld[nCntParts].pos = MyLib::Vector3(0.0f, 0.0f, 0.0f);		// 位置
+		aPartsOld[nCntParts].posDest = MyLib::Vector3(0.0f, 0.0f, 0.0f);	// 目標の位置
+		aPartsOld[nCntParts].posOrigin = MyLib::Vector3(0.0f, 0.0f, 0.0f);	// 位置の原点
 	}
 
 	m_nNumAll = 0;			// モーションの総数
@@ -295,7 +295,7 @@ void CMotion::ResetPose(int nType)
 		aPartsOld[nCntParts].scale = m_aInfo[nType].aKey[0].aParts[nCntParts].scale;
 
 		// 元の位置取得
-		D3DXVECTOR3 posOrigin = m_pObjChara->GetOriginPosition();
+		MyLib::Vector3 posOrigin = m_pObjChara->GetOriginPosition();
 
 		// 位置設定
 		if (nCntParts == 0)
@@ -408,7 +408,7 @@ void CMotion::Update(float fBuff)
 		UtilFunc::Transformation::RotNormalize(rotDiffZ);
 
 		// パーツの向きを設定
-		D3DXVECTOR3 rot = mylib_const::DEFAULT_VECTOR3;
+		MyLib::Vector3 rot = mylib_const::DEFAULT_VECTOR3;
 
 		// パーツの向きを設定
 		rot.x =
@@ -457,7 +457,7 @@ void CMotion::Update(float fBuff)
 				aPartsOld[nCntParts].scale.z;
 
 			// パーツの向きを設定
-			D3DXVECTOR3 scale = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+			MyLib::Vector3 scale = MyLib::Vector3(0.0f, 0.0f, 0.0f);
 
 			// パーツの向きを設定
 			scale.x =
@@ -493,17 +493,17 @@ void CMotion::Update(float fBuff)
 		if (nCntParts == 0)
 		{
 			// 本体の位置取得
-			D3DXVECTOR3 pos = m_pObjChara->GetPosition();
+			MyLib::Vector3 pos = m_pObjChara->GetPosition();
 
 			// 本体の向き取得
-			D3DXVECTOR3 rot = m_pObjChara->GetRotation();
+			MyLib::Vector3 rot = m_pObjChara->GetRotation();
 
 			// 元の位置取得
-			D3DXVECTOR3 posOrigin = m_pObjChara->GetOriginPosition();
+			MyLib::Vector3 posOrigin = m_pObjChara->GetOriginPosition();
 
 			// パーツの位置取得
-			D3DXVECTOR3 posParts = m_ppModel[nCntModel]->GetPosition();
-			D3DXVECTOR3 posPartsOld = m_ppModel[nCntModel]->GetPosition();
+			MyLib::Vector3 posParts = m_ppModel[nCntModel]->GetPosition();
+			MyLib::Vector3 posPartsOld = m_ppModel[nCntModel]->GetPosition();
 
 			// 目標の位置との差分を求める
 			float posDiffX = m_aInfo[m_nType].aKey[nNextKey].aParts[nCntParts].pos.x -
@@ -550,10 +550,10 @@ void CMotion::Update(float fBuff)
 		else
 		{
 			// パーツの位置取得
-			D3DXVECTOR3 posParts = m_ppModel[nCntModel]->GetPosition();
+			MyLib::Vector3 posParts = m_ppModel[nCntModel]->GetPosition();
 
 			// 元の位置取得
-			D3DXVECTOR3 posOrigin = m_pObjChara->GetOriginPosition();
+			MyLib::Vector3 posOrigin = m_pObjChara->GetOriginPosition();
 
 			// 目標の位置との差分を求める
 			float posDiffX = m_aInfo[m_nType].aKey[nNextKey].aParts[nCntParts].pos.x -
@@ -817,7 +817,7 @@ CMotion::Info *CMotion::GetInfoPtr(int nType)
 //==========================================================================
 // モーション情報の登録
 //==========================================================================
-void CMotion::SetInfoSave(int nType, int nKey, int nParts, D3DXVECTOR3 rot)
+void CMotion::SetInfoSave(int nType, int nKey, int nParts, MyLib::Vector3 rot)
 {
 	m_aInfo[nType].aKey[nKey].aParts[nParts].rot = rot;
 }
@@ -903,7 +903,7 @@ bool CMotion::IsImpactFrame(AttackInfo attackInfo)
 //==========================================================================
 // 攻撃の位置取得
 //==========================================================================
-D3DXVECTOR3 CMotion::GetAttackPosition(CModel **ppModel, AttackInfo attackInfo)
+MyLib::Vector3 CMotion::GetAttackPosition(CModel **ppModel, AttackInfo attackInfo)
 {
 	D3DXMATRIX mtxTrans;	// 計算用マトリックス宣言
 
@@ -919,13 +919,13 @@ D3DXVECTOR3 CMotion::GetAttackPosition(CModel **ppModel, AttackInfo attackInfo)
 	D3DXMatrixTranslation(&mtxTrans, attackInfo.Offset.x, attackInfo.Offset.y, attackInfo.Offset.z);
 	D3DXMatrixMultiply(&mtxWepon, &mtxTrans, &mtxWepon);
 
-	return D3DXVECTOR3(mtxWepon._41, mtxWepon._42, mtxWepon._43);
+	return MyLib::Vector3(mtxWepon._41, mtxWepon._42, mtxWepon._43);
 }
 
 //==========================================================================
 // 攻撃の位置取得
 //==========================================================================
-D3DXVECTOR3 CMotion::GetAttackPosition(CModel *pModel, AttackInfo attackInfo)
+MyLib::Vector3 CMotion::GetAttackPosition(CModel *pModel, AttackInfo attackInfo)
 {
 	D3DXMATRIX mtxTrans;	// 計算用マトリックス宣言
 
@@ -941,7 +941,7 @@ D3DXVECTOR3 CMotion::GetAttackPosition(CModel *pModel, AttackInfo attackInfo)
 	D3DXMatrixTranslation(&mtxTrans, attackInfo.Offset.x, attackInfo.Offset.y, attackInfo.Offset.z);
 	D3DXMatrixMultiply(&mtxWepon, &mtxTrans, &mtxWepon);
 
-	return D3DXVECTOR3(mtxWepon._41, mtxWepon._42, mtxWepon._43);
+	return MyLib::Vector3(mtxWepon._41, mtxWepon._42, mtxWepon._43);
 }
 
 //==========================================================================

@@ -33,7 +33,7 @@ public:
 	void Kill(void);
 	void SetLife(int nLife);
 
-	static CHP_GaugeBoss *Create(D3DXVECTOR3 pos, int nMaxLife);
+	static CHP_GaugeBoss *Create(MyLib::Vector3 pos, int nMaxLife);
 private:
 
 	// —ñ‹“Œ^’è‹`

@@ -30,7 +30,7 @@ public:
 	void SetVtx(void);
 
 	static int GetNumAll(void);
-	static CEffectSlashHit *Create(const D3DXVECTOR3 pos);	// 生成処理
+	static CEffectSlashHit *Create(const MyLib::Vector3 pos);	// 生成処理
 	static void LoadTexture(void);	// テクスチャ読み込み
 private:
 

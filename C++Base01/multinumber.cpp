@@ -34,8 +34,8 @@ CMultiNumber::CMultiNumber(int nPriority)
 	m_nTexIdx = 0;			// テクスチャのインデックス番号
 	m_nPriority = 0;		// 優先順位
 	m_ppMultiNumber = NULL;	// 数字のオブジェクト
-	m_pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	// 位置
-	m_rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	// 位置
+	m_pos = MyLib::Vector3(0.0f, 0.0f, 0.0f);	// 位置
+	m_rot = MyLib::Vector3(0.0f, 0.0f, 0.0f);	// 位置
 	m_col = mylib_const::DEFAULT_COLOR;		// 色
 	m_size = D3DXVECTOR2(0.0f, 0.0f);	// 数字のサイズ
 	m_objType = CNumber::OBJECTTYPE_2D;	// オブジェクトの種類
@@ -53,7 +53,7 @@ CMultiNumber::~CMultiNumber()
 //==========================================================================
 // 生成処理
 //==========================================================================
-CMultiNumber *CMultiNumber::Create(D3DXVECTOR3 pos, D3DXVECTOR2 size, int nNum, CNumber::EObjectType objtype, bool bDigitDraw, int nPriority)
+CMultiNumber *CMultiNumber::Create(MyLib::Vector3 pos, D3DXVECTOR2 size, int nNum, CNumber::EObjectType objtype, bool bDigitDraw, int nPriority)
 {
 	// 生成用のオブジェクト
 	CMultiNumber *pNumber = NULL;
@@ -104,7 +104,7 @@ CMultiNumber *CMultiNumber::Create(D3DXVECTOR3 pos, D3DXVECTOR2 size, int nNum, 
 //==========================================================================
 // 生成処理(オーバーロード)
 //==========================================================================
-CMultiNumber *CMultiNumber::Create(D3DXVECTOR3 pos, D3DXVECTOR2 size, int nNum, CNumber::EObjectType objtype, const char *pTextureFile, bool bDigitDraw, int nPriority)
+CMultiNumber *CMultiNumber::Create(MyLib::Vector3 pos, D3DXVECTOR2 size, int nNum, CNumber::EObjectType objtype, const char *pTextureFile, bool bDigitDraw, int nPriority)
 {
 	// 生成用のオブジェクト
 	CMultiNumber *pNumber = NULL;
@@ -175,13 +175,13 @@ HRESULT CMultiNumber::Init(void)
 
 		// 各種変数の初期化
 		m_ppMultiNumber[nCntNum]->SetSize(m_size);	// サイズ
-		m_ppMultiNumber[nCntNum]->SetPosition(D3DXVECTOR3(m_pos.x + m_size.y * nCntNum, m_pos.y, m_pos.z));	// 位置
+		m_ppMultiNumber[nCntNum]->SetPosition(MyLib::Vector3(m_pos.x + m_size.y * nCntNum, m_pos.y, m_pos.z));	// 位置
 
 																											// 種類の設定
 		if (m_objType == CNumber::OBJECTTYPE_3D)
 		{
 			m_ppMultiNumber[nCntNum]->SetType(CObject::TYPE_OBJECT3D);
-			m_ppMultiNumber[nCntNum]->SetSize3D(D3DXVECTOR3(m_size.x, m_size.y, 0.0f));
+			m_ppMultiNumber[nCntNum]->SetSize3D(MyLib::Vector3(m_size.x, m_size.y, 0.0f));
 			m_ppMultiNumber[nCntNum]->SetRotation(m_rot);
 		}
 
@@ -389,7 +389,7 @@ void CMultiNumber::SetValue(void)
 //==========================================================================
 // 位置設定
 //==========================================================================
-void CMultiNumber::SetPosition(const D3DXVECTOR3 pos)
+void CMultiNumber::SetPosition(const MyLib::Vector3 pos)
 {
 	// 位置設定
 	m_pos = pos;
@@ -398,7 +398,7 @@ void CMultiNumber::SetPosition(const D3DXVECTOR3 pos)
 	{
 		if (m_ppMultiNumber[nCntNum] != NULL)
 		{
-			m_ppMultiNumber[nCntNum]->SetPosition(D3DXVECTOR3(
+			m_ppMultiNumber[nCntNum]->SetPosition(MyLib::Vector3(
 				m_pos.x + sinf(D3DX_PI / 2 + m_rot.y) * (m_size.y * nCntNum),
 				m_pos.y,
 				m_pos.z + cosf(D3DX_PI / 2 + m_rot.y) * (m_size.y * nCntNum)));	// 位置
@@ -409,7 +409,7 @@ void CMultiNumber::SetPosition(const D3DXVECTOR3 pos)
 //==========================================================================
 // 位置取得
 //==========================================================================
-D3DXVECTOR3 CMultiNumber::GetPosition(void) const
+MyLib::Vector3 CMultiNumber::GetPosition(void) const
 {
 	return m_pos;
 }
@@ -417,7 +417,7 @@ D3DXVECTOR3 CMultiNumber::GetPosition(void) const
 //==========================================================================
 // 位置設定
 //==========================================================================
-void CMultiNumber::SetOriginPosition(const D3DXVECTOR3 pos)
+void CMultiNumber::SetOriginPosition(const MyLib::Vector3 pos)
 {
 	m_posOrigin = pos;
 }
@@ -425,7 +425,7 @@ void CMultiNumber::SetOriginPosition(const D3DXVECTOR3 pos)
 //==========================================================================
 // 位置取得
 //==========================================================================
-D3DXVECTOR3 CMultiNumber::GetOriginPosition(void) const
+MyLib::Vector3 CMultiNumber::GetOriginPosition(void) const
 {
 	return m_posOrigin;
 }
@@ -433,7 +433,7 @@ D3DXVECTOR3 CMultiNumber::GetOriginPosition(void) const
 //==========================================================================
 // 向き設定
 //==========================================================================
-void CMultiNumber::SetRotation(const D3DXVECTOR3 rot)
+void CMultiNumber::SetRotation(const MyLib::Vector3 rot)
 {
 	m_rot = rot;
 	for (int nCntNum = 0; nCntNum < m_nNumNumber; nCntNum++)
@@ -448,7 +448,7 @@ void CMultiNumber::SetRotation(const D3DXVECTOR3 rot)
 //==========================================================================
 // 向き取得
 //==========================================================================
-D3DXVECTOR3 CMultiNumber::GetRotation(void) const
+MyLib::Vector3 CMultiNumber::GetRotation(void) const
 {
 	return m_rot;
 }

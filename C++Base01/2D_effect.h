@@ -47,12 +47,12 @@ public:
 	static HRESULT Load(void);
 	static void Unload(void);
 	static CEffect2D *Create(void);
-	static CEffect2D *Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 move, const D3DXCOLOR col, const float fRadius, const int nLife, const int moveType, const TYPE type);
-	static CEffect2D *Create(const D3DXVECTOR3 pos, const D3DXVECTOR3 move, const D3DXVECTOR3 rot, const D3DXCOLOR col, const float fRadius, const int nLife, const int moveType, const TYPE type);
+	static CEffect2D *Create(const MyLib::Vector3 pos, const MyLib::Vector3 move, const D3DXCOLOR col, const float fRadius, const int nLife, const int moveType, const TYPE type);
+	static CEffect2D *Create(const MyLib::Vector3 pos, const MyLib::Vector3 move, const MyLib::Vector3 rot, const D3DXCOLOR col, const float fRadius, const int nLife, const int moveType, const TYPE type);
 
 	//  オーバーライドされた関数
 	HRESULT Init(void);
-	HRESULT Init(const D3DXVECTOR3 pos, const D3DXVECTOR3 move, const D3DXCOLOR col, const float fRadius, const int nLife, const int moveType, const TYPE type);
+	HRESULT Init(const MyLib::Vector3 pos, const MyLib::Vector3 move, const D3DXCOLOR col, const float fRadius, const int nLife, const int moveType, const TYPE type);
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
