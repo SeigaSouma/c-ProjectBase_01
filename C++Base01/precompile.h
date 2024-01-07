@@ -20,6 +20,7 @@
 #include <list>
 #include <string>
 #include <iostream>
+#include <sstream>
 #include <cmath>
 #include <iterator>
 #include <codecvt>
@@ -31,8 +32,10 @@
 #include <dsound.h>						// サウンド内部処理に必要
 #include <Xinput.h>
 
+// マイライブラリ
+#include "mylib.h"
 
-
+// エフェクシア
 #ifndef _DEBUG
 #pragma comment(lib, "Effekseer.lib")
 #else

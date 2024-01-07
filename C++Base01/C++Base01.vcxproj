@@ -198,6 +198,7 @@
     <ClCompile Include="motion.cpp" />
     <ClCompile Include="multinumber.cpp" />
     <ClCompile Include="MyEffekseer.cpp" />
+    <ClCompile Include="mylib.cpp" />
     <ClCompile Include="number.cpp" />
     <ClCompile Include="number_2D.cpp" />
     <ClCompile Include="number_3D.cpp" />
@@ -297,6 +298,7 @@
     <ClInclude Include="motion.h" />
     <ClInclude Include="multinumber.h" />
     <ClInclude Include="MyEffekseer.h" />
+    <ClInclude Include="mylib.h" />
     <ClInclude Include="number.h" />
     <ClInclude Include="number_2D.h" />
     <ClInclude Include="number_3D.h" />
