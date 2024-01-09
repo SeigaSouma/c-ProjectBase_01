@@ -73,7 +73,7 @@ CTargetPoint *CTargetPoint::Create(MyLib::Vector3 pos, float fWidthLen, float fH
 			pObjMeshCylinder->SetHeightLen(fHeightLen);
 
 			// テクスチャの割り当て
-			pObjMeshCylinder->m_nTexIdx = CManager::GetInstance()->GetTexture()->Regist(TEXTURE);
+			pObjMeshCylinder->m_nTexIdx = CTexture::GetInstance()->Regist(TEXTURE);
 
 			// テクスチャの割り当て
 			pObjMeshCylinder->BindTexture(pObjMeshCylinder->m_nTexIdx);

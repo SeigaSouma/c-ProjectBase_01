@@ -192,6 +192,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR lpCmbLine
 		delete pManager;
 		pManager = NULL;
 	}
+
+	if (pMyEffekseer != nullptr)
+	{
+		pMyEffekseer->Uninit();
+		pMyEffekseer = nullptr;
+	}
 	
 
 	// •ª‰ð”\‚ð–ß‚·

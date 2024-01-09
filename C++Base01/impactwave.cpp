@@ -106,7 +106,7 @@ CImpactWave *CImpactWave::Create(MyLib::Vector3 pos, MyLib::Vector3 rot, D3DXCOL
 			pObjMeshCylinder->m_bAddBlend = bAddBlend;	// 加算合成の判定
 
 			// テクスチャの割り当て
-			pObjMeshCylinder->m_nTexIdx = CManager::GetInstance()->GetTexture()->Regist(m_apFilename[nTexType]);
+			pObjMeshCylinder->m_nTexIdx = CTexture::GetInstance()->Regist(m_apFilename[nTexType]);
 
 			// テクスチャの割り当て
 			//pObjMeshCylinder->BindTexture(pObjMeshCylinder->m_nTexIdx);

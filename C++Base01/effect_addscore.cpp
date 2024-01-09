@@ -90,7 +90,7 @@ HRESULT CEffectAddScore::Init(void)
 	m_nLife = m_nLifeMax;	// 寿命
 
 	// テクスチャの割り当て
-	m_nTexIdx = CManager::GetInstance()->GetTexture()->Regist(TEXTURE);
+	m_nTexIdx = CTexture::GetInstance()->Regist(TEXTURE);
 
 	// 種類の設定
 	CObject::SetType(TYPE_BALLAST);

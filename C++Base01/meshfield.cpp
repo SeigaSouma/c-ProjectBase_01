@@ -72,7 +72,7 @@ CMeshField *CMeshField::Create(void)
 			pObjMeshField->SetHeightLen(100.0f);
 
 			// テクスチャの割り当て
-			pObjMeshField->m_nTexIdx = CManager::GetInstance()->GetTexture()->Regist(m_apFilename[pObjMeshField->m_type]);
+			pObjMeshField->m_nTexIdx = CTexture::GetInstance()->Regist(m_apFilename[pObjMeshField->m_type]);
 
 			// テクスチャの割り当て
 			pObjMeshField->BindTexture(pObjMeshField->m_nTexIdx);
@@ -117,13 +117,13 @@ CMeshField *CMeshField::Create(MyLib::Vector3 pos, MyLib::Vector3 rot, float fWi
 			{// NULLだったら
 
 				// テクスチャの割り当て
-				pObjMeshField->m_nTexIdx = CManager::GetInstance()->GetTexture()->Regist(m_apFilename[pObjMeshField->m_type]);
+				pObjMeshField->m_nTexIdx = CTexture::GetInstance()->Regist(m_apFilename[pObjMeshField->m_type]);
 			}
 			else
 			{// ファイル名が入っていたら
 
 				// テクスチャの割り当て
-				pObjMeshField->m_nTexIdx = CManager::GetInstance()->GetTexture()->Regist(aFileName);
+				pObjMeshField->m_nTexIdx = CTexture::GetInstance()->Regist(aFileName);
 			}
 
 			// テクスチャの割り当て

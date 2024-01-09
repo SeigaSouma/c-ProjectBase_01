@@ -383,7 +383,7 @@ void CModel::Draw(void)
 		pDevice->SetMaterial(&pMat[nCntMat].MatD3D);
 
 		// テクスチャの設定
-		pDevice->SetTexture(0, CManager::GetInstance()->GetTexture()->GetAdress(m_nIdxTexture[nCntMat]));
+		pDevice->SetTexture(0, CTexture::GetInstance()->GetAdress(m_nIdxTexture[nCntMat]));
 
 		// パーツの描画
 		pXData->pMesh->DrawSubset(nCntMat);
@@ -432,7 +432,7 @@ void CModel::Draw(D3DXCOLOR col)
 		pDevice->SetMaterial(&matNow.MatD3D);
 
 		// テクスチャの設定
-		pDevice->SetTexture(0, CManager::GetInstance()->GetTexture()->GetAdress(m_nIdxTexture[nCntMat]));
+		pDevice->SetTexture(0, CTexture::GetInstance()->GetAdress(m_nIdxTexture[nCntMat]));
 
 		// パーツの描画
 		pXData->pMesh->DrawSubset(nCntMat);
@@ -491,7 +491,7 @@ void CModel::Draw(float fAlpha)
 		pDevice->SetMaterial(&matNow.MatD3D);
 
 		// テクスチャの設定
-		pDevice->SetTexture(0, CManager::GetInstance()->GetTexture()->GetAdress(m_nIdxTexture[nCntMat]));
+		pDevice->SetTexture(0, CTexture::GetInstance()->GetAdress(m_nIdxTexture[nCntMat]));
 
 		// パーツの描画
 		pXData->pMesh->DrawSubset(nCntMat);

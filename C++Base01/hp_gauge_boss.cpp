@@ -106,13 +106,13 @@ HRESULT CHP_GaugeBoss::Init(void)
 		}
 
 		// テクスチャの割り当て
-		int nTexIdx = CManager::GetInstance()->GetTexture()->Regist(TEXTURE[nCntGauge]);
+		int nTexIdx = CTexture::GetInstance()->Regist(TEXTURE[nCntGauge]);
 
 		// テクスチャの割り当て
 		m_HPGauge[nCntGauge].pObj2D->BindTexture(nTexIdx);
 
 		// サイズ
-		D3DXVECTOR2 texsize = CManager::GetInstance()->GetTexture()->GetImageSize(nTexIdx);
+		D3DXVECTOR2 texsize = CTexture::GetInstance()->GetImageSize(nTexIdx);
 		m_HPGauge[nCntGauge].pObj2D->SetSize(texsize * 0.3f);
 
 		// 各種変数の初期化

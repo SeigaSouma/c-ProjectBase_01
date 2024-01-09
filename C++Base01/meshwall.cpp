@@ -63,13 +63,13 @@ CMeshWall *CMeshWall::Create(MyLib::Vector3 pos, MyLib::Vector3 rot, float fWidt
 			{// NULLだったら
 
 				// テクスチャの割り当て
-				pObjMeshField->m_nTexIdx = CManager::GetInstance()->GetTexture()->Regist(TEXTURE_DEFAULT);
+				pObjMeshField->m_nTexIdx = CTexture::GetInstance()->Regist(TEXTURE_DEFAULT);
 			}
 			else
 			{// ファイル名が入っていたら
 
 				// テクスチャの割り当て
-				pObjMeshField->m_nTexIdx = CManager::GetInstance()->GetTexture()->Regist(aFileName);
+				pObjMeshField->m_nTexIdx = CTexture::GetInstance()->Regist(aFileName);
 			}
 
 			// テクスチャの割り当て

@@ -62,7 +62,6 @@ CMyEffekseer* CMyEffekseer::Create(void)
 //==========================================================================
 HRESULT CMyEffekseer::Init(void)
 {
-	HRESULT hr;
 	time = 0;
 	efkHandle = 0;
 
@@ -146,6 +145,9 @@ void CMyEffekseer::SetEffect(std::string efkpath, MyLib::Vector3 pos, MyLib::Vec
 void CMyEffekseer::Uninit(void)
 {
 	efkManager->StopAllEffects();
+
+	delete m_pMyEffekseer;
+	m_pMyEffekseer = nullptr;
 }
 
 //==========================================================================

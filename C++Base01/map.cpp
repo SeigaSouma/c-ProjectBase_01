@@ -441,7 +441,7 @@ HRESULT MyMap::ReadTexture(void)
 				//TextureFile.push_back(std::string());
 
 				// テクスチャの割り当て
-				CManager::GetInstance()->GetTexture()->Regist(&TextureFile[nCntTexture][0]);
+				CTexture::GetInstance()->Regist(&TextureFile[nCntTexture][0]);
 
 				nCntTexture++;	// テクスチャ数加算
 			}

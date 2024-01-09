@@ -120,13 +120,13 @@ void CResultScore::CreateToatalScore(void)
 	m_pToatalObj2D = CObject2D::Create(7);
 
 	// テクスチャの割り当て
-	m_nTexIdx = CManager::GetInstance()->GetTexture()->Regist(TEXTURE);
+	m_nTexIdx = CTexture::GetInstance()->Regist(TEXTURE);
 
 	// テクスチャの割り当て
 	m_pToatalObj2D->GetObject2D()->BindTexture(m_nTexIdx);
 
 	// 各種変数の初期化
-	m_pToatalObj2D->GetObject2D()->SetSize(CManager::GetInstance()->GetTexture()->GetImageSize(m_nTexIdx) * 0.4f);	// サイズ
+	m_pToatalObj2D->GetObject2D()->SetSize(CTexture::GetInstance()->GetImageSize(m_nTexIdx) * 0.4f);	// サイズ
 	m_pToatalObj2D->GetObject2D()->SetPosition(MyLib::Vector3(INIT_POSX, POSY, 0.0f));	// 位置
 
 	// 種類の設定

@@ -154,7 +154,7 @@ HRESULT CHP_Gauge::Init(void)
 
 
 		// テクスチャの割り当て
-		m_nTexIdx[nCntGauge] = CManager::GetInstance()->GetTexture()->Regist(m_apTextureFile[nCntGauge]);
+		m_nTexIdx[nCntGauge] = CTexture::GetInstance()->Regist(m_apTextureFile[nCntGauge]);
 
 		// テクスチャの割り当て
 		m_HPGauge[nCntGauge].pObjBillboard->BindTexture(m_nTexIdx[nCntGauge]);

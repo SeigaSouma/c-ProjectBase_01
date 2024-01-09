@@ -60,7 +60,7 @@ CMeshSphere *CMeshSphere::Create(MyLib::Vector3 pos, float fSize, const char *pF
 		{// メモリの確保が出来ていたら
 
 			// テクスチャの割り当て
-			pObjMeshField->m_nTexIdx = CManager::GetInstance()->GetTexture()->Regist(pFileName);
+			pObjMeshField->m_nTexIdx = CTexture::GetInstance()->Regist(pFileName);
 
 			// テクスチャの割り当て
 			pObjMeshField->BindTexture(pObjMeshField->m_nTexIdx);

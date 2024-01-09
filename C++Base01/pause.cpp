@@ -23,7 +23,7 @@
 //==========================================================================
 const char *CPause::m_apTextureFile[CPause::VTX_MAX] =		// テクスチャのファイル
 {
-	NULL,
+	"",
 	"data\\TEXTURE\\pause_menu.png",
 	"data\\TEXTURE\\pause_game.png",
 	"data\\TEXTURE\\pause_retry.png",
@@ -106,7 +106,7 @@ HRESULT CPause::Init(void)
 		}
 
 		// テクスチャの割り当て
-		m_nTexIdx[nCntVtx] = CManager::GetInstance()->GetTexture()->Regist(m_apTextureFile[nCntVtx]);
+		m_nTexIdx[nCntVtx] = CTexture::GetInstance()->Regist(m_apTextureFile[nCntVtx]);
 
 		// テクスチャの割り当て
 		m_aObject2D[nCntVtx]->BindTexture(m_nTexIdx[nCntVtx]);
@@ -125,7 +125,7 @@ HRESULT CPause::Init(void)
 		}
 		else
 		{// 選択肢
-			m_aObject2D[nCntVtx]->SetSize(CManager::GetInstance()->GetTexture()->GetImageSize(m_nTexIdx[nCntVtx]) * 0.45f);	// サイズ
+			m_aObject2D[nCntVtx]->SetSize(CTexture::GetInstance()->GetImageSize(m_nTexIdx[nCntVtx]) * 0.45f);	// サイズ
 			m_aObject2D[nCntVtx]->SetPosition(MyLib::Vector3(640.0f, 430.0f + ((nCntVtx - VTX_RETRY) * DIS_POSY), 0.0f));	// 位置
 			m_aObject2D[nCntVtx]->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));	// 色設定
 		}

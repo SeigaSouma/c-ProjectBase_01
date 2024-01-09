@@ -1477,7 +1477,7 @@ Mesh {
    0.000000;0.000000;0.000000;;
    0.000000;0.000000;0.000000;;
    TextureFilename {
-    "C:\\Users\\student\\Desktop\\反逆のニート\\TheWorld\\team000\\data\\TEXTURE\\bill00\\window.png";
+    "data\\TEXTURE\\bill00\\window.png";
    }
   }
   Material {
@@ -1486,7 +1486,7 @@ Mesh {
    0.000000;0.000000;0.000000;;
    0.300000;0.300000;0.300000;;
    TextureFilename {
-    "C:\\Users\\student\\Desktop\\反逆のニート\\TheWorld\\team000\\data\\TEXTURE\\bill00\\23390072.jpg";
+    "data\\TEXTURE\\bill00\\23390072.jpg";
    }
   }
   Material {
@@ -1495,7 +1495,7 @@ Mesh {
    0.000000;0.000000;0.000000;;
    0.295000;0.295000;0.295000;;
    TextureFilename {
-    "C:\\Users\\student\\Desktop\\反逆のニート\\TheWorld\\team000\\data\\TEXTURE\\bill00\\23508074.jpg";
+    "data\\TEXTURE\\bill00\\23508074.jpg";
    }
   }
   Material {
@@ -1504,7 +1504,7 @@ Mesh {
    0.000000;0.000000;0.000000;;
    0.300000;0.300000;0.300000;;
    TextureFilename {
-    "C:\\Users\\student\\Desktop\\反逆のニート\\TheWorld\\team000\\data\\TEXTURE\\bill00\\radio_02.jpeg";
+    "data\\TEXTURE\\bill00\\radio_02.jpeg";
    }
   }
   Material {
@@ -1513,7 +1513,7 @@ Mesh {
    0.000000;0.000000;0.000000;;
    0.000000;0.000000;0.000000;;
    TextureFilename {
-    "C:\\Users\\student\\Desktop\\反逆のニート\\TheWorld\\team000\\data\\TEXTURE\\bill00\\window.png";
+    "data\\TEXTURE\\bill00\\window.png";
    }
   }
   Material {
@@ -1522,7 +1522,7 @@ Mesh {
    0.000000;0.000000;0.000000;;
    0.000000;0.000000;0.000000;;
    TextureFilename {
-    "C:\\Users\\student\\Desktop\\反逆のニート\\TheWorld\\team000\\data\\TEXTURE\\bill00\\shutter.jpg";
+    "data\\TEXTURE\\bill00\\shutter.jpg";
    }
   }
  }

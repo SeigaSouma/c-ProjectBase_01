@@ -595,11 +595,11 @@ void CPlayer::Controll(void)
 	if (pInputKeyboard->GetTrigger(DIK_SPACE) == true)
 	{
 		MyLib::Vector3 weponpos = pos;
-		//weponpos.y += 150.0f;
+		weponpos.y += 150.0f;
 
 		CMyEffekseer::GetInstance()->SetEffect(
-			"data/Effekseer/LightningStrike.efkefc",
-			weponpos, rot, mylib_const::DEFAULT_VECTOR3, 20.0f);
+			"data/Effekseer/SwordLineInEffekseer1.efkefc",
+			weponpos, rot, mylib_const::DEFAULT_VECTOR3, 40.0f);
 	}
 
 	if (pInputKeyboard->GetRepeat(DIK_O, 4) == true)
@@ -612,6 +612,18 @@ void CPlayer::Controll(void)
 		CMyEffekseer::GetInstance()->SetEffect(
 			"data/Effekseer/Laser01.efkefc",
 			spawnpos, UtilFunc::Transformation::GetRandomVecSphere() * D3DX_PI, mylib_const::DEFAULT_VECTOR3, 10.0f);
+	}
+
+	static float fff = 1.0f;
+	if (pInputKeyboard->GetTrigger(DIK_UP) == true)
+	{
+		fff += 0.1f;
+		CManager::GetInstance()->GetSound()->SetFrequency(CSound::LABEL_BGM_GAME, fff);
+	}
+	if (pInputKeyboard->GetTrigger(DIK_DOWN) == true)
+	{
+		fff -= 0.1f;
+		CManager::GetInstance()->GetSound()->SetFrequency(CSound::LABEL_BGM_GAME, fff);
 	}
 
 }

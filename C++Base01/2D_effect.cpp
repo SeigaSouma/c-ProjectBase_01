@@ -180,7 +180,7 @@ HRESULT CEffect2D::Init(void)
 	for (int nCntTex = 0; nCntTex < sizeof(m_apTextureFile) / sizeof(*m_apTextureFile); nCntTex++)
 	{
 		// テクスチャの割り当て
-		m_nTexIdx[nCntTex] = CManager::GetInstance()->GetTexture()->Regist(m_apTextureFile[nCntTex]);
+		m_nTexIdx[nCntTex] = CTexture::GetInstance()->Regist(m_apTextureFile[nCntTex]);
 
 		// テクスチャの割り当て
 		BindTexture(m_nTexIdx[nCntTex]);
@@ -254,7 +254,7 @@ HRESULT CEffect2D::Init(const MyLib::Vector3 pos, const MyLib::Vector3 move, con
 	SetType(TYPE_EFFECT2D);
 
 	// テクスチャの割り当て
-	m_nTexIdx[m_nType] = CManager::GetInstance()->GetTexture()->Regist(m_apTextureFile[m_nType]);
+	m_nTexIdx[m_nType] = CTexture::GetInstance()->Regist(m_apTextureFile[m_nType]);
 
 	// テクスチャの割り当て
 	BindTexture(m_nTexIdx[m_nType]);

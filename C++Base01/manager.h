@@ -25,10 +25,10 @@ class CInputKeyboard;
 class CInputGamepad;
 class CInputMouse;
 class CSound;
+class CTexture;
 class CDebugProc;
 class CPlayer;
 class CMap;
-class CTexture;
 class CXLoad;
 class CEdit;
 class CElevation;
@@ -67,7 +67,6 @@ public:
 	CDebugProc *GetDebugProc(void);
 	CLight *GetLight(void);
 	CCamera *GetCamera(void);
-	CTexture *GetTexture(void);
 	CEdit *GetEdit(void);
 	CFade *GetFade(void);
 	CInstantFade *GetInstantFade(void);	// 遷移なしフェード取得

@@ -84,6 +84,7 @@ public:
 	void StopSound(LABEL label);
 	void VolumeChange(float fVolume);
 	int GetVolume(void);
+	void SetFrequency(LABEL label, float fValue);	// é¸îgêîê›íË
 
 private:
 	HRESULT CheckChunk(HANDLE hFile, DWORD format, DWORD *pChunkSize, DWORD *pChunkDataPosition);

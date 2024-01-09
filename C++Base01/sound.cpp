@@ -304,6 +304,9 @@ HRESULT CSound::PlaySound(LABEL label)
 	// 再生
 	m_apSourceVoice[label]->Start(0);
 
+	// 周波数リセット
+	m_apSourceVoice[label]->SetFrequencyRatio(1.0f);
+
 	return S_OK;
 }
 
@@ -324,6 +327,9 @@ void CSound::StopSound(LABEL label)
 
 		// オーディオバッファの削除
 		m_apSourceVoice[label]->FlushSourceBuffers();
+
+		// 周波数リセット
+		m_apSourceVoice[label]->SetFrequencyRatio(1.0f);
 	}
 }
 
@@ -339,6 +345,9 @@ void CSound::StopSound(void)
 		{
 			// 一時停止
 			m_apSourceVoice[nCntSound]->Stop(0);
+
+			// 周波数リセット
+			m_apSourceVoice[nCntSound]->SetFrequencyRatio(1.0f);
 		}
 	}
 }
@@ -458,4 +467,20 @@ void CSound::VolumeChange(float fVolume)
 int CSound::GetVolume(void)
 {
 	return (int)((m_fVolume + 0.009) * 100);
+}
+
+//==========================================================================
+// 周波数設定
+//==========================================================================
+void CSound::SetFrequency(LABEL label, float fValue)
+{
+	XAUDIO2_VOICE_STATE state;
+
+	// 状態取得
+	m_apSourceVoice[label]->GetState(&state);
+
+	if (state.BuffersQueued != 0)
+	{// 再生中
+		m_apSourceVoice[label]->SetFrequencyRatio(fValue);
+	}
 }

@@ -96,7 +96,7 @@ HRESULT CTutorialScreen::Init(void)
 		m_pObj2D[nCntSelect]->SetType(CObject::TYPE_OBJECT2D);
 
 		// テクスチャの割り当て
-		m_nTexIdx[nCntSelect] = CManager::GetInstance()->GetTexture()->Regist(m_apTextureFile[nCntSelect]);
+		m_nTexIdx[nCntSelect] = CTexture::GetInstance()->Regist(m_apTextureFile[nCntSelect]);
 
 		// テクスチャの割り当て
 		m_pObj2D[nCntSelect]->BindTexture(m_nTexIdx[nCntSelect]);

@@ -52,7 +52,7 @@ HRESULT CMessageLose::Init(void)
 	CObject::SetType(CObject::TYPE_OBJECT3D);
 
 	// テクスチャの割り当て
-	BindTexture(CManager::GetInstance()->GetTexture()->Regist(TEXPASS));
+	BindTexture(CTexture::GetInstance()->Regist(TEXPASS));
 
 	// ロゴの位置を設定
 	SetPosition(CManager::GetInstance()->GetCamera()->GetPositionV() + DEF_POS);

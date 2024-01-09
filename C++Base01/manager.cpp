@@ -302,31 +302,10 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	//**********************************
 	// 全てのテクスチャ読み込み
 	//**********************************
-	if (m_pTexture != NULL)
-	{// 確保されていたら
+	m_pTexture = CTexture::Create();
+	if (m_pTexture == nullptr)
+	{// 失敗していたら
 		return E_FAIL;
-	}
-
-	// メモリ確保
-	m_pTexture = DEBUG_NEW CTexture;
-
-	if (m_pTexture != NULL)
-	{// メモリの確保が出来ていたら
-
-		// 初期化処理
-		hr = m_pTexture->Load();
-		if (FAILED(hr))
-		{// 初期化処理が失敗した場合
-			return E_FAIL;
-		}
-
-		// 初期化処理
-		hr = m_pTexture->LoadAll();
-
-		if (FAILED(hr))
-		{// 初期化処理が失敗した場合
-			return E_FAIL;
-		}
 	}
 
 	//**********************************
@@ -906,14 +885,6 @@ CLight *CManager::GetLight(void)
 CCamera *CManager::GetCamera(void)
 {
 	return m_pCamera;
-}
-
-//==========================================================================
-// テクスチャの取得
-//==========================================================================
-CTexture *CManager::GetTexture(void)
-{
-	return m_pTexture;
 }
 
 //==========================================================================

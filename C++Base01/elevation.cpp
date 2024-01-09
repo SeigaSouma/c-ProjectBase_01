@@ -129,7 +129,7 @@ HRESULT CElevation::Init(const char *pText)
 	}
 
 	// テクスチャの割り当て
-	m_nTexIdx = CManager::GetInstance()->GetTexture()->Regist(m_aInfo.TextureFileName.c_str());
+	m_nTexIdx = CTexture::GetInstance()->Regist(m_aInfo.TextureFileName.c_str());
 
 	// テクスチャの割り当て
 	BindTexture(m_nTexIdx);

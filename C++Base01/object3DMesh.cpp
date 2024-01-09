@@ -150,7 +150,7 @@ CObject3DMesh *CObject3DMesh::Create(MyLib::Vector3 pos, MyLib::Vector3 rot, flo
 			// テクスチャの割り当て
 			if (pFileName != NULL)
 			{// NULLじゃなかったら
-				pObject3D->m_nTexIdx = CManager::GetInstance()->GetTexture()->Regist(pFileName);
+				pObject3D->m_nTexIdx = CTexture::GetInstance()->Regist(pFileName);
 			}
 
 			// 位置・向き
@@ -720,7 +720,7 @@ void CObject3DMesh::Draw(void)
 	pDevice->SetFVF(FVF_VERTEX_3D);
 
 	// テクスチャの設定
-	pDevice->SetTexture(0, CManager::GetInstance()->GetTexture()->GetAdress(m_nTexIdx));
+	pDevice->SetTexture(0, CTexture::GetInstance()->GetAdress(m_nTexIdx));
 
 	// ポリゴンの描画
 	pDevice->DrawIndexedPrimitive(

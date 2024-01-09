@@ -62,7 +62,7 @@ HRESULT CMessageWin::Init(void)
 	CObject::SetType(CObject::TYPE_OBJECT3D);
 
 	// テクスチャの割り当て
-	BindTexture(CManager::GetInstance()->GetTexture()->Regist(TEXPASS[m_nIdx]));
+	BindTexture(CTexture::GetInstance()->Regist(TEXPASS[m_nIdx]));
 
 	// 位置を設定
 	MyLib::Vector3 pos_Diff = DEF_POS;

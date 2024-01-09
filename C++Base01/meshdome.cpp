@@ -69,7 +69,7 @@ CMeshDome *CMeshDome::Create(void)
 			pObjMeshCylinder->SetHeightLen(POS_MESHDOME_Y);
 
 			// テクスチャの割り当て
-			pObjMeshCylinder->m_nTexIdx = CManager::GetInstance()->GetTexture()->Regist(TEXTURE);
+			pObjMeshCylinder->m_nTexIdx = CTexture::GetInstance()->Regist(TEXTURE);
 
 			// テクスチャの割り当て
 			pObjMeshCylinder->BindTexture(pObjMeshCylinder->m_nTexIdx);
@@ -119,13 +119,13 @@ CMeshDome *CMeshDome::Create(const float fMove, const char *aFileName, const int
 			{// NULLだったら
 
 				// テクスチャの割り当て
-				pObjMeshCylinder->m_nTexIdx = CManager::GetInstance()->GetTexture()->Regist(TEXTURE);
+				pObjMeshCylinder->m_nTexIdx = CTexture::GetInstance()->Regist(TEXTURE);
 			}
 			else
 			{// ファイル名が入っていたら
 
 				// テクスチャの割り当て
-				pObjMeshCylinder->m_nTexIdx = CManager::GetInstance()->GetTexture()->Regist(aFileName);
+				pObjMeshCylinder->m_nTexIdx = CTexture::GetInstance()->Regist(aFileName);
 			}
 
 			// テクスチャの割り当て

@@ -137,7 +137,7 @@ CMultiNumber *CMultiNumber::Create(MyLib::Vector3 pos, D3DXVECTOR2 size, int nNu
 			pNumber->m_nPriority = nPriority;
 
 			// テクスチャ読み込み
-			pNumber->m_nTexIdx = CManager::GetInstance()->GetTexture()->Regist(pTextureFile);
+			pNumber->m_nTexIdx = CTexture::GetInstance()->Regist(pTextureFile);
 
 			// 初期化処理
 			pNumber->Init();
@@ -165,7 +165,7 @@ HRESULT CMultiNumber::Init(void)
 	// 生成処理
 	if (m_nTexIdx == 0)
 	{
-		m_nTexIdx = CManager::GetInstance()->GetTexture()->Regist(TEXTURE);
+		m_nTexIdx = CTexture::GetInstance()->Regist(TEXTURE);
 	}
 
 	for (int nCntNum = 0; nCntNum < m_nNumNumber; nCntNum++)

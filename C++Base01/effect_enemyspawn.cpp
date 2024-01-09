@@ -51,7 +51,7 @@ CEffectEnemySpawn::~CEffectEnemySpawn()
 void CEffectEnemySpawn::LoadTexture(void)
 {
 	// テクスチャの読み込み
-	CManager::GetInstance()->GetTexture()->Regist(TEXTURE);
+	CTexture::GetInstance()->Regist(TEXTURE);
 }
 
 //==========================================================================
@@ -104,7 +104,7 @@ HRESULT CEffectEnemySpawn::Init(void)
 	// テクスチャの割り当て
 	if (m_nTexIdx == 0)
 	{
-		m_nTexIdx = CManager::GetInstance()->GetTexture()->Regist(TEXTURE);
+		m_nTexIdx = CTexture::GetInstance()->Regist(TEXTURE);
 	}
 
 	// テクスチャの割り当て

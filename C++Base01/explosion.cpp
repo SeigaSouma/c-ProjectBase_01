@@ -122,7 +122,7 @@ HRESULT CExplosion::Init(void)
 	SetColor(D3DXCOLOR(1.0f, 0.3f, 0.3f, 1.0f));
 
 	// テクスチャの割り当て
-	m_nTexIdx = CManager::GetInstance()->GetTexture()->Regist(TEXTURE);
+	m_nTexIdx = CTexture::GetInstance()->Regist(TEXTURE);
 
 	// テクスチャの割り当て
 	BindTexture(m_nTexIdx);

@@ -159,7 +159,7 @@ HRESULT CBullet::Init(void)
 	m_bAutoDeath = true;	// 自動削除にする
 
 	// テクスチャの割り当て
-	m_nTexIdx = CManager::GetInstance()->GetTexture()->Regist(m_apTextureFile[m_type]);
+	m_nTexIdx = CTexture::GetInstance()->Regist(m_apTextureFile[m_type]);
 
 	// テクスチャの割り当て
 	BindTexture(m_nTexIdx);
@@ -178,7 +178,7 @@ HRESULT CBullet::Init(void)
 	m_List.Regist(this);
 
 	// テクスチャの割り当て
-	int nTex = CManager::GetInstance()->GetTexture()->Regist("data\\TEXTURE\\effect\\effect000.jpg");
+	int nTex = CTexture::GetInstance()->Regist("data\\TEXTURE\\effect\\effect000.jpg");
 
 	return S_OK;
 }
@@ -475,7 +475,7 @@ void CBullet::SetType(TYPE type)
 	m_type = type;
 
 	// テクスチャの割り当て
-	m_nTexIdx = CManager::GetInstance()->GetTexture()->Regist(m_apTextureFile[m_type]);
+	m_nTexIdx = CTexture::GetInstance()->Regist(m_apTextureFile[m_type]);
 
 	// テクスチャの割り当て
 	BindTexture(m_nTexIdx);

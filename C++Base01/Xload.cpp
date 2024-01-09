@@ -237,7 +237,7 @@ HRESULT CXLoad::Load(const char *pFileName)
 		{// ファイルが存在する
 
 			// テクスチャの読み込み
-			m_pXFile[nIdx].nIdxTexture[nCntMat] = CManager::GetInstance()->GetTexture()->Regist(pMat[nCntMat].pTextureFilename);
+			m_pXFile[nIdx].nIdxTexture[nCntMat] = CTexture::GetInstance()->Regist(pMat[nCntMat].pTextureFilename);
 
 			if (FAILED(hr))
 			{// 失敗していたら

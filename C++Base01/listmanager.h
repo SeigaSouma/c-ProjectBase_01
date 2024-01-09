@@ -25,7 +25,7 @@ public:
 	void Regist(T* pList);				// 割り当て
 	void Delete(T* pList);				// 削除
 	bool ListLoop(T** ppList);			// リストループ処理
-	T* GetData(int nIdx) const;			// データ取得
+	T* GetData(int nIdx);			// データ取得
 	void KillAll(void);					// 全て削除
 	int GetNumAll(void);				// アイテムの総数取得
 	std::list<T*> GetList(void) const;	// アイテムのリスト取得
@@ -53,7 +53,7 @@ template<class T> CListManager<T>::CListManager()
 //==========================================================================
 template<class T> CListManager<T>::~CListManager()
 {
-
+	m_ListObj.clear();
 }
 
 //==========================================================================
@@ -84,7 +84,6 @@ template<class T> void CListManager<T>::Regist(T* pList)
 //==========================================================================
 template<class T> void CListManager<T>::Delete(T* pList)
 {
-
 	// 自分自身をリストから探す
 	Iterator itr = std::find(m_ListObj.begin(), m_ListObj.end(), pList);
 
@@ -144,7 +143,7 @@ template<class T> bool CListManager<T>::ListLoop(T** ppList)
 //==========================================================================
 // データ取得
 //==========================================================================
-template<class T> T* CListManager<T>::GetData(int nIdx) const
+template<class T> T* CListManager<T>::GetData(int nIdx)
 {
 	// インデックス分進んだ要素を渡す
 	Iterator it = m_ListObj.begin();

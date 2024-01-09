@@ -273,7 +273,7 @@ void CObject2D::Draw(void)
 	pDevice->SetFVF(FVF_VERTEX_2D);
 
 	// テクスチャの設定
-	pDevice->SetTexture(0, CManager::GetInstance()->GetTexture()->GetAdress(m_nTexIdx));
+	pDevice->SetTexture(0, CTexture::GetInstance()->GetAdress(m_nTexIdx));
 
 	// ポリゴンの描画
 	pDevice->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
@@ -294,7 +294,7 @@ void CObject2D::Draw(int nNumVertex)
 	pDevice->SetFVF(FVF_VERTEX_2D);
 
 	// テクスチャの設定
-	pDevice->SetTexture(0, CManager::GetInstance()->GetTexture()->GetAdress(m_nTexIdx));
+	pDevice->SetTexture(0, CTexture::GetInstance()->GetAdress(m_nTexIdx));
 
 	// ポリゴンの描画
 	pDevice->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 1);

@@ -122,7 +122,7 @@ HRESULT CCollisionObject::Init(void)
 #if 0
 	if (m_nIdxTex == 0)
 	{
-		m_nIdxTex = CManager::GetInstance()->GetTexture()->Regist("data\\TEXTURE\\effect\\effect000.jpg");
+		m_nIdxTex = CTexture::GetInstance()->Regist("data\\TEXTURE\\effect\\effect000.jpg");
 	}
 
 	// テクスチャの割り当て

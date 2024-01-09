@@ -174,7 +174,7 @@ HRESULT CBeam::Init(void)
 
 			if (m_nTexIdx == 0)
 			{
-				m_nTexIdx = CManager::GetInstance()->GetTexture()->Regist(TEXTURE);
+				m_nTexIdx = CTexture::GetInstance()->Regist(TEXTURE);
 			}
 			pEffect->BindTexture(m_nTexIdx);
 

@@ -46,7 +46,7 @@ CEffectStartupEye::~CEffectStartupEye()
 void CEffectStartupEye::LoadTexture(void)
 {
 	// テクスチャの読み込み
-	m_nTexIdx = CManager::GetInstance()->GetTexture()->Regist(TEXTURE);
+	m_nTexIdx = CTexture::GetInstance()->Regist(TEXTURE);
 }
 
 //==========================================================================
@@ -91,7 +91,7 @@ HRESULT CEffectStartupEye::Init(void)
 	// テクスチャの割り当て
 	if (m_nTexIdx == 0)
 	{
-		m_nTexIdx = CManager::GetInstance()->GetTexture()->Regist(TEXTURE);
+		m_nTexIdx = CTexture::GetInstance()->Regist(TEXTURE);
 	}
 
 	// テクスチャの割り当て

@@ -8,11 +8,8 @@
 #ifndef _TEXTURE_H_
 #define _TEXTURE_H_	// 二重インクルード防止
 
-#include "main.h"
-#include "object.h"
 #include "constans.h"
-
-class CObjectX;
+#include "constans.h"
 
 //==========================================================================
 // クラス定義
@@ -20,40 +17,42 @@ class CObjectX;
 //テクスチャクラス定義
 class CTexture
 {
-public:
-
-	CTexture();
-	~CTexture();
-
 private:
 	struct STexture
 	{
 		LPDIRECT3DTEXTURE9 pTexture;	// テクスチャのポインタ
 		D3DXIMAGE_INFO imageInfo;		// テクスチャ素材情報
-		char acFilename[mylib_const::MAX_STRING];	// ファイル名
+		std::string filename;			// ファイル名
 		int nFileNameLen;				// ファイル名の文字数
 	};
 
 public:
 
-	static HRESULT LoadAll(void);
+	CTexture();
+	~CTexture();
 
+	void Init(void);	// 初期化処理
 	HRESULT Load(void);
+	HRESULT LoadAll(void);
 	void Unload(void);
-	int Regist(const char *pFileName);
+	int Regist(std::string file);
 	LPDIRECT3DTEXTURE9 GetAdress(int nIdx);
 	D3DXVECTOR2 GetImageSize(int nIdx);		// テクスチャ素材のサイズ取得
 
-	static int GetNumAll(void);		// 読み込んだ総数
-	STexture GetTextureInfo(const char *pFileName);	// テクスチャ情報取得
+	int GetNumAll(void);		// 読み込んだ総数
+	STexture GetTextureInfo(std::string file);	// テクスチャ情報取得
 	STexture GetTextureInfo(int nIdxTex);	// テクスチャ情報取得
 
-
+	static CTexture* Create(void);
+	static CTexture* GetInstance(void) { return m_pTexture; }
 private:
-	HRESULT LoadTex(const char *pFileName);
 
-	static int m_nNumAll;		// 読み込んだ総数
-	STexture m_pTexInfo[mylib_const::MAX_OBJ];	// テクスチャの情報
+	// メンバ関数
+	HRESULT LoadTex(std::string file);
+
+	// メンバ変数
+	std::vector<STexture> m_TexInfo;	// テクスチャの情報
+	static CTexture* m_pTexture;	// 自身のポインタ
 };
 
 

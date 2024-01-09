@@ -37,7 +37,7 @@ const char *CEffect3D::m_apTextureFile[] =					// ファイル読み込み
 	"data\\TEXTURE\\grassblades_01.png",		// 草エフェクト
 	"data\\TEXTURE\\effect\\sweat_01.png",		// 汗エフェクト
 	"data\\TEXTURE\\effect\\thunder_02.tga",	// 雷エフェクト
-	NULL,										// NULLエフェクト
+	"",											// NULLエフェクト
 };
 int CEffect3D::m_nNumAll = 0;	// 総数
 int CEffect3D::m_nTexIdx[TYPE_MAX] = {};	// テクスチャのインデックス番号
@@ -87,7 +87,7 @@ void CEffect3D::LoadTexture(void)
 	// テクスチャの読み込み
 	for (int nCntTex = 0; nCntTex < sizeof(m_apTextureFile) / sizeof(*m_apTextureFile); nCntTex++)
 	{// テクスチャデータの配列分繰り返す
-		m_nTexIdx[nCntTex] = CManager::GetInstance()->GetTexture()->Regist(m_apTextureFile[nCntTex]);
+		m_nTexIdx[nCntTex] = CTexture::GetInstance()->Regist(m_apTextureFile[nCntTex]);
 	}
 }
 
@@ -177,7 +177,7 @@ HRESULT CEffect3D::Init(void)
 	// テクスチャの割り当て
 	//if (m_nTexIdx[m_nType] == 0)
 	//{
-	//	m_nTexIdx[m_nType] = CManager::GetInstance()->GetTexture()->Regist(m_apTextureFile[m_nType]);
+	//	m_nTexIdx[m_nType] = CTexture::GetInstance()->Regist(m_apTextureFile[m_nType]);
 	//}
 
 	//// テクスチャの割り当て
@@ -290,7 +290,7 @@ HRESULT CEffect3D::Init(const MyLib::Vector3 pos, const MyLib::Vector3 move, con
 	// テクスチャの割り当て
 	if (m_nTexIdx[m_nType] == 0)
 	{
-		m_nTexIdx[m_nType] = CManager::GetInstance()->GetTexture()->Regist(m_apTextureFile[m_nType]);
+		m_nTexIdx[m_nType] = CTexture::GetInstance()->Regist(m_apTextureFile[m_nType]);
 	}
 
 	// テクスチャの割り当て

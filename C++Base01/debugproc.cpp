@@ -246,7 +246,7 @@ void CDebugProc::SetText(void)
 
 	CManager::GetInstance()->GetDebugProc()->Print(
 		"\n"
-		"読み込んだテクスチャの総数【%d】\n", CTexture::GetNumAll());
+		"読み込んだテクスチャの総数【%d】\n", CTexture::GetInstance()->GetNumAll());
 
 	CManager::GetInstance()->GetDebugProc()->Print(
 		"読み込んだXファイルの総数【%d】\n"

@@ -104,13 +104,13 @@ HRESULT CStageClearText::Init(void)
 	SetType(TYPE_OBJECT2D);
 
 	// テクスチャの割り当て
-	m_nTexIdx = CManager::GetInstance()->GetTexture()->Regist(TEXTURE);
+	m_nTexIdx = CTexture::GetInstance()->Regist(TEXTURE);
 
 	// テクスチャの割り当て
 	BindTexture(m_nTexIdx);
 
 	// サイズ取得
-	D3DXVECTOR2 size = CManager::GetInstance()->GetTexture()->GetImageSize(m_nTexIdx) * SIZE_SCALEORIGIN;
+	D3DXVECTOR2 size = CTexture::GetInstance()->GetImageSize(m_nTexIdx) * SIZE_SCALEORIGIN;
 
 	// サイズ設定
 	SetSize(D3DXVECTOR2(0.0f, 0.0f));
@@ -174,7 +174,7 @@ void CStageClearText::StateScaleUP(void)
 {
 	// サイズ取得
 	D3DXVECTOR2 size = GetSize();
-	D3DXVECTOR2 DestImageSize = CManager::GetInstance()->GetTexture()->GetImageSize(m_nTexIdx) * SIZE_SCALEUP;
+	D3DXVECTOR2 DestImageSize = CTexture::GetInstance()->GetImageSize(m_nTexIdx) * SIZE_SCALEUP;
 
 	// 状態遷移カウンター減算
 	m_nCntState--;
@@ -200,7 +200,7 @@ void CStageClearText::StateScaleDOWN(void)
 {
 	// サイズ取得
 	D3DXVECTOR2 size = GetSize();
-	D3DXVECTOR2 ImageSize = CManager::GetInstance()->GetTexture()->GetImageSize(m_nTexIdx);
+	D3DXVECTOR2 ImageSize = CTexture::GetInstance()->GetImageSize(m_nTexIdx);
 
 	// 状態遷移カウンター減算
 	m_nCntState--;
@@ -227,7 +227,7 @@ void CStageClearText::StateScaleNone(void)
 	// サイズ取得
 	D3DXVECTOR2 size = GetSize();
 	D3DXVECTOR2 sizeOrigin = GetSizeOrigin();
-	D3DXVECTOR2 ImageSize = CManager::GetInstance()->GetTexture()->GetImageSize(m_nTexIdx);
+	D3DXVECTOR2 ImageSize = CTexture::GetInstance()->GetImageSize(m_nTexIdx);
 
 	// 状態遷移カウンター減算
 	m_nCntState--;

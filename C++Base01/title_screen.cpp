@@ -110,7 +110,7 @@ HRESULT CTitleScreen::Init(void)
 		m_pObj2D[nCntSelect]->SetType(CObject::TYPE_OBJECT2D);
 
 		// テクスチャの割り当て
-		m_nTexIdx[nCntSelect] = CManager::GetInstance()->GetTexture()->Regist(m_apTextureFile[nCntSelect]);
+		m_nTexIdx[nCntSelect] = CTexture::GetInstance()->Regist(m_apTextureFile[nCntSelect]);
 
 		// テクスチャの割り当て
 		m_pObj2D[nCntSelect]->BindTexture(m_nTexIdx[nCntSelect]);
@@ -128,14 +128,14 @@ HRESULT CTitleScreen::Init(void)
 
 		case VTX_LOGO:
 			// サイズ取得
-			size = CManager::GetInstance()->GetTexture()->GetImageSize(m_nTexIdx[nCntSelect]);
+			size = CTexture::GetInstance()->GetImageSize(m_nTexIdx[nCntSelect]);
 			m_pObj2D[nCntSelect]->SetSize(size * LOGOSIZE_MULTIPLY);	// サイズ
 			m_pObj2D[nCntSelect]->SetPosition(LOGO_POSITION);	// 位置
 			break;
 
 		case VTX_LOGOALPHA1:
 			// サイズ取得
-			size = CManager::GetInstance()->GetTexture()->GetImageSize(m_nTexIdx[nCntSelect]);
+			size = CTexture::GetInstance()->GetImageSize(m_nTexIdx[nCntSelect]);
 			m_pObj2D[nCntSelect]->SetSize(size * LOGOSIZE_MULTIPLY);	// サイズ
 			m_pObj2D[nCntSelect]->SetPosition(LOGO_POSITION);	// 位置
 			m_pObj2D[nCntSelect]->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f));	// 色
@@ -143,7 +143,7 @@ HRESULT CTitleScreen::Init(void)
 
 		case VTX_LOGOALPHA2:
 			// サイズ取得
-			size = CManager::GetInstance()->GetTexture()->GetImageSize(m_nTexIdx[nCntSelect]);
+			size = CTexture::GetInstance()->GetImageSize(m_nTexIdx[nCntSelect]);
 			m_pObj2D[nCntSelect]->SetSize(size * LOGOSIZE_MULTIPLY);	// サイズ
 			m_pObj2D[nCntSelect]->SetPosition(LOGO_POSITION);	// 位置
 			m_pObj2D[nCntSelect]->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f));	// 色
@@ -151,7 +151,7 @@ HRESULT CTitleScreen::Init(void)
 
 		case VTX_LOGOPERFECT:
 			// サイズ取得
-			size = CManager::GetInstance()->GetTexture()->GetImageSize(m_nTexIdx[nCntSelect]);
+			size = CTexture::GetInstance()->GetImageSize(m_nTexIdx[nCntSelect]);
 			m_pObj2D[nCntSelect]->SetSize(size * LOGOSIZE_MULTIPLY);	// サイズ
 			m_pObj2D[nCntSelect]->SetPosition(LOGO_POSITION);	// 位置
 			m_pObj2D[nCntSelect]->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f));	// 色
@@ -159,7 +159,7 @@ HRESULT CTitleScreen::Init(void)
 
 		case VTX_LOGOPERFECTALPHA:
 			// サイズ取得
-			size = CManager::GetInstance()->GetTexture()->GetImageSize(m_nTexIdx[nCntSelect]);
+			size = CTexture::GetInstance()->GetImageSize(m_nTexIdx[nCntSelect]);
 			m_pObj2D[nCntSelect]->SetSize(size * LOGOSIZE_MULTIPLY);	// サイズ
 			m_pObj2D[nCntSelect]->SetPosition(LOGO_POSITION);	// 位置
 			m_pObj2D[nCntSelect]->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f));	// 色
@@ -176,7 +176,7 @@ HRESULT CTitleScreen::Init(void)
 		m_pSelect2D[nCntSelect]->SetType(CObject::TYPE_OBJECT2D);
 
 		// テクスチャの割り当て
-		m_nTexIdx_Select[nCntSelect] = CManager::GetInstance()->GetTexture()->Regist(m_apTextureFile_Select[nCntSelect]);
+		m_nTexIdx_Select[nCntSelect] = CTexture::GetInstance()->Regist(m_apTextureFile_Select[nCntSelect]);
 
 		// テクスチャの割り当て
 		m_pSelect2D[nCntSelect]->BindTexture(m_nTexIdx_Select[nCntSelect]);
@@ -188,7 +188,7 @@ HRESULT CTitleScreen::Init(void)
 		case VTXSELECT_SELECTSTART:
 
 			// サイズ取得
-			size = CManager::GetInstance()->GetTexture()->GetImageSize(m_nTexIdx_Select[nCntSelect]);
+			size = CTexture::GetInstance()->GetImageSize(m_nTexIdx_Select[nCntSelect]);
 			m_pSelect2D[nCntSelect]->SetSize(D3DXVECTOR2(size.x * 0.4f, size.y * 0.4f));	// サイズ
 			m_pSelect2D[nCntSelect]->SetPosition(MyLib::Vector3(640.0f, 550.0f, 0.0f));	// 位置
 			break;
@@ -289,7 +289,7 @@ void CTitleScreen::UpdateSlash()
 		if (m_nCntLogo == SLASH_TIME)
 		{
 			// テクスチャ情報取得
-			CTexture *pTexture = CManager::GetInstance()->GetTexture();
+			CTexture *pTexture = CTexture::GetInstance();
 			int nTex = pTexture->Regist("data\\TEXTURE\\title_slash.png");
 
 			for (int nCntSelect = 0; nCntSelect < VTX_LOGO_MAX; nCntSelect++)
@@ -353,7 +353,7 @@ void CTitleScreen::UpdateSlash()
 			{
 				// 差分
 				int nCntTime = m_nCntLogo - SLASH_TIME;
-				D3DXVECTOR2 DestSize = CManager::GetInstance()->GetTexture()->GetImageSize(m_nTexIdx[nCntSelect]) * 1.2f;
+				D3DXVECTOR2 DestSize = CTexture::GetInstance()->GetImageSize(m_nTexIdx[nCntSelect]) * 1.2f;
 
 				size += (DestSize - size) * 0.1f;
 
