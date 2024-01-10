@@ -58,12 +58,8 @@ namespace
 	const float MAX_BALL_SIZE = 40.0f;	// 雪玉の最大サイズ
 	const float SPEED_GRAW_BALL = 1.1f;	// 雪玉の成長速度
 	const float LINE_ICE = 30.0f;	// 氷球になるライン
-	const float RADIUS_STAGE = 1000.0f;	// ステージの半径
+	const float RADIUS_STAGE = 5000.0f;	// ステージの半径
 }
-
-//==========================================================================
-// 静的メンバ変数宣言
-//==========================================================================
 
 //==========================================================================
 // コンストラクタ
@@ -95,6 +91,7 @@ CPlayer::CPlayer(int nPriority) : CObjectChara(nPriority)
 	m_nMyPlayerIdx = 0;								// プレイヤーインデックス番号
 	m_pShadow = NULL;								// 影の情報
 	m_pTargetP = NULL;								// 目標の地点
+	WeaponHandle = 0;	// エフェクトの武器ハンドル
 }
 
 //==========================================================================
@@ -159,6 +156,7 @@ HRESULT CPlayer::Init(void)
 
 	// 影の生成
 	//m_pShadow = CShadow::Create(pos, 50.0f);
+	m_pObjX = CObjectX::Create("data\\MODEL\\aaaa.x");
 
 	return S_OK;
 }
@@ -587,9 +585,19 @@ void CPlayer::Controll(void)
 	// 移動量設定
 	SetMove(move);
 
-	if (pInputKeyboard->GetPress(DIK_RETURN) == true)
+	if (pInputKeyboard->GetTrigger(DIK_RETURN) == true)
 	{
 		m_sMotionFrag.bATK = true;		// 攻撃判定OFF
+
+		MyLib::Vector3 weponpos = pos;
+
+		WeaponHandle = CMyEffekseer::GetInstance()->SetEffect(
+			"data/Effekseer/debugline_green.efkefc",
+			weponpos, rot, 0.0f, 40.0f);
+
+		// デバッグ表示
+		CManager::GetInstance()->GetDebugProc()->Print(
+			"わああああああああああああああああああああああああああああああああああああああああああああ\n");
 	}
 
 	if (pInputKeyboard->GetTrigger(DIK_SPACE) == true)
@@ -597,9 +605,9 @@ void CPlayer::Controll(void)
 		MyLib::Vector3 weponpos = pos;
 		weponpos.y += 150.0f;
 
-		CMyEffekseer::GetInstance()->SetEffect(
-			"data/Effekseer/SwordLineInEffekseer1.efkefc",
-			weponpos, rot, mylib_const::DEFAULT_VECTOR3, 40.0f);
+		WeaponHandle = CMyEffekseer::GetInstance()->SetEffect(
+			"data/Effekseer/MyLine.efkefc",
+			weponpos, rot, 0.0f, 40.0f);
 	}
 
 	if (pInputKeyboard->GetRepeat(DIK_O, 4) == true)
@@ -626,6 +634,148 @@ void CPlayer::Controll(void)
 		CManager::GetInstance()->GetSound()->SetFrequency(CSound::LABEL_BGM_GAME, fff);
 	}
 
+	if (CMyEffekseer::GetInstance()->IsDeath(WeaponHandle))
+	{
+		WeaponHandle = CMyEffekseer::GetInstance()->SetEffect(
+			"data/Effekseer/debugline_green.efkefc",
+			pos, rot, 0.0f, 40.0f);
+	}
+
+	//if (WeaponHandle != 0)
+	{
+
+		// 武器の位置
+		MyLib::Vector3 weponpos = UtilFunc::Transformation::WorldMtxChangeToPosition(GetModel()[16]->GetWorldMtx());
+
+		// 武器のマトリックス取得
+		D3DXMATRIX weaponWorldMatrix = GetModel()[16]->GetWorldMtx();
+
+		// 武器の方向ベクトル
+		MyLib::Vector3 weaponDirection(weaponWorldMatrix._31, weaponWorldMatrix._32, weaponWorldMatrix._33);
+
+		// 軌跡のマトリックス取得
+		Effekseer::Matrix43 efcmtx;
+		efcmtx = CMyEffekseer::GetInstance()->GetMatrix(WeaponHandle);
+
+		// 4x3行列に向きを設定
+		efcmtx.Value[2][0] = weaponDirection.x;
+		efcmtx.Value[2][1] = weaponDirection.y;
+		efcmtx.Value[2][2] = weaponDirection.z;
+
+		//// オイラー角の計算
+		//float pitch = atan2f(-weaponDirection.y, sqrtf(weaponDirection.x * weaponDirection.x + weaponDirection.z * weaponDirection.z));
+		//float yaw = atan2f(weaponDirection.x, weaponDirection.z);
+
+		//// オイラー角からマトリックス生成
+		//D3DXMATRIX rotationMatrix;
+		//D3DXMatrixRotationYawPitchRoll(&rotationMatrix, yaw, pitch, 0.0f);
+
+		//// 4x3行列に向きを設定
+		//efcmtx.Value[2][0] = weaponDirection.x;
+		//efcmtx.Value[2][1] = weaponDirection.y;
+		//efcmtx.Value[2][2] = weaponDirection.z;
+
+		CMyEffekseer::GetInstance()->SetMatrix(WeaponHandle, efcmtx);
+
+
+
+
+		// 軌跡のマトリックス設定
+		//CMyEffekseer::GetInstance()->SetMatrix(WeaponHandle, efcmtx);
+		CMyEffekseer::GetInstance()->SetPosition(WeaponHandle, weponpos);
+
+		// デバッグ表示
+		CManager::GetInstance()->GetDebugProc()->Print(
+			"武器！！！！！[%f][%f][%f]", weaponDirection.x, weaponDirection.y, weaponDirection.z);
+
+
+
+		////CMyEffekseer::GetInstance()->SetMatrix(WeaponHandle, GetModel()[ATKInfo.nCollisionNum]->GetWorldMtx());
+
+		//CMyEffekseer::GetInstance()->SetRotation(WeaponHandle, UtilFunc::Transformation::WorldMtxChangeToRotation(GetModel()[ATKInfo.nCollisionNum]->GetWorldMtx()).Invert());
+
+
+
+
+
+
+
+		//MyLib::Vector3 weaponTip = {0.0f, 50.0f, 0.0f};
+		//D3DXMATRIX mtxRot, mtxTrans, mtxScale, mtxRotOrigin;	// 計算用マトリックス宣言
+		//D3DXMATRIX mtxnParent;			// 親のマトリックス
+		//D3DXMATRIX m_mtxWorld;			// 親のマトリックス
+
+		//bool bScale = false;
+
+		//// 親マトリックスの初期化
+		//D3DXMatrixIdentity(&mtxRotOrigin);
+		//D3DXMatrixIdentity(&mtxnParent);
+
+		//// ワールドマトリックスの初期化
+		//D3DXMatrixIdentity(&m_mtxWorld);
+
+		//// 位置を反映する
+		//D3DXMatrixTranslation(&mtxTrans, weaponTip.x, weaponTip.y, weaponTip.z);
+		//D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxTrans);
+
+		//// 親のマトリックスを渡す
+		//mtxnParent = GetModel()[ATKInfo.nCollisionNum]->GetParent()->GetWorldMtx();
+
+		//// 自分に親のワールドマトリックスを掛ける
+		//D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxnParent);
+
+		//weaponTip = UtilFunc::Transformation::WorldMtxChangeToPosition(m_mtxWorld);
+
+		//weaponDirection = weaponTip - UtilFunc::Transformation::WorldMtxChangeToPosition(GetModel()[ATKInfo.nCollisionNum]->GetWorldMtx());
+		//D3DXVec3Normalize(&weaponDirection, &weaponDirection);
+
+		//// 向きベクトルの成分を取得
+		//float rotX = atan2(weaponDirection.y, sqrt(weaponDirection.x * weaponDirection.x + weaponDirection.z * weaponDirection.z));
+		//float rotY = atan2(weaponDirection.x, weaponDirection.z);
+		//float rotZ = 0.0f;  // この成分は必要に応じて設定
+
+		// 向きをエフェクトに設定
+		//CMyEffekseer::GetInstance()->SetRotation(WeaponHandle, MyLib::Vector3(weaponDirection .x, weaponDirection .y, weaponDirection .z) * D3DX_PI + MyLib::Vector3(D3DX_PI, 0.0f, D3DX_PI));
+		//CMyEffekseer::GetInstance()->SetTransform(WeaponHandle, weponpos, { rotX, rotY, rotZ });
+
+
+
+		// 各成分に対して atan2 を適用して、オイラー角を取得
+		/*float pitch = atan2(weaponDirection.y, sqrt(weaponDirection.x * weaponDirection.x + weaponDirection.z * weaponDirection.z));
+		float yaw = atan2(weaponDirection.x, weaponDirection.z);*/
+
+
+		//// ラジアンに変換して Vector3 に設定
+		//MyLib::Vector3 eulerRotation(pitch, yaw, 0.0f);
+		//m_pObjX->SetRotation(eulerRotation);
+
+
+
+
+		//// オイラー角の計算
+		float pitch = atan2f(-weaponDirection.y, sqrtf(weaponDirection.x * weaponDirection.x + weaponDirection.z * weaponDirection.z));
+		float yaw = atan2f(-weaponDirection.x, -weaponDirection.z);
+
+
+
+
+
+		// 各成分に対して atan2 を適用して、オイラー角を取得
+		/*float pitch = atan2(-weaponDirection.y, sqrt(weaponDirection.x * weaponDirection.x + weaponDirection.z * weaponDirection.z));
+		float yaw = atan2(weaponDirection.x, weaponDirection.z);*/
+
+
+		// オイラー角をセット
+		m_pObjX->SetRotation({ pitch, yaw, 0.0f });
+
+
+		// デバッグ表示
+		CManager::GetInstance()->GetDebugProc()->Print(
+			"\n向き！！！！！[%f][%f][%f]", pitch, yaw, 0.0f);
+
+		//m_pObjX->SetRotation(weaponDirection * D3DX_PI);
+		m_pObjX->SetPosition(weponpos);
+	}
 }
 
 //==========================================================================
@@ -711,7 +861,87 @@ void CPlayer::AttackInDicision(CMotion::AttackInfo ATKInfo, int nCntATK)
 	switch (pMotion->GetType())
 	{
 	case MOTION_ATK:
-		
+#if 0
+		if (WeaponHandle != 0)
+		{
+
+
+			// 武器のマトリックス取得
+			D3DXMATRIX weaponWorldMatrix = GetModel()[ATKInfo.nCollisionNum]->GetWorldMtx();
+
+			// 武器の方向ベクトル
+			MyLib::Vector3 weaponDirection(weaponWorldMatrix._31, weaponWorldMatrix._32, weaponWorldMatrix._33);
+
+			// 軌跡のマトリックス取得
+			Effekseer::Matrix43 efcmtx;
+			efcmtx = CMyEffekseer::GetInstance()->GetMatrix(WeaponHandle);
+
+			// 4x3行列に向きを設定
+			efcmtx.Value[2][0] = weaponDirection.x;
+			efcmtx.Value[2][1] = weaponDirection.y;
+			efcmtx.Value[2][2] = weaponDirection.z;
+
+			// 軌跡のマトリックス設定
+			//CMyEffekseer::GetInstance()->SetMatrix(WeaponHandle, efcmtx);
+			CMyEffekseer::GetInstance()->SetPosition(WeaponHandle, weponpos);
+
+			// デバッグ表示
+			CManager::GetInstance()->GetDebugProc()->Print(
+				"武器！！！！！[%f][%f][%f]", weaponDirection.x, weaponDirection.y, weaponDirection.z);
+
+
+
+			////CMyEffekseer::GetInstance()->SetMatrix(WeaponHandle, GetModel()[ATKInfo.nCollisionNum]->GetWorldMtx());
+
+			//CMyEffekseer::GetInstance()->SetRotation(WeaponHandle, UtilFunc::Transformation::WorldMtxChangeToRotation(GetModel()[ATKInfo.nCollisionNum]->GetWorldMtx()).Invert());
+
+			//m_pObjX->SetPosition(weponpos);
+			//m_pObjX->SetRotation(UtilFunc::Transformation::WorldMtxChangeToRotation(GetModel()[ATKInfo.nCollisionNum]->GetWorldMtx()));
+
+
+
+			
+
+
+			//MyLib::Vector3 weaponTip = {0.0f, 50.0f, 0.0f};
+			//D3DXMATRIX mtxRot, mtxTrans, mtxScale, mtxRotOrigin;	// 計算用マトリックス宣言
+			//D3DXMATRIX mtxnParent;			// 親のマトリックス
+			//D3DXMATRIX m_mtxWorld;			// 親のマトリックス
+
+			//bool bScale = false;
+
+			//// 親マトリックスの初期化
+			//D3DXMatrixIdentity(&mtxRotOrigin);
+			//D3DXMatrixIdentity(&mtxnParent);
+
+			//// ワールドマトリックスの初期化
+			//D3DXMatrixIdentity(&m_mtxWorld);
+
+			//// 位置を反映する
+			//D3DXMatrixTranslation(&mtxTrans, weaponTip.x, weaponTip.y, weaponTip.z);
+			//D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxTrans);
+
+			//// 親のマトリックスを渡す
+			//mtxnParent = GetModel()[ATKInfo.nCollisionNum]->GetParent()->GetWorldMtx();
+
+			//// 自分に親のワールドマトリックスを掛ける
+			//D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxnParent);
+
+			//weaponTip = UtilFunc::Transformation::WorldMtxChangeToPosition(m_mtxWorld);
+
+			//weaponDirection = weaponTip - UtilFunc::Transformation::WorldMtxChangeToPosition(GetModel()[ATKInfo.nCollisionNum]->GetWorldMtx());
+			//D3DXVec3Normalize(&weaponDirection, &weaponDirection);
+
+			//// 向きベクトルの成分を取得
+			//float rotX = atan2(weaponDirection.y, sqrt(weaponDirection.x * weaponDirection.x + weaponDirection.z * weaponDirection.z));
+			//float rotY = atan2(weaponDirection.x, weaponDirection.z);
+			//float rotZ = 0.0f;  // この成分は必要に応じて設定
+
+			// 向きをエフェクトに設定
+			CMyEffekseer::GetInstance()->SetRotation(WeaponHandle, (weaponDirection.Invert() + D3DX_PI) * D3DX_PI);
+			//CMyEffekseer::GetInstance()->SetTransform(WeaponHandle, weponpos, { rotX, rotY, rotZ });
+		}
+#endif
 		break;
 	}
 

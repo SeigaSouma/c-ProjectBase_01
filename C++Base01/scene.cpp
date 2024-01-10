@@ -110,13 +110,11 @@ HRESULT CScene::Init(void)
 	}
 
 	// メモリ確保
-	m_pXLoad = DEBUG_NEW CXLoad;
-
+	m_pXLoad = CXLoad::Create();
 	if (m_pXLoad == NULL)
 	{// メモリの確保が出来ていなかったら
 		return E_FAIL;
 	}
-	m_pXLoad->Init();
 
 	//**********************************
 	// マップの生成

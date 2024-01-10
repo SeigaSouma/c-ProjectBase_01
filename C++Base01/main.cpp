@@ -24,7 +24,6 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 // グローバル変数宣言
 //==========================================================================
 int g_nCountFPS;
-CMyEffekseer* pMyEffekseer = nullptr;
 
 //==========================================================================
 // メイン関数
@@ -105,8 +104,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR lpCmbLine
 		}
 	}
 
-	pMyEffekseer = CMyEffekseer::Create();
-
 	g_nCountFPS = 0;
 
 	// 分解能を設定
@@ -169,11 +166,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR lpCmbLine
 					// 描画処理
 					pManager->Draw();
 				}
-
-				if (pMyEffekseer != nullptr)
-				{
-					//pMyEffekseer->Update();
-				}
 				
 
 				// フレームカウントを加算
@@ -191,12 +183,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR lpCmbLine
 		// メモリの開放
 		delete pManager;
 		pManager = NULL;
-	}
-
-	if (pMyEffekseer != nullptr)
-	{
-		pMyEffekseer->Uninit();
-		pMyEffekseer = nullptr;
 	}
 	
 
@@ -273,9 +259,4 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 int GetFPS(void)
 {
 	return g_nCountFPS;
-}
-
-CMyEffekseer* GetEffekseer(void)
-{
-	return pMyEffekseer;
 }

@@ -198,9 +198,8 @@ HRESULT CTexture::LoadTex(std::string file)
 		&m_TexInfo[nIdx].pTexture);
 
 	if (hr == D3DXERR_INVALIDDATA)
-	{// ¸”s‚µ‚½‚Æ‚«
-
-		// Š„‚è“–‚Ä
+	{
+		// —v‘fíœ
 		m_TexInfo.erase(m_TexInfo.end() - 1);
 		return E_FAIL;
 	}

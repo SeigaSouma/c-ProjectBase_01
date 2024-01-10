@@ -1385,6 +1385,21 @@ namespace UtilFunc	// 便利関数
 			rot.x = atan2f(worldmtx._32, worldmtx._33);
 			rot.y = atan2f(-worldmtx._31, sqrtf(worldmtx._32 * worldmtx._32 + worldmtx._33 * worldmtx._33));
 			rot.z = atan2f(worldmtx._21, worldmtx._11);
+
+			// XYZ 順序 (ロール → ピッチ → ヨー)
+			/*rot.x = atan2f(-worldmtx._23, worldmtx._22);
+			rot.y = asinf(worldmtx._21);
+			rot.z = atan2f(-worldmtx._12, worldmtx._11);*/
+
+			// ZYX 順序 (ヨー → ピッチ → ロール)
+			// rot.z = atan2f(worldmtx._21, worldmtx._11);
+			// rot.y = asinf(-worldmtx._31);
+			// rot.x = atan2f(worldmtx._32, worldmtx._33);
+
+			// ZYZ 順序 (ヨー → ピッチ → ヨー)
+			// rot.z = atan2f(worldmtx._32, worldmtx._31);
+			// rot.y = acosf(worldmtx._33);
+			// rot.z = atan2f(worldmtx._23, -worldmtx._13);
 			return rot;
 		}
 

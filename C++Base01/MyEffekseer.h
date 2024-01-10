@@ -25,8 +25,17 @@ public:
 	
 	struct MyEffekseerInfo
 	{
-		MyLib::Vector3 move;	// 移動量
+
+		MyLib::Vector3 pos;
+		MyLib::Vector3 rot;
+		float scale;
+		MyLib::Vector3 move;		// 移動量
+		Effekseer::EffectRef efcRef;
+
+
+
 		Effekseer::Handle handle;	// エフェクトのオブジェクト
+		bool bAutoDeath;			// 自動削除のフラグ
 	};
 
 	template <typename T>
@@ -41,14 +50,22 @@ public:
 	/**
 	@brief	エフェクトの設定
 	@details パスの拡張子は[.efkefc]です
-	@param	efkpath	[in]	読み込むエフェクトのパス
-	@param	pos		[in]	位置
-	@param	rot		[in]	向き
-	@param	move	[in]	移動量
-	@param	scale	[in]	拡大率
-	@return	void
+	@param	efkpath		[in]	読み込むエフェクトのパス
+	@param	pos			[in]	位置
+	@param	rot			[in]	向き
+	@param	move		[in]	移動量
+	@param	scale		[in]	拡大率
+	@param	bAutoDeath	[in]	自動削除
+	@return	Effekseer::Handle
 	*/
-	void SetEffect(std::string efkpath, MyLib::Vector3 pos, MyLib::Vector3 rot, MyLib::Vector3 move, float scale);
+	Effekseer::Handle SetEffect(std::string efkpath, MyLib::Vector3 pos, MyLib::Vector3 rot, MyLib::Vector3 move, float scale, bool bAutoDeath = true);
+	void SetPosition(Effekseer::Handle handle, MyLib::Vector3 pos);	// 位置設定
+	void SetRotation(Effekseer::Handle handle, MyLib::Vector3 rot);	// 向き設定
+	void SetMatrix(Effekseer::Handle handle, Effekseer::Matrix43 mtx);	// マトリックス設定
+	Effekseer::Matrix43 GetMatrix(Effekseer::Handle handle);	// マトリックス取得
+	void SetTransform(Effekseer::Handle handle, MyLib::Vector3 pos, MyLib::Vector3 rot);	// マトリックス設定
+	bool IsDeath(Effekseer::Handle handle);
+
 	static CMyEffekseer* GetInstance() { return m_pMyEffekseer; }	// インスタンス取得
 	static CMyEffekseer* Create(void);								// インスタンス生成
 

@@ -54,6 +54,7 @@ public:
 	MyLib::Vector3 GetVtxMax(void) const;			// 頂点の最大値取得
 	MyLib::Vector3 GetVtxMin(void) const;			// 頂点の最小値取得
 	void SetParent(CModel *pModel);				// 親のポインタ設定
+	CModel* GetParent(){ return m_pParent; }		// 親のポインタ取得
 
 	static CModel *Create(const char *pFileName, MyLib::Vector3 pos = MyLib::Vector3(0.0f, 0.0f, 0.0f), MyLib::Vector3 rot = MyLib::Vector3(0.0f, 0.0f, 0.0f));
 

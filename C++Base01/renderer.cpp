@@ -191,7 +191,11 @@ void CRenderer::Draw(void)
 		CObject::DrawAll();
 
 		// エフェクシアの更新兼描画
-		GetEffekseer()->Update();
+		CMyEffekseer* pEffekseer = CMyEffekseer::GetInstance();
+		if (pEffekseer != NULL)
+		{
+			pEffekseer->Update();
+		}
 
 		// カメラの設定
 		CManager::GetInstance()->GetCamera()->SetCamera();

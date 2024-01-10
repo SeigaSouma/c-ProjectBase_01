@@ -26,10 +26,7 @@
 #include "edit.h"
 #include "resultmanager.h"
 #include "rankingmanager.h"
-
-//==========================================================================
-// マクロ定義
-//==========================================================================
+#include "MyEffekseer.h"
 
 //==========================================================================
 // 静的メンバ変数宣言
@@ -58,6 +55,7 @@ CManager::CManager()
 	m_pPause = NULL;				// ポーズのオブジェクト
 	m_pResultManager = NULL;		// リザルトマネージャのオブジェクト
 	m_pRankingManager = NULL;		// ランキングマネージャのオブジェクト
+	m_pMyEffekseer = nullptr;		// エフェクシアのオブジェクト
 	m_bWireframe = false;			// ワイヤーフレーム
 	m_bHitStop = false;				// ヒットストップの判定
 	m_nCntHitStop = 0;				// ヒットストップのカウンター
@@ -298,6 +296,14 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 		}
 	}
 
+	//**********************************
+	// エフェクシア
+	//**********************************
+	m_pMyEffekseer = CMyEffekseer::Create();
+	if (m_pMyEffekseer == nullptr)
+	{
+		return E_FAIL;
+	}
 
 	//**********************************
 	// 全てのテクスチャ読み込み
@@ -534,6 +540,13 @@ void CManager::Uninit(void)
 		m_pCamera = NULL;
 	}
 
+	if (m_pMyEffekseer != nullptr)
+	{
+		// 終了処理
+		m_pMyEffekseer->Uninit();
+		m_pMyEffekseer = nullptr;
+	}
+
 	// サウンドの破棄
 	if (m_pSound != NULL)
 	{// メモリの確保が出来ていたら
@@ -683,26 +696,26 @@ void CManager::Update(void)
 	// マウスの更新処理
 	m_pInputMouse->Update();
 
-	//if ((pInputKeyboard->GetTrigger(DIK_P) == true || m_pInputGamepad->GetTrigger(CInputGamepad::BUTTON_START, 0) == true) &&
-	//	m_pFade->GetState() == CFade::STATE_NONE &&
-	//	GetMode() == CScene::MODE_GAME)
-	//{// フェード中じゃないとき
+	if ((pInputKeyboard->GetTrigger(DIK_P) == true || m_pInputGamepad->GetTrigger(CInputGamepad::BUTTON_START, 0) == true) &&
+		m_pFade->GetState() == CFade::STATE_NONE &&
+		GetMode() == CScene::MODE_GAME)
+	{// フェード中じゃないとき
 
-	//	// サウンド再生
-	//	GetSound()->PlaySound(CSound::LABEL_SE_TUTORIALWINDOW);
-	//	m_pPause->SetPause();
-	//}
+		// サウンド再生
+		GetSound()->PlaySound(CSound::LABEL_SE_TUTORIALWINDOW);
+		m_pPause->SetPause();
+	}
 
 	// ポーズの更新処理
 	if (m_pPause->IsPause() == true)
 	{// ポーズ中だったら
 		m_pPause->Update();
 
-//#if _DEBUG
+#if _DEBUG
 
 		// カメラの更新処理
 		m_pCamera->Update();
-//#endif
+#endif
 
 		return;
 	}

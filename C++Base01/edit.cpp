@@ -102,7 +102,7 @@ HRESULT CEdit::Init(void)
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
 
 	// 生成処理
-	m_pObjX = m_pObjX->Create(CScene::GetXLoad()->GetMyObject(m_nType)->acFilename);
+	m_pObjX = m_pObjX->Create(CScene::GetXLoad()->GetMyObject(m_nType)->filename.c_str());
 	m_pObjX->SetType(TYPE_EDIT);
 
 	if (m_pObjX == NULL)
@@ -173,7 +173,7 @@ void CEdit::Update(void)
 	{// ENTERで配置
 
 		// タイプの物を生成
-		CObjectX *pObjX = CObjectX::Create(&CScene::GetXLoad()->GetMyObject(m_nType)->acFilename[0], pos, rot, m_bShadow);
+		CObjectX *pObjX = CObjectX::Create(CScene::GetXLoad()->GetMyObject(m_nType)->filename.c_str(), pos, rot, m_bShadow);
 		pObjX->SetType(CObject::TYPE_XFILE);
 	}
 

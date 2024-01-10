@@ -9,6 +9,7 @@
 #include "renderer.h"
 #include "camera.h"
 #include "input.h"
+#include "pause.h"
 #include <Effekseer.h>
 
 //==========================================================================
@@ -95,7 +96,7 @@ HRESULT CMyEffekseer::Init(void)
 //==========================================================================
 // エフェクトの設定
 //==========================================================================
-void CMyEffekseer::SetEffect(std::string efkpath, MyLib::Vector3 pos, MyLib::Vector3 rot, MyLib::Vector3 move, float scale)
+Effekseer::Handle CMyEffekseer::SetEffect(std::string efkpath, MyLib::Vector3 pos, MyLib::Vector3 rot, MyLib::Vector3 move, float scale, bool bAutoDeath)
 {
 	MyEffekseerInfo loacalInfo = {};
 
@@ -129,14 +130,20 @@ void CMyEffekseer::SetEffect(std::string efkpath, MyLib::Vector3 pos, MyLib::Vec
 	loacalInfo.handle = efkManager->Play(m_LoadEffect, 0.0f, 0.0f, 0.0f);
 
 	// 引数情報設定
+	loacalInfo.pos = move;
+	loacalInfo.rot = rot;
 	loacalInfo.move = move;
+	loacalInfo.scale = scale;
+	loacalInfo.efcRef = effect;
 	efkManager->SetLocation(loacalInfo.handle, pos.x, pos.y, pos.z);
 	efkManager->SetRotation(loacalInfo.handle, rot.x, rot.y, rot.z);
 	efkManager->SetScale(loacalInfo.handle, scale, scale, scale);
+	loacalInfo.bAutoDeath = bAutoDeath;
 
 	// リストに割り当て
 	m_EffectObj.push_back(loacalInfo);
 
+	return loacalInfo.handle;
 }
 
 //==========================================================================
@@ -155,45 +162,150 @@ void CMyEffekseer::Uninit(void)
 //==========================================================================
 void CMyEffekseer::Update(void)
 {
-	// キーボード情報取得
-	CInputKeyboard* pInputKeyboard = CManager::GetInstance()->GetInputKeyboard();
-	float size = 10.0f;
-
-	for (int i = 0; i < static_cast<int>(m_EffectObj.size()); i++)
+	if (!CManager::GetInstance()->GetPause()->IsPause())
 	{
-		Effekseer::Handle loacalhandle = m_EffectObj[i].handle;
 
-		if (!efkManager->Exists(loacalhandle))
-		{// 再生終了
+		// キーボード情報取得
+		CInputKeyboard* pInputKeyboard = CManager::GetInstance()->GetInputKeyboard();
+		float size = 10.0f;
 
-			efkManager->StopEffect(loacalhandle);
-
-			// 削除
-			m_EffectObj.erase(m_EffectObj.begin() + i);
-		}
-		else
+		for (int i = 0; i < static_cast<int>(m_EffectObj.size()); i++)
 		{
-			// エフェクトの移動
-			efkManager->AddLocation(
-				loacalhandle,
-				Effekseer::Vector3D(m_EffectObj[i].move.x, m_EffectObj[i].move.y, m_EffectObj[i].move.z));
+			Effekseer::Handle loacalhandle = m_EffectObj[i].handle;
+
+			if (!efkManager->Exists(loacalhandle))
+			{// 再生終了
+
+				efkManager->StopEffect(loacalhandle);
+
+				// 削除
+				if (m_EffectObj[i].bAutoDeath)
+				{
+					m_EffectObj.erase(m_EffectObj.begin() + i);
+				}
+				else
+				{
+
+					//// 新たにエフェクトを再生し直す。座標はエフェクトを表示したい場所を設定する
+					//// (位置や回転、拡大縮小も設定しなおす必要がある)
+					//m_EffectObj[i].handle = efkManager->Play(m_EffectObj[i].efcRef, 0.0f, 0.0f, 0.0f);
+					//efkManager->SetLocation(m_EffectObj[i].handle, m_EffectObj[i].pos.x, m_EffectObj[i].pos.y, m_EffectObj[i].pos.z);
+					//efkManager->SetRotation(m_EffectObj[i].handle, m_EffectObj[i].rot.x, m_EffectObj[i].rot.y, m_EffectObj[i].rot.z);
+					//efkManager->SetScale(m_EffectObj[i].handle, m_EffectObj[i].scale, m_EffectObj[i].scale, m_EffectObj[i].scale);
+				}
+			}
+			else
+			{
+				if (!m_EffectObj[i].move.IsNearlyZero(0.01f))
+				{
+					// エフェクトの移動
+					efkManager->AddLocation(
+						loacalhandle,
+						Effekseer::Vector3D(m_EffectObj[i].move.x, m_EffectObj[i].move.y, m_EffectObj[i].move.z));
+				}
+			}
 		}
+
+		// レイヤーパラメータの設定
+		Effekseer::Manager::LayerParameter layerParameter;
+		::Effekseer::Matrix44 invEfkCameraMatrix;
+		::Effekseer::Matrix44::Inverse(invEfkCameraMatrix, cameraMatrix);
+		layerParameter.ViewerPosition = ::Effekseer::Vector3D(invEfkCameraMatrix.Values[3][0], invEfkCameraMatrix.Values[3][1], invEfkCameraMatrix.Values[3][2]);
+		efkManager->SetLayerParameter(0, layerParameter);
+
+		// マネージャーの更新
+		Effekseer::Manager::UpdateParameter updateParameter;
+		efkManager->Update(updateParameter);
 	}
-
-	// レイヤーパラメータの設定
-	Effekseer::Manager::LayerParameter layerParameter;
-	::Effekseer::Matrix44 invEfkCameraMatrix;
-	::Effekseer::Matrix44::Inverse(invEfkCameraMatrix, cameraMatrix);
-	layerParameter.ViewerPosition = ::Effekseer::Vector3D(invEfkCameraMatrix.Values[3][0], invEfkCameraMatrix.Values[3][1], invEfkCameraMatrix.Values[3][2]);
-	efkManager->SetLayerParameter(0, layerParameter);
-
-	// マネージャーの更新
-	Effekseer::Manager::UpdateParameter updateParameter;
-	efkManager->Update(updateParameter);
 
 	// 描画処理
 	Draw();
-	time++;
+
+	if (!CManager::GetInstance()->GetPause()->IsPause())
+	{
+		time++;
+	}
+}
+
+//==========================================================================
+// 位置更新
+//==========================================================================
+void CMyEffekseer::SetPosition(Effekseer::Handle handle, MyLib::Vector3 pos)
+{
+	if (!efkManager->Exists(handle))
+	{// 再生終了
+		return;
+	}
+
+	efkManager->SetLocation(handle, Effekseer::Vector3D(pos.x, pos.y, pos.z));
+}
+
+//==========================================================================
+// 向き更新
+//==========================================================================
+void CMyEffekseer::SetRotation(Effekseer::Handle handle, MyLib::Vector3 rot)
+{
+	if (!efkManager->Exists(handle))
+	{// 再生終了
+		return;
+	}
+
+	efkManager->SetRotation(handle, rot.x, rot.y, rot.z);
+}
+
+//==========================================================================
+// マトリックス設定
+//==========================================================================
+void CMyEffekseer::SetMatrix(Effekseer::Handle handle, Effekseer::Matrix43 mtx)
+{
+	if (!efkManager->Exists(handle))
+	{// 再生終了
+		return;
+	}
+
+	// エフェクトのインスタンスに変換行列を設定
+	efkManager->SetMatrix(handle, mtx);
+}
+
+//==========================================================================
+// マトリックス取得
+//==========================================================================
+Effekseer::Matrix43 CMyEffekseer::GetMatrix(Effekseer::Handle handle)
+{
+	return efkManager->GetMatrix(handle);
+}
+
+//==========================================================================
+// マトリックス設定
+//==========================================================================
+void CMyEffekseer::SetTransform(Effekseer::Handle handle, MyLib::Vector3 pos, MyLib::Vector3 rot)
+{
+	Effekseer::Matrix43 a;
+	a.Translation(pos.x, pos.y, pos.z);
+	a.RotationZXY(rot.x, rot.y, rot.z);
+
+	//efkManager->SetMatrix(handle, a);
+
+
+	//efkManager->SetTargetLocation
+
+	//efkManager->SetLocation(handle, Effekseer::Vector3D(pos.x, pos.y, pos.z));
+
+
+
+	
+
+	Effekseer::Matrix43 Weapon = efkManager->GetMatrix(handle);
+	//Weapon.Indentity();
+
+	Weapon.Multiple(Weapon, Weapon, a);
+
+	efkManager->SetMatrix(handle, Weapon);
+}
+
+bool CMyEffekseer::IsDeath(Effekseer::Handle handle)
+{
+	return !efkManager->Exists(handle);
 }
 
 //==========================================================================

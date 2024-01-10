@@ -60,6 +60,5 @@ typedef struct
 int GetFPS(void);
 
 class CMyEffekseer;
-CMyEffekseer* GetEffekseer(void);
 
 #endif

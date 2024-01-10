@@ -106,6 +106,7 @@ private:
 	CPause *m_pPause;					// ポーズのオブジェクト
 	CResultManager *m_pResultManager;	// リザルトマネージャのオブジェクト
 	CRankingManager *m_pRankingManager;	// ランキングマネージャのオブジェクト
+	CMyEffekseer* m_pMyEffekseer;		// エフェクシアのオブジェクト
 
 	bool m_bWireframe;					// ワイヤーフレーム
 	bool m_bHitStop;					// ヒットストップの判定

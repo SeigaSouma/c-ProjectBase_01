@@ -18,36 +18,14 @@
 //==========================================================================
 // 静的メンバ変数宣言
 //==========================================================================
-CXLoad::SXFile CXLoad::m_pXFile[mylib_const::MAX_OBJ] = {};	// Xファイルの情報
-int CXLoad::m_nNumAll = 0;				// 読み込んだ総数
+CXLoad* CXLoad::m_pXX = nullptr;	// 自身のポインタ
 
 //==========================================================================
 // コンストラクタ
 //==========================================================================
 CXLoad::CXLoad()
 {
-	for (int nCntData = 0; nCntData < mylib_const::MAX_OBJ; nCntData++)
-	{
-		m_pXFile[nCntData].vtxMin = MyLib::Vector3(0.0f, 0.0f, 0.0f);		// モデルの最小値
-		m_pXFile[nCntData].vtxMax = MyLib::Vector3(0.0f, 0.0f, 0.0f);		// モデルの最大値
-		m_pXFile[nCntData].pVtxBuff = NULL;								// 頂点バッファのポインタ
-		m_pXFile[nCntData].pMesh = NULL;								// メッシュ(頂点情報)へのポインタ
-		m_pXFile[nCntData].pBuffMat = NULL;								// マテリアルへのポインタ
-		m_pXFile[nCntData].dwNumMat = 0;								// マテリアルの数
-		m_pXFile[nCntData].nIdxTexture = NULL;							// テクスチャのインデックス番号
-		m_pXFile[nCntData].nFileNameLen = 0;							// ファイル名の文字数
-
-		for (int nCntMat = 0; nCntMat < MAX_MAT; nCntMat++)
-		{
-			// マテリアルのデータ
-			ZeroMemory(&m_pXFile[nCntData].pMatData[nCntMat], sizeof(D3DXMATERIAL));
-		}
-
-		for (int nCntFile = 0; nCntFile < mylib_const::MAX_STRING; nCntFile++)
-		{
-			m_pXFile[nCntData].acFilename[nCntFile] = NULL;	// ファイル名
-		}
-	}
+	m_XFileInfo.clear();	// Xファイルの情報
 }
 
 //==========================================================================
@@ -59,16 +37,31 @@ CXLoad::~CXLoad()
 }
 
 //==========================================================================
+// 生成処理
+//==========================================================================
+CXLoad* CXLoad::Create(void)
+{
+	if (m_pXX == nullptr)
+	{// まだ生成していなかったら
+
+		// インスタンス生成
+		m_pXX = DEBUG_NEW CXLoad;
+		m_pXX->Init();
+	}
+	else
+	{
+		// インスタンス取得
+		m_pXX->GetInstance();
+	}
+
+	return m_pXX;
+}
+
+//==========================================================================
 // 初期化処理
 //==========================================================================
 HRESULT CXLoad::Init(void)
 {
-	
-	//// 瓦礫の読み込み
-	//if (FAILED(CBallast::Load()))
-	//{// 失敗した場合
-	//	return E_FAIL;
-	//}
 
 	return S_OK;
 }
@@ -78,39 +71,31 @@ HRESULT CXLoad::Init(void)
 //==========================================================================
 void CXLoad::Uninit(void)
 {
-	for (int nCntData = 0; nCntData < mylib_const::MAX_OBJ; nCntData++)
+	for (const auto& XInfo : m_XFileInfo)
 	{
-		if (m_pXFile[nCntData].nIdxTexture != NULL)
-		{// NULLじゃなかったら
-
-			// 開放処理
-			delete[] m_pXFile[nCntData].nIdxTexture;
-			m_pXFile[nCntData].nIdxTexture = NULL;
+		if (XInfo.nIdxTexture != nullptr)
+		{
+			delete[] XInfo.nIdxTexture;
 		}
 
 		// メッシュの破棄
-		if (m_pXFile[nCntData].pMesh != NULL)
+		if (XInfo.pMesh != nullptr)
 		{
-			m_pXFile[nCntData].pMesh->Release();
-			m_pXFile[nCntData].pMesh = NULL;
+			XInfo.pMesh->Release();
 		}
 
 		// マテリアルの破棄
-		if (m_pXFile[nCntData].pBuffMat != NULL)
+		if (XInfo.pBuffMat != nullptr)
 		{
-			m_pXFile[nCntData].pBuffMat->Release();
-			m_pXFile[nCntData].pBuffMat = NULL;
+			XInfo.pBuffMat->Release();
 		}
 
 		// 頂点座標の破棄
-		if (m_pXFile[nCntData].pVtxPos != NULL)
+		if (XInfo.pVtxPos != nullptr)
 		{
-			delete[] m_pXFile[nCntData].pVtxPos;
-			m_pXFile[nCntData].pVtxPos = NULL;
+			delete[] XInfo.pVtxPos;
 		}
 	}
-
-	m_nNumAll = 0;
 }
 
 //==========================================================================
@@ -125,119 +110,114 @@ void CXLoad::Unload(void)
 //==========================================================================
 // Xファイルの読み込み
 //==========================================================================
-int CXLoad::XLoad(const char *pFileName)
+int CXLoad::XLoad(std::string file)
 {
 	// 最大数取得
 	int nIdx = 0;
-	int nNumAll = GetNumAll() + 1;
-	int nNowLen = 0;
+	int nNumAll = GetNumAll();
 
-	if (pFileName != NULL)
+	if (file == "")
 	{
-		nNowLen = strlen(pFileName);
+		return -1;
 	}
+	int nNowLen = file.length();
 
-	if (pFileName != NULL)
-	{// NULLじゃなかったら
-		for (int nCntData = 0; nCntData < nNumAll; nCntData++)
-		{
-			if (m_pXFile[nCntData].nFileNameLen == nNowLen)
-			{// ファイル名の長さが同じだったら
 
-				// 既にテクスチャが読み込まれてないかの最終確認
-				if (strcmp(m_pXFile[nCntData].acFilename, pFileName) == 0)
-				{// ファイル名が一致している
+	for (int nCntData = 0; nCntData < nNumAll; nCntData++)
+	{
+		if (m_XFileInfo[nCntData].nFileNameLen != nNowLen)
+		{// ファイル名の長さが違う
+			continue;
+		}
 
-					// インデックス番号保存
-					nIdx = nCntData;
-					return nIdx;
-				}
-			}
+		// 既にテクスチャが読み込まれてないかの最終確認
+		if (m_XFileInfo[nCntData].filename == file)
+		{// ファイル名が一致している
+			return nCntData;
 		}
 	}
 
-	if (pFileName != NULL)
-	{// NULLじゃなかったら
-
-		// 読み込み
-		HRESULT hr = Load(pFileName);
-
-		if (FAILED(hr))
-		{// 失敗していたら
-			return E_FAIL;
-		}
-
-		// インデックス番号保存
-		nIdx = nNumAll - 1;
-		return nIdx;
+	// 読み込み
+	if (FAILED(Load(file)))
+	{
+		return E_FAIL;
 	}
 
-	return -1;
+	// インデックス番号保存
+	nIdx = nNumAll;
+	return nIdx;
 }
 
 //==========================================================================
 // ロード処理
 //==========================================================================
-HRESULT CXLoad::Load(const char *pFileName)
+HRESULT CXLoad::Load(std::string file)
 {
 	// デバイスの取得
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetInstance()->GetRenderer()->GetDevice();
-	int nIdx = m_nNumAll;
+	int nIdx = GetNumAll();
+
+
+	// 要素追加
+	m_XFileInfo.emplace_back();
 
 	//Xファイルの読み込み
-	HRESULT hr = D3DXLoadMeshFromX(pFileName,
+	HRESULT hr = D3DXLoadMeshFromX(
+		file.c_str(),
 		D3DXMESH_SYSTEMMEM,
 		pDevice,
-		NULL,
-		&m_pXFile[nIdx].pBuffMat,
-		NULL,
-		&m_pXFile[nIdx].dwNumMat,
-		&m_pXFile[nIdx].pMesh);
+		nullptr,
+		&m_XFileInfo[nIdx].pBuffMat,
+		nullptr,
+		&m_XFileInfo[nIdx].dwNumMat,
+		&m_XFileInfo[nIdx].pMesh);
 
 	if (FAILED(hr))
-	{// 失敗していたら
+	{
+		// 要素削除
+		m_XFileInfo.erase(m_XFileInfo.end() - 1);
 		return E_FAIL;
 	}
 
 	// ファイル名と長さ保存
-	strcpy(m_pXFile[nIdx].acFilename, pFileName);
-	m_pXFile[nIdx].nFileNameLen = strlen(&m_pXFile[nIdx].acFilename[0]);
+	m_XFileInfo[nIdx].filename = file;
+	m_XFileInfo[nIdx].nFileNameLen = file.length();
 
-	if (m_pXFile[nIdx].nIdxTexture == NULL)
+	// テクスチャのインデックス番号
+	if (m_XFileInfo[nIdx].nIdxTexture == nullptr)
 	{
-		// テクスチャのインデックス番号
-		m_pXFile[nIdx].nIdxTexture = DEBUG_NEW int[(int)m_pXFile[nIdx].dwNumMat];
-	}
+		m_XFileInfo[nIdx].nIdxTexture = DEBUG_NEW int[(int)m_XFileInfo[nIdx].dwNumMat];
 
-	if (m_pXFile[nIdx].nIdxTexture == NULL)
-	{// 確保できていない場合
-		return E_FAIL;
+		if (m_XFileInfo[nIdx].nIdxTexture == nullptr)
+		{// 確保できていない場合
+			return E_FAIL;
+		}
 	}
 
 	// 頂点数取得
-	m_pXFile[nIdx].nVtxNum = m_pXFile[nIdx].pMesh->GetNumVertices();
+	m_XFileInfo[nIdx].nVtxNum = m_XFileInfo[nIdx].pMesh->GetNumVertices();
 
 	// 頂点数分でメモリ確保
-	m_pXFile[nIdx].pVtxPos = DEBUG_NEW MyLib::Vector3[m_pXFile[nIdx].nVtxNum];
+	m_XFileInfo[nIdx].pVtxPos = DEBUG_NEW MyLib::Vector3[m_XFileInfo[nIdx].nVtxNum];
 
 	// 面の数取得
-	m_pXFile[nIdx].nFaceNum = m_pXFile[nIdx].pMesh->GetNumFaces();
+	m_XFileInfo[nIdx].nFaceNum = m_XFileInfo[nIdx].pMesh->GetNumFaces();
 
 	D3DXMATERIAL *pMat;		// マテリアルデータへのポインタ
 
 	// マテリアルデータへのポインタを取得
-	pMat = (D3DXMATERIAL*)m_pXFile[nIdx].pBuffMat->GetBufferPointer();
+	pMat = (D3DXMATERIAL*)m_XFileInfo[nIdx].pBuffMat->GetBufferPointer();
 
 	// 頂点数分繰り返し
-	for (int nCntMat = 0; nCntMat < (int)m_pXFile[nIdx].dwNumMat; nCntMat++)
+	for (int nCntMat = 0; nCntMat < (int)m_XFileInfo[nIdx].dwNumMat; nCntMat++)
 	{
-		m_pXFile[nIdx].nIdxTexture[nCntMat] = 0;
+		m_XFileInfo[nIdx].nIdxTexture[nCntMat] = 0;
 
-		if (pMat[nCntMat].pTextureFilename != NULL)
+		if (pMat[nCntMat].pTextureFilename != nullptr)
 		{// ファイルが存在する
 
 			// テクスチャの読み込み
-			m_pXFile[nIdx].nIdxTexture[nCntMat] = CTexture::GetInstance()->Regist(pMat[nCntMat].pTextureFilename);
+			m_XFileInfo[nIdx].nIdxTexture[nCntMat] = CTexture::GetInstance()->Regist(pMat[nCntMat].pTextureFilename);
 
 			if (FAILED(hr))
 			{// 失敗していたら
@@ -249,34 +229,34 @@ HRESULT CXLoad::Load(const char *pFileName)
 	BYTE* pVtxBuff;
 
 	// 頂点バッファをロック
-	m_pXFile[nIdx].pMesh->LockVertexBuffer(D3DLOCK_READONLY, (void**)&pVtxBuff);
+	m_XFileInfo[nIdx].pMesh->LockVertexBuffer(D3DLOCK_READONLY, (void**)&pVtxBuff);
 
 	// 頂点フォーマットのサイズを取得
-	DWORD dwSizeFVF = D3DXGetFVFVertexSize(m_pXFile[nIdx].pMesh->GetFVF());
+	DWORD dwSizeFVF = D3DXGetFVFVertexSize(m_XFileInfo[nIdx].pMesh->GetFVF());
 
 	// 頂点座標
-	for (int nCntVtx = 0; nCntVtx < m_pXFile[nIdx].nVtxNum; nCntVtx++)
+	for (int nCntVtx = 0; nCntVtx < m_XFileInfo[nIdx].nVtxNum; nCntVtx++)
 	{
 		// 頂点座標代入
-		m_pXFile[nIdx].pVtxPos[nCntVtx] = *(MyLib::Vector3*)pVtxBuff;
+		m_XFileInfo[nIdx].pVtxPos[nCntVtx] = *(MyLib::Vector3*)pVtxBuff;
 
 		// サイズ分ポインタ移動
 		pVtxBuff += dwSizeFVF;
 	}
 
 	// 頂点バッファをアンロック
-	m_pXFile[nIdx].pMesh->UnlockVertexBuffer();
+	m_XFileInfo[nIdx].pMesh->UnlockVertexBuffer();
 
 	// 全頂点チェック
-	UtilFunc::Calculation::CalModelVtx(0.0f, &m_pXFile[nIdx].vtxMax, &m_pXFile[nIdx].vtxMin, m_pXFile[nIdx].pMesh, m_pXFile[nIdx].pVtxBuff);
+	UtilFunc::Calculation::CalModelVtx(0.0f, &m_XFileInfo[nIdx].vtxMax, &m_XFileInfo[nIdx].vtxMin, m_XFileInfo[nIdx].pMesh, m_XFileInfo[nIdx].pVtxBuff);
 
 
 
 	// インデックスバッファをロック
 	WORD* pIndexBuff;
-	m_pXFile[nIdx].pMesh->LockIndexBuffer(D3DLOCK_READONLY, (void**)&pIndexBuff);
+	m_XFileInfo[nIdx].pMesh->LockIndexBuffer(D3DLOCK_READONLY, (void**)&pIndexBuff);
 
-	for (int nCntIdx = 0; nCntIdx < m_pXFile[nIdx].nFaceNum; nCntIdx++)
+	for (int nCntIdx = 0; nCntIdx < m_XFileInfo[nIdx].nFaceNum; nCntIdx++)
 	{
 		// 三角形を形成するインデックス, 面毎だから3つずつ見る
 		int nIdx1 = (int)pIndexBuff[nCntIdx * 3];
@@ -284,9 +264,9 @@ HRESULT CXLoad::Load(const char *pFileName)
 		int nIdx3 = (int)pIndexBuff[nCntIdx * 3 + 2];
 
 		// 一時代入
-		MyLib::Vector3 pos1 = m_pXFile[nIdx].pVtxPos[nIdx1];
-		MyLib::Vector3 pos2 = m_pXFile[nIdx].pVtxPos[nIdx2];
-		MyLib::Vector3 pos3 = m_pXFile[nIdx].pVtxPos[nIdx3];
+		MyLib::Vector3 pos1 = m_XFileInfo[nIdx].pVtxPos[nIdx1];
+		MyLib::Vector3 pos2 = m_XFileInfo[nIdx].pVtxPos[nIdx2];
+		MyLib::Vector3 pos3 = m_XFileInfo[nIdx].pVtxPos[nIdx3];
 
 		// 頂点間の最大距離
 		float fVtxDistance = 0.0f;
@@ -296,39 +276,35 @@ HRESULT CXLoad::Load(const char *pFileName)
 			((pos1.x - pos2.x) * (pos1.x - pos2.x)) +
 			((pos1.z - pos2.z) * (pos1.z - pos2.z)));
 
-		if (fVtxDistance > m_pXFile[nIdx].fMaxVtxDistance)
+		if (fVtxDistance > m_XFileInfo[nIdx].fMaxVtxDistance)
 		{
 			// 最大距離保存
-			m_pXFile[nIdx].fMaxVtxDistance = fVtxDistance;
+			m_XFileInfo[nIdx].fMaxVtxDistance = fVtxDistance;
 		}
 
 		// 2点の距離
 		fVtxDistance = sqrtf(
 			((pos2.x - pos3.x) * (pos2.x - pos3.x)) +
 			((pos2.z - pos3.z) * (pos2.z - pos3.z)));
-		if (fVtxDistance > m_pXFile[nIdx].fMaxVtxDistance)
+		if (fVtxDistance > m_XFileInfo[nIdx].fMaxVtxDistance)
 		{
 			// 最大距離保存
-			m_pXFile[nIdx].fMaxVtxDistance = fVtxDistance;
+			m_XFileInfo[nIdx].fMaxVtxDistance = fVtxDistance;
 		}
 
 		// 2点の距離
 		fVtxDistance = sqrtf(
 			((pos3.x - pos1.x) * (pos3.x - pos1.x)) +
 			((pos3.z - pos1.z) * (pos3.z - pos1.z)));
-		if (fVtxDistance > m_pXFile[nIdx].fMaxVtxDistance)
+		if (fVtxDistance > m_XFileInfo[nIdx].fMaxVtxDistance)
 		{
 			// 最大距離保存
-			m_pXFile[nIdx].fMaxVtxDistance = fVtxDistance;
+			m_XFileInfo[nIdx].fMaxVtxDistance = fVtxDistance;
 		}
 	}
 
 	// インデックスバッファをアンロック
-	m_pXFile[nIdx].pMesh->UnlockIndexBuffer();
-
-
-	// 総数加算
-	m_nNumAll++;
+	m_XFileInfo[nIdx].pMesh->UnlockIndexBuffer();
 
 	return S_OK;
 }
@@ -338,7 +314,7 @@ HRESULT CXLoad::Load(const char *pFileName)
 //==========================================================================
 CXLoad::SXFile *CXLoad::GetMyObject(int nIdx)
 {
-	return &m_pXFile[nIdx];
+	return &m_XFileInfo[nIdx];
 }
 
 //==========================================================================
@@ -346,5 +322,5 @@ CXLoad::SXFile *CXLoad::GetMyObject(int nIdx)
 //==========================================================================
 int CXLoad::GetNumAll(void)
 {
-	return m_nNumAll;
+	return static_cast<int>(m_XFileInfo.size());
 }

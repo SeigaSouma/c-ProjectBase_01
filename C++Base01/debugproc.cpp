@@ -250,7 +250,7 @@ void CDebugProc::SetText(void)
 
 	CManager::GetInstance()->GetDebugProc()->Print(
 		"読み込んだXファイルの総数【%d】\n"
-		"配置したXファイルオブジェの総数【%d】\n", CXLoad::GetNumAll(), CObjectX::GetNumAll());
+		"配置したXファイルオブジェの総数【%d】\n", CXLoad::GetInstance()->GetNumAll(), CObjectX::GetNumAll());
 
 	pDebug->Print("\n--------------------------------[ F系 ]--------------------------------\n");
 	pDebug->Print("[F2]：ワイヤーフレーム切り替え\n");
