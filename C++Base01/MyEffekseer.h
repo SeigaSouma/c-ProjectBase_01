@@ -59,9 +59,11 @@ public:
 	@return	Effekseer::Handle
 	*/
 	Effekseer::Handle SetEffect(std::string efkpath, MyLib::Vector3 pos, MyLib::Vector3 rot, MyLib::Vector3 move, float scale, bool bAutoDeath = true);
+	Effekseer::Handle SetEffect(Effekseer::Handle **pHandle, std::string efkpath, MyLib::Vector3 pos, MyLib::Vector3 rot, MyLib::Vector3 move, float scale, bool bAutoDeath = true);
 	void SetPosition(Effekseer::Handle handle, MyLib::Vector3 pos);	// 位置設定
 	void SetRotation(Effekseer::Handle handle, MyLib::Vector3 rot);	// 向き設定
-	void SetMatrix(Effekseer::Handle handle, Effekseer::Matrix43 mtx);	// マトリックス設定
+	void SetMatrix(Effekseer::Handle handle, D3DXMATRIX mtx);	// マトリックス設定
+	void SetScale(Effekseer::Handle handle, float scale);	// スケール設定
 	Effekseer::Matrix43 GetMatrix(Effekseer::Handle handle);	// マトリックス取得
 	void SetTransform(Effekseer::Handle handle, MyLib::Vector3 pos, MyLib::Vector3 rot);	// マトリックス設定
 	bool IsDeath(Effekseer::Handle handle);
@@ -76,6 +78,7 @@ private:
 	void Draw(void);
 	void SetupEffekseerModules(::Effekseer::ManagerRef efkManager);	// モジュールのセットアップ
 	::EffekseerRendererDX9::RendererRef GetEffekseerRenderer() { return efkRenderer; }	// エフェクシアのレンダラー取得
+	Effekseer::EffectRef LoadEffect(std::string efkpath);
 	
 	// メンバ変数
 	int32_t time = 0;
@@ -91,6 +94,7 @@ private:
 	// 自作変数
 	Effekseer::EffectRef m_LoadEffect;				// 読み込んだエフェクトのスマートポインタ
 	std::vector<MyEffekseerInfo> m_EffectObj;		// エフェクトのオブジェクト
+	std::vector<Effekseer::Handle> m_Handle;		// エフェクトのハンドル
 	static CMyEffekseer* m_pMyEffekseer;			// 自身のポインタ
 };
 

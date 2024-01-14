@@ -25,6 +25,7 @@ CMyEffekseer::CMyEffekseer()
 	// 変数のクリア
 	time = 0;
 	efkHandle = 0;
+	m_Handle.clear();		// エフェクトのハンドル
 }
 
 //==========================================================================
@@ -100,6 +101,67 @@ Effekseer::Handle CMyEffekseer::SetEffect(std::string efkpath, MyLib::Vector3 po
 {
 	MyEffekseerInfo loacalInfo = {};
 
+	// 読み込み
+	loacalInfo.efcRef = LoadEffect(efkpath);
+
+	// エフェクトの再生
+	loacalInfo.handle = efkManager->Play(m_LoadEffect, 0.0f, 0.0f, 0.0f);
+
+	// 引数情報設定
+	loacalInfo.pos = pos;
+	loacalInfo.rot = rot;
+	loacalInfo.move = move;
+	loacalInfo.scale = scale;
+	loacalInfo.bAutoDeath = bAutoDeath;
+	efkManager->SetLocation(loacalInfo.handle, pos.x, pos.y, pos.z);
+	efkManager->SetRotation(loacalInfo.handle, rot.x, rot.y, rot.z);
+	efkManager->SetScale(loacalInfo.handle, scale, scale, scale);
+
+	// 要素追加
+	m_EffectObj.push_back(loacalInfo);
+	m_Handle.push_back(loacalInfo.handle);		// エフェクトのハンドル
+
+	return loacalInfo.handle;
+}
+
+//==========================================================================
+// エフェクトの設定
+//==========================================================================
+Effekseer::Handle CMyEffekseer::SetEffect(Effekseer::Handle** pHandle, std::string efkpath, MyLib::Vector3 pos, MyLib::Vector3 rot, MyLib::Vector3 move, float scale, bool bAutoDeath)
+{
+	MyEffekseerInfo loacalInfo = {};
+
+	// 読み込み
+	loacalInfo.efcRef = LoadEffect(efkpath);
+
+	// エフェクトの再生
+	loacalInfo.handle = efkManager->Play(m_LoadEffect, 0.0f, 0.0f, 0.0f);
+
+	// 引数情報設定
+	loacalInfo.pos = pos;
+	loacalInfo.rot = rot;
+	loacalInfo.move = move;
+	loacalInfo.scale = scale;
+	loacalInfo.bAutoDeath = bAutoDeath;
+	efkManager->SetLocation(loacalInfo.handle, pos.x, pos.y, pos.z);
+	efkManager->SetRotation(loacalInfo.handle, rot.x, rot.y, rot.z);
+	efkManager->SetScale(loacalInfo.handle, scale, scale, scale);
+
+	// 要素追加
+	m_EffectObj.push_back(loacalInfo);
+	m_Handle.push_back(loacalInfo.handle);		// エフェクトのハンドル
+
+	int idx = m_Handle.size() - 1;
+	*pHandle = &m_Handle[idx];	// ポインタに最後の情報を渡す
+
+	return loacalInfo.handle;
+}
+
+//==========================================================================
+// 読み込み処理
+//==========================================================================
+Effekseer::EffectRef CMyEffekseer::LoadEffect(std::string efkpath)
+{
 	// char16_tに変換
 	std::wstring_convert<std::codecvt_utf8_utf16<char16_t>, char16_t> converter;
 	std::u16string string16t = converter.from_bytes(efkpath);
@@ -126,24 +188,7 @@ Effekseer::Handle CMyEffekseer::SetEffect(std::string efkpath, MyLib::Vector3 po
 		}
 	};
 
-	// エフェクトの再生
-	loacalInfo.handle = efkManager->Play(m_LoadEffect, 0.0f, 0.0f, 0.0f);
-
-	// 引数情報設定
-	loacalInfo.pos = move;
-	loacalInfo.rot = rot;
-	loacalInfo.move = move;
-	loacalInfo.scale = scale;
-	loacalInfo.efcRef = effect;
-	efkManager->SetLocation(loacalInfo.handle, pos.x, pos.y, pos.z);
-	efkManager->SetRotation(loacalInfo.handle, rot.x, rot.y, rot.z);
-	efkManager->SetScale(loacalInfo.handle, scale, scale, scale);
-	loacalInfo.bAutoDeath = bAutoDeath;
-
-	// リストに割り当て
-	m_EffectObj.push_back(loacalInfo);
-
-	return loacalInfo.handle;
+	return effect;
 }
 
 //==========================================================================
@@ -182,16 +227,18 @@ void CMyEffekseer::Update(void)
 				if (m_EffectObj[i].bAutoDeath)
 				{
 					m_EffectObj.erase(m_EffectObj.begin() + i);
+					m_Handle.erase(m_Handle.begin() + i);
 				}
 				else
 				{
 
-					//// 新たにエフェクトを再生し直す。座標はエフェクトを表示したい場所を設定する
-					//// (位置や回転、拡大縮小も設定しなおす必要がある)
-					//m_EffectObj[i].handle = efkManager->Play(m_EffectObj[i].efcRef, 0.0f, 0.0f, 0.0f);
-					//efkManager->SetLocation(m_EffectObj[i].handle, m_EffectObj[i].pos.x, m_EffectObj[i].pos.y, m_EffectObj[i].pos.z);
-					//efkManager->SetRotation(m_EffectObj[i].handle, m_EffectObj[i].rot.x, m_EffectObj[i].rot.y, m_EffectObj[i].rot.z);
-					//efkManager->SetScale(m_EffectObj[i].handle, m_EffectObj[i].scale, m_EffectObj[i].scale, m_EffectObj[i].scale);
+					// 新たにエフェクトを再生し直す。座標はエフェクトを表示したい場所を設定する
+					// (位置や回転、拡大縮小も設定しなおす必要がある)
+					m_Handle[i] = efkManager->Play(m_EffectObj[i].efcRef, 0.0f, 0.0f, 0.0f);
+					m_EffectObj[i].handle = m_Handle[i];
+					efkManager->SetLocation(m_EffectObj[i].handle, m_EffectObj[i].pos.x, m_EffectObj[i].pos.y, m_EffectObj[i].pos.z);
+					efkManager->SetRotation(m_EffectObj[i].handle, m_EffectObj[i].rot.x, m_EffectObj[i].rot.y, m_EffectObj[i].rot.z);
+					efkManager->SetScale(m_EffectObj[i].handle, m_EffectObj[i].scale, m_EffectObj[i].scale, m_EffectObj[i].scale);
 				}
 			}
 			else
@@ -237,6 +284,13 @@ void CMyEffekseer::SetPosition(Effekseer::Handle handle, MyLib::Vector3 pos)
 		return;
 	}
 
+	// インデックス検索
+	std::vector<Effekseer::Handle>::iterator itr = std::find(m_Handle.begin(), m_Handle.end(), handle);
+	int idx = std::distance(m_Handle.begin(), itr);
+
+	// 位置情報設定
+	m_EffectObj[idx].pos = pos;
+
 	efkManager->SetLocation(handle, Effekseer::Vector3D(pos.x, pos.y, pos.z));
 }
 
@@ -256,15 +310,37 @@ void CMyEffekseer::SetRotation(Effekseer::Handle handle, MyLib::Vector3 rot)
 //==========================================================================
 // マトリックス設定
 //==========================================================================
-void CMyEffekseer::SetMatrix(Effekseer::Handle handle, Effekseer::Matrix43 mtx)
+void CMyEffekseer::SetMatrix(Effekseer::Handle handle, D3DXMATRIX mtx)
 {
 	if (!efkManager->Exists(handle))
 	{// 再生終了
 		return;
 	}
 
+	// 軌跡のマトリックス取得
+	Effekseer::Matrix43 efcmtx;
+	efcmtx = CMyEffekseer::GetInstance()->GetMatrix(handle);
+
+	// 4x3行列に向きを設定
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			efcmtx.Value[i][j] = mtx.m[i][j];
+		}
+	}
+
+
 	// エフェクトのインスタンスに変換行列を設定
-	efkManager->SetMatrix(handle, mtx);
+	efkManager->SetMatrix(handle, efcmtx);
+
+	// インデックス検索
+	std::vector<Effekseer::Handle>::iterator itr = std::find(m_Handle.begin(), m_Handle.end(), handle);
+	int idx = std::distance(m_Handle.begin(), itr);
+
+	// スケール情報設定
+	float scale = m_EffectObj[idx].scale;
+	efkManager->SetScale(handle, scale, scale, scale);
 }
 
 //==========================================================================
@@ -276,6 +352,14 @@ Effekseer::Matrix43 CMyEffekseer::GetMatrix(Effekseer::Handle handle)
 }
 
 //==========================================================================
+// スケール設定
+//==========================================================================
+void CMyEffekseer::SetScale(Effekseer::Handle handle, float scale)
+{
+	efkManager->SetScale(handle, scale, scale, scale);
+}
+
+//==========================================================================
 // マトリックス設定
 //==========================================================================
 void CMyEffekseer::SetTransform(Effekseer::Handle handle, MyLib::Vector3 pos, MyLib::Vector3 rot)
@@ -283,17 +367,6 @@ void CMyEffekseer::SetTransform(Effekseer::Handle handle, MyLib::Vector3 pos, My
 	Effekseer::Matrix43 a;
 	a.Translation(pos.x, pos.y, pos.z);
 	a.RotationZXY(rot.x, rot.y, rot.z);
-
-	//efkManager->SetMatrix(handle, a);
-
-
-	//efkManager->SetTargetLocation
-
-	//efkManager->SetLocation(handle, Effekseer::Vector3D(pos.x, pos.y, pos.z));
-
-
-
-	
 
 	Effekseer::Matrix43 Weapon = efkManager->GetMatrix(handle);
 	//Weapon.Indentity();

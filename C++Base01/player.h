@@ -117,7 +117,7 @@ private:
 	MyLib::Vector3 m_KnokBackMove;	// ノックバックの移動量
 	int m_nCntState;			// 状態遷移カウンター
 	CTargetPoint *m_pTargetP;	// 目標の地点
-	Effekseer::Handle WeaponHandle;	// エフェクトの武器ハンドル
+	Effekseer::Handle *m_pWeaponHandle;	// エフェクトの武器ハンドル
 
 	CObjectX* m_pObjX;
 };
