@@ -15,6 +15,7 @@
 #include "pause.h"
 #include "input.h"
 #include "MyEffekseer.h"
+#include "Imguimanager.h"
 
 //==========================================================================
 // マクロ定義
@@ -120,6 +121,9 @@ HRESULT CRenderer::Init(HWND hWnd, BOOL bWindow)
 	// 乱数の種を設定
 	srand((unsigned int)time(0));
 
+	// Imguiの初期化
+	ImguiMgr::Init(hWnd, m_pD3DDevice);
+
 	return S_OK;
 }
 
@@ -141,6 +145,9 @@ void CRenderer::Uninit(void)
 		m_pD3D->Release();
 		m_pD3D = NULL;
 	}
+
+	// Imguiの終了
+	ImguiMgr::Uninit();
 }
 
 //==========================================================================
@@ -150,6 +157,9 @@ void CRenderer::Update(void)
 {
 	// 全ての更新
 	CObject::UpdateAll();
+
+	// Imguiの更新
+	ImguiMgr::Update();
 }
 
 //==========================================================================
@@ -177,6 +187,8 @@ void CRenderer::Draw(void)
 		1.0f,
 		0
 	);
+
+
 
 	// 描画開始
 	if (SUCCEEDED(m_pD3DDevice->BeginScene()))
@@ -227,6 +239,9 @@ void CRenderer::Draw(void)
 		// 描画終了
 		m_pD3DDevice->EndScene();
 	}
+
+	// Imguiの描画
+	ImguiMgr::Draw();
 
 	// バックバッファとフロントバッファの入れ替え
 	m_pD3DDevice->Present(NULL, NULL, NULL, NULL);

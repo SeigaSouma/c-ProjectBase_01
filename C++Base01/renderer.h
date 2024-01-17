@@ -26,7 +26,10 @@ public:
 	void Draw(void);
 	LPDIRECT3DDEVICE9 GetDevice(void) const;
 	LPDIRECT3D9 GetD3D(void) const { return m_pD3D; }
+
 private:
+
+
 	LPDIRECT3D9 m_pD3D;					// Direct3Dオブジェクトへのポインタ
 	LPDIRECT3DDEVICE9 m_pD3DDevice;		// Direct3Dデバイスへのポインタ
 };

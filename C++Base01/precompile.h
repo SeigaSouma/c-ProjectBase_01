@@ -32,6 +32,15 @@
 #include <dsound.h>						// サウンド内部処理に必要
 #include <Xinput.h>
 
+
+// Imgui
+#define IMGUI_DEFINE_MATH_OPERATORS
+#include "imgui.h"
+#include "imgui_impl_dx9.h"
+#include "imgui_impl_win32.h"
+#include <implot.h>
+#include <implot_internal.h>
+
 // マイライブラリ
 #include "mylib.h"
 

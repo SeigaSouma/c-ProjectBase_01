@@ -93,13 +93,13 @@
       <PrecompiledHeaderFile>precompile.h</PrecompiledHeaderFile>
       <ForcedIncludeFiles>precompile.h</ForcedIncludeFiles>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.\Libraries\Effekseer\Include\Effekseer;.\Libraries\Effekseer\Include\EffekseerRendererCommon;.\Libraries\Effekseer\Include\EffekseerRendererDX9;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\Libraries\Effekseer\Include\Effekseer;.\Libraries\Effekseer\Include\EffekseerRendererCommon;.\Libraries\Effekseer\Include\EffekseerRendererDX9;.\Libraries\Imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>.\Libraries\Effekseer\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>.\Libraries\Effekseer\Lib;.\Libraries\Imgui;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -178,9 +178,19 @@
     <ClCompile Include="gamemanager.cpp" />
     <ClCompile Include="hp_gauge.cpp" />
     <ClCompile Include="hp_gauge_boss.cpp" />
+    <ClCompile Include="Imguimanager.cpp" />
     <ClCompile Include="impactwave.cpp" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="instantfade.cpp" />
+    <ClCompile Include="Libraries\Imgui\imgui.cpp" />
+    <ClCompile Include="Libraries\Imgui\imgui_demo.cpp" />
+    <ClCompile Include="Libraries\Imgui\imgui_draw.cpp" />
+    <ClCompile Include="Libraries\Imgui\imgui_impl_dx9.cpp" />
+    <ClCompile Include="Libraries\Imgui\imgui_impl_win32.cpp" />
+    <ClCompile Include="Libraries\Imgui\imgui_tables.cpp" />
+    <ClCompile Include="Libraries\Imgui\imgui_widgets.cpp" />
+    <ClCompile Include="Libraries\Imgui\implot.cpp" />
+    <ClCompile Include="Libraries\Imgui\implot_items.cpp" />
     <ClCompile Include="light.cpp" />
     <ClCompile Include="limitarea.cpp" />
     <ClCompile Include="listmanager.cpp" />
@@ -278,9 +288,20 @@
     <ClInclude Include="gamemanager.h" />
     <ClInclude Include="hp_gauge.h" />
     <ClInclude Include="hp_gauge_boss.h" />
+    <ClInclude Include="Imguimanager.h" />
     <ClInclude Include="impactwave.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="instantfade.h" />
+    <ClInclude Include="Libraries\Imgui\imconfig.h" />
+    <ClInclude Include="Libraries\Imgui\imgui.h" />
+    <ClInclude Include="Libraries\Imgui\imgui_impl_dx9.h" />
+    <ClInclude Include="Libraries\Imgui\imgui_impl_win32.h" />
+    <ClInclude Include="Libraries\Imgui\imgui_internal.h" />
+    <ClInclude Include="Libraries\Imgui\implot.h" />
+    <ClInclude Include="Libraries\Imgui\implot_internal.h" />
+    <ClInclude Include="Libraries\Imgui\imstb_rectpack.h" />
+    <ClInclude Include="Libraries\Imgui\imstb_textedit.h" />
+    <ClInclude Include="Libraries\Imgui\imstb_truetype.h" />
     <ClInclude Include="light.h" />
     <ClInclude Include="limitarea.h" />
     <ClInclude Include="listmanager.h" />
@@ -341,6 +362,9 @@
     <ClInclude Include="tutorial.h" />
     <ClInclude Include="tutorial_screen.h" />
     <ClInclude Include="Xload.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
